@@ -25,7 +25,7 @@
     },
     {
         "Id": 4,
-        "SellRent": 1,
+        "SellRent": 2,
         "Name": "Fashion House",
         "Type": "Apartment",
         "Price": 2000,

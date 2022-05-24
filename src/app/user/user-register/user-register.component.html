@@ -20,8 +20,8 @@
                         </span>
                     </div>
                     <div class="form-group col-12">
-                        <label for="passwrod" class="form-label">Password</label>
-                        <input type="text" class="form-control" formControlName="password">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" formControlName="password">
                         <span class="error-block" *ngIf="!password?.valid && password?.touched">
                             <span *ngIf="password.errors!['required']">Please enter password</span>
                             <span *ngIf="password.errors!['minlength']">Password should not be lesser than 8 character</span>
@@ -29,16 +29,19 @@
                     </div>
                     <div class="form-group col-12">
                         <label for="cpassword" class="form-label">Confirm Password</label>
-                        <input type="text" class="form-control" formControlName="confirmPassword">
+                        <input type="password" class="form-control" formControlName="confirmPassword">
                         <span class="error-block" *ngIf="!confirmPassword?.valid && confirmPassword?.touched">
                             <span *ngIf="confirmPassword.hasError('required')">Please enter password again</span>
                         </span>
-                        <span  class="error-block" *ngIf="registrationForm.hasError('notmatched') && confirmPassword.valid">Password not matched</span>
+                        <span class="error-block" *ngIf="registrationForm.hasError('notmatched') && confirmPassword.valid">Password not matched</span>
                     </div>
                     <div class="form-group col-12">
                         <label for="mobile" class="form-label">Mobile</label>
                         <input type="text" class="form-control" formControlName="mobile">
-                        <span class="error-block" *ngIf="!userName?.valid && userName?.touched">Please provide name</span>
+                        <span class="error-block" *ngIf="!mobile?.valid && mobile?.touched">
+                            <span class="error-block" *ngIf="mobile.hasError('required')" >Please provide mobile number</span>
+                            <span class="error-block" *ngIf="mobile.hasError('maxlength')" >Mobile number length can not be greater than 15 character.</span>
+                        </span>
                     </div>
                     <div class="form-group col-12 mt-2">
                         <button type="submit" class="btn btn-primary me-2">Save</button>

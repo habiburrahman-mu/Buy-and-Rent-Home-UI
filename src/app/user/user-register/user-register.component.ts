@@ -17,9 +17,29 @@ export class UserRegisterComponent implements OnInit {
             userName: new FormControl(null, Validators.required),
             email: new FormControl(null, [Validators.required, Validators.email]),
             password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
-            confirmPassword: new FormControl(null, [Validators.required]),
+            confirmPassword: new FormControl(null, [Validators.required, Validators.minLength(8)]),
             mobile: new FormControl(null, [Validators.required, Validators.maxLength(15)])
         }, this.passwordMatchingValidator);
+    }
+
+    get userName(): FormControl {
+        return this.registrationForm.get('userName') as FormControl;
+    }
+
+    get email(): FormControl {
+        return this.registrationForm.get('email') as FormControl;
+    }
+
+    get password(): FormControl {
+        return this.registrationForm.get('password') as FormControl;
+    }
+
+    get confirmPassword(): FormControl {
+        return this.registrationForm.get('confirmPassword') as FormControl;
+    }
+
+    get mobile(): FormControl {
+        return this.registrationForm.get('mobile') as FormControl;
     }
 
     passwordMatchingValidator(fc: AbstractControl): ValidationErrors | null {

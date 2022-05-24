@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 
 @Component({
     selector: 'app-user-register',
@@ -9,17 +9,28 @@ import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} f
 export class UserRegisterComponent implements OnInit {
     registrationForm!: FormGroup;
 
-    constructor() {
+    constructor(private fb: FormBuilder) {
     }
 
     ngOnInit(): void {
-        this.registrationForm = new FormGroup({
-            userName: new FormControl(null, Validators.required),
-            email: new FormControl(null, [Validators.required, Validators.email]),
-            password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
-            confirmPassword: new FormControl(null, [Validators.required, Validators.minLength(8)]),
-            mobile: new FormControl(null, [Validators.required, Validators.maxLength(15)])
-        }, this.passwordMatchingValidator);
+        // this.registrationForm = new FormGroup({
+        //     userName: new FormControl(null, Validators.required),
+        //     email: new FormControl(null, [Validators.required, Validators.email]),
+        //     password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+        //     confirmPassword: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+        //     mobile: new FormControl(null, [Validators.required, Validators.maxLength(15)])
+        // }, this.passwordMatchingValidator);
+        this.createRegistrationForm();
+    }
+
+    createRegistrationForm() {
+        this.registrationForm = this.fb.group({
+            userName: [null, Validators.required],
+            email: [null, [Validators.required, Validators.email]],
+            password: [null, [Validators.required, Validators.minLength(8)]],
+            confirmPassword: [null, Validators.required],
+            mobile: [null, [Validators.required, Validators.maxLength(15)]]
+        }, {validators: this.passwordMatchingValidator});
     }
 
     get userName(): FormControl {

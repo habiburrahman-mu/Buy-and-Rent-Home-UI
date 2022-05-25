@@ -5,16 +5,16 @@
                 Register
             </div>
             <div class="card-body">
-                <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="registrationForm">
                     <div class="form-group col-12">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" formControlName="userName">
-                        <span class="error-block" *ngIf="!userName?.valid && userName?.touched">Please provide Name</span>
+                        <span class="error-block" *ngIf="!userName?.valid && (userName?.touched || isUserSubmitted)">Please provide Name</span>
                     </div>
                     <div class="form-group col-12">
                         <label for="email" class="form-label">Email</label>
                         <input type="text" class="form-control" formControlName="email">
-                        <span class="error-block" *ngIf="!email?.valid && email?.touched">
+                        <span class="error-block" *ngIf="!email?.valid && (email?.touched || isUserSubmitted)">
                             <span *ngIf="email.hasError('required')">Please Provide email address</span>
                             <span *ngIf="email.hasError('email')">Please Provide valid email address</span>
                         </span>
@@ -22,7 +22,7 @@
                     <div class="form-group col-12">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" formControlName="password">
-                        <span class="error-block" *ngIf="!password?.valid && password?.touched">
+                        <span class="error-block" *ngIf="!password?.valid && (password?.touched || isUserSubmitted)">
                             <span *ngIf="password.errors!['required']">Please enter password</span>
                             <span *ngIf="password.errors!['minlength']">Password should not be lesser than 8 character</span>
                         </span>
@@ -30,7 +30,7 @@
                     <div class="form-group col-12">
                         <label for="cpassword" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" formControlName="confirmPassword">
-                        <span class="error-block" *ngIf="!confirmPassword?.valid && confirmPassword?.touched">
+                        <span class="error-block" *ngIf="!confirmPassword?.valid && (confirmPassword?.touched || isUserSubmitted)">
                             <span *ngIf="confirmPassword.hasError('required')">Please enter password again</span>
                         </span>
                         <span class="error-block" *ngIf="registrationForm.hasError('notmatched') && confirmPassword.valid">Password not matched</span>
@@ -38,14 +38,14 @@
                     <div class="form-group col-12">
                         <label for="mobile" class="form-label">Mobile</label>
                         <input type="text" class="form-control" formControlName="mobile">
-                        <span class="error-block" *ngIf="!mobile?.valid && mobile?.touched">
+                        <span class="error-block" *ngIf="!mobile?.valid && (mobile?.touched || isUserSubmitted)">
                             <span class="error-block" *ngIf="mobile.hasError('required')" >Please provide mobile number</span>
                             <span class="error-block" *ngIf="mobile.hasError('maxlength')" >Mobile number length can not be greater than 15 character.</span>
                         </span>
                     </div>
                     <div class="form-group col-12 mt-2">
-                        <button [disabled]="!registrationForm.valid" type="submit" class="btn btn-primary me-2">Save</button>
-                        <button type="reset" class="btn btn-secondary ms-2">Cancel</button>
+                        <button type="submit" class="btn btn-primary me-2" (click)="onSubmit()">Save</button>
+                        <button type="reset" class="btn btn-secondary ms-2" (click)="onReset()">Cancel</button>
                     </div>
                 </form>
             </div>

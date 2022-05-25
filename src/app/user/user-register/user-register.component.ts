@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
+import {User} from "../../model/user";
 
 @Component({
     selector: 'app-user-register',
@@ -9,20 +10,14 @@ import {UserService} from "../../services/user.service";
 })
 export class UserRegisterComponent implements OnInit {
     registrationForm!: FormGroup;
-    user: any = {};
+    user!: User;
+    isUserSubmitted: boolean = false;
 
     constructor(private fb: FormBuilder,
                 private userService: UserService) {
     }
 
     ngOnInit(): void {
-        // this.registrationForm = new FormGroup({
-        //     userName: new FormControl(null, Validators.required),
-        //     email: new FormControl(null, [Validators.required, Validators.email]),
-        //     password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
-        //     confirmPassword: new FormControl(null, [Validators.required, Validators.minLength(8)]),
-        //     mobile: new FormControl(null, [Validators.required, Validators.maxLength(15)])
-        // }, this.passwordMatchingValidator);
         this.createRegistrationForm();
     }
 
@@ -34,6 +29,29 @@ export class UserRegisterComponent implements OnInit {
             confirmPassword: [null, Validators.required],
             mobile: [null, [Validators.required, Validators.maxLength(15)]]
         }, {validators: this.passwordMatchingValidator});
+    }
+
+    onSubmit() {
+        this.isUserSubmitted = true;
+        if (this.registrationForm.valid) {
+            this.userService.addUser(this.userData());
+            this.registrationForm.reset();
+            this.isUserSubmitted = false;
+        }
+    }
+
+    onReset() {
+        this.registrationForm.reset();
+        this.isUserSubmitted = false;
+    }
+
+    userData(): User {
+        return this.user = {
+            userName: this.userName.value,
+            email: this.email.value,
+            password: this.password.value,
+            mobile: this.mobile.value
+        }
     }
 
     get userName(): FormControl {
@@ -59,14 +77,5 @@ export class UserRegisterComponent implements OnInit {
     passwordMatchingValidator(fc: AbstractControl): ValidationErrors | null {
         return fc.get('password')?.value === fc.get('confirmPassword')?.value ? null : {notmatched: true};
     }
-
-    onSubmit() {
-        console.log(this.registrationForm.value);
-        this.user = Object.assign(this.user, this.registrationForm.value);
-        this.userService.addUser(this.user);
-        this.registrationForm.reset();
-    }
-
-
 
 }

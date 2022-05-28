@@ -8,5 +8,5 @@ import {IProperty} from "../IProperty.interface";
 })
 
 export class PropertyCardComponent {
-    @Input() property: IProperty | undefined;
+    @Input() property!: IProperty;
 }

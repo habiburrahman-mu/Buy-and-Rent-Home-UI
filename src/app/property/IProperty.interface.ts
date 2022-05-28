@@ -3,6 +3,6 @@ export interface IProperty {
     SellRent: number;
     Name: string;
     Type: string;
-    Price: number;
+    Price: number | null;
     Image?: string
 }

@@ -19,7 +19,7 @@
         "Id": 3,
         "SellRent": 1,
         "Name": "Home de Viru",
-        "Type": "House",
+        "PType": "House",
         "Price": 16000,
         "Image": "prop-3"
     },
@@ -27,7 +27,7 @@
         "Id": 4,
         "SellRent": 2,
         "Name": "Fashion House",
-        "Type": "Apartment",
+        "PType": "Apartment",
         "Price": 2000,
         "Image": "prop-4"
     },
@@ -35,7 +35,7 @@
         "Id": 5,
         "SellRent": 1,
         "Name": "Test House",
-        "Type": "House",
+        "PType": "House",
         "Price": 10000,
         "Image": "prop-5"
     },
@@ -43,7 +43,7 @@
         "Id": 6,
         "SellRent": 1,
         "Name": "Nice Apartment",
-        "Type": "Apartment",
+        "PType": "Apartment",
         "Price": 7000
     }
 ]

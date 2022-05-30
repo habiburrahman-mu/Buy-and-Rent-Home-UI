@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-8">
+    <div class="col-8 shadow-lg p-0 bg-white">
         <div class="card">
             <div class="card-header">
                 <h3>List your Property</h3>
@@ -31,10 +31,12 @@
                                 </div>
                                 <div class="col-12 mt-2">
                                     <p>Property Type</p>
-                                    <div class="btn-group" btnRadioGroup name="propType" [(ngModel)]="propertyView.Type">
+                                    <div class="btn-group" btnRadioGroup name="propType"
+                                         [(ngModel)]="propertyView.PType">
                                         <label
                                             *ngFor="let pType of propertyTypes"
-                                            class="btn btn-outline-primary me-1" [btnRadio]="pType" role="button">{{pType}}</label>
+                                            class="btn btn-outline-primary me-1" [btnRadio]="pType"
+                                            role="button">{{pType}}</label>
                                     </div>
                                 </div>
                                 <div class="col-12 mt-2">
@@ -74,7 +76,8 @@
                             <tab heading="Pricing and Area">
                                 <div class="form-group col-12">
                                     <label>Price (in USD)</label>
-                                    <input type="text" class="form-control" name="price" [(ngModel)]="propertyView.Price">
+                                    <input type="text" class="form-control" name="price"
+                                           [(ngModel)]="propertyView.Price">
                                 </div>
 
                                 <div class="form-group col-12">
@@ -203,10 +206,11 @@
     <div class="col-4">
         <div class="card-header">
             <h3>Your Property Preview</h3>
-            <div>
-                <app-property-card [property]="propertyView"></app-property-card>
-            </div>
         </div>
+        <div class="shadow-lg p-3 bg-white">
+            <app-property-card [property]="propertyView" [hideIcons]="true"></app-property-card>
+        </div>
+
 
     </div>
 </div>

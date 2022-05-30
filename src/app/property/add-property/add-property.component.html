@@ -12,7 +12,7 @@
                             <tab heading="Basic Info">
                                 <div class="col-12 mt-2">
                                     <p>I want to</p>
-                                    <div class="btn-group" btnRadioGroup>
+                                    <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.SellRent" name="SellRent">
                                         <label class="btn btn-outline-primary me-1" btnRadio=1 role="button"
                                                name="SellRent">Sell</label>
                                         <label class="btn btn-outline-primary" btnRadio=2 role="button"
@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="col-12 mt-2">
                                     <p>BHK - Bathroom Hall Kitchen</p>
-                                    <div class="btn-group" btnRadioGroup>
+                                    <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.BHK" name="BHK">
                                         <label
                                             *ngFor="let bhk of [1, 2, 3, 4]"
                                             class="btn btn-outline-primary me-1" [btnRadio]="bhk.toString()"
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="col-12 mt-2">
                                     <p>Furnish Type</p>
-                                    <div class="btn-group" btnRadioGroup>
+                                    <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.FType" name="FType">
                                         <label
                                             *ngFor="let fType of furnishTypes"
                                             class="btn btn-outline-primary me-1" [btnRadio]="fType" role="button"
@@ -65,7 +65,7 @@
                                 </div>
                                 <div class="form-group col-12 mt-2">
                                     <label>City</label>
-                                    <input type="text" class="form-control mt-2">
+                                    <input type="text" class="form-control mt-2"  [(ngModel)]="propertyView.City" name="City">
                                 </div>
                                 <div class="form-group col-12 mt-2">
                                     <button type="button" class="btn btn-primary col-12" (click)="selectTab(1)">Next

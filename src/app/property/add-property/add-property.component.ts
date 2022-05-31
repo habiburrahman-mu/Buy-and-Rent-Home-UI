@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
-import {NgForm} from "@angular/forms";
+import {FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
 import {TabsetComponent} from "ngx-bootstrap/tabs";
 import {IPropertyBase} from "../../model/IPropertyBase";
 
@@ -10,8 +10,10 @@ import {IPropertyBase} from "../../model/IPropertyBase";
     styleUrls: ['./add-property.component.css']
 })
 export class AddPropertyComponent implements OnInit {
-    @ViewChild('Form') addPropertyForm!: NgForm;
+    // @ViewChild('Form') addPropertyForm!: NgForm;
     @ViewChild('formTabs') formTabs?: TabsetComponent;
+
+    addPropertyForm!: FormGroup;
 
     // will come from api
     propertyTypes: Array<string> = ['House', 'Apartment', 'Duplex'];
@@ -32,10 +34,21 @@ export class AddPropertyComponent implements OnInit {
 
     };
 
-    constructor(private router: Router) {
+    constructor(private fBuilder: FormBuilder,private router: Router) {
     }
 
     ngOnInit(): void {
+        this.createAddPropertyForm();
+    }
+
+    createAddPropertyForm() {
+        this.addPropertyForm = this.fBuilder.group({
+            SellRent: [null, Validators.required],
+            PType: [null, Validators.required],
+            Name: [null, Validators.required],
+            Price: [null, Validators.required],
+            BuiltArea: [null, Validators.required],
+        })
     }
 
     onBack() {

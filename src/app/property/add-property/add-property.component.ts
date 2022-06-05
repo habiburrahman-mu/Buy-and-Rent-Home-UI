@@ -43,12 +43,22 @@ export class AddPropertyComponent implements OnInit {
 
     createAddPropertyForm() {
         this.addPropertyForm = this.fBuilder.group({
-            SellRent: [null, Validators.required],
-            PType: [null, Validators.required],
-            Name: [null, Validators.required],
-            Price: [null, Validators.required],
-            BuiltArea: [null, Validators.required],
+            BasicInfo: this.fBuilder.group({
+                SellRent: [null, Validators.required],
+                PType: [null, Validators.required],
+                Name: [null, Validators.required],
+            }),
+            PriceInfo: this.fBuilder.group({
+                Price: [null, Validators.required],
+                BuiltArea: [null, Validators.required],
+            })
         })
+    }
+
+    // getter methods
+
+    get BasicInfo() {
+        return this.addPropertyForm.controls['BasicInfo'] as FormGroup;
     }
 
     onBack() {

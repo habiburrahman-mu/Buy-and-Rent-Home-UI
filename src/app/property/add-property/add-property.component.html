@@ -9,7 +9,7 @@
                     <div class="tab-panel">
                         <tabset class="member-tabset" #formTabs>
 
-                            <tab heading="Basic Info" >
+                            <tab heading="Basic Info" formGroupName="BasicInfo">
                                 <div class="col-12 mt-2">
                                     <p>I want to</p>
                                     <div class="btn-group" btnRadioGroup formControlName="SellRent">
@@ -68,11 +68,11 @@
                                     <input type="text" class="form-control mt-2"  [(ngModel)]="propertyView.City" name="City" [ngModelOptions]="{standalone: true}">
                                 </div>
                                 <div class="form-group col-12 mt-2">
-                                    <button type="button" class="btn btn-primary col-12" (click)="selectTab(1)">Next
+                                    <button type="button" [disabled]="BasicInfo.invalid" class="btn btn-primary col-12" (click)="selectTab(1)">Next
                                     </button>
                                 </div>
                             </tab>
-                            <tab heading="Pricing and Area">
+                            <tab heading="Pricing and Area" formGroupName="PriceInfo">
                                 <div class="form-group col-12">
                                     <label>Price (in USD)</label>
                                     <input type="text" class="form-control" formControlName="Price"

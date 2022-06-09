@@ -77,10 +77,15 @@
 
                             <tab heading="Pricing and Area" formGroupName="PriceInfo">
                                 <div class="form-group col-12">
-                                    <label>Price (in USD)</label>
+                                    <label *ngIf="SellRent.value==1">Price (in USD)</label>
+                                    <label *ngIf="SellRent.value==2">Rent (in USD)</label>
                                     <input type="text" class="form-control" formControlName="Price"
                                            [(ngModel)]="propertyView.Price">
-                                    <div class="error-block" *ngIf="Price.invalid && (nextClicked || Price.touched)">Please enter price</div>
+                                    <div class="error-block" *ngIf="Price.invalid && (nextClicked || Price.touched)">
+                                        Please enter
+                                        <span *ngIf="SellRent.value==1; else ShowRent">price</span>
+                                        <ng-template #ShowRent>rent</ng-template>
+                                    </div>
                                 </div>
 
                                 <div class="form-group col-12">

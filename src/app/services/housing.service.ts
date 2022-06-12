@@ -14,10 +14,10 @@ export class HousingService {
     constructor(private http: HttpClient) {
     }
 
-    getAllProperties(SellRent?: number): Observable<IPropertyBase[]> {
+    getAllProperties(SellRent?: number): Observable<Property[]> {
         return this.http.get('data/properties.json').pipe(
             map(data => {
-                const propertiesArray: Array<IPropertyBase> = [];
+                const propertiesArray: Array<Property> = [];
                 let localStorageData = localStorage.getItem('newProp') ?? "[]";
                 let localStoragePropertyList = JSON.parse(localStorageData);
                 if (localStoragePropertyList) {
@@ -50,12 +50,17 @@ export class HousingService {
             })
         );
 
-        // return this.http.get<IProperty[]>('data/properties.json');
+        // return this.http.get<Property[]>('data/properties.json');
     }
 
-    getProperty(id: number) {
+    getProperty(id: number): Observable<Property> {
         return this.getAllProperties().pipe(map(properties => {
-            return properties.find(prop => prop.Id == id);
+            const property = properties.find(prop => prop.Id == id);
+            if(property) {
+                return property;
+            } else {
+                throw new Error(`Property with ${id} not found`);
+            }
         }))
     }
 

@@ -2,10 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import {TabsetComponent} from 'ngx-bootstrap/tabs/public_api';
-import {Property} from 'src/app/model/property';
 import {HousingService} from 'src/app/services/housing.service';
 import {AlertifyService} from 'src/app/services/alertify.service';
 import {IPropertyBase} from "../../model/IPropertyBase";
+import {Property} from "../../model/Property";
 
 
 @Component({

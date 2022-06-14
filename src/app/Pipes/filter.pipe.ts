@@ -6,7 +6,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class FilterPipe implements PipeTransform {
     transform(initialArr: any[], filterBy: string, propName: string): any[] {
         let resultArr = [];
-        if (initialArr.length === 0 || filterBy === '' || propName === '') {
+        if (initialArr?.length === 0 || filterBy === '' || propName === '') {
             return initialArr
         }
         for (let item of initialArr) {

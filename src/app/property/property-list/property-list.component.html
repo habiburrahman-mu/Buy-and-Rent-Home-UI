@@ -1,6 +1,6 @@
-<label>Filter City:&nbsp; </label> <input type="text" [(ngModel)]="city"/>
-<button type="button" (click)="onCityFilter()">Search</button>
-<button type="button" (click)="onCityFilter(true)">Clear</button>
+<label>Filter City:&nbsp; </label> <input type="text" [(ngModel)]="city" pInputText/>
+<button type="button" (click)="onCityFilter()" pButton>Search</button>
+<button type="button" (click)="onCityFilter(true)" pButton>Clear</button>
 &nbsp;
 <label>Sort By &nbsp;</label>
 <select [(ngModel)]="sortByParameter">

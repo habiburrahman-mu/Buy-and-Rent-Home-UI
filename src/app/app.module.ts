@@ -25,6 +25,10 @@ import {PropertyDetailResolverService} from "./property/property-detail/property
 import {NgxGalleryModule} from "@kolkov/ngx-gallery";
 import { FilterPipe } from './Pipes/filter.pipe';
 import { SortPipe } from './Pipes/sort.pipe';
+import {ButtonModule} from "primeng/button";
+import {ChipsModule} from "primeng/chips";
+import {InputTextModule} from "primeng/inputtext";
+import {DataViewModule} from "primeng/dataview";
 
 const appRoute: Routes = [
     {path: '', component: PropertyListComponent},
@@ -64,7 +68,11 @@ const appRoute: Routes = [
         TabsModule.forRoot(),
         ButtonsModule.forRoot(),
         BsDatepickerModule.forRoot(),
-        NgxGalleryModule
+        NgxGalleryModule,
+        ButtonModule,
+        ChipsModule,
+        InputTextModule,
+        DataViewModule
     ],
     providers: [
         HousingService,

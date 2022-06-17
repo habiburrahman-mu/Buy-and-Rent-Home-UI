@@ -1,3 +1,30 @@
+.property-title {
+    color: var(--bs-indigo);
+}
+.property-location {
+    color: #6f42c1;
+}
+
+.furnish-type-row {
+    margin-top: 10px;
+}
+
+.furnish-type-col {
+    padding: 6px 7px;
+    border-radius: 15px;
+    background: #ffd965b3;
+    margin: 1px auto;
+    text-align: center;
+}
+
+.price-area-row {
+    text-align: center;
+    margin: 1px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    background: var(--bs-yellow);
+    border-radius: 20px;
+}
 .card {
     min-height: 400px;
 }
@@ -18,34 +45,18 @@
     position: relative;
 }
 
-.card:hover img {
-    transform: scale(1.2, 1.2);
-    transition-duration: 500ms;
-    transition-timing-function: ease-out;
-    height: 250px;
-    opacity: 0.5;
-}
-
 .card img {
     transform: scale(1, 1);
     transition-duration: 500ms;
     transition-timing-function: ease-out;
-    height: 250px;
+    height: 200px;
+    object-fit: cover;
 }
 
 .member-icons {
-    position: absolute;
-    bottom: -10%;
-    left: 0;
-    right: 0;
+    margin-top: 20px;
     margin-right: auto;
     margin-left: auto;
-    opacity: 0;
-}
-
-.card-img-wrapper:hover .member-icons {
-    bottom: 0;
-    opacity: 1;
 }
 
 .animate {

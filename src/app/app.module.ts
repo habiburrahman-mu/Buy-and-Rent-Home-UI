@@ -29,6 +29,8 @@ import {ButtonModule} from "primeng/button";
 import {ChipsModule} from "primeng/chips";
 import {InputTextModule} from "primeng/inputtext";
 import {DataViewModule} from "primeng/dataview";
+import {RippleModule} from "primeng/ripple";
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 const appRoute: Routes = [
     {path: '', component: PropertyListComponent},
@@ -72,7 +74,9 @@ const appRoute: Routes = [
         ButtonModule,
         ChipsModule,
         InputTextModule,
-        DataViewModule
+        DataViewModule,
+        RippleModule,
+        FlexLayoutModule
     ],
     providers: [
         HousingService,

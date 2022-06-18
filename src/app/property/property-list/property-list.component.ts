@@ -16,7 +16,15 @@ export class PropertyListComponent implements OnInit {
     sortByParameter: string = 'City';
     sortDirection: string = 'asc';
 
-    constructor(private route: ActivatedRoute, private housingService: HousingService) {
+    sortOptions = [
+        {label: 'City', value: 'City'},
+        {label: 'Price', value: 'Price'}
+    ]
+
+
+
+
+        constructor(private route: ActivatedRoute, private housingService: HousingService) {
     }
 
     ngOnInit(): void {

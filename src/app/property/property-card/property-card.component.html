@@ -5,12 +5,12 @@
     </div>
     <div class="card-body p-2">
         <div class="card-body p-1">
-            <h5 class="mb-0 property-title">{{property.BHK}} BHK {{property.PType}} </h5>
+            <h6 class="mb-0 property-title">{{property.BHK}} BHK {{property.PType}} </h6>
             <span class="property-location"><i class="pi pi-flag-fill"></i> {{property.Name}}<span *ngIf="property.Name">,</span>{{property.City}}</span>
 
             <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="10px" fxLayoutAlign="space-between center" class="price-area-row">
-                <div class="property-price"><h5 style="margin: 0; padding: 0"><i class="fa-solid fa-dollar-sign"></i>{{property.Price}}</h5></div>
-                <div class="property-price"><h5 style="margin: 0; padding: 0"><i class="fa-solid fa-chart-area"></i> {{property.BuiltArea}} Sq Ft</h5></div>
+                <div class="property-price"><h6 style="margin: 0; padding: 0"><i class="fa-solid fa-dollar-sign"></i>{{property.Price}}</h6></div>
+                <div class="property-price"><h6 style="margin: 0; padding: 0"><i class="fa-solid fa-chart-area"></i> {{property.BuiltArea}} Sq Ft</h6></div>
             </div>
 
             <div class="row furnish-type-row">

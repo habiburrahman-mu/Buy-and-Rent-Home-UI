@@ -1,14 +1,18 @@
-<label>Filter City:&nbsp; </label> <input type="text" [(ngModel)]="city" pInputText/>
-<button type="button" (click)="onCityFilter()" pButton>Search</button>
-<button type="button" (click)="onCityFilter(true)" pButton>Clear</button>
+<label>Filter City:&nbsp;  <input type="text" [(ngModel)]="city" pInputText/> </label>
+<p-button label="Search" icon="pi pi-search" (click)="onCityFilter()"></p-button>
+<button pButton pRipple type="button" label="Clear" class="p-button-danger" (click)="onCityFilter(true)"></button>
 &nbsp;
 <label>Sort By &nbsp;</label>
-<select [(ngModel)]="sortByParameter">
-    <option value="City">City</option>
-    <option value="Price">Price</option>
-</select>
+<p-dropdown [options]="sortOptions" [(ngModel)]="sortByParameter" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-dropdown>
+
+<!--&nbsp;-->
+<!--<label>Sort By &nbsp;</label>-->
+<!--<select [(ngModel)]="sortByParameter">-->
+<!--    <option value="City">City</option>-->
+<!--    <option value="Price">Price</option>-->
+<!--</select>-->
 &nbsp;
-<button type="button" (click)="onSortDirection()">
+<button type="button" (click)="onSortDirection()" pButton>
     <i *ngIf="sortDirection==='asc'" class="fas fa-sort-alpha-down"></i>
     <i *ngIf="sortDirection==='desc'" class="fas fa-sort-alpha-up"></i>
 </button>

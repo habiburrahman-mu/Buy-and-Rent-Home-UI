@@ -31,6 +31,8 @@ import {InputTextModule} from "primeng/inputtext";
 import {DataViewModule} from "primeng/dataview";
 import {RippleModule} from "primeng/ripple";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {PaginatorModule} from "primeng/paginator";
+import {DropdownModule} from "primeng/dropdown";
 
 const appRoute: Routes = [
     {path: '', component: PropertyListComponent},
@@ -76,7 +78,9 @@ const appRoute: Routes = [
         InputTextModule,
         DataViewModule,
         RippleModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        PaginatorModule,
+        DropdownModule
     ],
     providers: [
         HousingService,

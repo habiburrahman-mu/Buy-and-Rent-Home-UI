@@ -20,7 +20,7 @@ export class AddPropertyComponent implements OnInit {
     addPropertyForm!: FormGroup;
     nextClicked!: boolean;
     property = new Property();
-    cityList: Array<any> = [];
+    cityList: Array<any> = [{label: 'Select City', value: "", disabled: true}];
 
     sellRentOptions = [
         {label: 'Sell', value: '1'},
@@ -56,8 +56,8 @@ export class AddPropertyComponent implements OnInit {
         this.primeNGConfig.ripple = true;
         this.CreateAddPropertyForm();
         this.housingService.getAllCities().subscribe(data => {
-            this.cityList = data.map(item => {
-                return {label: item, value: item};
+            data.map(item => {
+                this.cityList.push({label: item, value: item});
             });
             console.log(data);
         })

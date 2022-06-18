@@ -33,6 +33,7 @@ import {RippleModule} from "primeng/ripple";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {PaginatorModule} from "primeng/paginator";
 import {DropdownModule} from "primeng/dropdown";
+import {StyleClassModule} from "primeng/styleclass";
 
 const appRoute: Routes = [
     {path: '', component: PropertyListComponent},
@@ -80,7 +81,8 @@ const appRoute: Routes = [
         RippleModule,
         FlexLayoutModule,
         PaginatorModule,
-        DropdownModule
+        DropdownModule,
+        StyleClassModule
     ],
     providers: [
         HousingService,

@@ -79,10 +79,11 @@
 
                                 <div class="form-group col-12">
                                     <label>in Building/Society/Project</label>
-                                    <input type="text" class="form-control"
+                                    <input type="text"
+                                           class="form-control mt-3"
                                            ngModel
                                            formControlName="Name"
-                                           [(ngModel)]="propertyView.Name">
+                                           [(ngModel)]="propertyView.Name" pInputText>
                                     <div class="error-block"
                                          *ngIf="Name.invalid && (nextClicked || Name.touched)">
                                         Please select building, society or project name
@@ -92,9 +93,9 @@
                                 <div class="form-group col-12">
                                     <label>City</label>
                                     <input type="text"
-                                           class="form-control"
+                                           class="form-control mt-3"
                                            formControlName="City"
-                                           [(ngModel)]="propertyView.City">
+                                           [(ngModel)]="propertyView.City" pInputText>
                                     <div class="error-block"
                                          *ngIf="City.invalid && (nextClicked || City.touched)">
                                         Please select city

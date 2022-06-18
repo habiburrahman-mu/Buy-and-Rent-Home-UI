@@ -34,6 +34,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {PaginatorModule} from "primeng/paginator";
 import {DropdownModule} from "primeng/dropdown";
 import {StyleClassModule} from "primeng/styleclass";
+import {SelectButtonModule} from "primeng/selectbutton";
 
 const appRoute: Routes = [
     {path: '', component: PropertyListComponent},
@@ -82,7 +83,9 @@ const appRoute: Routes = [
         FlexLayoutModule,
         PaginatorModule,
         DropdownModule,
-        StyleClassModule
+        StyleClassModule,
+        SelectButtonModule,
+        DropdownModule
     ],
     providers: [
         HousingService,

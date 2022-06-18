@@ -6,6 +6,7 @@ import {HousingService} from 'src/app/services/housing.service';
 import {AlertifyService} from 'src/app/services/alertify.service';
 import {IPropertyBase} from "../../model/IPropertyBase";
 import {Property} from "../../model/Property";
+import {PrimeNGConfig} from "primeng/api";
 
 
 @Component({
@@ -19,6 +20,12 @@ export class AddPropertyComponent implements OnInit {
     addPropertyForm!: FormGroup;
     nextClicked!: boolean;
     property = new Property();
+    cityList: Array<any> = [];
+
+    sellRentOptions = [
+        {label: 'Sell', value: '1'},
+        {label: 'Rent', value: '2'}
+    ]
 
     // Will come from masters
     propertyTypes: Array<string> = ['House', 'Apartment', 'Duplex']
@@ -41,12 +48,17 @@ export class AddPropertyComponent implements OnInit {
         private fb: FormBuilder,
         private router: Router,
         private housingService: HousingService,
-        private alertify: AlertifyService) {
+        private alertify: AlertifyService,
+        private primeNGConfig: PrimeNGConfig) {
     }
 
     ngOnInit() {
+        this.primeNGConfig.ripple = true;
         this.CreateAddPropertyForm();
         this.housingService.getAllCities().subscribe(data => {
+            this.cityList = data.map(item => {
+                return {label: item, value: item};
+            });
             console.log(data);
         })
     }

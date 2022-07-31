@@ -3,6 +3,7 @@ import {NgForm} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {AlertifyService} from "../../services/alertify.service";
 import {Router} from "@angular/router";
+import {UserForLogin} from "../../model/user";
 
 @Component({
     selector: 'app-user-login',
@@ -20,15 +21,23 @@ export class UserLoginComponent implements OnInit {
     }
 
     onLogin(loginForm: NgForm) {
-        const token = this.authService.authUser(loginForm.value);
-        if(token) {
-            localStorage.setItem('brh-token', token.userName);
-            this.alertifyService.success("Login Successful");
-            this.router.navigate(['/'])
-
-        } else {
-            this.alertifyService.error("Login failed");
-
-        }
+        this.authService.authUser(loginForm.value).subscribe(
+            (response: UserForLogin) => {
+                console.log(response);
+                localStorage.setItem('brh-token', response.token);
+                localStorage.setItem('brh-userName', response.userName);
+                this.alertifyService.success('Login Successful');
+                this.router.navigate(['/']);
+            }
+        );
+        // if(token) {
+        //     localStorage.setItem('brh-token', token.userName);
+        //     this.alertifyService.success("Login Successful");
+        //     this.router.navigate(['/'])
+        //
+        // } else {
+        //     this.alertifyService.error("Login failed");
+        //
+        // }
     }
 }

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
-import {UserService} from "../../services/user.service";
-import {User} from "../../model/user";
+import {UserForRegister} from "../../model/user";
 import {AlertifyService} from "../../services/alertify.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
     selector: 'app-user-register',
@@ -11,11 +11,11 @@ import {AlertifyService} from "../../services/alertify.service";
 })
 export class UserRegisterComponent implements OnInit {
     registrationForm!: FormGroup;
-    user!: User;
+    user!: UserForRegister;
     isUserSubmitted: boolean = false;
 
     constructor(private fb: FormBuilder,
-                private userService: UserService,
+                private authService: AuthService,
                 private alertifyService: AlertifyService) {
     }
 
@@ -36,10 +36,16 @@ export class UserRegisterComponent implements OnInit {
     onSubmit() {
         this.isUserSubmitted = true;
         if (this.registrationForm.valid) {
-            this.userService.addUser(this.userData());
-            this.registrationForm.reset();
-            this.isUserSubmitted = false;
-            this.alertifyService.success("You are successfully registered");
+            this.authService.registerUser(this.userData()).subscribe(
+                () => {
+                    this.registrationForm.reset();
+                    this.isUserSubmitted = false;
+                    this.alertifyService.success("You are successfully registered");
+                }, error => {
+                    console.log(error);
+                    this.alertifyService.error(error.error);
+                }
+            );
         } else {
             this.alertifyService.error('Kindly provide the required fields');
         }
@@ -50,7 +56,7 @@ export class UserRegisterComponent implements OnInit {
         this.isUserSubmitted = false;
     }
 
-    userData(): User {
+    userData(): UserForRegister {
         return this.user = {
             userName: this.userName.value,
             email: this.email.value,

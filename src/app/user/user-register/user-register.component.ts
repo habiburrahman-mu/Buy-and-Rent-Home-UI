@@ -38,12 +38,8 @@ export class UserRegisterComponent implements OnInit {
         if (this.registrationForm.valid) {
             this.authService.registerUser(this.userData()).subscribe(
                 () => {
-                    this.registrationForm.reset();
-                    this.isUserSubmitted = false;
+                    this.onReset();
                     this.alertifyService.success("You are successfully registered");
-                }, error => {
-                    console.log(error);
-                    this.alertifyService.error(error.error);
                 }
             );
         } else {

@@ -7,7 +7,7 @@ import {AppComponent} from './app.component';
 import {PropertyCardComponent} from "./property/property-card/property-card.component";
 import {PropertyListComponent} from './property/property-list/property-list.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HousingService} from "./services/housing.service";
 import {AddPropertyComponent} from './property/add-property/add-property.component';
 import {PropertyDetailComponent} from './property/property-detail/property-detail.component';
@@ -22,8 +22,8 @@ import {ButtonsModule} from "ngx-bootstrap/buttons";
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import {PropertyDetailResolverService} from "./property/property-detail/property-detail-resolver.service";
 import {NgxGalleryModule} from "@kolkov/ngx-gallery";
-import { FilterPipe } from './Pipes/filter.pipe';
-import { SortPipe } from './Pipes/sort.pipe';
+import {FilterPipe} from './Pipes/filter.pipe';
+import {SortPipe} from './Pipes/sort.pipe';
 import {ButtonModule} from "primeng/button";
 import {ChipsModule} from "primeng/chips";
 import {InputTextModule} from "primeng/inputtext";
@@ -34,6 +34,7 @@ import {PaginatorModule} from "primeng/paginator";
 import {DropdownModule} from "primeng/dropdown";
 import {StyleClassModule} from "primeng/styleclass";
 import {SelectButtonModule} from "primeng/selectbutton";
+import {HttpErrorInterceptorService} from "./services/http-error-interceptor.service";
 
 const appRoute: Routes = [
     {path: '', component: PropertyListComponent},
@@ -87,6 +88,11 @@ const appRoute: Routes = [
         DropdownModule
     ],
     providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpErrorInterceptorService,
+            multi: true
+        },
         HousingService,
         AlertifyService,
         AuthService,

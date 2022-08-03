@@ -1,5 +1,5 @@
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {catchError, Observable, throwError} from "rxjs";
+import {catchError, concatMap, Observable, of, retryWhen, throwError} from "rxjs";
 import {AlertifyService} from "./alertify.service";
 import {Injectable} from "@angular/core";
 
@@ -15,6 +15,16 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
         console.log('Http request started!');
         return next.handle(req)
             .pipe(
+                retryWhen(error =>
+                    error.pipe(
+                        concatMap((checkErr: HttpErrorResponse, count: number) => {
+                            if (checkErr.status === 0 && count <= 10) {
+                                return of(checkErr);
+                            }
+                            return throwError(checkErr);
+                        })
+                    )
+                ),
                 catchError((err: HttpErrorResponse) => {
                     const errorMessage = this.setError(err);
                     console.log(err);

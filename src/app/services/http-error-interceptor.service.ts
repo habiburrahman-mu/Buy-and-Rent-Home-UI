@@ -15,16 +15,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
         console.log('Http request started!');
         return next.handle(req)
             .pipe(
-                retryWhen(error =>
-                    error.pipe(
-                        concatMap((checkErr: HttpErrorResponse, count: number) => {
-                            if (checkErr.status === 0 && count <= 10) {
-                                return of(checkErr);
-                            }
-                            return throwError(checkErr);
-                        })
-                    )
-                ),
+                retryWhen(error => this.retryRequest(error, 10)),
                 catchError((err: HttpErrorResponse) => {
                     const errorMessage = this.setError(err);
                     console.log(err);
@@ -34,6 +25,18 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
             );
     }
 
+    retryRequest(error: Observable<any>, retryCount: number): Observable<any> {
+        return error.pipe(
+            concatMap((checkErr: HttpErrorResponse, count: number) => {
+                if (checkErr.status === 0 && retryCount <= 10) {
+                    return of(checkErr);
+                }
+                return throwError(checkErr);
+            })
+        )
+    }
+
+    // Retry the request in case of error
     setError(error: HttpErrorResponse): string {
         let errorMessage = "Unknown error occurred";
         if (error.error instanceof ErrorEvent) {
@@ -41,6 +44,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
             errorMessage = error.error.message;
         } else {
             if (error.status != 0) {
+                // Retry in case WebAPI is down
                 errorMessage = error.error.errorMessage;
             }
         }

@@ -2,6 +2,7 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {catchError, concatMap, Observable, of, retryWhen, throwError} from "rxjs";
 import {AlertifyService} from "./alertify.service";
 import {Injectable} from "@angular/core";
+import {ErrorCode} from "../enums/enums";
 
 @Injectable({
     providedIn: 'root'
@@ -28,8 +29,11 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
     retryRequest(error: Observable<any>, retryCount: number): Observable<any> {
         return error.pipe(
             concatMap((checkErr: HttpErrorResponse, count: number) => {
-                if (checkErr.status === 0 && retryCount <= 10) {
-                    return of(checkErr);
+                if(count <= retryCount) {
+                    switch (checkErr.status) {
+                        case ErrorCode.serverDown:
+                            return of(checkErr);
+                    }
                 }
                 return throwError(checkErr);
             })

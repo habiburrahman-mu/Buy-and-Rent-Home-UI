@@ -10,15 +10,21 @@
                         <tabset class="member-tabset" #formTabs>
                             <tab heading="Basic Info" formGroupName="BasicInfo">
                                 <div class="col-12">
-                                    <p>I want to</p>
-                                    <div class="btn-group"
-                                         btnRadioGroup
-                                         formControlName="SellRent">
-                                        <label class="btn btn-outline-primary mr-2"
-                                               btnRadio=1 tabindex="0" role="button" name="SellRent">Sell</label>
-                                        <label class="btn btn-outline-primary"
-                                               btnRadio=2 tabindex="0" role="button" name="SellRent">Rent</label>
-                                    </div>
+                                    <h6>I want to</h6>
+                                    <p-selectButton
+                                        [options]="sellRentOptions"
+                                        formControlName="SellRent"
+                                        optionLabel="label"
+                                        optionValue="value"></p-selectButton>
+<!--                                    <p>I want to</p>-->
+<!--                                    <div class="btn-group"-->
+<!--                                         btnRadioGroup-->
+<!--                                         formControlName="SellRent">-->
+<!--                                        <label class="btn btn-outline-primary mr-2"-->
+<!--                                               btnRadio=1 tabindex="0" role="button" name="SellRent">Sell</label>-->
+<!--                                        <label class="btn btn-outline-primary"-->
+<!--                                               btnRadio=2 tabindex="0" role="button" name="SellRent">Rent</label>-->
+<!--                                    </div>-->
 <!--                                    <p-selectButton [options]="sellRentOptions" formControlName="SellRent" optionLabel="label" optionValue="value"></p-selectButton>-->
                                     <div class="error-block" *ngIf="SellRent.invalid && nextClicked">
                                         Please select sell or rent
@@ -26,53 +32,74 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <p>BHK</p>
-                                    <div class="btn-group" btnRadioGroup
-                                         formControlName="BHK"
-                                         [(ngModel)]="propertyView.bhk" name="BHK">
-                                        <label
-                                            *ngFor="let bhk of [1,2,3,4]"
-                                            class="btn btn-outline-primary mr-2"
-                                            [btnRadio]="bhk.toString()" tabindex="0" role="button"
-                                            name="BHK">
-                                            {{bhk}}
-                                        </label>
-                                    </div>
+                                    <h6>BHK</h6>
+                                    <p-selectButton
+                                        [options]="bhkOptions"
+                                        formControlName="BHK"
+                                        [(ngModel)]="propertyView.bhk"
+                                        optionLabel="label"
+                                        optionValue="value"></p-selectButton>
+<!--                                    <p>BHK</p>-->
+<!--                                    <div class="btn-group" btnRadioGroup-->
+<!--                                         formControlName="BHK"-->
+<!--                                         [(ngModel)]="propertyView.bhk" name="BHK">-->
+<!--                                        <label-->
+<!--                                            *ngFor="let bhk of [1,2,3,4]"-->
+<!--                                            class="btn btn-outline-primary mr-2"-->
+<!--                                            [btnRadio]="bhk.toString()" tabindex="0" role="button"-->
+<!--                                            name="BHK">-->
+<!--                                            {{bhk}}-->
+<!--                                        </label>-->
+<!--                                    </div>-->
                                     <div class="error-block" *ngIf="BHK.invalid && nextClicked">
                                         Please select BHK
                                     </div>
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <p>Property Type</p>
-                                    <div class="btn-group" btnRadioGroup
-                                         formControlName='PType'
-                                         [(ngModel)]="propertyView.propertyType">
-                                        <label
-                                            *ngFor="let ptype of propertyTypes"
-                                            class="btn btn-outline-primary mr-2"
-                                            [btnRadio]="ptype" tabindex="0" role="button"
-                                            name="PropType">{{ptype}}
-                                        </label>
-                                    </div>
+                                    <h6>Property Type</h6>
+                                    <p-selectButton
+                                        [options]="propertyTypeOptions"
+                                        formControlName='PType'
+                                        [(ngModel)]="propertyView.propertyType"
+                                        optionLabel="label"
+                                        optionValue="value"></p-selectButton>
+<!--                                    <p>Property Type</p>-->
+<!--                                    <div class="btn-group" btnRadioGroup-->
+<!--                                         formControlName='PType'-->
+<!--                                         [(ngModel)]="propertyView.propertyType">-->
+<!--                                        <label-->
+<!--                                            *ngFor="let ptype of propertyTypes"-->
+<!--                                            class="btn btn-outline-primary mr-2"-->
+<!--                                            [btnRadio]="ptype" tabindex="0" role="button"-->
+<!--                                            name="PropType">{{ptype}}-->
+<!--                                        </label>-->
+<!--                                    </div>-->
                                     <div class="error-block" *ngIf="PType.invalid && nextClicked">
                                         Please select property type
                                     </div>
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <p>Furnishing Type</p>
-                                    <div class="btn-group" btnRadioGroup
-                                         formControlName="FType"
-                                         [(ngModel)]="propertyView.furnishingType">
-                                        <label
-                                            *ngFor="let ftype of furnishTypes"
-                                            class="btn btn-outline-primary mr-2"
-                                            [btnRadio]="ftype" tabindex="0" role="button"
-                                            name="FurnishType">
-                                            {{ftype}}
-                                        </label>
-                                    </div>
+                                    <h6>Furnishing Type</h6>
+                                    <p-selectButton
+                                        [options]="furnishTypeOptions"
+                                        formControlName='FType'
+                                        [(ngModel)]="propertyView.furnishingType"
+                                        optionLabel="label"
+                                        optionValue="value"></p-selectButton>
+<!--                                    <p>Furnishing Type</p>-->
+<!--                                    <div class="btn-group" btnRadioGroup-->
+<!--                                         formControlName="FType"-->
+<!--                                         [(ngModel)]="propertyView.furnishingType">-->
+<!--                                        <label-->
+<!--                                            *ngFor="let ftype of furnishTypes"-->
+<!--                                            class="btn btn-outline-primary mr-2"-->
+<!--                                            [btnRadio]="ftype" tabindex="0" role="button"-->
+<!--                                            name="FurnishType">-->
+<!--                                            {{ftype}}-->
+<!--                                        </label>-->
+<!--                                    </div>-->
                                     <div class="error-block" *ngIf="FType.invalid && nextClicked">
                                         Please select furnishing type
                                     </div>
@@ -93,7 +120,7 @@
 
                                 <div class="form-group col-12">
                                     <label>City</label>
-                                    <p-dropdown styleClass="col-12 mt-3" [options]="cityList" optionLabel="label" optionValue="value" [filter]="true" filterBy="value" [showClear]="true" formControlName="City" [(ngModel)]="propertyView.city"></p-dropdown>
+                                    <p-dropdown styleClass="col-12 mt-3" [options]="cityList" optionLabel="label" optionValue="value" [filter]="true" filterBy="label" [showClear]="true" formControlName="City" [(ngModel)]="propertyView.city"></p-dropdown>
                                     <div class="error-block"
                                          *ngIf="City.invalid && (nextClicked || City.touched)">
                                         Please select city

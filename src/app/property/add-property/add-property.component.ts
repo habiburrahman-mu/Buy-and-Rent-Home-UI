@@ -22,14 +22,33 @@ export class AddPropertyComponent implements OnInit {
     property = new Property();
     cityList: Array<any> = [{label: 'Select City', value: "", disabled: true}];
 
-    sellRentOptions = [
+    sellRentOptions: Array<{label: string, value: string}> = [
         {label: 'Sell', value: '1'},
         {label: 'Rent', value: '2'}
-    ]
+    ];
+
+    bhkOptions: Array<{label: string, value: string}> = [
+        {label: '1', value: '1'},
+        {label: '2', value: '2'},
+        {label: '3', value: '3'},
+        {label: '4', value: '4'}
+    ];
+
+    propertyTypeOptions: Array<{label: string, value: string}> = [
+        {label: 'House', value: 'House'},
+        {label: 'Apartment', value: 'Apartment'},
+        {label: 'Duplex', value: 'Duplex'}
+    ];
+
+    furnishTypeOptions: Array<{label: string, value: string}> = [
+        {label: 'Fully', value: 'Fully'},
+        {label: 'Semi', value: 'Semi'},
+        {label: 'Unfurnished', value: 'Unfurnished'}
+    ];
 
     // Will come from masters
-    propertyTypes: Array<string> = ['House', 'Apartment', 'Duplex']
-    furnishTypes: Array<string> = ['Fully', 'Semi', 'Unfurnished']
+    propertyTypes: Array<string> = ['House', 'Apartment', 'Duplex'];
+    furnishTypes: Array<string> = ['Fully', 'Semi', 'Unfurnished'];
 
     propertyView: IPropertyBase = {
         id: 0,
@@ -57,7 +76,7 @@ export class AddPropertyComponent implements OnInit {
         this.CreateAddPropertyForm();
         this.housingService.getAllCities().subscribe(data => {
             data.map(item => {
-                this.cityList.push({label: item, value: item});
+                this.cityList.push({label: item.name, value: item.id});
             });
             console.log(data);
         })

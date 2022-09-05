@@ -6,6 +6,7 @@ import {IProperty} from '../model/iproperty';
 import {IPropertyBase} from "../model/IPropertyBase";
 import {Property} from "../model/Property";
 import {environment} from "../../environments/environment";
+import {City} from "../model/city";
 
 @Injectable({
     providedIn: 'root'
@@ -16,8 +17,8 @@ export class HousingService {
     constructor(private http: HttpClient) {
     }
 
-    getAllCities(): Observable<string[]> {
-        return this.http.get<string[]>('http://localhost:33615/api/city');
+    getAllCities(): Observable<City[]> {
+        return this.http.get<City[]>(this.baseUrl + '/city');
     }
 
     getAllProperties(SellRent: number): Observable<Property[]> {

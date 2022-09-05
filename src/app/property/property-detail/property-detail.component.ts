@@ -25,7 +25,10 @@ export class PropertyDetailComponent implements OnInit {
         this.propertyId = +this.route.snapshot.params['id'];
         this.route.data.subscribe((data: any) => {
             this.property = data['property'];
-        })
+            this.property.age = this.housingService.getPropertyAge(this.property.estPossessionOn!);
+        });
+
+
 
         this.galleryOptions = [
             {

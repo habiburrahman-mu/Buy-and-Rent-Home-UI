@@ -1,22 +1,25 @@
 <div class="card">
     <div class="card-img-wrapper">
-        <img *ngIf="property?.Image" class="card-img-top" src="assets/images/{{property?.Image}}.png">
-        <img *ngIf="!property?.Image" class="card-img-top" src="assets/images/house_default.png">
+        <img *ngIf="property?.image" class="card-img-top" src="assets/images/{{property?.image}}.png">
+        <img *ngIf="!property?.image" class="card-img-top" src="assets/images/house_default.png">
     </div>
     <div class="card-body p-2">
         <div class="card-body p-1">
-            <h6 class="mb-0 property-title">{{property.BHK}} BHK {{property.PType}} </h6>
-            <span class="property-location"><i class="pi pi-flag-fill"></i> {{property.Name}}<span *ngIf="property.Name">,</span>{{property.City}}</span>
+            <h6 class="mb-0 property-title">{{property.bhk}} BHK {{property.propertyType}} </h6>
+            <span class="property-location"><i class="pi pi-flag-fill"></i> {{property.name}}<span *ngIf="property.name">,</span>{{property.city}}</span>
 
             <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="10px" fxLayoutAlign="space-between center" class="price-area-row">
-                <div class="property-price"><h6 style="margin: 0; padding: 0"><i class="fa-solid fa-dollar-sign"></i>{{property.Price}}</h6></div>
-                <div class="property-price"><h6 style="margin: 0; padding: 0"><i class="fa-solid fa-chart-area"></i> {{property.BuiltArea}} Sq Ft</h6></div>
+                <div class="property-price"><h6 style="margin: 0; padding: 0"><i class="fa-solid fa-dollar-sign"></i>{{property.price}}</h6></div>
+                <div class="property-price"><h6 style="margin: 0; padding: 0"><i class="fa-solid fa-chart-area"></i> {{property.builtArea}} Sq Ft</h6></div>
             </div>
 
             <div class="row furnish-type-row">
-                <div class="col-sm-5 furnish-type-col">{{property.FType}} <span *ngIf="property.FType !== 'Unfurnished'">Furnished</span> </div>
+                <div class="col-sm-5 furnish-type-col">{{property.furnishingType}} <span *ngIf="property.furnishingType !== 'Unfurnished'">Furnished</span> </div>
 <!--                <div class="col-sm-2"></div>-->
-                <div class="col-sm-5 col-sm-5 furnish-type-col"> Ready to Move </div>
+                <div class="col-sm-5 col-sm-5 furnish-type-col">
+                <span *ngIf="property.readyToMove">Ready to Move</span>
+                <span *ngIf="!property.readyToMove">Possession: {{property.estPossessionOn | date}}</span>
+                </div>
 
             </div>
 
@@ -31,7 +34,7 @@
 
             <ul *ngIf="!hideIcons" class="list-inline text-center member-icons animate">
                 <li class="list-inline-item">
-                    <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-success p-button-outlined" routerLink="/property-detail/{{property?.Id}}"></button>
+                    <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-success p-button-outlined" routerLink="/property-detail/{{property?.id}}"></button>
 <!--                    <button class="btn btn-primary" routerLink="/property-detail/{{property?.Id}}"><i-->
 <!--                        class="fa-solid fa-pen-to-square"></i> Details</button>-->
                 </li>

@@ -5,11 +5,13 @@ import {Observable} from 'rxjs';
 import {IProperty} from '../model/iproperty';
 import {IPropertyBase} from "../model/IPropertyBase";
 import {Property} from "../model/Property";
+import {environment} from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class HousingService {
+    baseUrl = environment.baseUrl;
 
     constructor(private http: HttpClient) {
     }
@@ -18,54 +20,12 @@ export class HousingService {
         return this.http.get<string[]>('http://localhost:33615/api/city');
     }
 
-    getAllProperties(SellRent?: number): Observable<Property[]> {
-        return this.http.get('data/properties.json').pipe(
-            map(data => {
-                const propertiesArray: Array<Property> = [];
-                let localStorageData = localStorage.getItem('newProp') ?? "[]";
-                let localStoragePropertyList = JSON.parse(localStorageData);
-                if (localStoragePropertyList) {
-                    for (const id in localStoragePropertyList) {
-                        if (SellRent) {
-                            // @ts-ignore
-                            if (localStoragePropertyList.hasOwnProperty(id) && localStoragePropertyList[id].SellRent === SellRent) {
-                                // @ts-ignore
-                                propertiesArray.push(localStoragePropertyList[id]);
-                            }
-                        } else {
-                            propertiesArray.push(localStoragePropertyList[id]);
-                        }
-
-                    }
-                }
-                for (const id in data) {
-                    if (SellRent) {
-                        // @ts-ignore
-                        if (data.hasOwnProperty(id) && data[id].SellRent === SellRent) {
-                            // @ts-ignore
-                            propertiesArray.push(data[id]);
-                        }
-                    } else {
-                        // @ts-ignore
-                        propertiesArray.push(data[id]);
-                    }
-                }
-                return propertiesArray;
-            })
-        );
-
-        // return this.http.get<Property[]>('data/properties.json');
+    getAllProperties(SellRent: number): Observable<Property[]> {
+        return this.http.get<Property[]>(this.baseUrl + '/property/list/' + SellRent.toString());
     }
 
     getProperty(id: number): Observable<Property> {
-        return this.getAllProperties().pipe(map(properties => {
-            const property = properties.find(prop => prop.Id == id);
-            if(property) {
-                return property;
-            } else {
-                throw new Error(`Property with ${id} not found`);
-            }
-        }))
+        return this.http.get<Property>(this.baseUrl + '/property/detail/' + id.toString());
     }
 
     addProperty(property: Property) {
@@ -86,5 +46,31 @@ export class HousingService {
             localStorage.setItem('PID', '101');
             return 101;
         }
+    }
+
+    getPropertyAge(dateOfEstablishment: Date): string {
+        const today = new Date();
+        const estDate = new Date(dateOfEstablishment);
+        let age = today.getFullYear() - estDate.getFullYear();
+        const m = today.getMonth() - estDate.getMonth();
+
+        // current month smaller than establishment month or
+        // same month but current date smaller than establishment date
+
+        if (m < 0 || (m == 0 && today.getDate() < estDate.getDate())) {
+            age--;
+        }
+
+        // establishment date is future date
+        if (today < estDate) {
+            return '0';
+        }
+
+        // age is less than a year
+        if (age == 0) {
+            return 'Less than a year';
+        }
+
+        return age.toString();
     }
 }

@@ -12,7 +12,7 @@
 .furnish-type-col {
     padding: 6px 7px;
     border-radius: 15px;
-    background: #ffd965b3;
+    background: var(--primary-200);
     margin: 1px auto;
     text-align: center;
 }
@@ -22,7 +22,7 @@
     margin: 1px;
     padding: 10px 15px;
     margin-top: 10px;
-    background: var(--bs-yellow);
+    background: var(--primary-200);
     border-radius: 20px;
 }
 .card {

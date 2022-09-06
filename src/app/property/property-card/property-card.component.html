@@ -13,12 +13,12 @@
                 <div class="property-price"><h6 style="margin: 0; padding: 0"><i class="fa-solid fa-chart-area"></i> {{property.builtArea}} Sq Ft</h6></div>
             </div>
 
-            <div class="row furnish-type-row" fxLayout.lt-sm="column" fxLayoutGap="10px" fxLayoutAlign="space-between center">
-                <div class="col-sm-5 furnish-type-col" fxLayoutAlign="space-between center">{{property.furnishingType}} <span *ngIf="property.furnishingType !== 'Unfurnished'">Furnished</span> </div>
+            <div class="row furnish-type-row" fxLayout.lt-sm="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+                <div class="col-sm-5 furnish-type-col" fxLayoutAlign="center center">{{property.furnishingType}}&nbsp;<span *ngIf="property.furnishingType !== 'Unfurnished'"> Furnished</span> </div>
 <!--                <div class="col-sm-2"></div>-->
-                <div class="col-sm-5 col-sm-5 furnish-type-col" fxLayoutAlign="space-between center">
-                <span *ngIf="property.readyToMove">Ready to Move</span>
-                <span *ngIf="!property.readyToMove">Possession: {{property.estPossessionOn | date}}</span>
+                <div class="col-sm-5 col-sm-5 furnish-type-col" fxLayoutAlign="center center">
+                    <span *ngIf="property.readyToMove">Ready to Move</span>
+                    <span *ngIf="!property.readyToMove">Possession: {{property.estPossessionOn | date}}</span>
                 </div>
 
             </div>

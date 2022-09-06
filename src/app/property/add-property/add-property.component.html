@@ -106,7 +106,7 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>in Building/Society/Project</label>
+                                    <h6>in Building/Society/Project</h6>
                                     <input type="text"
                                            class="form-control mt-3"
                                            ngModel
@@ -128,20 +128,25 @@
                                 </div>
 
                                 <div class="form-group col-12 mt-3">
-                                    <button type="button"
-                                            class="btn btn-primary btn-block"
-                                            (click)="selectTab(1, BasicInfo.valid)">Next
-                                    </button>
+<!--                                    <button type="button"-->
+<!--                                            class="btn btn-primary btn-block"-->
+<!--                                            (click)="selectTab(1, BasicInfo.valid)">Next-->
+<!--                                    </button>-->
+                                    <p-button label="Next"
+                                              icon="pi pi-angle-double-right"
+                                              iconPos="right"
+                                              (click)="selectTab(1, BasicInfo.valid)">
+                                    </p-button>
                                 </div>
                             </tab>
 
                             <tab heading="Pricing and Area" formGroupName="PriceInfo">
                                 <div class="form-group col-12">
-                                    <label *ngIf="SellRent.value==1">Price (in USD)</label>
-                                    <label *ngIf="SellRent.value==2">Rent (in USD)</label>
+                                    <h6 *ngIf="SellRent.value==1">Price (in USD)</h6>
+                                    <h6 *ngIf="SellRent.value==2">Rent (in USD)</h6>
                                     <input type="text" class="form-control"
                                            formControlName="Price"
-                                           [(ngModel)]="propertyView.price">
+                                           [(ngModel)]="propertyView.price" pInputText>
                                     <div class="error-block"
                                          *ngIf="Price.invalid && (nextClicked || Price.touched)">
                                         Please select
@@ -152,26 +157,26 @@
 
                                 <div *ngIf="SellRent.value==2">
                                     <div class="form-group col-12">
-                                        <label>Security (in USD)</label>
+                                        <h6>Security (in USD)</h6>
                                         <input type="text"
                                                formControlName="Security"
-                                               class="form-control">
+                                               class="form-control" pInputText>
                                     </div>
 
                                     <div class="form-group col-12">
-                                        <label>Maintenance (in USD)</label>
+                                        <h6>Maintenance (in USD)</h6>
                                         <input type="text"
                                                formControlName="Maintenance"
-                                               class="form-control">
+                                               class="form-control" pInputText>
                                     </div>
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>Built Area (in Sqr Feet)</label>
+                                    <h6>Built Area (in Sqr Feet)</h6>
                                     <input type="text"
                                            class="form-control"
                                            [(ngModel)]="propertyView.builtArea"
-                                           formControlName="BuiltArea">
+                                           formControlName="BuiltArea" pInputText>
                                     <div class="error-block"
                                          *ngIf="BuiltArea.invalid && nextClicked">
                                         Please select built up area
@@ -179,44 +184,49 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>Carpet Area (in Sqr Feet)</label>
+                                    <h6>Carpet Area (in Sqr Feet)</h6>
                                     <input type="text"
                                            formControlName="CarpetArea"
-                                           class="form-control">
+                                           class="form-control" pInputText>
                                 </div>
 
-                                <div class="form-group col-12">
-                                    <button type="button" class="btn btn-primary btn-block"
-                                            (click)="selectTab(2, PriceInfo.valid)">Next
-                                    </button>
-
-                                    <button type="button" class="btn btn-primary btn-block"
-                                            (click)="selectTab(0, PriceInfo.valid)">Back
-                                    </button>
+                                <div class="form-group col-12 mt-3">
+                                    <span class="p-buttonset">
+                                        <button pButton pRipple label="Back"
+                                                  icon="pi pi-angle-double-left"
+                                                  iconPos="left"
+                                                  (click)="selectTab(0, true)">
+                                        </button>
+                                        <button pButton pRipple label="Next"
+                                                  icon="pi pi-angle-double-right"
+                                                  iconPos="right"
+                                                  (click)="selectTab(2, BasicInfo.valid)">
+                                        </button>
+                                    </span>
                                 </div>
                             </tab>
 
                             <tab heading="Address" formGroupName="AddressInfo">
 
                                 <div class="form-group col-12">
-                                    <label>Floor</label>
+                                    <h6>Floor</h6>
                                     <input type="text"
                                            formControlName="FloorNo"
-                                           class="form-control">
+                                           class="form-control" pInputText>
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>Total Floor</label>
+                                    <h6>Total Floor</h6>
                                     <input type="text"
                                            formControlName="TotalFloor"
-                                           class="form-control">
+                                           class="form-control" pInputText>
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>Address</label>
+                                    <h6>Address</h6>
                                     <input type="text"
                                            class="form-control"
-                                           formControlName="Address">
+                                           formControlName="Address" pInputText>
                                     <div class="error-block"
                                          *ngIf="Address.invalid && (nextClicked || Address.touched)">
                                         Please select address
@@ -224,20 +234,25 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label>Landmark</label>
+                                    <h6>Landmark</h6>
                                     <input type="text"
                                            formControlName="LandMark"
-                                           class="form-control">
+                                           class="form-control" pInputText>
                                 </div>
 
-                                <div class="form-group col-12">
-                                    <button type="button" class="btn btn-primary btn-block"
-                                            (click)="selectTab(3, AddressInfo.valid)">Next
-                                    </button>
-
-                                    <button type="button" class="btn btn-primary btn-block"
-                                            (click)="selectTab(1, AddressInfo.valid)">Back
-                                    </button>
+                                <div class="form-group col-12 mt-3">
+                                    <span class="p-buttonset">
+                                        <button pButton pRipple label="Back"
+                                                icon="pi pi-angle-double-left"
+                                                iconPos="left"
+                                                (click)="selectTab(1, true)">
+                                        </button>
+                                        <button pButton pRipple label="Next"
+                                                icon="pi pi-angle-double-right"
+                                                iconPos="right"
+                                                (click)="selectTab(3, BasicInfo.valid)">
+                                        </button>
+                                    </span>
                                 </div>
                             </tab>
 

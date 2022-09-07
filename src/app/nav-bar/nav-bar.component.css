@@ -1,5 +1,5 @@
 .brh-navbar {
-    background-color: #183462;
+    background-color: #171717;
     border: none;
     margin: 0;
 }
@@ -13,5 +13,5 @@
 }
 
 .brh-nav-item.active {
-    color: var(--bs-yellow);;
+    color: gray;
 }

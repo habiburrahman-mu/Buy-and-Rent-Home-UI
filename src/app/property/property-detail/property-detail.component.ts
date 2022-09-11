@@ -41,24 +41,24 @@ export class PropertyDetailComponent implements OnInit {
 
         this.galleryImages = [
             {
-                small: 'assets/images/internal-1.jpg',
-                medium: 'assets/images/internal-1.jpg',
-                big: 'assets/images/internal-1.jpg'
+                small: '/assets/images/internal-1.jpg',
+                medium: '/assets/images/internal-1.jpg',
+                big: '/assets/images/internal-1.jpg'
             },
             {
-                small: 'assets/images/internal-2.png',
-                medium: 'assets/images/internal-2.png',
-                big: 'assets/images/internal-2.png'
+                small: '/assets/images/internal-2.png',
+                medium: '/assets/images/internal-2.png',
+                big: '/assets/images/internal-2.png'
             },
             {
-                small: 'assets/images/internal-3.jpg',
-                medium: 'assets/images/internal-3.jpg',
-                big: 'assets/images/internal-3.jpg'
+                small: '/assets/images/internal-3.jpg',
+                medium: '/assets/images/internal-3.jpg',
+                big: '/assets/images/internal-3.jpg'
             },
             {
-                small: 'assets/images/internal-4.jpg',
-                medium: 'assets/images/internal-4.jpg',
-                big: 'assets/images/internal-4.jpg'
+                small: '/assets/images/internal-4.jpg',
+                medium: '/assets/images/internal-4.jpg',
+                big: '/assets/images/internal-4.jpg'
             }
         ];
 

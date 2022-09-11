@@ -7,6 +7,7 @@ import {IPropertyBase} from "../model/IPropertyBase";
 import {Property} from "../model/Property";
 import {environment} from "../../environments/environment";
 import {City} from "../model/city";
+import {IKeyValuePair} from "../model/ikeyvaluepair";
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +20,14 @@ export class HousingService {
 
     getAllCities(): Observable<City[]> {
         return this.http.get<City[]>(this.baseUrl + '/city');
+    }
+
+    getPropertyTypes(): Observable<IKeyValuePair[]> {
+        return this.http.get<IKeyValuePair[]>(this.baseUrl + '/PropertyType/list');
+    }
+
+    getFurnishingTypes(): Observable<IKeyValuePair[]> {
+        return this.http.get<IKeyValuePair[]>(this.baseUrl + '/FurnishingType/list');
     }
 
     getAllProperties(SellRent: number): Observable<Property[]> {

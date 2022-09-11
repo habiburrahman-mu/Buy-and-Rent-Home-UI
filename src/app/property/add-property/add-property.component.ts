@@ -7,6 +7,7 @@ import {AlertifyService} from 'src/app/services/alertify.service';
 import {IPropertyBase} from "../../model/IPropertyBase";
 import {Property} from "../../model/Property";
 import {PrimeNGConfig} from "primeng/api";
+import {IKeyValuePair} from "../../model/ikeyvaluepair";
 
 
 @Component({
@@ -34,17 +35,21 @@ export class AddPropertyComponent implements OnInit {
         {label: '4', value: '4'}
     ];
 
-    propertyTypeOptions: Array<{label: string, value: string}> = [
-        {label: 'House', value: 'House'},
-        {label: 'Apartment', value: 'Apartment'},
-        {label: 'Duplex', value: 'Duplex'}
-    ];
+    // propertyTypeOptions: Array<{label: string, value: string}> = [
+    //     {label: 'House', value: 'House'},
+    //     {label: 'Apartment', value: 'Apartment'},
+    //     {label: 'Duplex', value: 'Duplex'}
+    // ];
 
-    furnishTypeOptions: Array<{label: string, value: string}> = [
-        {label: 'Fully', value: 'Fully'},
-        {label: 'Semi', value: 'Semi'},
-        {label: 'Unfurnished', value: 'Unfurnished'}
-    ];
+    propertyTypeOptions: IKeyValuePair[];
+
+    // furnishTypeOptions: Array<{label: string, value: string}> = [
+    //     {label: 'Fully', value: 'Fully'},
+    //     {label: 'Semi', value: 'Semi'},
+    //     {label: 'Unfurnished', value: 'Unfurnished'}
+    // ];
+
+    furnishTypeOptions: IKeyValuePair[];
 
     // Will come from masters
     propertyTypes: Array<string> = ['House', 'Apartment', 'Duplex'];
@@ -79,7 +84,15 @@ export class AddPropertyComponent implements OnInit {
                 this.cityList.push({label: item.name, value: item.id});
             });
             console.log(data);
-        })
+        });
+
+        this.housingService.getPropertyTypes().subscribe(data => {
+            this.propertyTypeOptions = data;
+        });
+
+        this.housingService.getFurnishingTypes().subscribe(data => {
+            this.furnishTypeOptions = data;
+        });
     }
 
     CreateAddPropertyForm() {

@@ -1,0 +1,49 @@
+<div class="layout-topbar">
+    <a class="layout-topbar-logo" routerLink="">
+        <img
+            src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg"
+            alt="logo">
+        <span>Buy Rent Home</span>
+    </a>
+
+    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars"></i>
+    </button>
+
+    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button"
+            (click)="layoutService.showProfileSidebar()">
+        <i class="pi pi-ellipsis-v"></i>
+    </button>
+
+    <div #topbarmenu class="layout-topbar-menu"
+         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+        <button class="p-link layout-topbar-button">
+            <i class="pi pi-calendar"></i>
+
+            <span>Calendar</span>
+        </button>
+        <!--        <button class="p-link layout-topbar-button" routerLink="user/register">-->
+        <!--            <i class="pi pi-user"></i>-->
+
+        <!--            <span>Profile</span>-->
+        <!--        </button>-->
+        <button pButton type="button" label="Register" class="p-button-secondary mr-2"
+                routerLink="user/register"></button> &nbsp;
+        <button pButton *ngIf="!loggedIn()" type="button" label="Login" class="p-button-success"
+                routerLink="user/login"></button>
+        <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
+            <i class="pi pi-cog"></i>
+            <span>Settings</span>
+        </button>
+        <span *ngIf="loggedIn()">
+            <a href="#" (click)="false">Welcome {{loggedInUser}}</a>
+            <a><i class="fa-solid fa-tachometer-alt"></i> View Dashboard</a>
+            <a><i class="fa-solid fa-user-circle"></i> My Profile</a>
+            <a><i class="fa-solid fa-key"></i> Change Password</a>
+            <button pButton type="button" label="Logout" class="p-link layout-topbar-button" (click)="onLogout()">
+                <i class="pi pi-sign-out"></i>
+        </button>
+        </span>
+
+    </div>
+</div>

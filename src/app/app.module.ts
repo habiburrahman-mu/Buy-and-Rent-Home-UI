@@ -35,19 +35,28 @@ import {DropdownModule} from "primeng/dropdown";
 import {StyleClassModule} from "primeng/styleclass";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {HttpErrorInterceptorService} from "./services/http-error-interceptor.service";
+import {AppLayoutComponent} from "./layout/app.layout.component";
+import {AppLayoutModule} from "./layout/app.layout.module";
 
 const appRoute: Routes = [
-    {path: '', component: PropertyListComponent},
-    {path: 'rent-property', component: PropertyListComponent},
-    {path: 'add-property', component: AddPropertyComponent},
     {
-        path: 'property-detail/:id',
-        component: PropertyDetailComponent,
-        resolve: {property: PropertyDetailResolverService}
+        path: '', component: AppLayoutComponent,
+        children: [
+            {path: '', component: PropertyListComponent},
+            {path: 'rent-property', component: PropertyListComponent},
+            {path: 'add-property', component: AddPropertyComponent},
+            {
+                path: 'property-detail/:id',
+                component: PropertyDetailComponent,
+                resolve: {property: PropertyDetailResolverService}
+            },
+            {path: 'user/login', component: UserLoginComponent},
+            {path: 'user/register', component: UserRegisterComponent},
+            {path: '**', component: PropertyListComponent}
+        ]
     },
-    {path: 'user/login', component: UserLoginComponent},
-    {path: 'user/register', component: UserRegisterComponent},
-    {path: '**', component: PropertyListComponent}
+
+
 ];
 
 @NgModule({
@@ -85,7 +94,8 @@ const appRoute: Routes = [
         DropdownModule,
         StyleClassModule,
         SelectButtonModule,
-        DropdownModule
+        DropdownModule,
+        AppLayoutModule
     ],
     providers: [
         {

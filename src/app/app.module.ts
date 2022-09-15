@@ -37,6 +37,8 @@ import {SelectButtonModule} from "primeng/selectbutton";
 import {HttpErrorInterceptorService} from "./services/http-error-interceptor.service";
 import {AppLayoutComponent} from "./layout/app.layout.component";
 import {AppLayoutModule} from "./layout/app.layout.module";
+import { MyPropertyListComponent } from './property/my-property-list/my-property-list.component';
+import {ImageModule} from "primeng/image";
 
 const appRoute: Routes = [
     {
@@ -44,6 +46,7 @@ const appRoute: Routes = [
         children: [
             {path: '', component: PropertyListComponent},
             {path: 'rent-property', component: PropertyListComponent},
+            {path: 'my-property', component: MyPropertyListComponent},
             {path: 'add-property', component: AddPropertyComponent},
             {
                 path: 'property-detail/:id',
@@ -70,7 +73,8 @@ const appRoute: Routes = [
         UserLoginComponent,
         UserRegisterComponent,
         FilterPipe,
-        SortPipe
+        SortPipe,
+        MyPropertyListComponent
     ],
     imports: [
         BrowserModule,
@@ -95,7 +99,8 @@ const appRoute: Routes = [
         StyleClassModule,
         SelectButtonModule,
         DropdownModule,
-        AppLayoutModule
+        AppLayoutModule,
+        ImageModule
     ],
     providers: [
         {

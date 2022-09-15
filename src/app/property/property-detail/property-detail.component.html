@@ -1,5 +1,5 @@
-<div class="row shadow">
-    <div class="col-sm-4 p-0">
+<div class="row">
+    <div class="col-sm-8 p-0 m-auto">
         <div class="card">
             <div class="card-img-wrapper">
                 <img *ngIf="property.image" class="card-img-top" src="/assets/images/{{property.image}}.png" alt="Property Image">
@@ -33,15 +33,11 @@
                     <span *ngIf="property.sellRent == 2">Rent</span>
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="btn-group d-flex">
-                    <button class="btn btn-primary">Like</button>
-                    <button class="btn btn-success">Message</button>
-                </div>
-            </div>
         </div>
     </div>
-    <div class="col-sm-8 p-0">
+</div>
+<div class="row">
+    <div class="col-sm-8 p-0 m-auto">
         <div class="tab-panel p-3">
             <tabset class="member-tabset">
                 <tab heading="Overview">

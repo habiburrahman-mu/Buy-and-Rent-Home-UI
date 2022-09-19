@@ -35,6 +35,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     cityList: Array<any> = [{label: 'Select City', value: "", disabled: true}];
 
     uploadedFiles: any[] = [];
+    newFileUrls = [];
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
@@ -102,6 +103,9 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
     closeAddPropertyDialog() {
         this.displayAddPropertyDialog = false;
+        this.fileUpload.clear();
+        this.uploadedFiles = [];
+        this.newFileUrls = [];
         this.displayAddPropertyDialogEvent.emit(this.displayAddPropertyDialog);
     }
 
@@ -124,7 +128,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         // this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
     }
 
-    newFileUrls = [];
+
     handleFileChange() {
         console.log(this.fileUpload.files);
         if(this.fileUpload.files.length > 0) {
@@ -195,5 +199,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.fileUpload.clear();
+        this.uploadedFiles = [];
+        this.newFileUrls = [];
     }
 }

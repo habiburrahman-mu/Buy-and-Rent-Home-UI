@@ -39,6 +39,20 @@ import {AppLayoutComponent} from "./layout/app.layout.component";
 import {AppLayoutModule} from "./layout/app.layout.module";
 import { MyPropertyListComponent } from './property/my-property-list/my-property-list.component';
 import {ImageModule} from "primeng/image";
+import { AddPropertyDialogComponent } from './shared/add-property-dialog/add-property-dialog.component';
+import { MyPropertyCardComponent } from './property/my-property-card/my-property-card.component';
+import {DialogModule} from "primeng/dialog";
+import {StepsModule} from "primeng/steps";
+import {CardModule} from "primeng/card";
+import {TabMenuModule} from "primeng/tabmenu";
+import {TabViewModule} from "primeng/tabview";
+import {CalendarModule} from "primeng/calendar";
+import {ProgressBarModule} from "primeng/progressbar";
+import {SkeletonModule} from "primeng/skeleton";
+import {CheckboxModule} from "primeng/checkbox";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {FileUploadModule} from "primeng/fileupload";
+import {SpeedDialModule} from "primeng/speeddial";
 
 const appRoute: Routes = [
     {
@@ -74,7 +88,9 @@ const appRoute: Routes = [
         UserRegisterComponent,
         FilterPipe,
         SortPipe,
-        MyPropertyListComponent
+        MyPropertyListComponent,
+        AddPropertyDialogComponent,
+        MyPropertyCardComponent
     ],
     imports: [
         BrowserModule,
@@ -100,7 +116,18 @@ const appRoute: Routes = [
         SelectButtonModule,
         DropdownModule,
         AppLayoutModule,
-        ImageModule
+        ImageModule,
+        DialogModule,
+        StepsModule,
+        CardModule,
+        TabViewModule,
+        CalendarModule,
+        ProgressBarModule,
+        SkeletonModule,
+        CheckboxModule,
+        InputTextareaModule,
+        FileUploadModule,
+        SpeedDialModule
     ],
     providers: [
         {

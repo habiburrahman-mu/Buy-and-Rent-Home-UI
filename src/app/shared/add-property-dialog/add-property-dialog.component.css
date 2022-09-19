@@ -1,0 +1,30 @@
+.app_loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+::ng-deep .p-fileupload .p-fileupload-content {
+    display: none;
+}
+
+::ng-deep .p-fileupload .p-fileupload-buttonbar {
+    border: #0b5ed7 1px dashed;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.showUploadfiles-brh {
+    border: #0b5ed7 1px dashed;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.delete-button-over-image {
+    top: -5px;
+    right: -5px;
+    font-size: 15px !important;;
+    width: 25px !important;;
+    height: 25px !important;
+}

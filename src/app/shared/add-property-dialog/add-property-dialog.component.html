@@ -1,0 +1,216 @@
+<p-dialog header="Add Property" [(visible)]="displayAddPropertyDialog" [style]="{'width': '650px'}"
+          (onHide)="closeAddPropertyDialog()" appendTo="body" [modal]="true">
+    <form [formGroup]="addPropertyForm">
+        <p-tabView [(activeIndex)]="tabIndex" #tabView>
+            <p-progressBar mode="indeterminate" [style]="{'height': '4px'}" *ngIf="showLoader"></p-progressBar>
+
+            <p-tabPanel header="Basic Info" formGroupName="basicInfo">
+                <div fxLayout="column" fxLayoutGap="10px" class="mt-2">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+                        <div class="w-100">
+                            <h6 class="m-0 mb-1">Property Name</h6>
+                            <input type="text" id="inputText" pInputText class="w-100" formControlName="propertyName">
+                            <small class="p-error block ms-1" *ngIf="propertyName.invalid">
+                                Please provide property name
+                            </small>
+                        </div>
+
+                        <div fxLayout="column" fxLayoutAlign="start start" fxFlex.gt-md="30" fxFlex.lt-md="100">
+                            <h6 class="m-0 mb-1">I want to</h6>
+                            <p-selectButton
+                                [options]="sellRentOptions"
+                                optionLabel="label"
+                                optionValue="value"
+                                formControlName="sellRent"></p-selectButton>
+                            <small class="p-error block ms-1" *ngIf="sellRent.invalid">
+                                Please select sell or rent
+                            </small>
+                        </div>
+
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap.lt-md="10px"
+                         fxLayoutAlign="space-between start"
+                         class="w-100 ">
+                        <div fxLayout="column" fxLayoutAlign="start start" fxFlex.lt-md="100">
+                            <h6 class="m-0 mb-1">Property Type</h6>
+                            <p-selectButton
+                                [options]="propertyTypeOptions"
+                                optionLabel="name"
+                                optionValue="id" formControlName="propertyType"></p-selectButton>
+                            <small class="p-error block ms-1" *ngIf="propertyType.invalid">
+                                Please select property type
+                            </small>
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="start start" fxFlex.lt-md="100">
+                            <h6 class="m-0 mb-1">Furnish Type</h6>
+                            <p-selectButton
+                                [options]="furnishTypeOptions"
+                                optionLabel="name"
+                                optionValue="id" formControlName="furnishType"></p-selectButton>
+                            <small class="p-error block ms-1" *ngIf="furnishType.invalid">
+                                Please select furnish type
+                            </small>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+                        <div>
+                            <h6 class="m-0 mb-1">Bedroom</h6>
+                            <p-inputNumber mode="decimal" [useGrouping]="false" formControlName="bedroom"></p-inputNumber>
+                        </div>
+
+                        <div>
+                            <h6 class="m-0 mb-1">Bathroom</h6>
+                            <p-inputNumber mode="decimal" [useGrouping]="false" formControlName="bathroom"></p-inputNumber>
+                        </div>
+
+                        <div>
+                            <h6 class="m-0 mb-1">Common Space</h6>
+                            <p-inputNumber mode="decimal" [useGrouping]="false" formControlName="commonSpace"></p-inputNumber>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Address & Pricing" formGroupName="addressPricing">
+                <div fxLayout="column" fxLayoutGap="10px" class="mt-2">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+                        <div fxFlex="50" fxFlex.lt-md="100">
+                            <h6 class="m-0 mb-1">Country</h6>
+                            <p-dropdown [options]="cityList" optionLabel="label" optionValue="value" [filter]="true"
+                                        filterBy="label" [showClear]="true" appendTo="body"
+                                        styleClass="w-100" formControlName="country"></p-dropdown>
+                            <small class="p-error block ms-1" *ngIf="country.invalid">
+                                Please select Country
+                            </small>
+                        </div>
+                        <div fxFlex="50" fxFlex.lt-md="100">
+                            <h6 class="m-0 mb-1">City</h6>
+                            <p-dropdown [options]="cityList" optionLabel="label" optionValue="value" [filter]="true"
+                                        filterBy="label" [showClear]="true" appendTo="body"
+                                        styleClass="w-100" formControlName="city"></p-dropdown>
+                            <small class="p-error block ms-1" *ngIf="city.invalid">
+                                Please select city
+                            </small>
+                        </div>
+                    </div>
+                    <div>
+                        <h6 class="m-0 mb-1">Street Address</h6>
+                        <input type="text" pInputText class="w-100" formControlName="streetAddress">
+                        <small class="p-error block ms-1" *ngIf="streetAddress.invalid">
+                            Please select Street Address
+                        </small>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+                        <div>
+                            <h6 class="m-0 mb-1">Total Floor</h6>
+                            <p-inputNumber mode="decimal" [useGrouping]="false" formControlName="totalFloor"></p-inputNumber>
+                            <small class="p-error block ms-1" *ngIf="totalFloor.invalid">
+                                Please enter total floor no.
+                            </small>
+                        </div>
+
+                        <div>
+                            <h6 class="m-0 mb-1">Floor</h6>
+                            <p-inputNumber mode="decimal" [useGrouping]="false" formControlName="floor"></p-inputNumber>
+                            <small class="p-error block ms-1" *ngIf="floor.invalid">
+                                Please enter floor
+                            </small>
+                        </div>
+
+                        <div>
+                            <h6 class="m-0 mb-1">Landmark</h6>
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+                        <div>
+                            <h6 class="m-0 mb-1">Area</h6>
+                            <div class="p-inputgroup">
+                                <p-inputNumber [maxFractionDigits]="3"  formControlName="area"></p-inputNumber>
+                                <span class="p-inputgroup-addon">Sqft</span>
+                            </div>
+                            <small class="p-error block ms-1" *ngIf="area.invalid">
+                                Please enter area
+                            </small>
+                        </div>
+                        <div>
+                            <h6 class="m-0 mb-1">Rent/Price</h6>
+                            <div class="p-inputgroup">
+                                <p-inputNumber [maxFractionDigits]="3" formControlName="price" [ngClass]="{'': price.invalid}"
+                                               ></p-inputNumber>
+                                <span class="p-inputgroup-addon">$</span>
+                            </div>
+                            <small class="p-error block ms-1" *ngIf="price.invalid">
+                                Please provide price
+                            </small>
+                        </div>
+                        <div>
+                            <h6 class="m-0 mb-1">Other Cost</h6>
+                            <div class="p-inputgroup">
+                                <p-inputNumber [maxFractionDigits]="3" formControlName="otherCost"></p-inputNumber>
+                                <span class="p-inputgroup-addon">$</span>
+                            </div>
+                            <small class="p-error block ms-1" *ngIf="otherCost.invalid">
+                                Please provide other cost
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Others" formGroupName="others">
+                <div fxLayout="column" fxLayoutGap="10px" class="mt-2">
+                    <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+                        <h6 class="m-0 mb-1">Check Below Features (If Available)</h6>
+                        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around start" class="w-100">
+                            <div class="field-checkbox">
+                                <p-checkbox name="group1" value="New York"
+                                            inputId="gym"></p-checkbox>
+                                <label for="gym" class="ms-1">Gym</label>
+                            </div>
+                            <div class="field-checkbox">
+                                <p-checkbox name="group1" value="San Francisco"
+                                            inputId="parking"></p-checkbox>
+                                <label for="parking" class="ms-1">Parking</label>
+                            </div>
+                            <div class="field-checkbox">
+                                <p-checkbox name="group1" value="Los Angeles"
+                                            inputId="swmming"></p-checkbox>
+                                <label for="swmming" class="ms-1">Swimming Pool</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+                        <h6 class="m-0 mb-1">Description</h6>
+                        <textarea rows="5" pInputTextarea class="w-100"></textarea>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Media">
+                <div fxLayout="column" fxLayoutGap="10px" class="mt-2">
+                    <h6 class="m-0 mb-1">Upload Photos</h6>
+
+                    <!--                <input type="file" (change)=""-->
+                    <p-fileUpload name="demo[]" [customUpload]="true" (uploadHandler)="onUpload($event)"
+                                  [multiple]="true" accept="image/*" [maxFileSize]="1000000" #fileUpload
+                                  (change)="handleFileChange()" [showUploadButton]="false" [showCancelButton]="false">
+                    </p-fileUpload>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-evenly start" fxLayoutGap="10px"
+                         class="showUploadfiles-brh" *ngIf="newFileUrls.length">
+                        <div *ngFor="let fileUrl of newFileUrls" class="mt-2 position-relative">
+                            <!--                        <img [src]="fileUrl" alt="" height="100px">-->
+                            <p-image [src]="fileUrl" alt="" height="100px" [preview]="true" appendTo="body"></p-image>
+                            <button pButton pRipple type="button" icon="fas fa-times"
+                                    class="p-button-rounded p-button-danger position-absolute delete-button-over-image"></button>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </form>
+    <ng-template pTemplate="footer">
+        <!--        <p-button icon="pi pi-check" (click)="closeAddPropertyDialog()" label="Ok"-->
+        <!--                  styleClass="p-button-text"></p-button>-->
+        <p-button icon="pi pi-chevron-left" label="Previous" (click)="openPrevTab()" *ngIf="tabIndex > 0"></p-button>
+        <p-button icon="pi pi-chevron-right" label="Next" (click)="openNextTab()" *ngIf="tabIndex < 3"></p-button>
+    </ng-template>
+</p-dialog>
+

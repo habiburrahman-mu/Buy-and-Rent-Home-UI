@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-my-property-list',
-  templateUrl: './my-property-list.component.html',
-  styleUrls: ['./my-property-list.component.css']
+    selector: 'app-my-property-list',
+    templateUrl: './my-property-list.component.html',
+    styleUrls: ['./my-property-list.component.css']
 })
 export class MyPropertyListComponent implements OnInit {
 
-  constructor() { }
+    showPropertyEditDialog: boolean = false;
 
-  ngOnInit(): void {
-  }
+    constructor() {
+    }
+
+    ngOnInit(): void {
+    }
+
+    openPropertyEditDialog() {
+        this.showPropertyEditDialog = true;
+    }
 
 }

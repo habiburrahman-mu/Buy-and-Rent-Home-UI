@@ -1,0 +1,43 @@
+<div class="card mb-2 p-3">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxLayoutGap="20px"
+         fxLayoutAlign.lt-md="start center">
+        <div fxLayout="column" fxLayoutAlign="start start">
+            <p-image src="assets/images/prop-1.png" alt="" width="250px" [preview]="true"></p-image>
+
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100 bg-light p-2 shadow-sm">
+                <div>
+                    <h5 class="m-0">$2000</h5>
+                </div>
+                <h6 class="text-gray-50 m-0">Posted 15 days ago</h6>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="70" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+            <div fxLayout="column" fxLayoutAlign="space-around start" fxFlex fxLayoutGap="10px">
+                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="w-100">
+                    <h3 class="m-0"> Property Name</h3>
+                    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                        <button pButton pRipple type="button" icon="fas fa-edit"
+                                class="p-button-rounded p-button-success p-button-raised"
+                                (click)="openPropertyEditDialog()"></button>
+                        <button pButton pRipple type="button" icon="fas fa-trash"
+                                class="p-button-rounded p-button-danger p-button-raised"></button>
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="space-between start" class="w-100">
+                    <div><i class="pi pi-bookmark-fill"></i> Proeprty Location</div>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5px">
+                        <div><i class="pi pi-bookmark-fill"></i> Sell</div>
+                        <div><i class="pi pi-bookmark-fill"></i> 2 BHK</div>
+                    </div>
+                </div>
+
+                <div><i class="pi pi-bookmark-fill"></i> House</div>
+                <div><i class="pi pi-bookmark-fill"></i> Fully Furnished</div>
+                <div><i class="pi pi-bookmark-fill"></i> Price</div>
+                <div><i class="pi pi-bookmark-fill"></i> Built Area</div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
+import {AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {UserForRegister} from "../../model/user";
 import {AlertifyService} from "../../services/alertify.service";
 import {AuthService} from "../../services/auth.service";
@@ -10,11 +10,11 @@ import {AuthService} from "../../services/auth.service";
     styleUrls: ['./user-register.component.css']
 })
 export class UserRegisterComponent implements OnInit {
-    registrationForm!: FormGroup;
+    registrationForm!: UntypedFormGroup;
     user!: UserForRegister;
     isUserSubmitted: boolean = false;
 
-    constructor(private fb: FormBuilder,
+    constructor(private fb: UntypedFormBuilder,
                 private authService: AuthService,
                 private alertifyService: AlertifyService) {
     }
@@ -61,24 +61,24 @@ export class UserRegisterComponent implements OnInit {
         }
     }
 
-    get userName(): FormControl {
-        return this.registrationForm.get('userName') as FormControl;
+    get userName(): UntypedFormControl {
+        return this.registrationForm.get('userName') as UntypedFormControl;
     }
 
-    get email(): FormControl {
-        return this.registrationForm.get('email') as FormControl;
+    get email(): UntypedFormControl {
+        return this.registrationForm.get('email') as UntypedFormControl;
     }
 
-    get password(): FormControl {
-        return this.registrationForm.get('password') as FormControl;
+    get password(): UntypedFormControl {
+        return this.registrationForm.get('password') as UntypedFormControl;
     }
 
-    get confirmPassword(): FormControl {
-        return this.registrationForm.get('confirmPassword') as FormControl;
+    get confirmPassword(): UntypedFormControl {
+        return this.registrationForm.get('confirmPassword') as UntypedFormControl;
     }
 
-    get mobile(): FormControl {
-        return this.registrationForm.get('mobile') as FormControl;
+    get mobile(): UntypedFormControl {
+        return this.registrationForm.get('mobile') as UntypedFormControl;
     }
 
     passwordMatchingValidator(fc: AbstractControl): ValidationErrors | null {

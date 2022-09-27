@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {HousingService} from "../../services/housing.service";
 import {AlertifyService} from "../../services/alertify.service";
@@ -20,7 +20,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     @ViewChild('fileUpload') fileUpload: FileUpload;
     @ViewChild('tabView') tabView: TabView;
 
-    addPropertyForm!: FormGroup;
+    addPropertyForm!: UntypedFormGroup;
 
     tabIndex: number;
     showLoader: boolean = false;
@@ -37,7 +37,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     uploadedFiles: any[] = [];
     newFileUrls = [];
 
-    constructor(private formBuilder: FormBuilder,
+    constructor(private formBuilder: UntypedFormBuilder,
                 private router: Router,
                 private housingService: HousingService,
                 private alertify: AlertifyService,
@@ -144,54 +144,54 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         }
     }
 
-    get BasicInfo(): FormGroup {
-        return this.addPropertyForm.controls['basicInfo'] as FormGroup;
+    get BasicInfo(): UntypedFormGroup {
+        return this.addPropertyForm.controls['basicInfo'] as UntypedFormGroup;
     }
 
-    get propertyName(): FormControl {
-        return this.BasicInfo.controls['propertyName'] as FormControl;
+    get propertyName(): UntypedFormControl {
+        return this.BasicInfo.controls['propertyName'] as UntypedFormControl;
     }
-    get sellRent(): FormControl {
-        return this.BasicInfo.controls['sellRent'] as FormControl;
+    get sellRent(): UntypedFormControl {
+        return this.BasicInfo.controls['sellRent'] as UntypedFormControl;
     }
-    get propertyType(): FormControl {
-        return this.BasicInfo.controls['propertyType'] as FormControl;
+    get propertyType(): UntypedFormControl {
+        return this.BasicInfo.controls['propertyType'] as UntypedFormControl;
     }
-    get furnishType(): FormControl {
-        return this.BasicInfo.controls['furnishType'] as FormControl;
-    }
-
-
-    get addressPricing(): FormGroup {
-        return this.addPropertyForm.controls['addressPricing'] as FormGroup;
+    get furnishType(): UntypedFormControl {
+        return this.BasicInfo.controls['furnishType'] as UntypedFormControl;
     }
 
-    get country(): FormControl {
-        return this.addressPricing.controls['country'] as FormControl;
+
+    get addressPricing(): UntypedFormGroup {
+        return this.addPropertyForm.controls['addressPricing'] as UntypedFormGroup;
     }
-    get city(): FormControl {
-        return this.addressPricing.controls['city'] as FormControl;
+
+    get country(): UntypedFormControl {
+        return this.addressPricing.controls['country'] as UntypedFormControl;
     }
-    get streetAddress(): FormControl {
-        return this.addressPricing.controls['streetAddress'] as FormControl;
+    get city(): UntypedFormControl {
+        return this.addressPricing.controls['city'] as UntypedFormControl;
     }
-    get totalFloor(): FormControl {
-        return this.addressPricing.controls['totalFloor'] as FormControl;
+    get streetAddress(): UntypedFormControl {
+        return this.addressPricing.controls['streetAddress'] as UntypedFormControl;
     }
-    get floor(): FormControl {
-        return this.addressPricing.controls['floor'] as FormControl;
+    get totalFloor(): UntypedFormControl {
+        return this.addressPricing.controls['totalFloor'] as UntypedFormControl;
     }
-    get area(): FormControl {
-        return this.addressPricing.controls['area'] as FormControl;
+    get floor(): UntypedFormControl {
+        return this.addressPricing.controls['floor'] as UntypedFormControl;
     }
-    get landmark(): FormControl {
-        return this.addressPricing.controls['landmark'] as FormControl;
+    get area(): UntypedFormControl {
+        return this.addressPricing.controls['area'] as UntypedFormControl;
     }
-    get price(): FormControl {
-        return this.addressPricing.controls['price'] as FormControl;
+    get landmark(): UntypedFormControl {
+        return this.addressPricing.controls['landmark'] as UntypedFormControl;
     }
-    get otherCost(): FormControl {
-        return this.addressPricing.controls['otherCost'] as FormControl;
+    get price(): UntypedFormControl {
+        return this.addressPricing.controls['price'] as UntypedFormControl;
+    }
+    get otherCost(): UntypedFormControl {
+        return this.addressPricing.controls['otherCost'] as UntypedFormControl;
     }
 
 

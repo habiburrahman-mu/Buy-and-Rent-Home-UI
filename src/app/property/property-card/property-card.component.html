@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-img-wrapper">
-        <img *ngIf="property?.image" class="card-img-top" src="assets/images/{{property?.image}}.png" alt="property image">
-        <img *ngIf="!property?.image" class="card-img-top" src="assets/images/house_default.png" alt="property image">
+        <img *ngIf="property.image" class="card-img-top" src="assets/images/{{property.image}}.png" alt="property image">
+        <img *ngIf="!property.image" class="card-img-top" src="assets/images/house_default.png" alt="property image">
     </div>
     <div class="card-body p-2">
         <div class="card-body p-1">
@@ -34,7 +34,7 @@
 
             <ul *ngIf="!hideIcons" class="list-inline text-center member-icons animate">
                 <li class="list-inline-item">
-                    <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-success p-button-outlined" routerLink="/property-detail/{{property?.id}}"></button>
+                    <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-success p-button-outlined" routerLink="/property-detail/{{property.id}}"></button>
 <!--                    <button class="btn btn-primary" routerLink="/property-detail/{{property?.Id}}"><i-->
 <!--                        class="fa-solid fa-pen-to-square"></i> Details</button>-->
                 </li>

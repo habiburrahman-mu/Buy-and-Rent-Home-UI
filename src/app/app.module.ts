@@ -21,7 +21,6 @@ import {TabsModule} from "ngx-bootstrap/tabs";
 import {ButtonsModule} from "ngx-bootstrap/buttons";
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import {PropertyDetailResolverService} from "./property/property-detail/property-detail-resolver.service";
-import {NgxGalleryModule} from "@kolkov/ngx-gallery";
 import {FilterPipe} from './Pipes/filter.pipe';
 import {SortPipe} from './Pipes/sort.pipe';
 import {ButtonModule} from "primeng/button";
@@ -103,7 +102,6 @@ const appRoute: Routes = [
         TabsModule.forRoot(),
         ButtonsModule.forRoot(),
         BsDatepickerModule.forRoot(),
-        NgxGalleryModule,
         ButtonModule,
         ChipsModule,
         InputTextModule,

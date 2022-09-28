@@ -1,6 +1,6 @@
 <div class="layout-wrapper" [ngClass]="containerClass">
     <app-topbar></app-topbar>
-    <div class="layout-sidebar">
+    <div class="layout-sidebar" *ngIf="isLoggedIn">
         <app-sidebar></app-sidebar>
     </div>
     <div class="layout-main-container">
@@ -10,6 +10,6 @@
 <!--        <app-footer></app-footer>-->
     </div>
 <!--    <app-config></app-config>-->
-    <div class="layout-mask"></div>
+    <div class="layout-mask" *ngIf="isLoggedIn"></div>
 </div>
 

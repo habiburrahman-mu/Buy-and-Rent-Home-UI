@@ -20,7 +20,6 @@ import {IAddEditPropertyForm} from "../../model/IAddEditPropertyForm";
 })
 
 
-
 export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     @Input() displayAddPropertyDialog: boolean = false;
     @Output() displayAddPropertyDialogEvent = new EventEmitter<boolean>();
@@ -192,7 +191,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     }
 
     get floor() {
-        return this.AddressPricing.controls['floor'] ;
+        return this.AddressPricing.controls['floor'];
     }
 
     get area() {

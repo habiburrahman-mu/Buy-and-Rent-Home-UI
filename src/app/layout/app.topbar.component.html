@@ -6,7 +6,7 @@
         <span>Buy Rent Home</span>
     </a>
 
-    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()" *ngIf="isLoggedIn">
         <i class="pi pi-bars"></i>
     </button>
 

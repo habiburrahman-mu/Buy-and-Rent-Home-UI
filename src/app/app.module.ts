@@ -52,6 +52,7 @@ import {CheckboxModule} from "primeng/checkbox";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {FileUploadModule} from "primeng/fileupload";
 import {SpeedDialModule} from "primeng/speeddial";
+import {PasswordModule} from "primeng/password";
 
 const appRoute: Routes = [
     {
@@ -125,7 +126,8 @@ const appRoute: Routes = [
         CheckboxModule,
         InputTextareaModule,
         FileUploadModule,
-        SpeedDialModule
+        SpeedDialModule,
+        PasswordModule
     ],
     providers: [
         {

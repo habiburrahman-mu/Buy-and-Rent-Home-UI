@@ -10,6 +10,7 @@ import {Observable} from "rxjs";
 export class AuthService {
 
     baseUrl = environment.baseUrl;
+    loggedInUser: string;
 
     constructor(private http: HttpClient) {
     }
@@ -20,5 +21,10 @@ export class AuthService {
 
     registerUser(user: UserForRegister) {
         return this.http.post(this.baseUrl + '/account/register', user);
+    }
+
+    isLoggedIn() {
+        this.loggedInUser = localStorage.getItem('brh-userName')??'';
+        return this.loggedInUser != '';
     }
 }

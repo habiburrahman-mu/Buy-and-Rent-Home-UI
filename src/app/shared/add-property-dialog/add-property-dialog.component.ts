@@ -1,5 +1,9 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
+import {
+    FormGroup,
+    UntypedFormBuilder,
+    Validators
+} from "@angular/forms";
 import {Router} from "@angular/router";
 import {HousingService} from "../../services/housing.service";
 import {AlertifyService} from "../../services/alertify.service";
@@ -7,6 +11,7 @@ import {PrimeNGConfig} from "primeng/api";
 import {IKeyValuePair} from "../../model/ikeyvaluepair";
 import {FileUpload} from "primeng/fileupload";
 import {TabView} from "primeng/tabview";
+import {IAddEditPropertyForm} from "../../model/IAddEditPropertyForm";
 
 @Component({
     selector: 'app-add-property-dialog',
@@ -14,13 +19,15 @@ import {TabView} from "primeng/tabview";
     styleUrls: ['./add-property-dialog.component.css']
 })
 
+
+
 export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     @Input() displayAddPropertyDialog: boolean = false;
     @Output() displayAddPropertyDialogEvent = new EventEmitter<boolean>();
     @ViewChild('fileUpload') fileUpload: FileUpload;
     @ViewChild('tabView') tabView: TabView;
 
-    addPropertyForm!: UntypedFormGroup;
+    addPropertyForm!: FormGroup<IAddEditPropertyForm>;
 
     tabIndex: number;
     showLoader: boolean = false;
@@ -71,15 +78,14 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     CreateAddPropertyForm() {
         this.addPropertyForm = this.formBuilder.group({
             basicInfo: this.formBuilder.group({
-                propertyName: [null, Validators.required],
-                sellRent: [null, Validators.required],
-                propertyType: [null, Validators.required],
-                furnishType: [null, Validators.required],
-                bedroom: [null],
+                propertyName: [null, {validators: [Validators.required]}],
+                sellRent: [null, {validators: [Validators.required]}],
+                propertyType: [null, {validators: [Validators.required]}],
+                furnishType: [null, {validators: [Validators.required]}],
+                bedroom: [null, {validators: [Validators.required]}],
                 bathroom: [null],
-                commonSpace: [null]
+                commonSpace: [null],
             }),
-
             addressPricing: this.formBuilder.group({
                 country: [null, Validators.required],
                 city: [null, Validators.required],
@@ -91,14 +97,13 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
                 price: [null, Validators.required],
                 otherCost: [null],
             }),
-
             others: this.formBuilder.group({
                 gym: [false],
                 parking: [false],
                 swimmingPool: [false],
                 description: [null],
             })
-        });
+        })
     }
 
     closeAddPropertyDialog() {
@@ -118,21 +123,19 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     }
 
     onUpload(event: any) {
-        for(let file of event.files) {
+        for (let file of event.files) {
             this.uploadedFiles.push(file);
         }
 
         console.log(this.fileUpload.files);
-
-        debugger;
         // this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
     }
 
 
     handleFileChange() {
         console.log(this.fileUpload.files);
-        if(this.fileUpload.files.length > 0) {
-            for(let i = 0; i < this.fileUpload.files.length; i++) {
+        if (this.fileUpload.files.length > 0) {
+            for (let i = 0; i < this.fileUpload.files.length; i++) {
                 console.log(this.fileUpload.files[i]);
                 let reader = new FileReader();
                 reader.readAsDataURL(this.fileUpload.files[i]);
@@ -144,58 +147,69 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         }
     }
 
-    get BasicInfo(): UntypedFormGroup {
-        return this.addPropertyForm.controls['basicInfo'] as UntypedFormGroup;
+    get BasicInfo() {
+        return this.addPropertyForm.controls['basicInfo'];
     }
 
-    get propertyName(): UntypedFormControl {
-        return this.BasicInfo.controls['propertyName'] as UntypedFormControl;
-    }
-    get sellRent(): UntypedFormControl {
-        return this.BasicInfo.controls['sellRent'] as UntypedFormControl;
-    }
-    get propertyType(): UntypedFormControl {
-        return this.BasicInfo.controls['propertyType'] as UntypedFormControl;
-    }
-    get furnishType(): UntypedFormControl {
-        return this.BasicInfo.controls['furnishType'] as UntypedFormControl;
+    get propertyName() {
+        return this.BasicInfo.controls['propertyName'];
     }
 
-
-    get addressPricing(): UntypedFormGroup {
-        return this.addPropertyForm.controls['addressPricing'] as UntypedFormGroup;
+    get sellRent() {
+        return this.BasicInfo.controls['sellRent'];
     }
 
-    get country(): UntypedFormControl {
-        return this.addressPricing.controls['country'] as UntypedFormControl;
-    }
-    get city(): UntypedFormControl {
-        return this.addressPricing.controls['city'] as UntypedFormControl;
-    }
-    get streetAddress(): UntypedFormControl {
-        return this.addressPricing.controls['streetAddress'] as UntypedFormControl;
-    }
-    get totalFloor(): UntypedFormControl {
-        return this.addressPricing.controls['totalFloor'] as UntypedFormControl;
-    }
-    get floor(): UntypedFormControl {
-        return this.addressPricing.controls['floor'] as UntypedFormControl;
-    }
-    get area(): UntypedFormControl {
-        return this.addressPricing.controls['area'] as UntypedFormControl;
-    }
-    get landmark(): UntypedFormControl {
-        return this.addressPricing.controls['landmark'] as UntypedFormControl;
-    }
-    get price(): UntypedFormControl {
-        return this.addressPricing.controls['price'] as UntypedFormControl;
-    }
-    get otherCost(): UntypedFormControl {
-        return this.addressPricing.controls['otherCost'] as UntypedFormControl;
+    get propertyType() {
+        return this.BasicInfo.controls['propertyType'];
     }
 
+    get furnishType() {
+        return this.BasicInfo.controls['furnishType'];
+    }
 
+    get bedroom() {
+        return this.BasicInfo.controls['bedroom'];
+    }
 
+    get AddressPricing() {
+        return this.addPropertyForm.controls['addressPricing'];
+    }
+
+    get country() {
+        return this.AddressPricing.controls['country'];
+    }
+
+    get city() {
+        return this.AddressPricing.controls['city'];
+    }
+
+    get streetAddress() {
+        return this.AddressPricing.controls['streetAddress'];
+    }
+
+    get totalFloor() {
+        return this.AddressPricing.controls['totalFloor'];
+    }
+
+    get floor() {
+        return this.AddressPricing.controls['floor'] ;
+    }
+
+    get area() {
+        return this.AddressPricing.controls['area'];
+    }
+
+    get landmark() {
+        return this.AddressPricing.controls['landmark'];
+    }
+
+    get price() {
+        return this.AddressPricing.controls['price'];
+    }
+
+    get otherCost() {
+        return this.AddressPricing.controls['otherCost'];
+    }
 
     ngOnDestroy(): void {
         this.fileUpload.clear();

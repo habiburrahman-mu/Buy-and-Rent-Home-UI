@@ -56,6 +56,9 @@
                         <div>
                             <h6 class="m-0 mb-1">Bedroom</h6>
                             <p-inputNumber mode="decimal" [useGrouping]="false" formControlName="bedroom"></p-inputNumber>
+                            <small class="p-error block ms-1" *ngIf="bedroom.invalid">
+                                Please enter the no. of Bedroom
+                            </small>
                         </div>
 
                         <div>

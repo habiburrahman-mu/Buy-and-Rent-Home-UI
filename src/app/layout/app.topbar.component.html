@@ -28,7 +28,7 @@
 
         <!--            <span>Profile</span>-->
         <!--        </button>-->
-        <button pButton pRipple type="button" label="Register" class="p-button-info p-button-text mr-2"
+        <button pButton pRipple *ngIf="!loggedIn()" type="button" label="Register" class="p-button-info p-button-text mr-2"
                 routerLink="user/register"></button>
         <button pButton pRipple *ngIf="!loggedIn()" type="button" label="Login" class="p-button-info p-button-text"
                 routerLink="user/login"></button>

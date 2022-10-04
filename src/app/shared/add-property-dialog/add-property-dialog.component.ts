@@ -28,6 +28,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
     addPropertyForm!: FormGroup<IAddEditPropertyForm>;
 
+    numOfTabs = 4;
     tabIndex: number;
     showLoader: boolean = false;
 
@@ -128,6 +129,10 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
         console.log(this.fileUpload.files);
         // this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+    }
+
+    onSubmit() {
+        console.log(this.addPropertyForm);
     }
 
 

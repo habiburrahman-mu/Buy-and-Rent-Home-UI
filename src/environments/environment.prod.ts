@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-    baseUrl: "/api"
+    baseUrl: "http://apis.mh-rahman.com:1001"
 };

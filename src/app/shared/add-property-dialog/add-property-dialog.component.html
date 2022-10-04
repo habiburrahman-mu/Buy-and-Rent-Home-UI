@@ -171,18 +171,18 @@
                         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around start" class="w-100">
                             <div class="field-checkbox">
                                 <p-checkbox name="group1" value="New York"
-                                            inputId="gym"></p-checkbox>
+                                            inputId="gym" id="gym"></p-checkbox>
                                 <label for="gym" class="ms-1">Gym</label>
                             </div>
                             <div class="field-checkbox">
                                 <p-checkbox name="group1" value="San Francisco"
-                                            inputId="parking"></p-checkbox>
+                                            inputId="parking" id="parking"></p-checkbox>
                                 <label for="parking" class="ms-1">Parking</label>
                             </div>
                             <div class="field-checkbox">
                                 <p-checkbox name="group1" value="Los Angeles"
-                                            inputId="swmming"></p-checkbox>
-                                <label for="swmming" class="ms-1">Swimming Pool</label>
+                                            inputId="swimming" id="swimming"></p-checkbox>
+                                <label for="swimming" class="ms-1">Swimming Pool</label>
                             </div>
                         </div>
                     </div>
@@ -218,7 +218,8 @@
         <!--        <p-button icon="pi pi-check" (click)="closeAddPropertyDialog()" label="Ok"-->
         <!--                  styleClass="p-button-text"></p-button>-->
         <p-button icon="pi pi-chevron-left" label="Previous" (click)="openPrevTab()" *ngIf="tabIndex > 0"></p-button>
-        <p-button icon="pi pi-chevron-right" label="Next" (click)="openNextTab()" *ngIf="tabIndex < 3"></p-button>
+        <p-button icon="pi pi-chevron-right" label="Next" (click)="openNextTab()" *ngIf="tabIndex < numOfTabs - 1"></p-button>
+        <p-button label="Submit" (click)="onSubmit()" *ngIf="tabIndex == numOfTabs - 1"></p-button>
     </ng-template>
 </p-dialog>
 

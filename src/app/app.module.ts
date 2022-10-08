@@ -36,10 +36,10 @@ import {SelectButtonModule} from "primeng/selectbutton";
 import {HttpErrorInterceptorService} from "./services/http-error-interceptor.service";
 import {AppLayoutComponent} from "./layout/app.layout.component";
 import {AppLayoutModule} from "./layout/app.layout.module";
-import { MyPropertyListComponent } from './property/my-property-list/my-property-list.component';
+import {MyPropertyListComponent} from './property/my-property-list/my-property-list.component';
 import {ImageModule} from "primeng/image";
-import { AddPropertyDialogComponent } from './shared/add-property-dialog/add-property-dialog.component';
-import { MyPropertyCardComponent } from './property/my-property-card/my-property-card.component';
+import {AddPropertyDialogComponent} from './shared/add-property-dialog/add-property-dialog.component';
+import {MyPropertyCardComponent} from './property/my-property-card/my-property-card.component';
 import {DialogModule} from "primeng/dialog";
 import {StepsModule} from "primeng/steps";
 import {CardModule} from "primeng/card";
@@ -53,6 +53,11 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 import {FileUploadModule} from "primeng/fileupload";
 import {SpeedDialModule} from "primeng/speeddial";
 import {PasswordModule} from "primeng/password";
+import {CityService} from "./services/city.service";
+import {CountryService} from "./services/country.service";
+import {FurnishingTypeService} from "./services/furnishing-type.service";
+import {PropertyTypeService} from "./services/property-type.service";
+import {PropertyService} from "./services/property.service";
 
 const appRoute: Routes = [
     {
@@ -136,6 +141,11 @@ const appRoute: Routes = [
             multi: true
         },
         HousingService,
+        CityService,
+        CountryService,
+        FurnishingTypeService,
+        PropertyTypeService,
+        PropertyService,
         AlertifyService,
         AuthService,
         PropertyDetailResolverService

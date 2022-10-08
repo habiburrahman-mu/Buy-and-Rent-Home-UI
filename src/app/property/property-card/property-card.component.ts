@@ -8,6 +8,6 @@ import {IPropertyBase} from "../../model/IPropertyBase";
 })
 
 export class PropertyCardComponent {
-    @Input() property!: IPropertyBase;
-    @Input() hideIcons!: boolean;
+    // @Input() property!: IPropertyBase;
+    // @Input() hideIcons!: boolean;
 }

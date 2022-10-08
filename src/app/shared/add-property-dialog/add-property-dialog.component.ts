@@ -12,6 +12,12 @@ import {IKeyValuePair} from "../../model/ikeyvaluepair";
 import {FileUpload} from "primeng/fileupload";
 import {TabView} from "primeng/tabview";
 import {IAddEditPropertyForm} from "../../model/IAddEditPropertyForm";
+import {Property} from "../../model/Property";
+import {CityService} from "../../services/city.service";
+import {CountryService} from "../../services/country.service";
+import {FurnishingTypeService} from "../../services/furnishing-type.service";
+import {PropertyTypeService} from "../../services/property-type.service";
+import {PropertyService} from "../../services/property.service";
 
 @Component({
     selector: 'app-add-property-dialog',
@@ -27,6 +33,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     @ViewChild('tabView') tabView: TabView;
 
     addPropertyForm!: FormGroup<IAddEditPropertyForm>;
+    property = new Property();
 
     numOfTabs = 4;
     tabIndex: number;
@@ -49,7 +56,12 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
                 private router: Router,
                 private housingService: HousingService,
                 private alertify: AlertifyService,
-                private primeNGConfig: PrimeNGConfig) {
+                private primeNGConfig: PrimeNGConfig,
+                private cityService: CityService,
+                private countryService: CountryService,
+                private furnishingTypeService: FurnishingTypeService,
+                private propertyTypeService: PropertyTypeService,
+                private propertyService: PropertyService,) {
     }
 
     ngOnInit(): void {
@@ -59,22 +71,22 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
         this.tabIndex = 0;
 
-        this.housingService.getPropertyTypes().subscribe(data => {
+        this.propertyTypeService.getPropertyTypes().subscribe(data => {
             this.showLoader = false;
             this.propertyTypeOptions = data;
         });
 
-        this.housingService.getFurnishingTypes().subscribe(data => {
+        this.furnishingTypeService.getFurnishingTypes().subscribe(data => {
             this.furnishTypeOptions = data;
         });
 
-        this.housingService.getAllCities().subscribe(data => {
+        this.cityService.getAllCities().subscribe(data => {
             data.map(item => {
                 this.cityList.push({label: item.name, value: item.id});
             });
         });
 
-        this.housingService.getAllCountries().subscribe(data => {
+        this.countryService.getAllCountries().subscribe(data => {
             data.map(item => {
                 this.countryList.push({label: item.name, value: item.id});
             });
@@ -128,6 +140,12 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         this.tabIndex = this.tabIndex + 1;
     }
 
+    onChangeCountry() {
+        console.log(this.country.value);
+        this.cityList = [];
+        this.city.setValue(null);
+    }
+
     onUpload(event: any) {
         for (let file of event.files) {
             this.uploadedFiles.push(file);
@@ -139,6 +157,8 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
     onSubmit() {
         console.log(this.addPropertyForm);
+        this.mapProperty();
+        console.log(this.property);
     }
 
 
@@ -181,6 +201,14 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         return this.BasicInfo.controls['bedroom'];
     }
 
+    get bathroom() {
+        return this.BasicInfo.controls['bathroom'];
+    }
+
+    get commonSpace() {
+        return this.BasicInfo.controls['commonSpace'];
+    }
+
     get AddressPricing() {
         return this.addPropertyForm.controls['addressPricing'];
     }
@@ -209,6 +237,10 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         return this.AddressPricing.controls['area'];
     }
 
+    get rentPrice() {
+        return this.AddressPricing.controls['price'];
+    }
+
     get landmark() {
         return this.AddressPricing.controls['landmark'];
     }
@@ -219,6 +251,50 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
     get otherCost() {
         return this.AddressPricing.controls['otherCost'];
+    }
+
+    get Others() {
+        return this.addPropertyForm.controls['others'];
+    }
+
+    get gym() {
+        return this.Others.controls['gym'];
+    }
+
+    get parking() {
+        return this.Others.controls['parking'];
+    }
+
+    get swimmingPool() {
+        return this.Others.controls['swimmingPool'];
+    }
+
+    get description() {
+        return this.Others.controls['description'];
+    }
+
+    mapProperty() {
+        this.property.sellRent = this.sellRent.value!;
+        this.property.name = this.propertyName.value!;
+        this.property.propertyTypeId = this.propertyType.value!;
+        this.property.bedroom = this.bedroom.value!;
+        this.property.bathroom = this.bathroom.value;
+        this.property.commonSpace = this.commonSpace.value;
+
+        this.property.countryId = this.country.value!;
+        this.property.cityId = this.city.value!;
+        this.property.streetAddress = this.streetAddress.value!;
+        this.property.totalFloor = this.totalFloor.value!;
+        this.property.floor = this.floor.value!;
+        this.property.landmark = this.landmark.value!;
+        this.property.area = this.area.value!;
+        this.property.rentPrice = this.rentPrice.value!;
+        this.property.otherCost = this.otherCost.value!;
+
+        this.property.gym = this.gym.value;
+        this.property.parking = this.parking.value;
+        this.property.swimmingPool = this.swimmingPool.value;
+        this.property.description = this.description.value!;
     }
 
     ngOnDestroy(): void {

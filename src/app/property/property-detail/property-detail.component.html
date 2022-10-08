@@ -1,118 +1,118 @@
-<div class="row">
-    <div class="col-sm-8 p-0 m-auto">
-        <div class="card">
-            <div class="card-img-wrapper">
-                <img *ngIf="property.image" class="card-img-top" src="/assets/images/{{property.image}}.png" alt="Property Image">
-                <img *ngIf="!property.image" class="card-img-top" src="/assets/images/house_default.png" alt="Property Image">
-            </div>
-            <div class="card-body">
-                <h1 class="card-title">{{property.name}}</h1>
-                <div>
-                    <strong>{{property.bhk}} BHK {{property.propertyType}} @ ${{property.price}}</strong>
-                </div>
-                <div>
-                    <strong>in {{property.city}}</strong>
-                </div>
-                <hr>
-                <div>
-                    <strong>Build Area: </strong>
-                    {{property.builtArea}} Sqft
-                </div>
+<!--<div class="row">-->
+<!--    <div class="col-sm-8 p-0 m-auto">-->
+<!--        <div class="card">-->
+<!--            <div class="card-img-wrapper">-->
+<!--                <img *ngIf="property.image" class="card-img-top" src="/assets/images/{{property.image}}.png" alt="Property Image">-->
+<!--                <img *ngIf="!property.image" class="card-img-top" src="/assets/images/house_default.png" alt="Property Image">-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--                <h1 class="card-title">{{property.name}}</h1>-->
+<!--                <div>-->
+<!--                    <strong>{{property.bhk}} BHK {{property.propertyType}} @ ${{property.price}}</strong>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <strong>in {{property.city}}</strong>-->
+<!--                </div>-->
+<!--                <hr>-->
+<!--                <div>-->
+<!--                    <strong>Build Area: </strong>-->
+<!--                    {{property.builtArea}} Sqft-->
+<!--                </div>-->
 
-                <div>
-                    <strong>Carpet Area: </strong>
-                    {{property.carpetArea}} Sqft
-                </div>
-                <div>
-                    <strong>Furnishing Type: </strong>
-                    {{property.furnishingType}}
-                </div>
-                <div>
-                    <strong>Available for: </strong>
-                    <span *ngIf="property.sellRent == 1">Purchase</span>
-                    <span *ngIf="property.sellRent == 2">Rent</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-8 p-0 m-auto">
-        <div class="tab-panel p-3">
-            <tabset class="member-tabset">
-                <tab heading="Overview">
-                    <h1>Overview</h1>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="heading">
-                                <strong>Project Name</strong>
-                                <p>{{property.name}}</p>
-                            </div>
+<!--                <div>-->
+<!--                    <strong>Carpet Area: </strong>-->
+<!--                    {{property.carpetArea}} Sqft-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <strong>Furnishing Type: </strong>-->
+<!--                    {{property.furnishingType}}-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <strong>Available for: </strong>-->
+<!--                    <span *ngIf="property.sellRent == 1">Purchase</span>-->
+<!--                    <span *ngIf="property.sellRent == 2">Rent</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--    <div class="col-sm-8 p-0 m-auto">-->
+<!--        <div class="tab-panel p-3">-->
+<!--            <tabset class="member-tabset">-->
+<!--                <tab heading="Overview">-->
+<!--                    <h1>Overview</h1>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-sm-6">-->
+<!--                            <div class="heading">-->
+<!--                                <strong>Project Name</strong>-->
+<!--                                <p>{{property.name}}</p>-->
+<!--                            </div>-->
 
-                            <div class="heading">
-                                <strong>Floor Number</strong>
-                                <p>{{property.floorNo}} of {{property.totalFloors}}</p>
-                            </div>
+<!--                            <div class="heading">-->
+<!--                                <strong>Floor Number</strong>-->
+<!--                                <p>{{property.floorNo}} of {{property.totalFloors}}</p>-->
+<!--                            </div>-->
 
-                            <div class="heading">
-                                <strong>Age of Property (in year)</strong>
-                                <p>{{property.age}}</p>
-                            </div>
+<!--                            <div class="heading">-->
+<!--                                <strong>Age of Property (in year)</strong>-->
+<!--                                <p>{{property.age}}</p>-->
+<!--                            </div>-->
 
-                            <div class="heading">
-                                <strong>Possession</strong>
-                                <p>{{property.estPossessionOn | date}}</p>
-                            </div>
-                        </div>
+<!--                            <div class="heading">-->
+<!--                                <strong>Possession</strong>-->
+<!--                                <p>{{property.estPossessionOn | date}}</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="col-sm-6">
-                            <div class="heading">
-                                <strong>Main Entrance</strong>
-                                <p>{{property.mainEntrance}}</p>
-                            </div>
+<!--                        <div class="col-sm-6">-->
+<!--                            <div class="heading">-->
+<!--                                <strong>Main Entrance</strong>-->
+<!--                                <p>{{property.mainEntrance}}</p>-->
+<!--                            </div>-->
 
-                            <div class="heading">
-                                <strong>Gated Community</strong>
-                                <p *ngIf="property.gated">Yes</p>
-                                <p *ngIf="!property.gated">No</p>
-                            </div>
+<!--                            <div class="heading">-->
+<!--                                <strong>Gated Community</strong>-->
+<!--                                <p *ngIf="property.gated">Yes</p>-->
+<!--                                <p *ngIf="!property.gated">No</p>-->
+<!--                            </div>-->
 
-                            <div class="heading">
-                                <strong>Security Deposit</strong>
-                                <p>{{property.security}}</p>
-                            </div>
-                            <div class="heading">
-                                <strong>Maintenance</strong>
-                                <p>{{property.maintenance}}</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="heading">
-                                <strong>About Property</strong>
-                                <p>{{property.description}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </tab>
-                <tab heading="Address">
-                    <div class="col-sm-12">
-                        <h1>Address</h1>
-                        <div class="heading">
-                            <strong>{{property.address}}</strong><br/>
-                            <strong>{{property.address2}}</strong><br/>
-                            <strong>{{property.city}}</strong>
-                        </div>
-                    </div>
+<!--                            <div class="heading">-->
+<!--                                <strong>Security Deposit</strong>-->
+<!--                                <p>{{property.security}}</p>-->
+<!--                            </div>-->
+<!--                            <div class="heading">-->
+<!--                                <strong>Maintenance</strong>-->
+<!--                                <p>{{property.maintenance}}</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-sm-12">-->
+<!--                            <div class="heading">-->
+<!--                                <strong>About Property</strong>-->
+<!--                                <p>{{property.description}}</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </tab>-->
+<!--                <tab heading="Address">-->
+<!--                    <div class="col-sm-12">-->
+<!--                        <h1>Address</h1>-->
+<!--                        <div class="heading">-->
+<!--                            <strong>{{property.address}}</strong><br/>-->
+<!--                            <strong>{{property.address2}}</strong><br/>-->
+<!--                            <strong>{{property.city}}</strong>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
-                </tab>
-                <tab heading="Photos">
-<!--                    <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>-->
-                </tab>
-                <tab heading="Contact">
-                    <h1>Contact Detail</h1>
-                    This should be restricted area and only registered user should be able to see seller contact details
-                </tab>
-            </tabset>
-        </div>
-    </div>
-</div>
+<!--                </tab>-->
+<!--                <tab heading="Photos">-->
+<!--&lt;!&ndash;                    <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>&ndash;&gt;-->
+<!--                </tab>-->
+<!--                <tab heading="Contact">-->
+<!--                    <h1>Contact Detail</h1>-->
+<!--                    This should be restricted area and only registered user should be able to see seller contact details-->
+<!--                </tab>-->
+<!--            </tabset>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->

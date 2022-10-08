@@ -1,51 +1,51 @@
-<div class="card">
-    <div class="card-img-wrapper">
-        <img *ngIf="property.image" class="card-img-top" src="assets/images/{{property.image}}.png" alt="property image">
-        <img *ngIf="!property.image" class="card-img-top" src="assets/images/house_default.png" alt="property image">
-    </div>
-    <div class="card-body p-2">
-        <div class="card-body p-1">
-            <h6 class="mb-0 property-title">{{property.bhk}} BHK {{property.propertyType}} </h6>
-            <span class="property-location"><i class="pi pi-flag-fill"></i> {{property.name}}<span *ngIf="property.name">,</span>{{property.city}}</span>
+<!--<div class="card">-->
+<!--    <div class="card-img-wrapper">-->
+<!--        <img *ngIf="property.image" class="card-img-top" src="assets/images/{{property.image}}.png" alt="property image">-->
+<!--        <img *ngIf="!property.image" class="card-img-top" src="assets/images/house_default.png" alt="property image">-->
+<!--    </div>-->
+<!--    <div class="card-body p-2">-->
+<!--        <div class="card-body p-1">-->
+<!--            <h6 class="mb-0 property-title">{{property.bhk}} BHK {{property.propertyType}} </h6>-->
+<!--            <span class="property-location"><i class="pi pi-flag-fill"></i> {{property.name}}<span *ngIf="property.name">,</span>{{property.city}}</span>-->
 
-            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="10px" fxLayoutAlign="space-between center" class="price-area-row">
-                <div class="property-price"><h6 style="margin: 0; padding: 0"><i class="fa-solid fa-dollar-sign"></i>{{property.price}}</h6></div>
-                <div class="property-price"><h6 style="margin: 0; padding: 0"><i class="fa-solid fa-chart-area"></i> {{property.builtArea}} Sq Ft</h6></div>
-            </div>
+<!--            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="10px" fxLayoutAlign="space-between center" class="price-area-row">-->
+<!--                <div class="property-price"><h6 style="margin: 0; padding: 0"><i class="fa-solid fa-dollar-sign"></i>{{property.price}}</h6></div>-->
+<!--                <div class="property-price"><h6 style="margin: 0; padding: 0"><i class="fa-solid fa-chart-area"></i> {{property.builtArea}} Sq Ft</h6></div>-->
+<!--            </div>-->
 
-            <div class="row furnish-type-row" fxLayout.lt-sm="column" fxLayoutGap="10px" fxLayoutAlign="center center">
-                <div class="col-sm-5 furnish-type-col" fxLayoutAlign="center center">{{property.furnishingType}}&nbsp;<span *ngIf="property.furnishingType !== 'Unfurnished'"> Furnished</span> </div>
-<!--                <div class="col-sm-2"></div>-->
-                <div class="col-sm-5 col-sm-5 furnish-type-col" fxLayoutAlign="center center">
-                    <span *ngIf="property.readyToMove">Ready to Move</span>
-                    <span *ngIf="!property.readyToMove">Possession: {{property.estPossessionOn | date}}</span>
-                </div>
-
-            </div>
-
-<!--            <h6 class="mt-2">{{property.FType}}-->
-<!--                 | </h6>-->
-
-<!--            <hr class="mt-0 mb-2">-->
-<!--            <div class="row price-area-row">-->
+<!--            <div class="row furnish-type-row" fxLayout.lt-sm="column" fxLayoutGap="10px" fxLayoutAlign="center center">-->
+<!--                <div class="col-sm-5 furnish-type-col" fxLayoutAlign="center center">{{property.furnishingType}}&nbsp;<span *ngIf="property.furnishingType !== 'Unfurnished'"> Furnished</span> </div>-->
+<!--&lt;!&ndash;                <div class="col-sm-2"></div>&ndash;&gt;-->
+<!--                <div class="col-sm-5 col-sm-5 furnish-type-col" fxLayoutAlign="center center">-->
+<!--                    <span *ngIf="property.readyToMove">Ready to Move</span>-->
+<!--                    <span *ngIf="!property.readyToMove">Possession: {{property.estPossessionOn | date}}</span>-->
+<!--                </div>-->
 
 <!--            </div>-->
 
+<!--&lt;!&ndash;            <h6 class="mt-2">{{property.FType}}&ndash;&gt;-->
+<!--&lt;!&ndash;                 | </h6>&ndash;&gt;-->
 
-            <ul *ngIf="!hideIcons" class="list-inline text-center member-icons animate">
-                <li class="list-inline-item">
-                    <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-success p-button-outlined" routerLink="/property-detail/{{property.id}}"></button>
-<!--                    <button class="btn btn-primary" routerLink="/property-detail/{{property?.Id}}"><i-->
-<!--                        class="fa-solid fa-pen-to-square"></i> Details</button>-->
-                </li>
-                <li class="list-inline-item">
-<!--                    <button class="btn btn-primary btn-danger"><i class="fa-solid fa-address-card"></i> Contact</button>-->
-                    <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-info p-button-outlined"></button>
-                </li>
-            </ul>
+<!--&lt;!&ndash;            <hr class="mt-0 mb-2">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="row price-area-row">&ndash;&gt;-->
 
-<!--            <h6 class="mb-0">Price: <span class="font-highlight">{{property.Price}} USD.</span> |-->
-<!--                Area: <span class="font-highlight">{{property.BuiltArea}} Sq Ft </span></h6>-->
-        </div>
-    </div>
-</div>
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+
+
+<!--            <ul *ngIf="!hideIcons" class="list-inline text-center member-icons animate">-->
+<!--                <li class="list-inline-item">-->
+<!--                    <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-success p-button-outlined" routerLink="/property-detail/{{property.id}}"></button>-->
+<!--&lt;!&ndash;                    <button class="btn btn-primary" routerLink="/property-detail/{{property?.Id}}"><i&ndash;&gt;-->
+<!--&lt;!&ndash;                        class="fa-solid fa-pen-to-square"></i> Details</button>&ndash;&gt;-->
+<!--                </li>-->
+<!--                <li class="list-inline-item">-->
+<!--&lt;!&ndash;                    <button class="btn btn-primary btn-danger"><i class="fa-solid fa-address-card"></i> Contact</button>&ndash;&gt;-->
+<!--                    <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-info p-button-outlined"></button>-->
+<!--                </li>-->
+<!--            </ul>-->
+
+<!--&lt;!&ndash;            <h6 class="mb-0">Price: <span class="font-highlight">{{property.Price}} USD.</span> |&ndash;&gt;-->
+<!--&lt;!&ndash;                Area: <span class="font-highlight">{{property.BuiltArea}} Sq Ft </span></h6>&ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->

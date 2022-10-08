@@ -19,29 +19,7 @@ export class HousingService {
     constructor(private http: HttpClient) {
     }
 
-    getAllCities(): Observable<City[]> {
-        return this.http.get<City[]>(this.baseUrl + '/city');
-    }
 
-    getAllCountries(): Observable<Country[]> {
-        return this.http.get<Country[]>(this.baseUrl + '/country/list');
-    }
-
-    getPropertyTypes(): Observable<IKeyValuePair[]> {
-        return this.http.get<IKeyValuePair[]>(this.baseUrl + '/PropertyType/list');
-    }
-
-    getFurnishingTypes(): Observable<IKeyValuePair[]> {
-        return this.http.get<IKeyValuePair[]>(this.baseUrl + '/FurnishingType/list');
-    }
-
-    getAllProperties(SellRent: number): Observable<Property[]> {
-        return this.http.get<Property[]>(this.baseUrl + '/property/list/' + SellRent.toString());
-    }
-
-    getProperty(id: number): Observable<Property> {
-        return this.http.get<Property>(this.baseUrl + '/property/detail/' + id.toString());
-    }
 
     addProperty(property: Property) {
         let newProp = [property];

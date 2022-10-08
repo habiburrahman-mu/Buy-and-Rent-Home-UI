@@ -8,6 +8,7 @@ import {Property} from "../model/Property";
 import {environment} from "../../environments/environment";
 import {City} from "../model/city";
 import {IKeyValuePair} from "../model/ikeyvaluepair";
+import {Country} from "../model/country";
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +21,10 @@ export class HousingService {
 
     getAllCities(): Observable<City[]> {
         return this.http.get<City[]>(this.baseUrl + '/city');
+    }
+
+    getAllCountries(): Observable<Country[]> {
+        return this.http.get<Country[]>(this.baseUrl + '/country/list');
     }
 
     getPropertyTypes(): Observable<IKeyValuePair[]> {

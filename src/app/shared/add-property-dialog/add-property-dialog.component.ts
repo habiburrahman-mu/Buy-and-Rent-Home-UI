@@ -40,6 +40,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     propertyTypeOptions: IKeyValuePair[];
     furnishTypeOptions: IKeyValuePair[];
     cityList: Array<any> = [{label: 'Select City', value: "", disabled: true}];
+    countryList: Array<any> = [{label: 'Select Country', value: "", disabled: true}];
 
     uploadedFiles: any[] = [];
     newFileUrls = [];
@@ -71,7 +72,12 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
             data.map(item => {
                 this.cityList.push({label: item.name, value: item.id});
             });
-            console.log(data);
+        });
+
+        this.housingService.getAllCountries().subscribe(data => {
+            data.map(item => {
+                this.countryList.push({label: item.name, value: item.id});
+            });
         });
     }
 

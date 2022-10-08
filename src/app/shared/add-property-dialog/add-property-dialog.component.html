@@ -81,7 +81,7 @@
                     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
                         <div fxFlex="50" fxFlex.lt-md="100">
                             <h6 class="m-0 mb-1">Country</h6>
-                            <p-dropdown [options]="cityList" optionLabel="label" optionValue="value" [filter]="true"
+                            <p-dropdown [options]="countryList" optionLabel="label" optionValue="value" [filter]="true"
                                         filterBy="label" [showClear]="true" appendTo="body"
                                         styleClass="w-100" formControlName="country"></p-dropdown>
                             <small class="p-error block ms-1" *ngIf="country.invalid">

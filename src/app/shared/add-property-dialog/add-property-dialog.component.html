@@ -205,17 +205,30 @@
                     <h6 class="m-0 mb-1">Upload Photos</h6>
 
                     <!--                <input type="file" (change)=""-->
-                    <p-fileUpload name="demo[]" [customUpload]="true" (uploadHandler)="onUpload($event)"
-                                  [multiple]="true" accept="image/*" [maxFileSize]="1000000" #fileUpload
-                                  (change)="handleFileChange()" [showUploadButton]="false" [showCancelButton]="false">
+                    <p-fileUpload
+                        name="demo[]"
+                        [customUpload]="true"
+                        (uploadHandler)="onUpload($event)"
+                        [multiple]="true"
+                        accept="image/*"
+                        [maxFileSize]="10000000"
+                        #fileUpload
+                        (change)="handleFileChange()"
+                        [showUploadButton]="false"
+                        [showCancelButton]="false">
                     </p-fileUpload>
                     <div fxLayout="row wrap" fxLayoutAlign="space-evenly start" fxLayoutGap="10px"
                          class="showUploadfiles-brh" *ngIf="newFileUrls.length">
-                        <div *ngFor="let fileUrl of newFileUrls" class="mt-2 position-relative">
+                        <div *ngFor="let fileUrl of newFileUrls; let i = index" class="mt-2 position-relative">
                             <!--                        <img [src]="fileUrl" alt="" height="100px">-->
                             <p-image [src]="fileUrl" alt="" height="100px" [preview]="true" appendTo="body"></p-image>
-                            <button pButton pRipple type="button" icon="fas fa-times"
-                                    class="p-button-rounded p-button-danger position-absolute delete-button-over-image"></button>
+                            <button
+                                pButton pRipple
+                                type="button"
+                                (click)="deleteFileFromNewFileUrlList(i)"
+                                icon="fas fa-times"
+                                class="p-button-rounded p-button-danger position-absolute delete-button-over-image">
+                            </button>
                         </div>
                     </div>
                 </div>

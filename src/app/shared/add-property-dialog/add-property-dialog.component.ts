@@ -155,6 +155,10 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         // this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
     }
 
+    deleteFileFromNewFileUrlList(i: number) {
+        this.newFileUrls.splice(i, 1);
+    }
+
     onSubmit() {
         console.log(this.addPropertyForm);
         this.mapProperty();
@@ -172,8 +176,11 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
                 reader.onload = (events: any) => {
                     // @ts-ignore
                     this.newFileUrls.push(events.target.result);
+                    console.log(events.target);
                 }
             }
+
+            this.fileUpload.clear();
         }
     }
 

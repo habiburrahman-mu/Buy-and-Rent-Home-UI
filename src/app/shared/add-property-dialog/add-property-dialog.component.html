@@ -178,25 +178,37 @@
                         <h6 class="m-0 mb-1">Check Below Features (If Available)</h6>
                         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around start" class="w-100">
                             <div class="field-checkbox">
-                                <p-checkbox name="group1" value="New York"
-                                            inputId="gym" id="gym"></p-checkbox>
+                                <p-checkbox
+                                    inputId="gym"
+                                    id="gym"
+                                    formControlName="gym"
+                                    [binary]="true">
+                                </p-checkbox>
                                 <label for="gym" class="ms-1">Gym</label>
                             </div>
                             <div class="field-checkbox">
-                                <p-checkbox name="group1" value="San Francisco"
-                                            inputId="parking" id="parking"></p-checkbox>
+                                <p-checkbox
+                                    inputId="parking"
+                                    id="parking"
+                                    formControlName="parking"
+                                    [binary]="true">
+                                </p-checkbox>
                                 <label for="parking" class="ms-1">Parking</label>
                             </div>
                             <div class="field-checkbox">
-                                <p-checkbox name="group1" value="Los Angeles"
-                                            inputId="swimming" id="swimming"></p-checkbox>
+                                <p-checkbox
+                                    inputId="swimming"
+                                    id="swimming"
+                                    formControlName="swimming"
+                                    [binary]="true">
+                                </p-checkbox>
                                 <label for="swimming" class="ms-1">Swimming Pool</label>
                             </div>
                         </div>
                     </div>
                     <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
                         <h6 class="m-0 mb-1">Description</h6>
-                        <textarea rows="5" pInputTextarea class="w-100"></textarea>
+                        <textarea rows="5" pInputTextarea class="w-100" formControlName="description"></textarea>
                     </div>
                 </div>
             </p-tabPanel>

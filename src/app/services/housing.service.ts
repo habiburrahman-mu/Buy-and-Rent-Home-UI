@@ -2,8 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {IProperty} from '../model/iproperty';
-import {IPropertyBase} from "../model/IPropertyBase";
 import {Property} from "../model/Property";
 import {environment} from "../../environments/environment";
 import {City} from "../model/city";

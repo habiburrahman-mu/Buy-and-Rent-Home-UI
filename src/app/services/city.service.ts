@@ -14,6 +14,10 @@ export class CityService {
     }
 
     getAllCities(): Observable<City[]> {
-        return this.http.get<City[]>(this.serviceBaseUrl);
+        return this.http.get<City[]>(this.serviceBaseUrl + '/list');
+    }
+
+    getAllCityByCountry(countryId: number): Observable<City[]> {
+        return this.http.get<City[]>(this.serviceBaseUrl + '/list/' + countryId);
     }
 }

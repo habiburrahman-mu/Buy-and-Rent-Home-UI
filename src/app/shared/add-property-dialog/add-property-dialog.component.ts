@@ -80,12 +80,6 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
             this.furnishTypeOptions = data;
         });
 
-        this.cityService.getAllCities().subscribe(data => {
-            data.map(item => {
-                this.cityList.push({label: item.name, value: item.id});
-            });
-        });
-
         this.countryService.getAllCountries().subscribe(data => {
             data.map(item => {
                 this.countryList.push({label: item.name, value: item.id});
@@ -142,8 +136,26 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
     onChangeCountry() {
         console.log(this.country.value);
-        this.cityList = [];
+        this.cityList = [{label: 'Select City', value: "", disabled: true}];
         this.city.setValue(null);
+        if (this.country.value) {
+            this.createCityList(this.country.value);
+        }
+    }
+
+    createCityList(countryId: number) {
+        this.showLoader = true;
+        this.cityService.getAllCityByCountry(countryId).subscribe(data => {
+            data.map(item => {
+                this.cityList.push({label: item.name, value: item.id});
+            });
+            this.showLoader = false;
+        });
+        // this.cityService.getAllCities().subscribe(data => {
+        //     data.map(item => {
+        //         this.cityList.push({label: item.name, value: item.id});
+        //     });
+        // });
     }
 
     onUpload(event: any) {

@@ -1,8 +1,14 @@
 <div class="card">
-    <h5 style="color: var(--blue-500);" fxLayout="row" fxLayoutAlign="start start" fxLayoutAlign.lt-md="center center">My Property List</h5>
+    <h5 style="color: var(--blue-500);" fxLayout="row" fxLayoutAlign="start start" fxLayoutAlign.lt-md="center center">
+        My Property List</h5>
     <span *ngFor="let i of [1, 2]">
-        <app-my-property-card (closePropertyEditDialogEvent)="showPropertyEditDialog = true"></app-my-property-card>
+        <app-my-property-card (openPropertyEditDialogEvent)="showPropertyEditDialog = true"></app-my-property-card>
     </span>
 </div>
-<app-add-property-dialog [displayAddPropertyDialog]="true" (displayAddPropertyDialogEvent) = "showPropertyEditDialog = false"></app-add-property-dialog>
-
+<ng-container *ngIf="showPropertyEditDialog">
+    <p-dialog header="Add Property" [(visible)]="showPropertyEditDialog" [style]="{'width': '650px'}"
+              (onHide)="showPropertyEditDialog = false"
+              appendTo="body" [modal]="true">
+        <app-add-property-dialog></app-add-property-dialog>
+    </p-dialog>
+</ng-container>

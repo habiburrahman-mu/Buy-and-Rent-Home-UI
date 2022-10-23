@@ -1,5 +1,4 @@
-<p-dialog header="Add Property" [(visible)]="displayAddPropertyDialog" [style]="{'width': '650px'}"
-          (onHide)="closeAddPropertyDialog()" appendTo="body" [modal]="true">
+
     <form [formGroup]="addPropertyForm">
         <p-tabView [(activeIndex)]="tabIndex" #tabView>
             <p-progressBar mode="indeterminate" [style]="{'height': '4px'}" *ngIf="showLoader"></p-progressBar>
@@ -197,12 +196,12 @@
                             </div>
                             <div class="field-checkbox">
                                 <p-checkbox
-                                    inputId="swimming"
-                                    id="swimming"
-                                    formControlName="swimming"
+                                    inputId="swimmingPool"
+                                    id="swimmingPool"
+                                    formControlName="swimmingPool"
                                     [binary]="true">
                                 </p-checkbox>
-                                <label for="swimming" class="ms-1">Swimming Pool</label>
+                                <label for="swimmingPool" class="ms-1">Swimming Pool</label>
                             </div>
                         </div>
                     </div>
@@ -247,12 +246,12 @@
             </p-tabPanel>
         </p-tabView>
     </form>
-    <ng-template pTemplate="footer">
+    <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2px">
         <!--        <p-button icon="pi pi-check" (click)="closeAddPropertyDialog()" label="Ok"-->
         <!--                  styleClass="p-button-text"></p-button>-->
         <p-button icon="pi pi-chevron-left" label="Previous" (click)="openPrevTab()" *ngIf="tabIndex > 0"></p-button>
         <p-button icon="pi pi-chevron-right" label="Next" (click)="openNextTab()" *ngIf="tabIndex < numOfTabs - 1"></p-button>
         <p-button label="Submit" (click)="onSubmit()" *ngIf="tabIndex == numOfTabs - 1"></p-button>
-    </ng-template>
-</p-dialog>
+    </div>
+
 

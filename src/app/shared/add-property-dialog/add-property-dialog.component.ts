@@ -27,8 +27,6 @@ import {PropertyService} from "../../services/property.service";
 
 
 export class AddPropertyDialogComponent implements OnInit, OnDestroy {
-    @Input() displayAddPropertyDialog: boolean = false;
-    @Output() displayAddPropertyDialogEvent = new EventEmitter<boolean>();
     @ViewChild('fileUpload') fileUpload: FileUpload;
     @ViewChild('tabView') tabView: TabView;
 
@@ -118,13 +116,11 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         })
     }
 
-    closeAddPropertyDialog() {
-        this.displayAddPropertyDialog = false;
-        this.fileUpload.clear();
-        this.uploadedFiles = [];
-        this.newFileUrls = [];
-        this.displayAddPropertyDialogEvent.emit(this.displayAddPropertyDialog);
-    }
+    // closeAddPropertyDialog() {
+    //     this.fileUpload.clear();
+    //     this.uploadedFiles = [];
+    //     this.newFileUrls = [];
+    // }
 
     openPrevTab() {
         this.tabIndex = this.tabIndex - 1;

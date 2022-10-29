@@ -18,6 +18,8 @@ import {CountryService} from "../../services/country.service";
 import {FurnishingTypeService} from "../../services/furnishing-type.service";
 import {PropertyTypeService} from "../../services/property-type.service";
 import {PropertyService} from "../../services/property.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {PhotoService} from "../../services/photo.service";
 
 @Component({
     selector: 'app-add-property-dialog',
@@ -37,6 +39,8 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     tabIndex: number;
     showLoader: boolean = false;
 
+    isSubmitted: boolean = false;
+
     sellRentOptions: Array<{ label: string, value: string }> = [
         {label: 'Sell', value: '1'},
         {label: 'Rent', value: '2'}
@@ -48,7 +52,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     countryList: Array<any> = [{label: 'Select Country', value: "", disabled: true}];
 
     uploadedFiles: any[] = [];
-    newFileUrls = [];
+    newFileUrls: File[] = [];
 
     constructor(private formBuilder: UntypedFormBuilder,
                 private router: Router,
@@ -59,7 +63,8 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
                 private countryService: CountryService,
                 private furnishingTypeService: FurnishingTypeService,
                 private propertyTypeService: PropertyTypeService,
-                private propertyService: PropertyService,) {
+                private propertyService: PropertyService,
+                private photoService: PhotoService) {
     }
 
     ngOnInit(): void {
@@ -165,12 +170,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
     deleteFileFromNewFileUrlList(i: number) {
         this.newFileUrls.splice(i, 1);
-    }
-
-    onSubmit() {
-        console.log(this.addPropertyForm);
-        this.mapProperty();
-        console.log(this.property);
+        this.uploadedFiles.splice(i, 1);
     }
 
 
@@ -178,11 +178,11 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         console.log(this.fileUpload.files);
         if (this.fileUpload.files.length > 0) {
             for (let i = 0; i < this.fileUpload.files.length; i++) {
+                this.uploadedFiles.push(this.fileUpload.files[i]);
                 console.log(this.fileUpload.files[i]);
                 let reader = new FileReader();
                 reader.readAsDataURL(this.fileUpload.files[i]);
                 reader.onload = (events: any) => {
-                    // @ts-ignore
                     this.newFileUrls.push(events.target.result);
                     console.log(events.target);
                 }
@@ -190,6 +190,24 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
             this.fileUpload.clear();
         }
+    }
+
+    private uploadPhotosToServer(newPropertyId: number) {
+        let formData = new FormData();
+        this.uploadedFiles.forEach((item, index) => {
+            formData.append("Files" + index, item);
+        });
+        this.photoService.uploadPhotos(newPropertyId, formData).subscribe({
+            next: response => {
+                this.showLoader = false;
+                console.log(response);
+            },
+            error: (error: HttpErrorResponse) => {
+                console.log(error);
+                this.showLoader = false;
+
+            }
+        });
     }
 
     get BasicInfo() {
@@ -292,6 +310,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         this.property.sellRent = this.sellRent.value!;
         this.property.name = this.propertyName.value!;
         this.property.propertyTypeId = this.propertyType.value!;
+        this.property.furnishingTypeId = this.furnishType.value!;
         this.property.bedroom = this.bedroom.value!;
         this.property.bathroom = this.bathroom.value;
         this.property.commonSpace = this.commonSpace.value;
@@ -310,6 +329,32 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         this.property.parking = this.parking.value;
         this.property.swimmingPool = this.swimmingPool.value;
         this.property.description = this.description.value!;
+    }
+
+    get isSubmittedAndFormInvalid() {
+        return this.isSubmitted && this.addPropertyForm.invalid;
+    }
+
+    onSubmit() {
+        this.isSubmitted = true;
+        this.addPropertyForm.markAllAsTouched();
+        if(this.addPropertyForm.valid) {
+            this.showLoader = true;
+            this.mapProperty();
+            this.propertyService.addProperty(this.property).subscribe({
+                next: newPropertyId => {
+                    this.uploadPhotosToServer(newPropertyId);
+                    console.log(newPropertyId);
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.showLoader = false;
+                    console.log(error);
+                }
+            })
+        }
+
+        console.log(this.addPropertyForm);
+        console.log(this.property);
     }
 
     ngOnDestroy(): void {

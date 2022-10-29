@@ -17,17 +17,6 @@ export class HousingService {
     constructor(private http: HttpClient) {
     }
 
-
-
-    addProperty(property: Property) {
-        let newProp = [property];
-        let localStoragePropertyData = localStorage.getItem('newProp') ?? "";
-        if (localStoragePropertyData) {
-            newProp = [property, ...JSON.parse(localStoragePropertyData)];
-        }
-        localStorage.setItem('newProp', JSON.stringify(newProp));
-    }
-
     newPropID(): number {
         if (localStorage.getItem('PID')) {
             let localStorageData = localStorage.getItem('PID') ?? '';

@@ -14,6 +14,10 @@ export class PropertyService {
     constructor(private http: HttpClient) {
     }
 
+    addProperty(property: Property): Observable<number> {
+        return this.http.post<number>(this.serviceBaseUrl + '/addNew', property);
+    }
+
     getAllProperties(SellRent: number): Observable<Property[]> {
         return this.http.get<Property[]>(this.serviceBaseUrl + '/list/' + SellRent.toString());
     }

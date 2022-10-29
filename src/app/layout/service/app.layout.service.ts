@@ -25,12 +25,12 @@ interface LayoutState {
 export class LayoutService {
 
     config: AppConfig = {
-        ripple: false,
+        ripple: true,
         inputStyle: 'outlined',
         menuMode: 'static',
         colorScheme: 'light',
-        theme: 'lara-light-indigo',
-        scale: 14,
+        theme: 'mdc-light-indigo',
+        scale: 12,
     };
 
     state: LayoutState = {

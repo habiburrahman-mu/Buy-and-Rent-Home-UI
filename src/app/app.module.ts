@@ -59,6 +59,7 @@ import {PropertyTypeService} from "./services/property-type.service";
 import {PropertyService} from "./services/property.service";
 import {HttpErrorInterceptorService} from "./services/interceptors/http-error-interceptor.service";
 import {AuthInterceptor} from "./services/interceptors/auth.interceptor";
+import {AuthGuard} from "./guards/auth.guard";
 
 const appRoute: Routes = [
     {
@@ -67,7 +68,7 @@ const appRoute: Routes = [
             {path: '', component: PropertyListComponent},
             {path: 'rent-property', component: PropertyListComponent},
             {
-                path: 'user-area', children: [
+                path: 'user-area', canActivateChild: [AuthGuard], children: [
                     {path: '', pathMatch: "full", redirectTo: 'my-property'},
                     {path: 'my-property', component: MyPropertyListComponent},
                 ]

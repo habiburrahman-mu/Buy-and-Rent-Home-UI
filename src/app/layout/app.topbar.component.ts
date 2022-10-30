@@ -34,8 +34,7 @@ export class AppTopBarComponent {
     }
 
     onLogout() {
-        localStorage.removeItem('brh-token');
-        localStorage.removeItem('brh-userName');
+        this.authService.logOut();
         this.alertifyService.success('You are logged out');
     }
 }

@@ -24,7 +24,27 @@ export class AuthService {
     }
 
     isLoggedIn() {
-        this.loggedInUser = localStorage.getItem('brh-userName')??'';
+        this.loggedInUser = localStorage.getItem('brh-userName') ?? '';
         return this.loggedInUser != '';
+    }
+
+    isAuthenticated(): boolean {
+        const token = localStorage.getItem('brh-token') ?? '';
+        const splittedToken = token.split('.');
+        if (splittedToken.length === 3) {
+            const decodedTokenPayload = atob(splittedToken[1]);
+            const expiry = (JSON.parse(decodedTokenPayload))['exp'];
+            let isExpired = (Math.floor((new Date).getTime() / 1000)) > expiry;
+            if(!isExpired) {
+                return true;
+            }
+        }
+        this.logOut();
+        return false;
+    }
+
+    logOut() {
+        localStorage.removeItem('brh-token');
+        localStorage.removeItem('brh-userName');
     }
 }

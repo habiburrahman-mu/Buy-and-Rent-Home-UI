@@ -19,8 +19,11 @@
                     </div>
 
                     <div fxLayout="row" fxLayoutGap="10px">
-                        <button pButton pRipple [disabled]="!loginForm.valid" type="submit" class="p-button-raised" label="Login"></button>
-                        <button pButton pRipple type="button" class="p-button-raised p-button-danger" label="Cancel"></button>
+                        <button pButton pRipple [disabled]="!loginForm.valid"
+                                [loading]="isLoading" type="submit" class="p-button-raised" label="Login"></button>
+                        <button pButton pRipple type="button"
+                                class="p-button-raised p-button-danger"
+                                label="Cancel"></button>
                     </div>
                 </div>
 

@@ -66,15 +66,20 @@ const appRoute: Routes = [
         children: [
             {path: '', component: PropertyListComponent},
             {path: 'rent-property', component: PropertyListComponent},
-            {path: 'my-property', component: MyPropertyListComponent},
+            {
+                path: 'user-area', children: [
+                    {path: '', pathMatch: "full", redirectTo: 'my-property'},
+                    {path: 'my-property', component: MyPropertyListComponent},
+                ]
+            },
             {path: 'add-property', component: AddPropertyComponent},
             {
                 path: 'property-detail/:id',
                 component: PropertyDetailComponent,
                 resolve: {property: PropertyDetailResolverService}
             },
-            {path: 'user/login', component: UserLoginComponent},
-            {path: 'user/register', component: UserRegisterComponent},
+            {path: 'login', component: UserLoginComponent},
+            {path: 'register', component: UserRegisterComponent},
             {path: '**', component: PropertyListComponent}
         ]
     },

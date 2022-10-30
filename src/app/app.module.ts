@@ -33,7 +33,6 @@ import {PaginatorModule} from "primeng/paginator";
 import {DropdownModule} from "primeng/dropdown";
 import {StyleClassModule} from "primeng/styleclass";
 import {SelectButtonModule} from "primeng/selectbutton";
-import {HttpErrorInterceptorService} from "./services/http-error-interceptor.service";
 import {AppLayoutComponent} from "./layout/app.layout.component";
 import {AppLayoutModule} from "./layout/app.layout.module";
 import {MyPropertyListComponent} from './property/my-property-list/my-property-list.component';
@@ -58,6 +57,8 @@ import {CountryService} from "./services/country.service";
 import {FurnishingTypeService} from "./services/furnishing-type.service";
 import {PropertyTypeService} from "./services/property-type.service";
 import {PropertyService} from "./services/property.service";
+import {HttpErrorInterceptorService} from "./services/interceptors/http-error-interceptor.service";
+import {AuthInterceptor} from "./services/interceptors/auth.interceptor";
 
 const appRoute: Routes = [
     {
@@ -138,6 +139,11 @@ const appRoute: Routes = [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: HttpErrorInterceptorService,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
             multi: true
         },
         HousingService,

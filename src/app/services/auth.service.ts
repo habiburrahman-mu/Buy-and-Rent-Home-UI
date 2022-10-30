@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from '../../environments/environment'
 import {UserForLogin, UserForRegister} from "../model/user";
 import {Observable} from "rxjs";
+import {Router} from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
     baseUrl = environment.baseUrl;
     loggedInUser: string;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
     }
 
     authUser(user: UserForLogin): Observable<any> {
@@ -46,5 +47,6 @@ export class AuthService {
     logOut() {
         localStorage.removeItem('brh-token');
         localStorage.removeItem('brh-userName');
+        this.router.navigate(['login']);
     }
 }

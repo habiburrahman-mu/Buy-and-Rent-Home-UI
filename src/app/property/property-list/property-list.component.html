@@ -1,9 +1,32 @@
-<label>Filter City:&nbsp;  <input type="text" [(ngModel)]="city" pInputText/> </label>
-<p-button label="Search" icon="pi pi-search" (click)="onCityFilter()"></p-button>
-<button pButton pRipple type="button" label="Clear" class="p-button-danger" (click)="onCityFilter(true)"></button>
+
+
+<div class="grid">
+    <div class="col-lg-4 col-md-6">
+        <div class="grid mt-0">
+            <div class="col-lg-1 col-md-2">Filter City:</div>
+            <div class="col-lg-10 col-md-9">
+                <div class="p-inputgroup">
+                    <input type="text" [(ngModel)]="city" pInputText/>
+                    <button pButton pRipple type="button" label="Search" icon="pi pi-search" (click)="onCityFilter()"></button>
+                    <button pButton pRipple type="button" label="Clear" class="p-button-danger" (click)="onCityFilter(true)"></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <label class="me-1">Sort By: </label>
+        <p-dropdown class="me-1" [options]="sortOptions" [(ngModel)]="sortByParameter" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-dropdown>
+        <button type="button" (click)="onSortDirection()" pButton pRipple class="p-button" style="height: 44px;">
+            <i *ngIf="sortDirection==='asc'" class="fas fa-sort-alpha-down"></i>
+            <i *ngIf="sortDirection==='desc'" class="fas fa-sort-alpha-up"></i>
+        </button>
+    </div>
+</div>
+
+
 &nbsp;
-<label>Sort By &nbsp;</label>
-<p-dropdown [options]="sortOptions" [(ngModel)]="sortByParameter" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-dropdown>
+
 
 <!--&nbsp;-->
 <!--<label>Sort By &nbsp;</label>-->
@@ -12,10 +35,7 @@
 <!--    <option value="Price">Price</option>-->
 <!--</select>-->
 &nbsp;
-<button type="button" (click)="onSortDirection()" pButton>
-    <i *ngIf="sortDirection==='asc'" class="fas fa-sort-alpha-down"></i>
-    <i *ngIf="sortDirection==='desc'" class="fas fa-sort-alpha-up"></i>
-</button>
+
 <div class="grid">
     <div *ngFor="let property of properties | filter:searchCity:'City' | sort: [sortByParameter, sortDirection]"
          class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 p-3">

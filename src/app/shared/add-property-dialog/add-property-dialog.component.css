@@ -21,10 +21,26 @@
     border-radius: 4px;
 }
 
+.check-button-over-image {
+    top: -5px;
+    left: -5px;
+    font-size: 20px !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
 .delete-button-over-image {
     top: -5px;
     right: -5px;
-    font-size: 15px !important;;
-    width: 25px !important;;
+    font-size: 15px !important;
+    width: 25px !important;
     height: 25px !important;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+.image-body:hover + .hide {
+    visibility: visible;
 }

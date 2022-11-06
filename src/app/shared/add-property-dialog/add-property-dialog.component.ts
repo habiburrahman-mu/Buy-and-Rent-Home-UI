@@ -53,6 +53,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
     uploadedFiles: any[] = [];
     newFileUrls: File[] = [];
+    primaryPhotoIndex: number = 0;
 
     constructor(private formBuilder: UntypedFormBuilder,
                 private router: Router,
@@ -192,24 +193,6 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         }
     }
 
-    private uploadPhotosToServer(newPropertyId: number) {
-        let formData = new FormData();
-        this.uploadedFiles.forEach((item, index) => {
-            formData.append("Files" + index, item);
-        });
-        this.photoService.uploadPhotos(newPropertyId, formData).subscribe({
-            next: response => {
-                this.showLoader = false;
-                console.log(response);
-            },
-            error: (error: HttpErrorResponse) => {
-                console.log(error);
-                this.showLoader = false;
-
-            }
-        });
-    }
-
     get BasicInfo() {
         return this.addPropertyForm.controls['basicInfo'];
     }
@@ -335,6 +318,10 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         return this.isSubmitted && this.addPropertyForm.invalid;
     }
 
+    markThisPhotoAsPrimary(index: number) {
+        this.primaryPhotoIndex = index;
+    }
+
     onSubmit() {
         this.isSubmitted = true;
         this.addPropertyForm.markAllAsTouched();
@@ -343,7 +330,11 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
             this.mapProperty();
             this.propertyService.addProperty(this.property).subscribe({
                 next: newPropertyId => {
-                    this.uploadPhotosToServer(newPropertyId);
+                    if(this.uploadedFiles.length > 0 ) {
+                        this.uploadPhotosToServer(newPropertyId);
+                    } else {
+                        // do other things
+                    }
                     console.log(newPropertyId);
                 },
                 error: (error: HttpErrorResponse) => {
@@ -355,6 +346,26 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
         console.log(this.addPropertyForm);
         console.log(this.property);
+    }
+
+    private uploadPhotosToServer(newPropertyId: number) {
+        let formData = new FormData();
+        this.uploadedFiles.forEach((item, index) => {
+            formData.append("Files" + index, item);
+        });
+        formData.append("PrimaryPhotoIndex", this.primaryPhotoIndex.toString());
+
+        this.photoService.uploadPhotos(newPropertyId, formData).subscribe({
+            next: response => {
+                this.showLoader = false;
+                console.log(response);
+            },
+            error: (error: HttpErrorResponse) => {
+                console.log(error);
+                this.showLoader = false;
+
+            }
+        });
     }
 
     ngOnDestroy(): void {

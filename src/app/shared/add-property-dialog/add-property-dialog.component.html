@@ -232,6 +232,20 @@
                     <div *ngFor="let fileUrl of newFileUrls; let i = index" class="mt-2 position-relative">
                         <!--                        <img [src]="fileUrl" alt="" height="100px">-->
                         <p-image [src]="fileUrl" alt="" height="100px" [preview]="true" appendTo="body"></p-image>
+                        <button *ngIf="primaryPhotoIndex == i"
+                            pButton pRipple
+                            type="button"
+                            icon="fas fa-check"
+                            class="p-button-rounded p-button-info position-absolute check-button-over-image">
+                        </button>
+                        <button *ngIf="primaryPhotoIndex != i"
+                                pButton pRipple
+                                type="button"
+                                (click)="markThisPhotoAsPrimary(i)"
+                                title="Select this photo as primary"
+                                icon="fas fa-circle"
+                                class="p-button-rounded p-button-info position-absolute check-button-over-image">
+                        </button>
                         <button
                             pButton pRipple
                             type="button"

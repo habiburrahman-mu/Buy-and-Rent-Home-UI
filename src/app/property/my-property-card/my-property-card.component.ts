@@ -1,5 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MenuItem} from "primeng/api";
+import {Property} from "../../model/Property";
 
 @Component({
     selector: 'app-my-property-card',
@@ -7,6 +8,7 @@ import {MenuItem} from "primeng/api";
     styleUrls: ['./my-property-card.component.css']
 })
 export class MyPropertyCardComponent implements OnInit {
+    @Input() propertyData: Property;
     @Output() openPropertyEditDialogEvent = new EventEmitter<boolean>();
     actionItems: MenuItem[];
 

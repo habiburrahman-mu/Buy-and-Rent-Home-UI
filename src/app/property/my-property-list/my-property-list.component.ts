@@ -1,4 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {Property} from "../../model/Property";
+import {PropertyService} from "../../services/property.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'app-my-property-list',
@@ -8,15 +12,37 @@ import {Component, OnInit} from '@angular/core';
 export class MyPropertyListComponent implements OnInit {
 
     showPropertyEditDialog: boolean = false;
+    myPropertyList: Property[] = [];
+    isDataLoading: boolean = false;
 
-    constructor() {
+    constructor(private propertyService: PropertyService,
+                private messageService: MessageService) {
     }
 
     ngOnInit(): void {
+        this.loadMyPropertyList();
+    }
+
+    private loadMyPropertyList() {
+        this.isDataLoading = true;
+        this.propertyService.getMyProperty().subscribe({
+            next: response => {
+                this.myPropertyList = response;
+                this.isDataLoading = false;
+
+            },
+            error: (err: HttpErrorResponse) => {
+                this.isDataLoading = false;
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Data Loading Error!',
+                    detail: 'An Error Occurred while Loading Data'
+                });
+            }
+        });
     }
 
     openPropertyEditDialog() {
         this.showPropertyEditDialog = true;
     }
-
 }

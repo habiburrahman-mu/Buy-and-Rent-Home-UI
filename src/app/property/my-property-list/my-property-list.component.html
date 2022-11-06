@@ -1,9 +1,36 @@
 <div class="card">
     <h5 style="color: var(--blue-500);" fxLayout="row" fxLayoutAlign="start start" fxLayoutAlign.lt-md="center center">
         My Property List</h5>
-    <span *ngFor="let i of [1, 2]">
-        <app-my-property-card (openPropertyEditDialogEvent)="showPropertyEditDialog = true"></app-my-property-card>
-    </span>
+    <ng-container *ngIf="!isDataLoading">
+        <span *ngFor="let property of myPropertyList">
+            <app-my-property-card [propertyData]="property"
+                                  (openPropertyEditDialogEvent)="showPropertyEditDialog = true"></app-my-property-card>
+        </span>
+    </ng-container>
+
+    <div *ngIf="isDataLoading">
+        <div class="card mb-2 p-3">
+            <p-skeleton styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+            <p-skeleton height="2rem" styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="10rem" height="4rem"></p-skeleton>
+        </div>
+        <div class="card mb-2 p-3">
+            <p-skeleton styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+            <p-skeleton height="2rem" styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="10rem" height="4rem"></p-skeleton>
+        </div>
+        <div class="card mb-2 p-3">
+            <p-skeleton styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+            <p-skeleton height="2rem" styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="10rem" height="4rem"></p-skeleton>
+        </div>
+    </div>
 </div>
 <ng-container *ngIf="showPropertyEditDialog">
     <p-dialog header="Add Property" [(visible)]="showPropertyEditDialog" [style]="{'width': '650px'}"

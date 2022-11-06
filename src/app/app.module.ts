@@ -60,6 +60,8 @@ import {PropertyService} from "./services/property.service";
 import {HttpErrorInterceptorService} from "./services/interceptors/http-error-interceptor.service";
 import {AuthInterceptor} from "./services/interceptors/auth.interceptor";
 import {AuthGuard} from "./guards/auth.guard";
+import {ToastModule} from "primeng/toast";
+import {MessageService} from "primeng/api";
 
 const appRoute: Routes = [
     {
@@ -139,7 +141,8 @@ const appRoute: Routes = [
         InputTextareaModule,
         FileUploadModule,
         SpeedDialModule,
-        PasswordModule
+        PasswordModule,
+        ToastModule
     ],
     providers: [
         {
@@ -160,7 +163,8 @@ const appRoute: Routes = [
         PropertyService,
         AlertifyService,
         AuthService,
-        PropertyDetailResolverService
+        PropertyDetailResolverService,
+        MessageService
     ],
     bootstrap: [AppComponent]
 })

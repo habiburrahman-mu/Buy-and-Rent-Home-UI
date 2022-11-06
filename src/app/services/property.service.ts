@@ -22,6 +22,10 @@ export class PropertyService {
         return this.http.get<Property[]>(this.serviceBaseUrl + '/list/' + SellRent.toString());
     }
 
+    getMyProperty(): Observable<Property[]> {
+        return this.http.get<Property[]>(this.serviceBaseUrl + '/myProperty/');
+    }
+
     getProperty(id: number): Observable<Property> {
         return this.http.get<Property>(this.serviceBaseUrl + '/detail/' + id.toString());
     }

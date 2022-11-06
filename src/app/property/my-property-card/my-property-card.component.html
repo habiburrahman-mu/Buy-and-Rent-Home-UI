@@ -6,7 +6,7 @@
 
             <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100 bg-light p-2 shadow-sm">
                 <div>
-                    <h5 class="m-0">$2000</h5>
+                    <h5 class="m-0">${{propertyData.rentPrice}}</h5>
                 </div>
                 <h6 class="text-black-50 m-0">Posted 15 days ago</h6>
             </div>
@@ -14,7 +14,7 @@
         <div fxLayout="row" fxLayout.lt-md="column" fxFlex="70" fxLayoutAlign="space-between center" fxLayoutGap="20px">
             <div fxLayout="column" fxLayoutAlign="space-around start" fxFlex fxLayoutGap="10px">
                 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="w-100">
-                    <h3 class="m-0"> Property Name</h3>
+                    <h3 class="m-0">{{propertyData.name}}</h3>
                     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
                         <button pButton pRipple type="button" icon="fas fa-edit"
                                 class="p-button-rounded p-button-success p-button-raised"
@@ -26,9 +26,9 @@
 
                 <div fxLayout="row" fxLayoutAlign="space-between start" class="w-100">
                     <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
-                        <div><i class="fa-solid fa-bed mr-1" title="Bedroom"></i>3</div>
-                        <div><i class="fa-solid fa-bath mr-1" title="Bathroom"></i>2</div>
-                        <div><i class="fa-solid fa-people-line mr-1" title="Common Space"></i>1</div>
+                        <div><i class="fa-solid fa-bed mr-1" title="Bedroom"></i>{{propertyData.bedroom}}</div>
+                        <div *ngIf="propertyData.bathroom"><i class="fa-solid fa-bath mr-1" title="Bathroom"></i>{{propertyData.bathroom}}</div>
+                        <div *ngIf="propertyData.commonSpace"><i class="fa-solid fa-people-line mr-1" title="Common Space"></i>{{propertyData.commonSpace}}</div>
                     </div>
                     <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="5px">
                         <div><i class="fa-solid fa-truck-ramp-box mr-1"></i>Sell</div>
@@ -39,7 +39,7 @@
 
                 <div><i class="pi pi-bookmark-fill"></i> Dhaka, Bangladesh</div>
                 <div><i class="pi pi-bookmark-fill"></i> Floor No: 4</div>
-                <div><i class="fa-solid fa-square mr-1" title="Area"></i>1024 Ft.<sup>2</sup></div>
+                <div><i class="fa-solid fa-square mr-1" title="Area"></i>{{propertyData.area}} Ft.<sup>2</sup></div>
             </div>
         </div>
 

@@ -62,6 +62,8 @@ import {AuthInterceptor} from "./services/interceptors/auth.interceptor";
 import {AuthGuard} from "./guards/auth.guard";
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
+import {GalleriaModule} from "primeng/galleria";
+import {DividerModule} from "primeng/divider";
 
 const appRoute: Routes = [
     {
@@ -145,7 +147,9 @@ const appRoute: Routes = [
         FileUploadModule,
         SpeedDialModule,
         PasswordModule,
-        ToastModule
+        ToastModule,
+        GalleriaModule,
+        DividerModule
     ],
     providers: [
         {

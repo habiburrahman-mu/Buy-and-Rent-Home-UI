@@ -4,20 +4,20 @@ import {Property} from "../../model/Property";
 import {catchError, Observable, of} from "rxjs";
 import {HousingService} from "../../services/housing.service";
 import {PropertyService} from "../../services/property.service";
+import {PropertyDetailDto} from "../../model/propertyDetailDto";
 
 @Injectable({
     providedIn: 'root'
 })
-export class PropertyDetailResolverService implements Resolve<Property> {
+export class PropertyDetailResolverService implements Resolve<PropertyDetailDto | null> {
 
     constructor(private router: Router,
                 private propertyService: PropertyService) {
     }
 
-    // @ts-ignore
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Property | null> | Promise<Property> | Property {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PropertyDetailDto | null> | Promise<PropertyDetailDto> | PropertyDetailDto {
         const propertyId = route.params['id'];
-        return this.propertyService.getProperty(propertyId).pipe(catchError(error => {
+        return this.propertyService.getPropertyDetail(propertyId).pipe(catchError(error => {
             this.router.navigate(['/']);
             return of(null);
         }));

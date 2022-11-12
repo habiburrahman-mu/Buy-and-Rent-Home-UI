@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Property} from "../../model/Property";
 import {PropertyService} from "../../services/property.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "primeng/api";
+import {PropertyListDto} from "../../model/propertyListDto";
 
 @Component({
     selector: 'app-my-property-list',
@@ -12,7 +12,7 @@ import {MessageService} from "primeng/api";
 export class MyPropertyListComponent implements OnInit {
 
     showPropertyEditDialog: boolean = false;
-    myPropertyList: Property[] = [];
+    myPropertyList: PropertyListDto[] = [];
     isDataLoading: boolean = false;
 
     constructor(private propertyService: PropertyService,

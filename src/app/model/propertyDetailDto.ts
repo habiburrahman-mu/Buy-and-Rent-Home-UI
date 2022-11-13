@@ -10,9 +10,12 @@ export interface PropertyDetailDto extends PropertyListDto {
     totalFloor: number;
     floor: number;
     landmark: string;
+    cityLattitude: number;
+    cityLongitude: number;
     otherCost: number | null;
     gym: boolean;
     parking: boolean;
     swimmingPool: boolean;
     description: string;
+
 }

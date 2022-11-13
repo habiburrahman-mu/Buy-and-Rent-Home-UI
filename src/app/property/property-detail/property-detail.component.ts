@@ -21,21 +21,6 @@ export class PropertyDetailComponent {
 
     photos: PhotoDto[] = [];
 
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '1024px',
-            numVisible: 5
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
-    ];
-
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 private propertyService: PropertyService,
@@ -53,77 +38,6 @@ export class PropertyDetailComponent {
         this.route.data.subscribe((data: any) => {
             this.propertyData = data['property'];
         });
-
-        // this.photos = [
-        //     {"imageSrc": "/assets/images/internal-1.jpg"},
-        //     {"imageSrc": "/assets/images/internal-2.png"},
-        //     {"imageSrc": "/assets/images/internal-3.jpg"},
-        //     {"imageSrc": "/assets/images/internal-4.jpg"},
-        //     {"imageSrc": "/assets/images/internal-1.jpg"},
-        //     {"imageSrc": "/assets/images/internal-2.png"},
-        //     {"imageSrc": "/assets/images/internal-3.jpg"},
-        //     {"imageSrc": "/assets/images/internal-4.jpg"},
-        //     {"imageSrc": "/assets/images/internal-1.jpg"},
-        //     {"imageSrc": "/assets/images/internal-2.png"},
-        //     {"imageSrc": "/assets/images/internal-3.jpg"},
-        //     {"imageSrc": "/assets/images/internal-4.jpg"},
-        //     {"imageSrc": "/assets/images/internal-1.jpg"},
-        //     {"imageSrc": "/assets/images/internal-2.png"},
-        //     {"imageSrc": "/assets/images/internal-3.jpg"},
-        //     {"imageSrc": "/assets/images/internal-4.jpg"},
-        //     {"imageSrc": "/assets/images/internal-1.jpg"},
-        //     {"imageSrc": "/assets/images/internal-2.png"},
-        //     {"imageSrc": "/assets/images/internal-3.jpg"},
-        //     {"imageSrc": "/assets/images/internal-4.jpg"},
-        //     {"imageSrc": "/assets/images/internal-1.jpg"},
-        //     {"imageSrc": "/assets/images/internal-2.png"},
-        //     {"imageSrc": "/assets/images/internal-3.jpg"},
-        //     {"imageSrc": "/assets/images/internal-4.jpg"},
-        //     {"imageSrc": "/assets/images/internal-1.jpg"},
-        //     {"imageSrc": "/assets/images/internal-2.png"},
-        //     {"imageSrc": "/assets/images/internal-3.jpg"},
-        //     {"imageSrc": "/assets/images/internal-4.jpg"},
-        //     {"imageSrc": "/assets/images/internal-1.jpg"},
-        //     {"imageSrc": "/assets/images/internal-2.png"},
-        //     {"imageSrc": "/assets/images/internal-3.jpg"},
-        //     {"imageSrc": "/assets/images/internal-4.jpg"},
-        //
-        // ]
-        //
-        //
-        //
-        //     // this.galleryOptions = [
-        //     //     {
-        //     //         width: '100%',
-        //     //         height: '400px',
-        //     //         thumbnailsColumns: 4,
-        //     //         imageAnimation: NgxGalleryAnimation.Slide
-        //     //     }
-        //     // ];
-        //     //
-        //     // this.galleryImages = [
-        //     //     {
-        //     //         small: '/assets/images/internal-1.jpg',
-        //     //         medium: '/assets/images/internal-1.jpg',
-        //     //         big: '/assets/images/internal-1.jpg'
-        //     //     },
-        //     //     {
-        //     //         small: '/assets/images/internal-2.png',
-        //     //         medium: '/assets/images/internal-2.png',
-        //     //         big: '/assets/images/internal-2.png'
-        //     //     },
-        //     //     {
-        //     //         small: '/assets/images/internal-3.jpg',
-        //     //         medium: '/assets/images/internal-3.jpg',
-        //     //         big: '/assets/images/internal-3.jpg'
-        //     //     },
-        //     //     {
-        //     //         small: '/assets/images/internal-4.jpg',
-        //     //         medium: '/assets/images/internal-4.jpg',
-        //     //         big: '/assets/images/internal-4.jpg'
-        //     //     }
-        //     // ];
-        //
     }
 
     loadPropertyImages() {

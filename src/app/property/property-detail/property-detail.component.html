@@ -69,7 +69,7 @@
                 <div>
                     <h5 class="m-0">${{propertyData.rentPrice}}</h5>
                 </div>
-                <h6 class="text-black-50 m-0">Posted 15 days ago</h6>
+                <h6 class="text-black-50 m-0">Posted {{propertyData.postedOn | dateAgo}}</h6>
             </div>
         </div>
     </div>
@@ -78,7 +78,4 @@
         <span *ngIf="propertyData.description; else noDescription">{{propertyData.description}}</span>
         <ng-template #noDescription>No Description</ng-template>
     </div>
-
-    <!--    Habibur Rahman-->
-    <!--    {{property | json}}-->
 </div>

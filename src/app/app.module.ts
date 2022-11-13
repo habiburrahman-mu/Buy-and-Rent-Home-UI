@@ -64,6 +64,7 @@ import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
 import {GalleriaModule} from "primeng/galleria";
 import {DividerModule} from "primeng/divider";
+import { DateAgoPipe } from './Pipes/date-ago.pipe';
 
 const appRoute: Routes = [
     {
@@ -109,7 +110,8 @@ const appRoute: Routes = [
         SortPipe,
         MyPropertyListComponent,
         AddPropertyDialogComponent,
-        MyPropertyCardComponent
+        MyPropertyCardComponent,
+        DateAgoPipe
     ],
     imports: [
         BrowserModule,

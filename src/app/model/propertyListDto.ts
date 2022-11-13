@@ -11,4 +11,5 @@ export interface PropertyListDto {
     city: string;
     country: string;
     readyToMove: boolean;
+    postedOn: string;
 }

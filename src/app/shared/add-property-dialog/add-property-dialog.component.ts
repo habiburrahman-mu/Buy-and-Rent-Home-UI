@@ -334,6 +334,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
                         this.uploadPhotosToServer(newPropertyId);
                     } else {
                         // do other things
+                        this.showLoader = false;
                     }
                     console.log(newPropertyId);
                 },

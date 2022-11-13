@@ -8,7 +8,7 @@
                 <div>
                     <h5 class="m-0">${{propertyData.rentPrice}}</h5>
                 </div>
-                <h6 class="text-black-50 m-0">Posted 15 days ago</h6>
+                <h6 class="text-black-50 m-0">Posted {{propertyData.postedOn | dateAgo}}</h6>
             </div>
         </div>
         <div fxLayout="row" fxLayout.lt-md="column" fxFlex="70" fxLayoutAlign="space-between center" fxLayoutGap="20px">

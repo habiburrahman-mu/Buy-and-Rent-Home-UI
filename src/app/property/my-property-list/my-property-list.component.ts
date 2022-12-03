@@ -14,6 +14,7 @@ export class MyPropertyListComponent implements OnInit {
     showPropertyEditDialog: boolean = false;
     myPropertyList: PropertyListDto[] = [];
     isDataLoading: boolean = false;
+    idForEditProperty = 0;
 
     constructor(private propertyService: PropertyService,
                 private messageService: MessageService) {
@@ -42,7 +43,8 @@ export class MyPropertyListComponent implements OnInit {
         });
     }
 
-    openPropertyEditDialog() {
+    openPropertyEditDialog(propertyId = 0) {
         this.showPropertyEditDialog = true;
+        this.idForEditProperty = propertyId;
     }
 }

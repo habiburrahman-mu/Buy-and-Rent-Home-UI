@@ -20,6 +20,8 @@ import {PropertyTypeService} from "../../services/property-type.service";
 import {PropertyService} from "../../services/property.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {PhotoService} from "../../services/photo.service";
+import {PropertyDetailDto} from "../../model/propertyDetailDto";
+import {forkJoin, Observable, of, Subscription} from "rxjs";
 
 @Component({
     selector: 'app-add-property-dialog',
@@ -29,11 +31,13 @@ import {PhotoService} from "../../services/photo.service";
 
 
 export class AddPropertyDialogComponent implements OnInit, OnDestroy {
+    @Input() editPropertyId = 0;
     @ViewChild('fileUpload') fileUpload: FileUpload;
     @ViewChild('tabView') tabView: TabView;
 
     addPropertyForm!: FormGroup<IAddEditPropertyForm>;
     property = new Property();
+    propertyDetail: PropertyDetailDto;
 
     numOfTabs = 4;
     tabIndex: number;
@@ -41,9 +45,9 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
     isSubmitted: boolean = false;
 
-    sellRentOptions: Array<{ label: string, value: string }> = [
-        {label: 'Sell', value: '1'},
-        {label: 'Rent', value: '2'}
+    sellRentOptions: Array<{ label: string, value: number }> = [
+        {label: 'Sell', value: 1},
+        {label: 'Rent', value: 2}
     ];
 
     propertyTypeOptions: IKeyValuePair[];
@@ -75,19 +79,74 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
         this.tabIndex = 0;
 
-        this.propertyTypeService.getPropertyTypes().subscribe(data => {
-            this.showLoader = false;
-            this.propertyTypeOptions = data;
+        forkJoin([
+            this.propertyTypeService.getPropertyTypes(),
+            this.furnishingTypeService.getFurnishingTypes(),
+            this.countryService.getAllCountries(),
+            this.propertyDetailSubscription()
+        ]).subscribe({
+            next: result => {
+                this.showLoader = false;
+                this.propertyTypeOptions = result[0];
+                this.furnishTypeOptions = result[1];
+                result[2].map(item => {
+                    this.countryList.push({label: item.name, value: item.id});
+                });
+                if(result[3]) {
+                    let propertyDetail = result[3];
+                    this.propertyDetail = propertyDetail;
+                    this.cityService.getAllCityByCountry(propertyDetail.countryId).subscribe(data => {
+                        data.map(item => {
+                            this.cityList.push({label: item.name, value: item.id});
+                        });
+                        this.showLoader = false;
+                        this.bindDataToForm();
+                    });
+                } else {
+                    this.showLoader = false;
+                }
+            },
+            error: err => {
+                this.showLoader = false;
+            }
         });
+    }
 
-        this.furnishingTypeService.getFurnishingTypes().subscribe(data => {
-            this.furnishTypeOptions = data;
-        });
+    propertyDetailSubscription() {
+        if(this.editPropertyId > 0) {
+            return this.propertyService.getPropertyDetail(this.editPropertyId);
+        }
+        return of(null);
+    }
 
-        this.countryService.getAllCountries().subscribe(data => {
-            data.map(item => {
-                this.countryList.push({label: item.name, value: item.id});
-            });
+    bindDataToForm() {
+        this.addPropertyForm.setValue({
+            basicInfo: {
+                propertyName: this.propertyDetail.name,
+                sellRent: this.propertyDetail.sellRent,
+                propertyType: this.propertyDetail.propertyTypeId,
+                furnishType: this.propertyDetail.furnishingTypeId,
+                bedroom: this.propertyDetail.bedroom,
+                bathroom: this.propertyDetail.bathroom,
+                commonSpace: this.propertyDetail.commonSpace,
+            },
+            addressPricing: {
+                country: this.propertyDetail.countryId,
+                city: this.propertyDetail.cityId,
+                streetAddress: this.propertyDetail.streetAddress,
+                totalFloor: this.propertyDetail.totalFloor,
+                floor: this.propertyDetail.floor,
+                landmark: this.propertyDetail.landmark,
+                area: this.propertyDetail.area,
+                price: this.propertyDetail.rentPrice,
+                otherCost: this.propertyDetail.otherCost,
+            },
+            others: {
+                gym: this.propertyDetail.gym,
+                parking: this.propertyDetail.parking,
+                swimmingPool: this.propertyDetail.swimmingPool,
+                description: this.propertyDetail.description,
+            }
         });
     }
 
@@ -325,12 +384,12 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     onSubmit() {
         this.isSubmitted = true;
         this.addPropertyForm.markAllAsTouched();
-        if(this.addPropertyForm.valid) {
+        if (this.addPropertyForm.valid) {
             this.showLoader = true;
             this.mapProperty();
             this.propertyService.addProperty(this.property).subscribe({
                 next: newPropertyId => {
-                    if(this.uploadedFiles.length > 0 ) {
+                    if (this.uploadedFiles.length > 0) {
                         this.uploadPhotosToServer(newPropertyId);
                     } else {
                         // do other things

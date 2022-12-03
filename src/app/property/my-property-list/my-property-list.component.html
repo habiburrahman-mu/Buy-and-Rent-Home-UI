@@ -4,7 +4,7 @@
     <ng-container *ngIf="!isDataLoading">
         <span *ngFor="let property of myPropertyList">
             <app-my-property-card [propertyData]="property"
-                                  (openPropertyEditDialogEvent)="showPropertyEditDialog = true"></app-my-property-card>
+                                  (openPropertyEditDialogEvent)="openPropertyEditDialog(property.id)"></app-my-property-card>
         </span>
     </ng-container>
 
@@ -36,6 +36,6 @@
     <p-dialog header="Add Property" [(visible)]="showPropertyEditDialog" [style]="{'width': '650px'}"
               (onHide)="showPropertyEditDialog = false"
               appendTo="body" [modal]="true">
-        <app-add-property-dialog></app-add-property-dialog>
+        <app-add-property-dialog [editPropertyId]="idForEditProperty"></app-add-property-dialog>
     </p-dialog>
 </ng-container>

@@ -7,7 +7,7 @@ import {
 import {Router} from "@angular/router";
 import {HousingService} from "../../services/housing.service";
 import {AlertifyService} from "../../services/alertify.service";
-import {PrimeNGConfig} from "primeng/api";
+import {ConfirmationService, PrimeNGConfig} from "primeng/api";
 import {IKeyValuePair} from "../../model/ikeyvaluepair";
 import {FileUpload} from "primeng/fileupload";
 import {TabView} from "primeng/tabview";
@@ -22,6 +22,8 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {PhotoService} from "../../services/photo.service";
 import {PropertyDetailDto} from "../../model/propertyDetailDto";
 import {forkJoin, Observable, of, Subscription} from "rxjs";
+import {PhotoDto} from "../../model/photoDto";
+import {environment} from "../../../environments/environment";
 
 @Component({
     selector: 'app-add-property-dialog',
@@ -31,6 +33,7 @@ import {forkJoin, Observable, of, Subscription} from "rxjs";
 
 
 export class AddPropertyDialogComponent implements OnInit, OnDestroy {
+    staticFileUrl: string = environment.baseUrl + '/staticfiles';
     @Input() editPropertyId = 0;
     @ViewChild('fileUpload') fileUpload: FileUpload;
     @ViewChild('tabView') tabView: TabView;
@@ -38,12 +41,14 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     addPropertyForm!: FormGroup<IAddEditPropertyForm>;
     property = new Property();
     propertyDetail: PropertyDetailDto;
+    existingPhotos: ExistingPhotoDto[] = [];
 
     numOfTabs = 4;
     tabIndex: number;
     showLoader: boolean = false;
 
     isSubmitted: boolean = false;
+    isPhotoGalleryModified = false;
 
     sellRentOptions: Array<{ label: string, value: number }> = [
         {label: 'Sell', value: 1},
@@ -57,7 +62,9 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
     uploadedFiles: any[] = [];
     newFileUrls: File[] = [];
-    primaryPhotoIndex: number = 0;
+    isPrimaryPhotoFromExistingImages: boolean = false;
+    primaryPhotoIdOrIndex: number = 0;
+    deletedExistingPhotos: number[] = [];
 
     constructor(private formBuilder: UntypedFormBuilder,
                 private router: Router,
@@ -69,7 +76,8 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
                 private furnishingTypeService: FurnishingTypeService,
                 private propertyTypeService: PropertyTypeService,
                 private propertyService: PropertyService,
-                private photoService: PhotoService) {
+                private photoService: PhotoService,
+                private confirmationService: ConfirmationService) {
     }
 
     ngOnInit(): void {
@@ -83,7 +91,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
             this.propertyTypeService.getPropertyTypes(),
             this.furnishingTypeService.getFurnishingTypes(),
             this.countryService.getAllCountries(),
-            this.propertyDetailSubscription()
+            this.propertyDetailSubscription(),
         ]).subscribe({
             next: result => {
                 this.showLoader = false;
@@ -92,7 +100,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
                 result[2].map(item => {
                     this.countryList.push({label: item.name, value: item.id});
                 });
-                if(result[3]) {
+                if (result[3]) {
                     let propertyDetail = result[3];
                     this.propertyDetail = propertyDetail;
                     this.cityService.getAllCityByCountry(propertyDetail.countryId).subscribe(data => {
@@ -102,18 +110,29 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
                         this.showLoader = false;
                         this.bindDataToForm();
                     });
-                } else {
-                    this.showLoader = false;
+                    if (this.propertyDetail.photos.length > 0) {
+                        this.isPrimaryPhotoFromExistingImages = true;
+                        this.existingPhotos = this.propertyDetail.photos.map(photo => {
+                            if (photo.isPrimary) {
+                                this.primaryPhotoIdOrIndex = photo.id;
+                            }
+                            return {...photo, isDeleted: false};
+                        });
+                    }
                 }
             },
             error: err => {
                 this.showLoader = false;
+            },
+            complete: () => {
+                this.showLoader = false;
+                console.log(this.existingPhotos);
             }
         });
     }
 
     propertyDetailSubscription() {
-        if(this.editPropertyId > 0) {
+        if (this.editPropertyId > 0) {
             return this.propertyService.getPropertyDetail(this.editPropertyId);
         }
         return of(null);
@@ -228,9 +247,29 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         // this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
     }
 
+    deletePhotoFromExistingPhotoList(id: number) {
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to delete this photo?',
+            header: 'Delete Existing Photo',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                let deletedItem = this.existingPhotos.find(item => item.id === id);
+                if (deletedItem) {
+                    deletedItem.isDeleted = true;
+                    this.deletedExistingPhotos.push(deletedItem.id);
+                    if (this.isPrimaryPhotoFromExistingImages && this.primaryPhotoIdOrIndex === id) {
+                        this.primaryPhotoIdOrIndex = -1;
+                    }
+                    this.isPhotoGalleryModified = true;
+                }
+            }
+        });
+    }
+
     deleteFileFromNewFileUrlList(i: number) {
         this.newFileUrls.splice(i, 1);
         this.uploadedFiles.splice(i, 1);
+        this.isPhotoGalleryModified = true;
     }
 
 
@@ -238,6 +277,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         console.log(this.fileUpload.files);
         if (this.fileUpload.files.length > 0) {
             for (let i = 0; i < this.fileUpload.files.length; i++) {
+                this.isPhotoGalleryModified = true;
                 this.uploadedFiles.push(this.fileUpload.files[i]);
                 console.log(this.fileUpload.files[i]);
                 let reader = new FileReader();
@@ -250,6 +290,67 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
             this.fileUpload.clear();
         }
+    }
+
+
+    markThisPhotoAsPrimary(index: number, existingOrNew: 'existing' | 'new') {
+        this.isPhotoGalleryModified = true;
+        this.isPrimaryPhotoFromExistingImages = existingOrNew === "existing";
+        this.primaryPhotoIdOrIndex = index;
+    }
+
+    onSubmit() {
+        this.isSubmitted = true;
+        this.addPropertyForm.markAllAsTouched();
+        if ((this.uploadedFiles.length || this.existingPhotos.length) && this.primaryPhotoIdOrIndex === -1) {
+            this.alertify.error("Select primary photo");
+            return;
+        }
+        if (this.addPropertyForm.valid) {
+            this.showLoader = true;
+            this.mapProperty();
+            this.propertyService.addProperty(this.property).subscribe({
+                next: newPropertyId => {
+                    // if (this.uploadedFiles.length > 0) {
+                    if (this.isPhotoGalleryModified) {
+                        this.uploadPhotosToServer(newPropertyId);
+                    } else {
+                        // do other things
+                        this.showLoader = false;
+                    }
+                    console.log(newPropertyId);
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.showLoader = false;
+                    console.log(error);
+                }
+            })
+        }
+
+        console.log(this.addPropertyForm);
+        console.log(this.property);
+    }
+
+    private uploadPhotosToServer(newPropertyId: number) {
+        let formData = new FormData();
+        this.uploadedFiles.forEach((item, index) => {
+            formData.append("Files" + index, item);
+        });
+        formData.append("IsPrimaryPhotoFromExistingImages", this.isPrimaryPhotoFromExistingImages.toString());
+        formData.append("PrimaryPhotoIdOrIndex", this.primaryPhotoIdOrIndex.toString());
+        formData.append("DeletedPhotosId", this.deletedExistingPhotos.toString());
+
+        this.photoService.uploadPhotos(newPropertyId, formData).subscribe({
+            next: response => {
+                this.showLoader = false;
+                console.log(response);
+            },
+            error: (error: HttpErrorResponse) => {
+                console.log(error);
+                this.showLoader = false;
+
+            }
+        });
     }
 
     get BasicInfo() {
@@ -349,6 +450,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     }
 
     mapProperty() {
+        this.property.id = this.propertyDetail.id ?? 0;
         this.property.sellRent = this.sellRent.value!;
         this.property.name = this.propertyName.value!;
         this.property.propertyTypeId = this.propertyType.value!;
@@ -377,60 +479,13 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         return this.isSubmitted && this.addPropertyForm.invalid;
     }
 
-    markThisPhotoAsPrimary(index: number) {
-        this.primaryPhotoIndex = index;
-    }
-
-    onSubmit() {
-        this.isSubmitted = true;
-        this.addPropertyForm.markAllAsTouched();
-        if (this.addPropertyForm.valid) {
-            this.showLoader = true;
-            this.mapProperty();
-            this.propertyService.addProperty(this.property).subscribe({
-                next: newPropertyId => {
-                    if (this.uploadedFiles.length > 0) {
-                        this.uploadPhotosToServer(newPropertyId);
-                    } else {
-                        // do other things
-                        this.showLoader = false;
-                    }
-                    console.log(newPropertyId);
-                },
-                error: (error: HttpErrorResponse) => {
-                    this.showLoader = false;
-                    console.log(error);
-                }
-            })
-        }
-
-        console.log(this.addPropertyForm);
-        console.log(this.property);
-    }
-
-    private uploadPhotosToServer(newPropertyId: number) {
-        let formData = new FormData();
-        this.uploadedFiles.forEach((item, index) => {
-            formData.append("Files" + index, item);
-        });
-        formData.append("PrimaryPhotoIndex", this.primaryPhotoIndex.toString());
-
-        this.photoService.uploadPhotos(newPropertyId, formData).subscribe({
-            next: response => {
-                this.showLoader = false;
-                console.log(response);
-            },
-            error: (error: HttpErrorResponse) => {
-                console.log(error);
-                this.showLoader = false;
-
-            }
-        });
-    }
-
     ngOnDestroy(): void {
         this.fileUpload.clear();
         this.uploadedFiles = [];
         this.newFileUrls = [];
     }
+}
+
+interface ExistingPhotoDto extends PhotoDto {
+    isDeleted: boolean;
 }

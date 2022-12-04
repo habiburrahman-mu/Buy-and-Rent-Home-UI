@@ -61,10 +61,11 @@ import {HttpErrorInterceptorService} from "./services/interceptors/http-error-in
 import {AuthInterceptor} from "./services/interceptors/auth.interceptor";
 import {AuthGuard} from "./guards/auth.guard";
 import {ToastModule} from "primeng/toast";
-import {MessageService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 import {GalleriaModule} from "primeng/galleria";
 import {DividerModule} from "primeng/divider";
 import { DateAgoPipe } from './Pipes/date-ago.pipe';
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 const appRoute: Routes = [
     {
@@ -151,7 +152,8 @@ const appRoute: Routes = [
         PasswordModule,
         ToastModule,
         GalleriaModule,
-        DividerModule
+        DividerModule,
+        ConfirmDialogModule
     ],
     providers: [
         {
@@ -173,7 +175,8 @@ const appRoute: Routes = [
         AlertifyService,
         AuthService,
         PropertyDetailResolverService,
-        MessageService
+        MessageService,
+        ConfirmationService
     ],
     bootstrap: [AppComponent]
 })

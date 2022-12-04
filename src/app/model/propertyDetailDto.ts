@@ -1,4 +1,5 @@
 import { PropertyListDto } from "./propertyListDto";
+import {PhotoDto} from "./photoDto";
 
 export interface PropertyDetailDto extends PropertyListDto {
     sellRent: number;
@@ -17,5 +18,6 @@ export interface PropertyDetailDto extends PropertyListDto {
     parking: boolean;
     swimmingPool: boolean;
     description: string;
+    photos: Array<PhotoDto>;
 
 }

@@ -228,20 +228,53 @@
                     [showCancelButton]="false">
                 </p-fileUpload>
                 <div fxLayout="row wrap" fxLayoutAlign="space-evenly start" fxLayoutGap="10px"
+                     class="showUploadfiles-brh"
+                     *ngIf="existingPhotos.length && deletedExistingPhotos.length !== existingPhotos.length">
+                    <ng-container *ngFor="let photo of existingPhotos">
+                        <!--                        <img [src]="fileUrl" alt="" height="100px">-->
+                        <div class="mt-2 position-relative" *ngIf="!photo.isDeleted">
+                            <p-image [src]="staticFileUrl + '/' + photo.imageUrl" alt="" height="100px" [preview]="true"
+                                     appendTo="body"></p-image>
+                            <button *ngIf="isPrimaryPhotoFromExistingImages && primaryPhotoIdOrIndex === photo.id"
+                                    pButton pRipple
+                                    type="button"
+                                    icon="fas fa-check"
+                                    class="p-button-rounded p-button-info position-absolute check-button-over-image">
+                            </button>
+                            <button *ngIf="!isPrimaryPhotoFromExistingImages || primaryPhotoIdOrIndex !== photo.id"
+                                    pButton pRipple
+                                    type="button"
+                                    (click)="markThisPhotoAsPrimary(photo.id, 'existing')"
+                                    title="Select this photo as primary"
+                                    icon="fas fa-circle"
+                                    class="p-button-rounded p-button-info position-absolute check-button-over-image">
+                            </button>
+                            <button
+                                pButton pRipple
+                                type="button"
+                                (click)="deletePhotoFromExistingPhotoList(photo.id)"
+                                icon="fas fa-times"
+                                class="p-button-rounded p-button-danger position-absolute delete-button-over-image">
+                            </button>
+                        </div>
+
+                    </ng-container>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-evenly start" fxLayoutGap="10px"
                      class="showUploadfiles-brh" *ngIf="newFileUrls.length">
                     <div *ngFor="let fileUrl of newFileUrls; let i = index" class="mt-2 position-relative">
                         <!--                        <img [src]="fileUrl" alt="" height="100px">-->
                         <p-image [src]="fileUrl" alt="" height="100px" [preview]="true" appendTo="body"></p-image>
-                        <button *ngIf="primaryPhotoIndex == i"
-                            pButton pRipple
-                            type="button"
-                            icon="fas fa-check"
-                            class="p-button-rounded p-button-info position-absolute check-button-over-image">
-                        </button>
-                        <button *ngIf="primaryPhotoIndex != i"
+                        <button *ngIf="!isPrimaryPhotoFromExistingImages && primaryPhotoIdOrIndex === i"
                                 pButton pRipple
                                 type="button"
-                                (click)="markThisPhotoAsPrimary(i)"
+                                icon="fas fa-check"
+                                class="p-button-rounded p-button-info position-absolute check-button-over-image">
+                        </button>
+                        <button *ngIf="isPrimaryPhotoFromExistingImages || primaryPhotoIdOrIndex !== i"
+                                pButton pRipple
+                                type="button"
+                                (click)="markThisPhotoAsPrimary(i, 'new')"
                                 title="Select this photo as primary"
                                 icon="fas fa-circle"
                                 class="p-button-rounded p-button-info position-absolute check-button-over-image">
@@ -261,7 +294,8 @@
 </form>
 <div fxLayout="row" fxLayoutAlign="space-between end" fxLayoutGap="2px">
     <div>
-        <span class="text-danger" *ngIf="isSubmittedAndFormInvalid"><h6>Provide all required information please</h6></span>
+        <span class="text-danger"
+              *ngIf="isSubmittedAndFormInvalid"><h6>Provide all required information please</h6></span>
     </div>
     <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2px">
         <!--        <p-button icon="pi pi-check" (click)="closeAddPropertyDialog()" label="Ok"-->
@@ -272,6 +306,4 @@
         <p-button label="Submit" (click)="onSubmit()" *ngIf="tabIndex == numOfTabs - 1"></p-button>
     </div>
 </div>
-
-
-
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>

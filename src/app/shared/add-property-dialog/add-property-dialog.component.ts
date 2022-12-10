@@ -35,6 +35,7 @@ import {environment} from "../../../environments/environment";
 export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     staticFileUrl: string = environment.baseUrl + '/staticfiles';
     @Input() editPropertyId = 0;
+    @Output() closeAddPropertyDialogEvent = new EventEmitter<boolean>();
     @ViewChild('fileUpload') fileUpload: FileUpload;
     @ViewChild('tabView') tabView: TabView;
 
@@ -317,6 +318,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
                     } else {
                         // do other things
                         this.showLoader = false;
+                        this.closeAddPropertyDialogEvent.emit(true);
                     }
                     console.log(newPropertyId);
                 },
@@ -324,7 +326,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
                     this.showLoader = false;
                     console.log(error);
                 }
-            })
+            });
         }
 
         console.log(this.addPropertyForm);
@@ -344,6 +346,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
             next: response => {
                 this.showLoader = false;
                 console.log(response);
+                this.closeAddPropertyDialogEvent.emit(true);
             },
             error: (error: HttpErrorResponse) => {
                 console.log(error);
@@ -450,7 +453,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     }
 
     mapProperty() {
-        this.property.id = this.propertyDetail.id ?? 0;
+        this.property.id = this.propertyDetail?.id ?? 0;
         this.property.sellRent = this.sellRent.value!;
         this.property.name = this.propertyName.value!;
         this.property.propertyTypeId = this.propertyType.value!;

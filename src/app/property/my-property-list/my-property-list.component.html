@@ -1,6 +1,13 @@
 <div class="card">
-    <h5 style="color: var(--blue-500);" fxLayout="row" fxLayoutAlign="start start" fxLayoutAlign.lt-md="center center">
-        My Property List</h5>
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-2">
+        <h5 class="m-0" style="color: var(--blue-500);" fxLayout="row" fxLayoutAlign="start start"
+            fxLayoutAlign.lt-md="center center">
+            My Property List
+        </h5>
+        <button pButton pRipple type="button" icon="pi pi-plus" style="background-color: var(--blue-500);"
+                (click)="openPropertyEditDialog()"></button>
+    </div>
+
     <ng-container *ngIf="!isDataLoading">
         <span *ngFor="let property of myPropertyList">
             <app-my-property-card [propertyData]="property"
@@ -36,6 +43,6 @@
     <p-dialog header="Add Property" [(visible)]="showPropertyEditDialog" [style]="{'width': '650px'}"
               (onHide)="showPropertyEditDialog = false"
               appendTo="body" [modal]="true">
-        <app-add-property-dialog [editPropertyId]="idForEditProperty"></app-add-property-dialog>
+        <app-add-property-dialog [editPropertyId]="idForEditProperty" (closeAddPropertyDialogEvent)="onClosePropertyAddDialog($event)"></app-add-property-dialog>
     </p-dialog>
 </ng-container>

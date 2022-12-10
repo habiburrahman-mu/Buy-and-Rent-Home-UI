@@ -47,4 +47,11 @@ export class MyPropertyListComponent implements OnInit {
         this.showPropertyEditDialog = true;
         this.idForEditProperty = propertyId;
     }
+
+    onClosePropertyAddDialog(isClosing: boolean) {
+        if(isClosing) {
+            this.showPropertyEditDialog = false;
+            this.loadMyPropertyList();
+        }
+    }
 }

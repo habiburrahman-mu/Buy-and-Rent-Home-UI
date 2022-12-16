@@ -3,6 +3,7 @@ import {PropertyService} from "../../services/property.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "primeng/api";
 import {PropertyListDto} from "../../model/propertyListDto";
+import {PaginationParameter} from "../../model/PaginationParameter";
 
 @Component({
     selector: 'app-my-property-list',
@@ -16,6 +17,8 @@ export class MyPropertyListComponent implements OnInit {
     isDataLoading: boolean = false;
     idForEditProperty = 0;
 
+    rowsPerPageOptions: number[] = [5, 10, 20, 30];
+
     constructor(private propertyService: PropertyService,
                 private messageService: MessageService) {
     }
@@ -26,9 +29,17 @@ export class MyPropertyListComponent implements OnInit {
 
     private loadMyPropertyList() {
         this.isDataLoading = true;
-        this.propertyService.getMyProperty().subscribe({
+        let paginationParams: PaginationParameter = {
+            currentPageNo: 2,
+            pageSize: 5,
+            sortBy: '',
+            isDescending: false,
+            searchField: '',
+            searchingText: ''
+        }
+        this.propertyService.getMyPropertyPaginatedList(paginationParams).subscribe({
             next: response => {
-                this.myPropertyList = response;
+                this.myPropertyList = response.resultList;
                 this.isDataLoading = false;
 
             },

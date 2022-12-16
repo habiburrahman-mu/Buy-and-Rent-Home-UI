@@ -13,6 +13,10 @@
             <app-my-property-card [propertyData]="property"
                                   (openPropertyEditDialogEvent)="openPropertyEditDialog(property.id)"></app-my-property-card>
         </span>
+        <div>
+            <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="rowsPerPageOptions"
+                         dropdownAppendTo="body"></p-paginator>
+        </div>
     </ng-container>
 
     <div *ngIf="isDataLoading">
@@ -43,6 +47,7 @@
     <p-dialog header="Add Property" [(visible)]="showPropertyEditDialog" [style]="{'width': '650px'}"
               (onHide)="showPropertyEditDialog = false"
               appendTo="body" [modal]="true">
-        <app-add-property-dialog [editPropertyId]="idForEditProperty" (closeAddPropertyDialogEvent)="onClosePropertyAddDialog($event)"></app-add-property-dialog>
+        <app-add-property-dialog [editPropertyId]="idForEditProperty"
+                                 (closeAddPropertyDialogEvent)="onClosePropertyAddDialog($event)"></app-add-property-dialog>
     </p-dialog>
 </ng-container>

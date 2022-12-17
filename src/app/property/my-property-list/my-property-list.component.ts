@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {PropertyService} from "../../services/property.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {MessageService} from "primeng/api";
-import {PropertyListDto} from "../../model/propertyListDto";
-import {PaginationParameter} from "../../model/PaginationParameter";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { PropertyService } from "../../services/property.service";
+import { HttpErrorResponse } from "@angular/common/http";
+import { MessageService } from "primeng/api";
+import { PropertyListDto } from "../../model/propertyListDto";
+import { PaginationParameter } from "../../model/PaginationParameter";
+import { Paginator } from 'primeng/paginator';
 
 @Component({
     selector: 'app-my-property-list',
@@ -12,6 +13,8 @@ import {PaginationParameter} from "../../model/PaginationParameter";
 })
 export class MyPropertyListComponent implements OnInit {
 
+    @ViewChild('paginator', { static: true }) paginator: Paginator;
+
     showPropertyEditDialog: boolean = false;
     myPropertyList: PropertyListDto[] = [];
     isDataLoading: boolean = false;
@@ -19,8 +22,12 @@ export class MyPropertyListComponent implements OnInit {
 
     rowsPerPageOptions: number[] = [5, 10, 20, 30];
 
+    totalRecords = 0;
+    rows = 10;
+    currentPage = 0;
+
     constructor(private propertyService: PropertyService,
-                private messageService: MessageService) {
+        private messageService: MessageService) {
     }
 
     ngOnInit(): void {
@@ -30,8 +37,8 @@ export class MyPropertyListComponent implements OnInit {
     private loadMyPropertyList() {
         this.isDataLoading = true;
         let paginationParams: PaginationParameter = {
-            currentPageNo: 2,
-            pageSize: 5,
+            currentPageNo: this.currentPage + 1,
+            pageSize: this.rows,
             sortBy: '',
             isDescending: false,
             searchField: '',
@@ -41,7 +48,8 @@ export class MyPropertyListComponent implements OnInit {
             next: response => {
                 this.myPropertyList = response.resultList;
                 this.isDataLoading = false;
-
+                this.totalRecords = response.totalRecords;
+                this.rows = response.pageSize;
             },
             error: (err: HttpErrorResponse) => {
                 this.isDataLoading = false;
@@ -54,13 +62,27 @@ export class MyPropertyListComponent implements OnInit {
         });
     }
 
+    onPageChangeInPaginator(event: any) {
+        /*
+        event.first: Index of first record
+        event.rows: Number of rows to display in new page
+        event.page: Index of the new page
+        event.pageCount: Total number of pages
+        */
+
+        console.log(event);
+        this.currentPage = event.page;
+        this.rows = event.rows;
+        this.loadMyPropertyList();
+    }
+
     openPropertyEditDialog(propertyId = 0) {
         this.showPropertyEditDialog = true;
         this.idForEditProperty = propertyId;
     }
 
     onClosePropertyAddDialog(isClosing: boolean) {
-        if(isClosing) {
+        if (isClosing) {
             this.showPropertyEditDialog = false;
             this.loadMyPropertyList();
         }

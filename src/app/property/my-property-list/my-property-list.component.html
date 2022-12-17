@@ -5,19 +5,22 @@
             My Property List
         </h5>
         <button pButton pRipple type="button" icon="pi pi-plus" style="background-color: var(--blue-500);"
-                (click)="openPropertyEditDialog()"></button>
+            (click)="openPropertyEditDialog()"></button>
     </div>
 
     <ng-container *ngIf="!isDataLoading">
         <span *ngFor="let property of myPropertyList">
             <app-my-property-card [propertyData]="property"
-                                  (openPropertyEditDialogEvent)="openPropertyEditDialog(property.id)"></app-my-property-card>
+                (openPropertyEditDialogEvent)="openPropertyEditDialog(property.id)"></app-my-property-card>
         </span>
-        <div>
-            <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="rowsPerPageOptions"
-                         dropdownAppendTo="body"></p-paginator>
-        </div>
     </ng-container>
+    <div [hidden]="isDataLoading">
+        <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="rowsPerPageOptions" dropdownAppendTo="body"
+            (onPageChange)="onPageChangeInPaginator($event)" [totalRecords]="totalRecords" [rows]="rows"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport] = true
+            #paginator></p-paginator>
+    </div>
 
     <div *ngIf="isDataLoading">
         <div class="card mb-2 p-3">
@@ -45,9 +48,8 @@
 </div>
 <ng-container *ngIf="showPropertyEditDialog">
     <p-dialog header="Add Property" [(visible)]="showPropertyEditDialog" [style]="{'width': '650px'}"
-              (onHide)="showPropertyEditDialog = false"
-              appendTo="body" [modal]="true">
+        (onHide)="showPropertyEditDialog = false" appendTo="body" [modal]="true">
         <app-add-property-dialog [editPropertyId]="idForEditProperty"
-                                 (closeAddPropertyDialogEvent)="onClosePropertyAddDialog($event)"></app-add-property-dialog>
+            (closeAddPropertyDialogEvent)="onClosePropertyAddDialog($event)"></app-add-property-dialog>
     </p-dialog>
 </ng-container>

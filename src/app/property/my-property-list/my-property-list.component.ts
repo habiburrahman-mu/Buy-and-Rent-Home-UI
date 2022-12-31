@@ -34,7 +34,7 @@ export class MyPropertyListComponent implements OnInit {
         this.loadMyPropertyList();
     }
 
-    private loadMyPropertyList() {
+    loadMyPropertyList() {
         this.isDataLoading = true;
         let paginationParams: PaginationParameter = {
             currentPageNo: this.currentPage + 1,
@@ -86,5 +86,9 @@ export class MyPropertyListComponent implements OnInit {
             this.showPropertyEditDialog = false;
             this.loadMyPropertyList();
         }
+    }
+
+    afterDeletingProperty() {
+        this.loadMyPropertyList();
     }
 }

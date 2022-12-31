@@ -48,4 +48,8 @@ export class PropertyService {
     getPropertyDetail(id: number): Observable<PropertyDetailDto> {
         return this.http.get<PropertyDetailDto>(this.serviceBaseUrl + '/detail/' + id.toString());
     }
+
+    deleteProperty(id: number): Observable<boolean> {
+        return this.http.delete<boolean>(this.serviceBaseUrl + '/delete/' + id.toString());
+    }
 }

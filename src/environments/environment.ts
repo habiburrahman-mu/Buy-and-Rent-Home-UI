@@ -6,7 +6,8 @@ export const environment = {
     production: false,
     // baseUrl: "http://localhost:5000/api"
     // baseUrl: "http://apis.mh-rahman.com:1001"
-    baseUrl: "http://localhost:33601"
+    baseUrl: "http://localhost:33601",
+    staticFilePath: "/staticfiles"
 };
 
 /*

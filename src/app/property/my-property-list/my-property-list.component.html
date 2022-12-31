@@ -11,7 +11,7 @@
     <ng-container *ngIf="!isDataLoading">
         <span *ngFor="let property of myPropertyList">
             <app-my-property-card [propertyData]="property"
-                (openPropertyEditDialogEvent)="openPropertyEditDialog(property.id)"></app-my-property-card>
+                (openPropertyEditDialogEvent)="openPropertyEditDialog(property.id)" (afterDeletePropertyEvent)="loadMyPropertyList()"></app-my-property-card>
         </span>
     </ng-container>
     <div [hidden]="isDataLoading">
@@ -48,8 +48,9 @@
 </div>
 <ng-container *ngIf="showPropertyEditDialog">
     <p-dialog header="Add Property" [(visible)]="showPropertyEditDialog" [style]="{'width': '650px'}"
-        (onHide)="showPropertyEditDialog = false" appendTo="body" [modal]="true">
+        (onHide)="showPropertyEditDialog = false" appendTo="body" [modal]="true" [blockScroll]="false">
         <app-add-property-dialog [editPropertyId]="idForEditProperty"
             (closeAddPropertyDialogEvent)="onClosePropertyAddDialog($event)"></app-add-property-dialog>
     </p-dialog>
 </ng-container>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text" key="deletePropertyDialog" [blockScroll]="false"></p-confirmDialog>

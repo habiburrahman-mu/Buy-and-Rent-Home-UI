@@ -16,7 +16,7 @@ import {environment} from "../../../environments/environment";
 })
 export class PropertyDetailComponent {
     public propertyId: number = 0;
-    staticFileUrl: string = environment.baseUrl + '/staticfiles';
+    staticFileUrl: string = environment.baseUrl + environment.staticFilePath;
     propertyData: PropertyDetailDto;
 
     photos: PhotoDto[] = [];

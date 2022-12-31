@@ -12,4 +12,5 @@ export interface PropertyListDto {
     country: string;
     readyToMove: boolean;
     postedOn: string;
+    primaryPhoto: string;
 }

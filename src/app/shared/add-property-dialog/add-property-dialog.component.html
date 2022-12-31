@@ -306,4 +306,4 @@
         <p-button label="Submit" (click)="onSubmit()" *ngIf="tabIndex == numOfTabs - 1"></p-button>
     </div>
 </div>
-<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text" [blockScroll]="false"></p-confirmDialog>

@@ -1,8 +1,10 @@
 <div class="card mb-2 p-3">
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxLayoutGap="20px"
-         fxLayoutAlign.lt-md="start center">
+        fxLayoutAlign.lt-md="start center">
         <div fxLayout="column" fxLayoutAlign="start start">
-            <p-image src="assets/images/prop-1.png" alt="" width="250px" [preview]="true"></p-image>
+            <p-image
+                [src]="propertyData.primaryPhoto ? staticFileUrl + '/' + propertyData.primaryPhoto : defaultImagePath"
+                alt="" width="250px" [preview]="true"></p-image>
 
             <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100 bg-light p-2 shadow-sm">
                 <div>
@@ -14,21 +16,25 @@
         <div fxLayout="row" fxLayout.lt-md="column" fxFlex="70" fxLayoutAlign="space-between center" fxLayoutGap="20px">
             <div fxLayout="column" fxLayoutAlign="space-around start" fxFlex fxLayoutGap="10px">
                 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="w-100">
-                    <h3 class="m-0"><a [routerLink]="['../../','property-detail', propertyData.id]">{{propertyData.name}}</a></h3>
+                    <h3 class="m-0"><a
+                            [routerLink]="['../../','property-detail', propertyData.id]">{{propertyData.name}}</a></h3>
                     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
                         <button pButton pRipple type="button" icon="fas fa-edit"
-                                class="p-button-rounded p-button-success p-button-raised"
-                                (click)="openPropertyEditDialog()"></button>
+                            class="p-button-rounded p-button-success p-button-raised"
+                            (click)="openPropertyEditDialog()"></button>
                         <button pButton pRipple type="button" icon="fas fa-trash"
-                                class="p-button-rounded p-button-danger p-button-raised"></button>
+                            class="p-button-rounded p-button-danger p-button-raised" (click)="onClickDeleteProperty()"
+                            [loading]="isDeleteInProgress"></button>
                     </div>
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="space-between start" class="w-100">
                     <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
                         <div><i class="fa-solid fa-bed mr-1" title="Bedroom"></i>{{propertyData.bedroom}}</div>
-                        <div *ngIf="propertyData.bathroom"><i class="fa-solid fa-bath mr-1" title="Bathroom"></i>{{propertyData.bathroom}}</div>
-                        <div *ngIf="propertyData.commonSpace"><i class="fa-solid fa-people-line mr-1" title="Common Space"></i>{{propertyData.commonSpace}}</div>
+                        <div *ngIf="propertyData.bathroom"><i class="fa-solid fa-bath mr-1"
+                                title="Bathroom"></i>{{propertyData.bathroom}}</div>
+                        <div *ngIf="propertyData.commonSpace"><i class="fa-solid fa-people-line mr-1"
+                                title="Common Space"></i>{{propertyData.commonSpace}}</div>
                     </div>
                     <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="5px">
                         <div><i class="fa-solid fa-truck-ramp-box mr-1"></i>Sell</div>

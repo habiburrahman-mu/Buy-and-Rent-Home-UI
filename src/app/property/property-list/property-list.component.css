@@ -1,0 +1,18 @@
+.property-card {
+    height: 25rem;
+    width: 18rem;
+}
+
+.card-img {
+    height: 15rem;
+    width: 18rem;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+}
+
+.card-img img {
+    height: 100%;
+    object-position: center;
+    object-fit: contain;
+}

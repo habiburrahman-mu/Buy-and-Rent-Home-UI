@@ -17,6 +17,8 @@ export class PropertyListComponent implements OnInit {
     sortByParameter: string = 'City';
     sortDirection: string = 'asc';
 
+    emptyArray = new Array(11);
+
     sortOptions = [
         {label: 'City', value: 'City'},
         {label: 'Price', value: 'Price'}

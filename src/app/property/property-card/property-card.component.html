@@ -49,3 +49,21 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
+<div class="property-card" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="15px">
+    <div class="card-img">
+        <img [src]="imageArray[imageId]" alt="">
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" class="w-100">
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px" class="w-100">
+            <div class="m-0 text-lg font-medium white-space-nowrap text-overflow-ellipsis overflow-hidden property-title">Property Name</div>
+            <i class="pi pi-heart text-red-400 favorite-icon"></i>
+        </div>
+        <div class="w-100">
+            <div class="m-0 text-sm white-space-nowrap text-overflow-ellipsis overflow-hidden">Middle Badda, Dhaka, Bangladesh</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between end" fxLayoutGap="5px" class="w-100">
+            <p class="m-0 text-xs text-black-50">Posted 2 days ago</p>
+            <p class="m-0 text-lg font-medium">$40,000</p>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-.property-title {
+/* .property-title {
     color: var(--bs-indigo);
 }
 .property-location {
@@ -66,4 +66,46 @@
 
 .animate {
     transition: all 0.3s ease-in-out;
+} */
+
+.property-card {
+    height: 30rem;
+    width: 21rem;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    padding: 1rem;
+    transition: box-shadow 500ms;
+}
+
+.property-card:hover{
+    box-shadow: #c6c6df 0 0 18px;
+    transition: box-shadow 500ms;
+}
+
+.card-img {
+    height: 22rem;
+    width: 20rem;
+    overflow: hidden;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.card-img img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.property-title {
+    color: var(--indigo-600);
+}
+
+.favorite-icon {
+    font-size: 20px;
+    transition: font-size 100ms;
+}
+
+.favorite-icon:hover {
+    font-size: 22px;
+    transition: font-size 100ms;
 }

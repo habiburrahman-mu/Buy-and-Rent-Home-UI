@@ -7,7 +7,10 @@ export class DateAgoPipe implements PipeTransform {
 
     transform(value: unknown, ...args: unknown[]): unknown {
         if (value) {
-            const seconds = Math.floor((+new Date() - +new Date(value.toString())) / 1000);
+            let dateNow = Date.now();
+            let dateFromServer = new Date(value.toString()).getTime();
+            let timezoneOffset = new Date().getTimezoneOffset(); // in minute
+            const seconds = Math.floor((dateNow - dateFromServer) / 1000) + (timezoneOffset*60);
             if (seconds < 30) { // less than 30 seconds ago will show as 'Just Now'
                 return "Just Now";
             }

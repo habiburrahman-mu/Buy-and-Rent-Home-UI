@@ -1,9 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl} from '@angular/forms';
-import {TabsetComponent} from 'ngx-bootstrap/tabs/public_api';
 import {HousingService} from 'src/app/services/housing.service';
-import {AlertifyService} from 'src/app/services/alertify.service';
 import {IPropertyBase} from "../../model/IPropertyBase";
 import {Property} from "../../model/Property";
 import {PrimeNGConfig} from "primeng/api";
@@ -72,7 +70,6 @@ export class AddPropertyComponent {
 //         private fb: UntypedFormBuilder,
 //         private router: Router,
 //         private housingService: HousingService,
-//         private alertify: AlertifyService,
 //         private primeNGConfig: PrimeNGConfig) {
 //     }
 //
@@ -249,7 +246,7 @@ export class AddPropertyComponent {
 //         if (this.allTabsValid()) {
 //             this.mapProperty();
 //             this.housingService.addProperty(this.property);
-//             this.alertify.success('Congrats, your property listed successfully on our website');
+//
 //
 //             if (this.SellRent.value === '2') {
 //                 this.router.navigate(['/rent-property']);
@@ -259,7 +256,7 @@ export class AddPropertyComponent {
 //
 //
 //         } else {
-//             this.alertify.error('Please review the form and provide all valid entries');
+//
 //         }
 //     }
 //

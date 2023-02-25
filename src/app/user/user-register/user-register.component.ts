@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators} from "@angular/forms";
-import {UserForRegister} from "../../model/user";
-import {AlertifyService} from "../../services/alertify.service";
-import {AuthService} from "../../services/auth.service";
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from "@angular/forms";
+import { UserForRegister } from "../../model/user";
+import { AuthService } from "../../services/auth.service";
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-user-register',
@@ -15,8 +15,8 @@ export class UserRegisterComponent implements OnInit {
     isUserSubmitted: boolean = false;
 
     constructor(private fb: UntypedFormBuilder,
-                private authService: AuthService,
-                private alertifyService: AlertifyService) {
+        private authService: AuthService,
+        private messageService: MessageService) {
     }
 
     ngOnInit(): void {
@@ -30,7 +30,7 @@ export class UserRegisterComponent implements OnInit {
             password: [null, [Validators.required, Validators.minLength(8)]],
             confirmPassword: [null, Validators.required],
             mobile: [null, [Validators.required, Validators.maxLength(15)]]
-        }, {validators: this.passwordMatchingValidator});
+        }, { validators: this.passwordMatchingValidator });
     }
 
     onSubmit() {
@@ -39,11 +39,19 @@ export class UserRegisterComponent implements OnInit {
             this.authService.registerUser(this.userData()).subscribe(
                 () => {
                     this.onReset();
-                    this.alertifyService.success("You are successfully registered");
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Registration',
+                        detail: 'You are successfully registered'
+                    });
                 }
             );
         } else {
-            this.alertifyService.error('Kindly provide the required fields');
+            this.messageService.add({
+                severity: 'warning',
+                summary: 'Registration',
+                detail: 'Kindly provide the required fields'
+            });
         }
     }
 
@@ -82,7 +90,7 @@ export class UserRegisterComponent implements OnInit {
     }
 
     passwordMatchingValidator(fc: AbstractControl): ValidationErrors | null {
-        return fc.get('password')?.value === fc.get('confirmPassword')?.value ? null : {notmatched: true};
+        return fc.get('password')?.value === fc.get('confirmPassword')?.value ? null : { notmatched: true };
     }
 
 }

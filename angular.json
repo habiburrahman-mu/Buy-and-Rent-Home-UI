@@ -17,9 +17,6 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "allowedCommonJsDependencies": [
-                            "alertifyjs"
-                        ],
                         "outputPath": "dist/buy-and-rent-home-ui",
                         "index": "src/index.html",
                         "main": "src/main.ts",
@@ -31,7 +28,6 @@
                             "src/data"
                         ],
                         "styles": [
-                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "node_modules/primeflex/primeflex.css",
                             "src/styles.scss",
                             "node_modules/primeicons/primeicons.css",

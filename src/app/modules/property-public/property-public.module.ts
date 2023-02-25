@@ -6,6 +6,7 @@ import { PropertyDetailComponent } from './property-detail/property-detail.compo
 import { PropertyCardComponent } from './property-card/property-card.component';
 import { PropertyDetailResolverService } from './property-detail/property-detail-resolver.service';
 import { PrimengLibModule } from '../primeng-lib/primeng-lib.module';
+import { SharedModule } from '../shared/shared.module';
 import { DateAgoPipe } from 'src/app/Pipes/date-ago.pipe';
 
 const routes: Routes = [
@@ -22,11 +23,11 @@ const routes: Routes = [
   declarations: [
     PropertyListComponent,
     PropertyDetailComponent,
-    PropertyCardComponent,
-    DateAgoPipe
+    PropertyCardComponent
   ],
   imports: [
     CommonModule,
+    SharedModule,
     PrimengLibModule,
     RouterModule.forChild(routes)
   ],

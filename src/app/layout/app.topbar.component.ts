@@ -1,8 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
-import {AlertifyService} from "../services/alertify.service";
-import {AuthService} from "../services/auth.service";
+import { AuthService } from "../services/auth.service";
 
 @Component({
     selector: 'app-topbar',
@@ -21,11 +20,11 @@ export class AppTopBarComponent {
     loggedInUser!: string;
 
     constructor(public layoutService: LayoutService,
-                private alertifyService: AlertifyService,
-                private authService: AuthService) { }
+        private authService: AuthService,
+        private messageService: MessageService) { }
 
     loggedIn() {
-        this.loggedInUser = localStorage.getItem('brh-userName')??'';
+        this.loggedInUser = localStorage.getItem('brh-userName') ?? '';
         return this.loggedInUser;
     }
 
@@ -35,6 +34,10 @@ export class AppTopBarComponent {
 
     onLogout() {
         this.authService.logOut();
-        this.alertifyService.success('You are logged out');
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Logged Out',
+            detail: 'Successfully Logged Out'
+        });
     }
 }

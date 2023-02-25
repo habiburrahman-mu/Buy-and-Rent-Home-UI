@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertifyService} from "../services/alertify.service";
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-nav-bar',
@@ -9,7 +9,7 @@ import {AlertifyService} from "../services/alertify.service";
 export class NavBarComponent implements OnInit {
     loggedInUser!: string;
 
-    constructor(private alertifyService: AlertifyService) {
+    constructor(private messageService: MessageService) {
     }
 
     ngOnInit(): void {
@@ -23,6 +23,10 @@ export class NavBarComponent implements OnInit {
     onLogout() {
         localStorage.removeItem('brh-token');
         localStorage.removeItem('brh-userName');
-        this.alertifyService.success('You are logged out');
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Logged Out',
+            detail: 'Successfully Logged Out'
+        });
     }
 }

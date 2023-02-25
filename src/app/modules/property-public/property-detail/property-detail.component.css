@@ -33,3 +33,5 @@ img {
 .cover {
     object-fit: cover;
 }
+
+#map { height: 180px; }

@@ -1,15 +1,15 @@
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {catchError, concatMap, Observable, of, retryWhen, throwError} from "rxjs";
-import {AlertifyService} from "../alertify.service";
 import {Injectable} from "@angular/core";
 import {ErrorCode} from "../../enums/enums";
+import { MessageService } from "primeng/api";
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class HttpErrorInterceptorService implements HttpInterceptor {
-    constructor(private alertifyService: AlertifyService) {
+    constructor(private messageService: MessageService) {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -20,7 +20,10 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
                 catchError((err: HttpErrorResponse) => {
                     const errorMessage = this.setError(err);
                     console.log(err);
-                    this.alertifyService.error(errorMessage);
+                    this.messageService.add({
+                        severity: 'error',
+                        detail: errorMessage
+                    });
                     return throwError(errorMessage)
                 })
             );

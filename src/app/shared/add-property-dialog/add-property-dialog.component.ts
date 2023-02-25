@@ -6,8 +6,7 @@ import {
 } from "@angular/forms";
 import {Router} from "@angular/router";
 import {HousingService} from "../../services/housing.service";
-import {AlertifyService} from "../../services/alertify.service";
-import {ConfirmationService, PrimeNGConfig} from "primeng/api";
+import {ConfirmationService, MessageService, PrimeNGConfig} from "primeng/api";
 import {IKeyValuePair} from "../../model/ikeyvaluepair";
 import {FileUpload} from "primeng/fileupload";
 import {TabView} from "primeng/tabview";
@@ -70,7 +69,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     constructor(private formBuilder: UntypedFormBuilder,
                 private router: Router,
                 private housingService: HousingService,
-                private alertify: AlertifyService,
+                private messageService: MessageService,
                 private primeNGConfig: PrimeNGConfig,
                 private cityService: CityService,
                 private countryService: CountryService,
@@ -304,7 +303,11 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         this.isSubmitted = true;
         this.addPropertyForm.markAllAsTouched();
         if ((this.uploadedFiles.length || this.existingPhotos.length) && this.primaryPhotoIdOrIndex === -1) {
-            this.alertify.error("Select primary photo");
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Add Property - Gallery',
+                detail: 'Select primary photo'
+            });
             return;
         }
         if (this.addPropertyForm.valid) {

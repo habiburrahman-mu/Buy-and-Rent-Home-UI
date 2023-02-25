@@ -36,6 +36,8 @@ export class PropertyDetailComponent {
         this.route.data.subscribe((data: any) => {
             this.propertyData = data['property'];
         });
+
+
     }
 
     loadPropertyImages() {

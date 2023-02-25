@@ -30,10 +30,9 @@ import { PropertyService } from "./services/property.service";
 import { HttpErrorInterceptorService } from "./services/interceptors/http-error-interceptor.service";
 import { AuthInterceptor } from "./services/interceptors/auth.interceptor";
 import { AuthGuard } from "./guards/auth.guard";
-
-import { DateAgoPipe } from './Pipes/date-ago.pipe';
 import { PrimengLibModule } from './modules/primeng-lib/primeng-lib.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { SharedModule } from './modules/shared/shared.module';
 
 
 const appRoute: Routes = [
@@ -71,12 +70,9 @@ const appRoute: Routes = [
         AddPropertyComponent,
         UserLoginComponent,
         UserRegisterComponent,
-        FilterPipe,
-        SortPipe,
         MyPropertyListComponent,
         AddPropertyDialogComponent,
         MyPropertyCardComponent,
-        DateAgoPipe
     ],
     imports: [
         BrowserModule,
@@ -91,6 +87,7 @@ const appRoute: Routes = [
         // BsDatepickerModule.forRoot(),
 
         AppLayoutModule,
+        SharedModule,
         PrimengLibModule
 
     ],

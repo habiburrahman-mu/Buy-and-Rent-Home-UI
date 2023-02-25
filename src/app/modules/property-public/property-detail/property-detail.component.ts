@@ -1,13 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {HousingService} from 'src/app/services/housing.service';
-import {Property} from '../../model/Property';
-import {PropertyService} from "../../services/property.service";
-import {PropertyDetailDto} from "../../model/propertyDetailDto";
-import {PhotoService} from "../../services/photo.service";
-import {PhotoDto} from "../../model/photoDto";
-import {HttpErrorResponse} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
+import { PhotoDto } from 'src/app/model/photoDto';
+import { PropertyDetailDto } from 'src/app/model/propertyDetailDto';
+import { PhotoService } from 'src/app/services/photo.service';
+import { PropertyService } from 'src/app/services/property.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-property-detail',

@@ -1,0 +1,7 @@
+
+
+table.buy-rent-table > tbody {
+    display: flex;
+    flex-wrap: wrap;
+}
+

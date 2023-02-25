@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HousingService} from 'src/app/services/housing.service';
 import {ActivatedRoute} from '@angular/router';
-import {IPropertyBase} from "../../model/IPropertyBase";
-import {PropertyService} from "../../services/property.service";
+import { PropertyService } from 'src/app/services/property.service';
+import { IPropertyBase } from 'src/app/model/IPropertyBase';
 
 @Component({
     selector: 'app-property-list',
@@ -17,7 +17,9 @@ export class PropertyListComponent implements OnInit {
     sortByParameter: string = 'City';
     sortDirection: string = 'asc';
 
-    emptyArray = new Array(20);
+    emptyArray = new Array(10);
+
+    rowsPerPageOptions: number[] = [5, 10, 20, 30];
 
     sortOptions = [
         {label: 'City', value: 'City'},

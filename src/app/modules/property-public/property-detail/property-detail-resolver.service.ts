@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from "@angular/router";
-import {Property} from "../../model/Property";
-import {catchError, Observable, of} from "rxjs";
-import {HousingService} from "../../services/housing.service";
-import {PropertyService} from "../../services/property.service";
-import {PropertyDetailDto} from "../../model/propertyDetailDto";
+import { Observable } from 'rxjs/internal/Observable';
+import { of } from 'rxjs/internal/observable/of';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { PropertyDetailDto } from 'src/app/model/propertyDetailDto';
+import { PropertyService } from 'src/app/services/property.service';
 
 @Injectable({
     providedIn: 'root'

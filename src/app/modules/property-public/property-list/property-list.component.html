@@ -50,4 +50,10 @@
         </ng-container>
     </div>
 
+    <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="rowsPerPageOptions" dropdownAppendTo="body"
+            [totalRecords]="emptyArray.length" [rows]="10"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport] = true
+            #paginator></p-paginator>
+
 </div>

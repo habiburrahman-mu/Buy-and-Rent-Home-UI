@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ConfirmationService, MessageService } from "primeng/api";
-import { PropertyListDto } from "../../model/propertyListDto";
+import { PropertyListDto } from "../../../model/propertyListDto";
 import { PropertyService } from 'src/app/services/property.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';

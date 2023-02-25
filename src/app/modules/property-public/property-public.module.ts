@@ -28,7 +28,6 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    PrimengLibModule,
     RouterModule.forChild(routes)
   ],
   providers: [

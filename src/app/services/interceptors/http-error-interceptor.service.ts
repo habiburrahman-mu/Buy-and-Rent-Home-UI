@@ -22,7 +22,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
                     console.log(err);
                     this.messageService.add({
                         severity: 'error',
-                        detail: errorMessage
+                        detail: errorMessage,
                     });
                     return throwError(errorMessage)
                 })

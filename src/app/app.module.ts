@@ -4,23 +4,15 @@ import { Routes, RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HousingService } from "./services/housing.service";
-import { AddPropertyComponent } from './property/add-property/add-property.component';
-import { UserLoginComponent } from './user/user-login/user-login.component';
-import { UserRegisterComponent } from './user/user-register/user-register.component';
+import { UserLoginComponent } from './public-pages/user-login/user-login.component';
+import { UserRegisterComponent } from './public-pages/user-register/user-register.component';
 import { AuthService } from "./services/auth.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { FilterPipe } from './Pipes/filter.pipe';
-import { SortPipe } from './Pipes/sort.pipe';
 
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { AppLayoutModule } from "./layout/app.layout.module";
-import { MyPropertyListComponent } from './property/my-property-list/my-property-list.component';
-
-import { AddPropertyDialogComponent } from './shared/add-property-dialog/add-property-dialog.component';
-import { MyPropertyCardComponent } from './property/my-property-card/my-property-card.component';
 
 import { CityService } from "./services/city.service";
 import { CountryService } from "./services/country.service";
@@ -45,14 +37,15 @@ const appRoute: Routes = [
                 loadChildren: () => import('./modules/property-public/property-public.module').then(m => m.PropertyPublicModule)
             },
             {
-                path: 'user-area', canActivateChild: [AuthGuard], children: [
-                    { path: '', pathMatch: "full", redirectTo: 'my-property' },
-                    { path: 'my-property', component: MyPropertyListComponent },
+                path: "user",
+                children: [
+                    { path: "", pathMatch: "full", redirectTo: "property" },
+                    {
+                        path: "property",
+                        canActivateChild: [AuthGuard],
+                        loadChildren: () => import('./modules/property-user/property-user.module').then(m => m.PropertyUserModule)
+                    }
                 ]
-            },
-            {
-                path: 'add-property',
-                component: AddPropertyComponent
             },
             { path: 'login', component: UserLoginComponent },
             { path: 'register', component: UserRegisterComponent },
@@ -66,20 +59,13 @@ const appRoute: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
-        NavBarComponent,
-        AddPropertyComponent,
         UserLoginComponent,
-        UserRegisterComponent,
-        MyPropertyListComponent,
-        AddPropertyDialogComponent,
-        MyPropertyCardComponent,
+        UserRegisterComponent
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
         RouterModule.forRoot(appRoute, { useHash: true }),
-        FormsModule,
-        ReactiveFormsModule,
         BrowserAnimationsModule,
         // BsDropdownModule.forRoot(),
         // TabsModule.forRoot(),
@@ -87,8 +73,7 @@ const appRoute: Routes = [
         // BsDatepickerModule.forRoot(),
 
         AppLayoutModule,
-        SharedModule,
-        PrimengLibModule
+        SharedModule
 
     ],
     providers: [

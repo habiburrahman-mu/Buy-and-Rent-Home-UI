@@ -5,24 +5,24 @@ import {
     Validators
 } from "@angular/forms";
 import {Router} from "@angular/router";
-import {HousingService} from "../../services/housing.service";
+import {HousingService} from "../../../services/housing.service";
 import {ConfirmationService, MessageService, PrimeNGConfig} from "primeng/api";
-import {IKeyValuePair} from "../../model/ikeyvaluepair";
+import {IKeyValuePair} from "../../../model/ikeyvaluepair";
 import {FileUpload} from "primeng/fileupload";
 import {TabView} from "primeng/tabview";
-import {IAddEditPropertyForm} from "../../model/IAddEditPropertyForm";
-import {Property} from "../../model/Property";
-import {CityService} from "../../services/city.service";
-import {CountryService} from "../../services/country.service";
-import {FurnishingTypeService} from "../../services/furnishing-type.service";
-import {PropertyTypeService} from "../../services/property-type.service";
-import {PropertyService} from "../../services/property.service";
+import {IAddEditPropertyForm} from "../../../model/IAddEditPropertyForm";
+import {Property} from "../../../model/Property";
+import {CityService} from "../../../services/city.service";
+import {CountryService} from "../../../services/country.service";
+import {FurnishingTypeService} from "../../../services/furnishing-type.service";
+import {PropertyTypeService} from "../../../services/property-type.service";
+import {PropertyService} from "../../../services/property.service";
 import {HttpErrorResponse} from "@angular/common/http";
-import {PhotoService} from "../../services/photo.service";
-import {PropertyDetailDto} from "../../model/propertyDetailDto";
+import {PhotoService} from "../../../services/photo.service";
+import {PropertyDetailDto} from "../../../model/propertyDetailDto";
 import {forkJoin, Observable, of, Subscription} from "rxjs";
-import {PhotoDto} from "../../model/photoDto";
-import {environment} from "../../../environments/environment";
+import {PhotoDto} from "../../../model/photoDto";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'app-add-property-dialog',

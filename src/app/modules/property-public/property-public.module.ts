@@ -10,8 +10,9 @@ import { SharedModule } from '../shared/shared.module';
 import { DateAgoPipe } from 'src/app/Pipes/date-ago.pipe';
 
 const routes: Routes = [
-    {path: "", component: PropertyListComponent},
-    {path: "rent-property", component: PropertyListComponent},
+    {path: "", pathMatch: "full", redirectTo: "buy"},
+    {path: "buy", component: PropertyListComponent},
+    {path: "rent", component: PropertyListComponent},
     {
         path: 'detail/:id',
         component: PropertyDetailComponent,

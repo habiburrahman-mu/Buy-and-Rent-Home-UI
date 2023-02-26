@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {IKeyValuePair} from "../model/ikeyvaluepair";
+import {IKeyValuePair} from "../models/ikeyvaluepair";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 

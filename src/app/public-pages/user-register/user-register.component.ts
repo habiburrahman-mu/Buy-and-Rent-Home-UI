@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from "@angular/forms";
-import { UserForRegister } from "../../model/user";
+import { UserForRegister } from "../../models/user";
 import { AuthService } from "../../services/auth.service";
 import { MessageService } from 'primeng/api';
 

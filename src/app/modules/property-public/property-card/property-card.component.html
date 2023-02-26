@@ -1,69 +1,24 @@
-<!--<div class="card">-->
-<!--    <div class="card-img-wrapper">-->
-<!--        <img *ngIf="property.image" class="card-img-top" src="assets/images/{{property.image}}.png" alt="property image">-->
-<!--        <img *ngIf="!property.image" class="card-img-top" src="assets/images/house_default.png" alt="property image">-->
-<!--    </div>-->
-<!--    <div class="card-body p-2">-->
-<!--        <div class="card-body p-1">-->
-<!--            <h6 class="mb-0 property-title">{{property.bhk}} BHK {{property.propertyType}} </h6>-->
-<!--            <span class="property-location"><i class="pi pi-flag-fill"></i> {{property.name}}<span *ngIf="property.name">,</span>{{property.city}}</span>-->
-
-<!--            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="10px" fxLayoutAlign="space-between center" class="price-area-row">-->
-<!--                <div class="property-price"><h6 style="margin: 0; padding: 0"><i class="fa-solid fa-dollar-sign"></i>{{property.price}}</h6></div>-->
-<!--                <div class="property-price"><h6 style="margin: 0; padding: 0"><i class="fa-solid fa-chart-area"></i> {{property.builtArea}} Sq Ft</h6></div>-->
-<!--            </div>-->
-
-<!--            <div class="row furnish-type-row" fxLayout.lt-sm="column" fxLayoutGap="10px" fxLayoutAlign="center center">-->
-<!--                <div class="col-sm-5 furnish-type-col" fxLayoutAlign="center center">{{property.furnishingType}}&nbsp;<span *ngIf="property.furnishingType !== 'Unfurnished'"> Furnished</span> </div>-->
-<!--&lt;!&ndash;                <div class="col-sm-2"></div>&ndash;&gt;-->
-<!--                <div class="col-sm-5 col-sm-5 furnish-type-col" fxLayoutAlign="center center">-->
-<!--                    <span *ngIf="property.readyToMove">Ready to Move</span>-->
-<!--                    <span *ngIf="!property.readyToMove">Possession: {{property.estPossessionOn | date}}</span>-->
-<!--                </div>-->
-
-<!--            </div>-->
-
-<!--&lt;!&ndash;            <h6 class="mt-2">{{property.FType}}&ndash;&gt;-->
-<!--&lt;!&ndash;                 | </h6>&ndash;&gt;-->
-
-<!--&lt;!&ndash;            <hr class="mt-0 mb-2">&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="row price-area-row">&ndash;&gt;-->
-
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-
-
-<!--            <ul *ngIf="!hideIcons" class="list-inline text-center member-icons animate">-->
-<!--                <li class="list-inline-item">-->
-<!--                    <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-success p-button-outlined" routerLink="/property-detail/{{property.id}}"></button>-->
-<!--&lt;!&ndash;                    <button class="btn btn-primary" routerLink="/property-detail/{{property?.Id}}"><i&ndash;&gt;-->
-<!--&lt;!&ndash;                        class="fa-solid fa-pen-to-square"></i> Details</button>&ndash;&gt;-->
-<!--                </li>-->
-<!--                <li class="list-inline-item">-->
-<!--&lt;!&ndash;                    <button class="btn btn-primary btn-danger"><i class="fa-solid fa-address-card"></i> Contact</button>&ndash;&gt;-->
-<!--                    <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-info p-button-outlined"></button>-->
-<!--                </li>-->
-<!--            </ul>-->
-
-<!--&lt;!&ndash;            <h6 class="mb-0">Price: <span class="font-highlight">{{property.Price}} USD.</span> |&ndash;&gt;-->
-<!--&lt;!&ndash;                Area: <span class="font-highlight">{{property.BuiltArea}} Sq Ft </span></h6>&ndash;&gt;-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 <div class="property-card" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="15px">
     <div class="card-img">
-        <img [src]="imageArray[imageId]" alt="">
+        <img
+        [src]="propertyData.primaryPhoto ? staticFileUrl + '/' + propertyData.primaryPhoto : defaultImagePath"
+        alt="">
     </div>
     <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" class="w-100">
         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px" class="w-100">
-            <div class="m-0 text-lg font-medium white-space-nowrap text-overflow-ellipsis overflow-hidden property-title">Property Name</div>
+            <div
+                class="m-0 text-lg font-medium white-space-nowrap text-overflow-ellipsis overflow-hidden property-title">
+                {{propertyData.name}}</div>
             <i class="pi pi-heart text-red-400 favorite-icon"></i>
         </div>
         <div class="w-100">
-            <div class="m-0 text-sm white-space-nowrap text-overflow-ellipsis overflow-hidden">Middle Badda, Dhaka, Bangladesh</div>
+            <div class="m-0 text-sm white-space-nowrap text-overflow-ellipsis overflow-hidden">
+                {{propertyData.city + ', ' + propertyData.country}}
+            </div>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-between end" fxLayoutGap="5px" class="w-100">
-            <p class="m-0 text-xs text-black-50">Posted 2 days ago</p>
-            <p class="m-0 text-lg font-medium">$40,000</p>
+            <p class="m-0 text-xs text-black-50">{{propertyData.postedOn | dateAgo}}</p>
+            <p class="m-0 text-lg font-medium">${{propertyData.rentPrice}}</p>
         </div>
     </div>
 </div>

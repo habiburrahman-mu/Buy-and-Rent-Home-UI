@@ -18,15 +18,15 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Home',
                 items: [
-                    {label: 'Buy', icon: 'pi pi-fw pi-home', routerLink: ['/']},
-                    {label: 'Rent', icon: 'pi pi-fw pi-home', routerLink: ['/rent-property']},
-                    {label: 'List Property (Free)', icon: 'pi pi-fw pi-home', routerLink: ['/add-property']},
+                    {label: 'Buy', icon: 'pi pi-fw pi-home', routerLink: ['/property/buy']},
+                    {label: 'Rent', icon: 'pi pi-fw pi-home', routerLink: ['/property/rent']},
+                    // {label: 'List Property (Free)', icon: 'pi pi-fw pi-home', routerLink: ['/add-property']},
                 ]
             },
             {
                 label: 'User Area',
                 items: [
-                    {label: 'My Property', icon: 'pi pi-fw pi-home', routerLink: ['user-area/my-property']},
+                    {label: 'My Property', icon: 'pi pi-fw pi-home', routerLink: ['user/property/my-property']},
                 ]
             },
             // {

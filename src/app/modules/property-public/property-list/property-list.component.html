@@ -45,8 +45,8 @@
     </div>
 </div> -->
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
-        <ng-container *ngFor="let _ of emptyArray">
-            <app-property-card></app-property-card>
+        <ng-container *ngFor="let property of propertyList">
+            <app-property-card [propertyData]="property"></app-property-card>
         </ng-container>
     </div>
 

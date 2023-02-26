@@ -3,7 +3,7 @@ import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from "@ang
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
-import { PropertyDetailDto } from 'src/app/model/propertyDetailDto';
+import { PropertyDetailDto } from 'src/app/models/propertyDetailDto';
 import { PropertyService } from 'src/app/services/property.service';
 
 @Injectable({

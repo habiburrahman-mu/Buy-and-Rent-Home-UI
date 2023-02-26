@@ -7,11 +7,11 @@ import {
 import {Router} from "@angular/router";
 import {HousingService} from "../../../services/housing.service";
 import {ConfirmationService, MessageService, PrimeNGConfig} from "primeng/api";
-import {IKeyValuePair} from "../../../model/ikeyvaluepair";
+import {IKeyValuePair} from "../../../models/ikeyvaluepair";
 import {FileUpload} from "primeng/fileupload";
 import {TabView} from "primeng/tabview";
-import {IAddEditPropertyForm} from "../../../model/IAddEditPropertyForm";
-import {Property} from "../../../model/Property";
+import {IAddEditPropertyForm} from "../../../models/IAddEditPropertyForm";
+import {Property} from "../../../models/Property";
 import {CityService} from "../../../services/city.service";
 import {CountryService} from "../../../services/country.service";
 import {FurnishingTypeService} from "../../../services/furnishing-type.service";
@@ -19,9 +19,9 @@ import {PropertyTypeService} from "../../../services/property-type.service";
 import {PropertyService} from "../../../services/property.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {PhotoService} from "../../../services/photo.service";
-import {PropertyDetailDto} from "../../../model/propertyDetailDto";
+import {PropertyDetailDto} from "../../../models/propertyDetailDto";
 import {forkJoin, Observable, of, Subscription} from "rxjs";
-import {PhotoDto} from "../../../model/photoDto";
+import {PhotoDto} from "../../../models/photoDto";
 import {environment} from "../../../../environments/environment";
 
 @Component({

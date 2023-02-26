@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from '../../environments/environment'
-import {UserForLogin, UserForRegister} from "../model/user";
+import {UserForLogin, UserForRegister} from "../models/user";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 

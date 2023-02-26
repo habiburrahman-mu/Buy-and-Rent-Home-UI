@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
-import { UserForLogin } from "../../model/user";
+import { UserForLogin } from "../../models/user";
 import { HttpErrorResponse } from "@angular/common/http";
 import { MessageService } from 'primeng/api';
 

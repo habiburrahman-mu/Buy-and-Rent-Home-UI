@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PropertyService } from "../../../services/property.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { MessageService } from "primeng/api";
-import { PropertyListDto } from "../../../model/propertyListDto";
-import { PaginationParameter } from "../../../model/PaginationParameter";
+import { PropertyListDto } from "../../../models/propertyListDto";
+import { PaginationParameter } from "../../../models/PaginationParameter";
 import { Paginator } from 'primeng/paginator';
 
 @Component({

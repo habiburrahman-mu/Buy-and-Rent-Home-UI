@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {HousingService} from 'src/app/services/housing.service';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PropertyService } from 'src/app/services/property.service';
-import { IPropertyBase } from 'src/app/model/IPropertyBase';
+import { PropertyListDto } from 'src/app/models/propertyListDto';
+import { HttpErrorResponse } from '@angular/common/http';
+import { PaginationParameter } from 'src/app/models/PaginationParameter';
 
 @Component({
     selector: 'app-property-list',
@@ -11,7 +12,7 @@ import { IPropertyBase } from 'src/app/model/IPropertyBase';
 })
 export class PropertyListComponent implements OnInit {
     SellRent = 1;
-    properties: IPropertyBase[];
+    propertyList: PropertyListDto[];
     city: string = '';
     searchCity: string = '';
     sortByParameter: string = 'City';
@@ -19,35 +20,49 @@ export class PropertyListComponent implements OnInit {
 
     emptyArray = new Array(10);
 
-    rowsPerPageOptions: number[] = [5, 10, 20, 30];
-
     sortOptions = [
-        {label: 'City', value: 'City'},
-        {label: 'Price', value: 'Price'}
-    ]
+        { label: 'City', value: 'City' },
+        { label: 'Price', value: 'Price' }
+    ];
 
+    rowsPerPageOptions: number[] = [5, 10, 20, 30];
+    totalRecords = 0;
+    rows = 10;
+    currentPage = 0;
 
-
-
-        constructor(private route: ActivatedRoute, private propertyService: PropertyService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private propertyService: PropertyService
+    ) { }
 
     ngOnInit(): void {
-        if (this.route.snapshot.url.toString()) {
-            this.SellRent = 2; // Means we are on rent-property URL else we are on base URL
+        let buyOrRent = this.route.snapshot.url.toString();
+        if (buyOrRent === 'buy') {
+            this.SellRent = 1; // Means we are on rent-property URL else we are on base URL
+        } else if (buyOrRent === 'rent') {
+            this.SellRent = 2;
         }
-        this.propertyService.getAllProperties(this.SellRent).subscribe(
-            data => {
-                this.properties = data;
-                let dataFromLocalStorage = localStorage.getItem('newProp') ?? "[]";
-                const newProperty = JSON.parse(dataFromLocalStorage);
 
-                if (newProperty.SellRent === this.SellRent) {
-                    this.properties = [newProperty, ...this.properties];
+        let paginationParams: PaginationParameter = {
+            currentPageNo: this.currentPage + 1,
+            pageSize: this.rows,
+            sortBy: '',
+            isDescending: false,
+            searchField: '',
+            searchingText: ''
+        };
+
+        this.propertyService.getPropertyPaginatedList(paginationParams, this.SellRent).subscribe(
+            {
+                next: (data) => {
+                    this.propertyList = data.resultList;
+                    this.totalRecords = data.totalRecords;
+                    this.rows = data.pageSize;
+                },
+                error: (err: HttpErrorResponse) => {
+                    console.log('http error:');
+                    console.log(err);
                 }
-            }, error => {
-                console.log('http error:');
-                console.log(error);
             }
         );
     }

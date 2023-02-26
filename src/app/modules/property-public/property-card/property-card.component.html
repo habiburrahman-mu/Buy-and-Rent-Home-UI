@@ -1,14 +1,14 @@
 <div class="property-card" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="15px">
     <div class="card-img">
-        <img
-        [src]="propertyData.primaryPhoto ? staticFileUrl + '/' + propertyData.primaryPhoto : defaultImagePath"
-        alt="">
+        <img [src]="propertyData.primaryPhoto ? staticFileUrl + '/' + propertyData.primaryPhoto : defaultImagePath"
+            alt="">
     </div>
     <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" class="w-100">
         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px" class="w-100">
             <div
                 class="m-0 text-lg font-medium white-space-nowrap text-overflow-ellipsis overflow-hidden property-title">
-                {{propertyData.name}}</div>
+                <a [routerLink]="['../','detail', propertyData.id]">{{propertyData.name}}</a>
+            </div>
             <i class="pi pi-heart text-red-400 favorite-icon"></i>
         </div>
         <div class="w-100">

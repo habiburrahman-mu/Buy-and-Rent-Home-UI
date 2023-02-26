@@ -2,12 +2,17 @@
     min-height: 400px;
 }
 
+.gallery-container {
+    width: 100%;
+    overflow: hidden;
+}
+
 .card img {
-    padding: 10px;
     height: 250px;
 }
 
 .card-img-wrapper {
+    border-radius: 10px;
     height: 250px;
 }
 
@@ -22,7 +27,7 @@ img {
 }
 
 .item {
-    width: 500px;
+    width: 100%;
     min-height: 120px;
     max-height: auto;
     float: left;
@@ -34,4 +39,31 @@ img {
     object-fit: cover;
 }
 
-#map { height: 180px; }
+#map {
+    height: 180px;
+}
+
+
+.type-detail-small-card {
+    padding: 15px;
+    background: var(--bluegray-100);
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.map-container {
+    overflow: hidden;
+}
+
+/* .map-frame {
+    height: 300px;
+} */
+
+#map {
+    height: 300px;
+}
+
+.price-card {
+    background: var(--primary-color);
+    color: var(--surface-b);
+}

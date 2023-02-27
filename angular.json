@@ -18,7 +18,8 @@
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "allowedCommonJsDependencies": [
-                            "leaflet"
+                            "leaflet",
+                            "quill"
                         ],
                         "outputPath": "dist/buy-and-rent-home-ui",
                         "index": "src/index.html",
@@ -36,9 +37,13 @@
                             "src/styles.scss",
                             "node_modules/primeicons/primeicons.css",
                             "node_modules/primeng/resources/themes/mdc-light-indigo/theme.css",
-                            "node_modules/primeng/resources/primeng.min.css"
+                            "node_modules/primeng/resources/primeng.min.css",
+                            "node_modules/quill/dist/quill.core.css",
+                            "node_modules/quill/dist/quill.snow.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "node_modules/quill/dist/quill.js"
+                        ]
                     },
                     "configurations": {
                         "production": {

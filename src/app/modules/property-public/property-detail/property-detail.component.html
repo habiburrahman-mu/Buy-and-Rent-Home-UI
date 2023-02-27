@@ -154,7 +154,10 @@
     <div class="mt-3" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutGap="20px">
         <div class="card min-h-0 w-full mb-3" fxFlex.gt-md="70" fxFlex.lt-md="100" fxLayout="column">
             <h6 class="text-lg font-bold">Description</h6>
-            <span *ngIf="propertyData.description; else noDescription">{{propertyData.description}}</span>
+            <!-- <p-editor styleClass="w-100" formControlName="description"></p-editor> -->
+            <div *ngIf="propertyData.description; else noDescription"  [innerHTML]="propertyData.description">
+                <!-- {{propertyData.description}} -->
+            </div>
             <ng-template #noDescription>No Description</ng-template>
         </div>
 

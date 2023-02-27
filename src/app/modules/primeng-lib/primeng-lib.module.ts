@@ -30,6 +30,7 @@ import { GalleriaModule } from "primeng/galleria";
 import { DividerModule } from "primeng/divider";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { TableModule } from 'primeng/table';
+import {EditorModule} from 'primeng/editor';
 
 const modules = [
     ButtonModule,
@@ -61,6 +62,7 @@ const modules = [
     DividerModule,
     ConfirmDialogModule,
     TableModule,
+    EditorModule
 ];
 
 @NgModule({

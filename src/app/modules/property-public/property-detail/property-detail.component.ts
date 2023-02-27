@@ -8,6 +8,7 @@ import { PropertyService } from 'src/app/services/property.service';
 import { environment } from 'src/environments/environment';
 
 import * as L from 'leaflet';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-property-detail',
@@ -25,7 +26,8 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
     constructor(private route: ActivatedRoute,
         private router: Router,
         private propertyService: PropertyService,
-        private photoService: PhotoService) {
+        private photoService: PhotoService,
+        private domSanitizer: DomSanitizer) {
     }
 
     //
@@ -38,6 +40,7 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
         });
         this.route.data.subscribe((data: any) => {
             this.propertyData = data['property'];
+            this.propertyData.description = this.domSanitizer.sanitize(1, this.propertyData.description) ?? "";
         });
 
 

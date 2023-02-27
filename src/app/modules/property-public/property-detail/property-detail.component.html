@@ -62,15 +62,13 @@
                     </div>
                     <div class="text-lg font-medium">20</div>
                 </div>
-                <div class="type-detail-small-card" fxLayout="row" fxLayoutGap="10px"
-                    fxLayoutAlign="center center">
+                <div class="type-detail-small-card" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
                     <div fxLayout="row" fxLayoutAlign="center center">
                         <i class="fa-solid fa-bath mr-1 text-lg font-semibold"></i>
                     </div>
                     <div class="text-lg font-medium">12</div>
                 </div>
-                <div class="type-detail-small-card" fxLayout="row" fxLayoutGap="10px"
-                    fxLayoutAlign="center center">
+                <div class="type-detail-small-card" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
                     <div fxLayout="row" fxLayoutAlign="center center">
                         <i class="fa-solid fa-people-line mr-1 text-lg font-semibold"></i>
                     </div>
@@ -153,28 +151,35 @@
             </div>
         </div>
     </div>
-    <div class="mt-3" fxLayout.gt.md="row" fxLayout.lt.md="column" fxLayout.md="column" fxLayoutGap="20px">
-        <div class="min-h-0 w-full h-full mb-3" fxLayout="column" fxFlex.gt-md="70" fxFlex.lt-md="100">
+    <div class="mt-3" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+        <div class="card min-h-0 w-full mb-3" fxFlex.gt-md="70" fxFlex.lt-md="100" fxLayout="column">
             <h6 class="text-lg font-bold">Description</h6>
             <span *ngIf="propertyData.description; else noDescription">{{propertyData.description}}</span>
             <ng-template #noDescription>No Description</ng-template>
         </div>
 
-        <div class="card min-h-0 h-full price-card" fxLayout="column" fxFlex.gt-md="30" fxFlex.lt-md="100" fxLayoutAlign="center center">
+        <div class="card min-h-0 price-card" fxFlex.gt-md="30" fxFlex.lt-md="100" fxLayout="column" fxLayoutAlign="center center">
             <div>
                 <h6 class="text-xl font-bold">Price</h6>
             </div>
-            <div class="w-full p-3">
-                <div class="text-5xl font-bold text-center">$2500</div>
+            <div class="w-full" fxLayout="column" fxLayoutAlign="center center">
+                <div class="w-full p-3" fxLayout="column" fxLayoutAlign="center center">
+                    <div class="text-5xl font-bold text-center">$2500</div>
+                </div>
+                <div class="w-full" fxLayout="column">
+                    <div class="text-lg font-medium w-full" fxLayout="row" fxLayoutAlign="space-around start"
+                        fxLayoutGap="10px">
+                        <div>Rent Price</div>
+                        <div>$2000</div>
+                    </div>
+                    <div class="text-base font-medium w-full" fxLayout="row" fxLayoutAlign="space-around start"
+                        fxLayoutGap="10px">
+                        <div>Other Cost</div>
+                        <div>$500</div>
+                    </div>
+                </div>
             </div>
-            <div class="text-lg font-medium w-full" fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="10px">
-                <div>Rent Price</div>
-                <div>$2000</div>
-            </div>
-            <div class="text-base font-medium w-full" fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="10px">
-                <div>Other Cost</div>
-                <div>$500</div>
-            </div>
+
             <!-- <span *ngIf="propertyData.description; else noDescription">{{propertyData.description}}</span>
             <ng-template #noDescription>No Description</ng-template> -->
         </div>

@@ -71,7 +71,7 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
         }).addTo(map);
 
         L.marker([23.780279, 90.416765]).addTo(map)
-            .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+            .bindPopup(this.propertyData.name)
             .openPopup();
 
         this.map = map;

@@ -16,6 +16,8 @@ export class AuthService {
     constructor(private http: HttpClient, private router: Router) {
     }
 
+    get tokenInLocalStorage() { return localStorage.getItem('brh-token') ?? '';}
+
     authUser(user: UserForLogin): Observable<any> {
         return this.http.post(this.baseUrl + '/account/login', user);
     }
@@ -29,24 +31,40 @@ export class AuthService {
         return this.loggedInUser != '';
     }
 
-    isAuthenticated(): boolean {
-        const token = localStorage.getItem('brh-token') ?? '';
+    get decodedTokenPayload() {
+        const token = this.tokenInLocalStorage;
         const splittedToken = token.split('.');
         if (splittedToken.length === 3) {
             const decodedTokenPayload = atob(splittedToken[1]);
-            const expiry = (JSON.parse(decodedTokenPayload))['exp'];
-            let isExpired = (Math.floor((new Date).getTime() / 1000)) > expiry;
-            if(!isExpired) {
-                return true;
+            return decodedTokenPayload;
+        }
+        return null;
+    }
+
+    isAuthenticated(): boolean {
+        const decodedTokenPayload = this.decodedTokenPayload;
+        if (decodedTokenPayload) {
+            var isExpired = this.isExpired(decodedTokenPayload);
+            if(isExpired) {
+                this.logOut();
             }
+            return !isExpired;
         }
         this.logOut();
         return false;
     }
 
-    logOut() {
+    isExpired(decodedTokenPayload: string) {
+        const expiry = (JSON.parse(decodedTokenPayload))['exp'];
+        let isExpired = (Math.floor((new Date).getTime() / 1000)) > expiry;
+        return isExpired === true;
+    }
+
+    logOut(navigateToLogin: boolean = true) {
         localStorage.removeItem('brh-token');
         localStorage.removeItem('brh-userName');
-        this.router.navigate(['login']);
+        if(navigateToLogin) {
+            this.router.navigate(['login']);
+        }
     }
 }

@@ -7,7 +7,7 @@ import { PhotoService } from 'src/app/services/photo.service';
 import { PropertyService } from 'src/app/services/property.service';
 import { environment } from 'src/environments/environment';
 
-import * as L from 'leaflet';
+import * as leaflet from 'leaflet';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -64,13 +64,13 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
 
         // tiles.addTo(this.map);
         // 23.780279, 90.416765
-        var map = L.map('map').setView([23.780279, 90.416765], 12);
+        var map = leaflet.map('map').setView([23.780279, 90.416765], 12);
 
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        L.marker([23.780279, 90.416765]).addTo(map)
+        leaflet.marker([23.780279, 90.416765]).addTo(map)
             .bindPopup(this.propertyData.name)
             .openPopup();
 

@@ -1,5 +1,6 @@
 export interface PropertyListDto {
     id: number;
+    sellRent: number;
     name: string;
     propertyType: string;
     bedroom: number;
@@ -10,6 +11,7 @@ export interface PropertyListDto {
     furnishingType: string;
     city: string;
     country: string;
+    floor: number;
     readyToMove: boolean;
     postedOn: string;
     primaryPhoto: string;

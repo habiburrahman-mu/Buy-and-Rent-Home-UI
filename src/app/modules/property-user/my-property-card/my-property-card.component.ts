@@ -4,6 +4,7 @@ import { PropertyListDto } from "../../../models/propertyListDto";
 import { PropertyService } from 'src/app/services/property.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { SellRent } from 'src/app/enums/enums';
 
 @Component({
     selector: 'app-my-property-card',
@@ -19,6 +20,8 @@ export class MyPropertyCardComponent implements OnInit {
     defaultImagePath = "assets/images/house_default.png";
 
     isDeleteInProgress: boolean;
+
+    sellRent = SellRent;
 
     constructor(private confirmationService: ConfirmationService,
         private propertyService: PropertyService,

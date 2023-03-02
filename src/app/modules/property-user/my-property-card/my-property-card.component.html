@@ -1,4 +1,4 @@
-<div class="card mb-2 p-3">
+<div class="card mb-2 p-3 border-blue-200">
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxLayoutGap="20px"
         fxLayoutAlign.lt-md="start center">
         <div fxLayout="column" fxLayoutAlign="start start">
@@ -30,22 +30,22 @@
 
                 <div fxLayout="row" fxLayoutAlign="space-between start" class="w-100">
                     <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
-                        <div><i class="fa-solid fa-bed mr-1" title="Bedroom"></i>{{propertyData.bedroom}}</div>
-                        <div *ngIf="propertyData.bathroom"><i class="fa-solid fa-bath mr-1"
+                        <div class="font-medium"><i class="fa-solid fa-bed mr-1 text-blue-900" title="Bedroom"></i>{{propertyData.bedroom}}</div>
+                        <div *ngIf="propertyData.bathroom" class="font-medium"><i class="fa-solid fa-bath mr-1 text-blue-900"
                                 title="Bathroom"></i>{{propertyData.bathroom}}</div>
-                        <div *ngIf="propertyData.commonSpace"><i class="fa-solid fa-people-line mr-1"
+                        <div *ngIf="propertyData.commonSpace" class="font-medium"><i class="fa-solid fa-people-line mr-1 text-blue-900"
                                 title="Common Space"></i>{{propertyData.commonSpace}}</div>
                     </div>
                     <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="5px">
-                        <div><i class="fa-solid fa-truck-ramp-box mr-1"></i>Sell</div>
-                        <div><i class="fa-solid fa-building mr-1"></i>House</div>
-                        <div><i class="fa-solid fa-couch mr-1"></i> Fully Furnished</div>
+                        <div class="font-medium"><i class="fa-solid fa-truck-ramp-box mr-1 text-blue-900"></i>{{propertyData.sellRent === sellRent.Sell ? "Sell" : "Rent"}}</div>
+                        <div class="font-medium"><i class="fa-solid fa-building mr-1 text-blue-900"></i>{{propertyData.propertyType}}</div>
+                        <div class="font-medium"><i class="fa-solid fa-couch mr-1 text-blue-900"></i> {{propertyData.furnishingType}}</div>
                     </div>
                 </div>
 
-                <div><i class="pi pi-bookmark-fill"></i> {{propertyData.city}}, {{propertyData.country}}</div>
-                <div><i class="pi pi-bookmark-fill"></i> Floor No: 4</div>
-                <div><i class="fa-solid fa-square mr-1" title="Area"></i>{{propertyData.area}} Ft.<sup>2</sup></div>
+                <div class="font-medium"><i class="pi pi-bookmark-fill text-blue-900"></i> {{propertyData.city}}, {{propertyData.country}}</div>
+                <div class="font-medium"><i class="pi pi-bookmark-fill text-blue-900"></i> Floor No: {{propertyData.floor}}</div>
+                <div class="font-medium"><i class="fa-solid fa-square mr-1 text-blue-900" title="Area"></i>{{propertyData.area}} Ft.<sup>2</sup></div>
             </div>
         </div>
 

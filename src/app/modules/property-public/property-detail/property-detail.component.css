@@ -45,9 +45,10 @@ img {
 
 
 .type-detail-small-card {
-    padding: 15px;
+    padding: 12px;
     background: var(--bluegray-100);
     border-radius: 10px;
+    border: 1px var(--primary-600) solid;
     margin-bottom: 5px;
 }
 

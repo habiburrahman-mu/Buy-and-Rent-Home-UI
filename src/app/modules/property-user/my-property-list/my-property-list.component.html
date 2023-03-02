@@ -23,26 +23,12 @@
     </div>
 
     <div *ngIf="isDataLoading">
-        <div class="card mb-2 p-3">
-            <p-skeleton styleClass="mb-2"></p-skeleton>
-            <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
-            <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
-            <p-skeleton height="2rem" styleClass="mb-2"></p-skeleton>
-            <p-skeleton width="10rem" height="4rem"></p-skeleton>
-        </div>
-        <div class="card mb-2 p-3">
-            <p-skeleton styleClass="mb-2"></p-skeleton>
-            <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
-            <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
-            <p-skeleton height="2rem" styleClass="mb-2"></p-skeleton>
-            <p-skeleton width="10rem" height="4rem"></p-skeleton>
-        </div>
-        <div class="card mb-2 p-3">
-            <p-skeleton styleClass="mb-2"></p-skeleton>
-            <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
-            <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
-            <p-skeleton height="2rem" styleClass="mb-2"></p-skeleton>
-            <p-skeleton width="10rem" height="4rem"></p-skeleton>
+        <div class="card mb-2 p-3 border-blue-200" *ngFor="let _ of [1,2,3]">
+            <p-skeleton styleClass="mb-2" height="1.5rem" borderRadius="16px"></p-skeleton>
+            <p-skeleton width="10rem" styleClass="mb-2" height="1.5rem" borderRadius="16px"></p-skeleton>
+            <p-skeleton width="5rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+            <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+            <p-skeleton width="10rem" height="4rem" borderRadius="16px"></p-skeleton>
         </div>
     </div>
 </div>

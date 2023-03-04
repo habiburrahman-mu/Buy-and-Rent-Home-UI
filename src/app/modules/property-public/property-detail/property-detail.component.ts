@@ -23,6 +23,8 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
 
     photos: PhotoDto[] = [];
 
+    displayFullScreenGallery = false;
+
     constructor(private route: ActivatedRoute,
         private router: Router,
         private propertyService: PropertyService,

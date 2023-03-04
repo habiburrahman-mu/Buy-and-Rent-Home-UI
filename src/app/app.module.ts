@@ -49,7 +49,7 @@ const appRoute: Routes = [
             },
             { path: 'login', component: UserLoginComponent },
             { path: 'register', component: UserRegisterComponent },
-            // {path: '**', component: PropertyListComponent}
+            {path: '**', pathMatch: 'full', redirectTo: 'property'}
         ]
     },
 

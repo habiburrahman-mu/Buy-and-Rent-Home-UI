@@ -1,8 +1,8 @@
 <div class="card" fxLayout="column" fxLayoutGap="10px">
-    <h4 class="mb-3">{{propertyData.name}}</h4>
+    <h4 class="mb-3" style="color: var(--blue-500);">{{propertyData.name}}</h4>
     <div class="" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutGap="10px"
         fxLayoutAlign.gt-md="space-between center" fxLayoutAlign.lt-md="space-between start">
-        <div class="min-h-0 h-full mb-0 w-full" fxFlex.gt-md="50" fxFlex.lt-md="100" fxLayout="row"
+        <div class="min-h-0 h-full mb-0 w-full" fxFlex.gt-md="50" fxFlex.lt-md="100" fxLayout="column"
             fxLayoutAlign="start center">
             <div *ngIf="photos.length > 0; else noPhotoTemplate" class="w-full gallery-container">
                 <p-galleria [value]="photos" [showItemNavigators]="true" [showThumbnails]="false">
@@ -25,6 +25,7 @@
                     <h4 class="vertical-align-middle">No Photo for this Property</h4>
                 </div>
             </ng-template>
+            <p-button *ngIf="photos.length > 0" styleClass="p-button-sm p-button-info p-button-outlined" icon="pi pi-clone" title="Open Gallery" label="Open Gallery" (onClick)="displayFullScreenGallery = true"></p-button>
         </div>
         <div class="p-2 min-h-0 h-full mb-0" fxFlex.gt-md="50" fxFlex.lt-md="100" fxLayout="column">
             <h6 class="text-lg font-bold">Types</h6>
@@ -189,3 +190,17 @@
 
     </div>
 </div>
+
+<p-galleria [(visible)]="displayFullScreenGallery" [value]="photos" [showItemNavigators]="true" [showThumbnails]="true" [fullScreen]="true" [baseZIndex]="100000">
+    <ng-template pTemplate="item" let-item>
+        <div class="item">
+            <img [src]="staticFileUrl + '/' + item.imageUrl" style="height: 350px; width: 100%;" />
+        </div>
+
+    </ng-template>
+    <ng-template pTemplate="thumbnail" let-item>
+        <div class="grid grid-nogutter justify-content-center">
+            <img [src]="staticFileUrl + '/' + item.imageUrl" style="display: block; height: 50px;"/>
+        </div>
+    </ng-template>
+</p-galleria>

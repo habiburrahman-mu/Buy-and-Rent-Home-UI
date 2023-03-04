@@ -41,6 +41,15 @@ export class AuthService {
         return null;
     }
 
+    get userRoleList() {
+        const decodedTokenPayload = this.decodedTokenPayload;
+        if (decodedTokenPayload) {
+            var roleList = (JSON.parse(decodedTokenPayload))['role'];
+            return roleList;
+        }
+        return [];
+    }
+
     isAuthenticated(): boolean {
         const decodedTokenPayload = this.decodedTokenPayload;
         if (decodedTokenPayload) {

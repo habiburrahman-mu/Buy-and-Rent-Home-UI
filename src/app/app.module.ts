@@ -25,6 +25,7 @@ import { AuthGuard } from "./guards/auth.guard";
 import { PrimengLibModule } from './modules/primeng-lib/primeng-lib.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SharedModule } from './modules/shared/shared.module';
+import { HasRoleGuard } from './guards/has-role.guard';
 
 
 const appRoute: Routes = [
@@ -47,9 +48,17 @@ const appRoute: Routes = [
                     }
                 ]
             },
+            {
+                path: "admin",
+                canActivateChild: [AuthGuard, HasRoleGuard],
+                data: {
+                    role: ['Admin']
+                },
+                loadChildren: () => import('./modules/admin-area/admin-area.module').then(m => m.AdminAreaModule)
+            },
             { path: 'login', component: UserLoginComponent },
             { path: 'register', component: UserRegisterComponent },
-            {path: '**', pathMatch: 'full', redirectTo: 'property'}
+            { path: '**', pathMatch: 'full', redirectTo: 'property' }
         ]
     },
 

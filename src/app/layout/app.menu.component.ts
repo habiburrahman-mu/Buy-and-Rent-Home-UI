@@ -1,6 +1,7 @@
 import {OnInit} from '@angular/core';
 import {Component} from '@angular/core';
 import {LayoutService} from './service/app.layout.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'app-menu',
@@ -9,11 +10,14 @@ import {LayoutService} from './service/app.layout.service';
 export class AppMenuComponent implements OnInit {
 
     model: any[] = [];
+    currentRole: string[] | string;
 
-    constructor(public layoutService: LayoutService) {
+    constructor(public layoutService: LayoutService,
+        private authService: AuthService) {
     }
 
     ngOnInit() {
+        console.log("menu item starts");
         this.model = [
             {
                 label: 'Home',
@@ -26,9 +30,11 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'User Area',
                 items: [
-                    {label: 'My Property', icon: 'pi pi-fw pi-home', routerLink: ['user/property/my-property']},
-                ]
+                    {label: 'My Property', icon: 'pi pi-fw pi-home', routerLink: ['user/property/my-property'], isShowForThisRole: this.isShowForThisRole(['User'])},
+                ],
+                isShowForThisRole: this.isShowForThisRole(['User'])
             },
+            //#region commented
             // {
             //     label: 'UI Components',
             //     items: [
@@ -187,6 +193,22 @@ export class AppMenuComponent implements OnInit {
             //         }
             //     ]
             // }
+            //#endregion commented
         ];
+        console.log(this.model);
+    }
+
+    private isShowForThisRole(permittedRoleList: string[]) {
+        this.currentRole = this.authService.userRoleList;
+        if (this.currentRole && permittedRoleList && Array.isArray(permittedRoleList)) {
+            if (Array.isArray(this.currentRole)) {
+                if (this.currentRole.length > 0 && permittedRoleList.length > 0) {
+                    return this.currentRole.some(role => permittedRoleList.includes(role));
+                }
+            } else {
+                return permittedRoleList.includes(this.currentRole);
+            }
+        }
+        return false;
     }
 }

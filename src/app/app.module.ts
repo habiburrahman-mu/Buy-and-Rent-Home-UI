@@ -43,7 +43,10 @@ const appRoute: Routes = [
                     { path: "", pathMatch: "full", redirectTo: "property" },
                     {
                         path: "property",
-                        canActivateChild: [AuthGuard],
+                        canActivateChild: [AuthGuard, HasRoleGuard],
+                        data: {
+                            role: ['User']
+                        },
                         loadChildren: () => import('./modules/property-user/property-user.module').then(m => m.PropertyUserModule)
                     }
                 ]

@@ -3,6 +3,8 @@ import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGro
 import { UserForRegister } from "../../models/user";
 import { AuthService } from "../../services/auth.service";
 import { MessageService } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-user-register',
@@ -13,10 +15,12 @@ export class UserRegisterComponent implements OnInit {
     registrationForm!: UntypedFormGroup;
     user!: UserForRegister;
     isUserSubmitted: boolean = false;
+    isRegistrationInProgress = false;;
 
     constructor(private fb: UntypedFormBuilder,
         private authService: AuthService,
-        private messageService: MessageService) {
+        private messageService: MessageService,
+        private router: Router) {
     }
 
     ngOnInit(): void {
@@ -36,14 +40,26 @@ export class UserRegisterComponent implements OnInit {
     onSubmit() {
         this.isUserSubmitted = true;
         if (this.registrationForm.valid) {
+            this.isRegistrationInProgress = true;
             this.authService.registerUser(this.userData()).subscribe(
-                () => {
-                    this.onReset();
-                    this.messageService.add({
-                        severity: 'success',
-                        summary: 'Registration',
-                        detail: 'You are successfully registered'
-                    });
+                {
+                    next: () => {
+                        this.isRegistrationInProgress = false;
+                        this.onReset();
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Registration',
+                            detail: 'You are successfully registered'
+                        });
+                        this.router.navigate(['login']);
+                    },
+                    error: (error: HttpErrorResponse) => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Registration',
+                            detail: 'Error Occurred While Registering'
+                        });
+                    }
                 }
             );
         } else {

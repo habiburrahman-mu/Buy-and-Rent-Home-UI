@@ -1,6 +1,6 @@
-import {OnInit} from '@angular/core';
-import {Component} from '@angular/core';
-import {LayoutService} from './service/app.layout.service';
+import { OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { LayoutService } from './service/app.layout.service';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -22,18 +22,25 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Home',
                 items: [
-                    {label: 'Buy', icon: 'pi pi-fw pi-home', routerLink: ['/property/buy']},
-                    {label: 'Rent', icon: 'pi pi-fw pi-home', routerLink: ['/property/rent']},
+                    { label: 'Buy', icon: 'pi pi-fw pi-home', routerLink: ['/property/buy'] },
+                    { label: 'Rent', icon: 'pi pi-fw pi-home', routerLink: ['/property/rent'] },
                     // {label: 'List Property (Free)', icon: 'pi pi-fw pi-home', routerLink: ['/add-property']},
                 ]
             },
             {
+                label: 'Admin Panel',
+                items: [
+                    { label: 'Role Management', icon: 'fa-solid fa-people-roof', routerLink: ['admin/role'], isShowForThisRole: this.isShowForThisRole(['Admin']) },
+                ],
+                isShowForThisRole: this.isShowForThisRole(['Admin'])
+            },
+            {
                 label: 'User Area',
                 items: [
-                    {label: 'My Property', icon: 'pi pi-fw pi-home', routerLink: ['user/property/my-property'], isShowForThisRole: this.isShowForThisRole(['User'])},
+                    { label: 'My Property', icon: 'pi pi-fw pi-home', routerLink: ['user/property/my-property'], isShowForThisRole: this.isShowForThisRole(['User']) },
                 ],
                 isShowForThisRole: this.isShowForThisRole(['User'])
-            },
+            }
             //#region commented
             // {
             //     label: 'UI Components',

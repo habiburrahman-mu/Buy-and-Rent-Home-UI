@@ -13,7 +13,7 @@ import { PageResult } from "../models/PageResult";
 })
 export class PropertyService {
 
-    serviceBaseUrl = environment.baseUrl + '/property';
+    private serviceBaseUrl = environment.baseUrl + '/property';
 
     constructor(private http: HttpClient) {
     }

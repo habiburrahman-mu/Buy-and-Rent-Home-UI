@@ -1,1 +1,26 @@
-<p>role works!</p>
+<div class="card min-h-full" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutAlign="space-around start">
+    <div>
+        <div class="w-full text-center">Role</div>
+        <p-table [value]="roleList" [scrollable]="true" scrollHeight="200px" [lazy]="true" (onLazyLoad)="loadRoleList($event)" dataKey="id" [paginator]="true"
+            [rows]="10" [loading]="isDataLoading"
+            [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-role>
+                <tr>
+                    <td>{{role.id}}</td>
+                    <td>{{role.name}}</td>
+                    <td>{{role.description}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div>
+        User Privilege
+    </div>
+</div>

@@ -26,6 +26,7 @@ import { PrimengLibModule } from './modules/primeng-lib/primeng-lib.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SharedModule } from './modules/shared/shared.module';
 import { HasRoleGuard } from './guards/has-role.guard';
+import { RoleService } from './services/role.service';
 
 
 const appRoute: Routes = [
@@ -68,6 +69,16 @@ const appRoute: Routes = [
 
 ];
 
+const httpServices = [
+    HousingService,
+    CityService,
+    CountryService,
+    FurnishingTypeService,
+    PropertyTypeService,
+    PropertyService,
+    RoleService
+];
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -99,12 +110,7 @@ const appRoute: Routes = [
             useClass: AuthInterceptor,
             multi: true
         },
-        HousingService,
-        CityService,
-        CountryService,
-        FurnishingTypeService,
-        PropertyTypeService,
-        PropertyService,
+        ...httpServices,
         AuthService,
         MessageService,
         ConfirmationService

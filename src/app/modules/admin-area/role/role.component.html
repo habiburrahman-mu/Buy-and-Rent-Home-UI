@@ -5,6 +5,8 @@
         <p-table [value]="roleList" [scrollable]="true" scrollHeight="200px" [lazy]="true"
             (onLazyLoad)="loadRoleList($event)" [paginator]="true" [rows]="10" [loading]="isDataLoading"
             [totalRecords]="totalRecords" [rowsPerPageOptions]="[1,2,10,20,30]"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="{first} to {last} of {totalRecords} entries"
             [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
             <ng-template pTemplate="caption">
                 <div class="align-self-center text-xl font-medium w-100 text-center mb-2"

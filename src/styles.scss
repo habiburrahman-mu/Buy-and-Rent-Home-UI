@@ -30,3 +30,30 @@ html, body {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+.p-paginator .p-paginator-first, .p-paginator .p-paginator-prev, .p-paginator .p-paginator-next, .p-paginator .p-paginator-last {
+    height: 1.2rem !important;
+    width: 1.2rem !important;
+    min-width: 1.2rem !important;
+    margin: 2px !important;
+}
+
+.p-paginator-icon {
+    font-size: 1rem !important;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page {
+    height: 1.5rem !important;
+    width: 1.5rem !important;
+    font-size: 1rem !important;
+    margin: 2px !important;
+    min-width: 1.5rem !important;
+}
+
+.p-paginator .p-dropdown {
+    height: 2rem !important;
+}
+
+.p-paginator .p-dropdown .p-dropdown-label {
+    padding: 0.25rem !important;
+}

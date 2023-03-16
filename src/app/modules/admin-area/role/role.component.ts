@@ -14,6 +14,7 @@ import { RoleService } from 'src/app/services/role.service';
 export class RoleComponent implements OnInit, OnDestroy {
 
     roleList: RoleDto[] = [];
+    totalRecords = 0;
 
     isDataLoading = false;
 
@@ -27,10 +28,11 @@ export class RoleComponent implements OnInit, OnDestroy {
     }
 
     loadRoleList(event: LazyLoadEvent){
+        console.log(event);
         this.isDataLoading = true;
         let paginationParams: PaginationParameter = {
-            currentPageNo: 1,
-            pageSize: 10,
+            currentPageNo: Math.ceil(event.first!/event.rows!) + 1,
+            pageSize: event.rows!,
             sortBy: '',
             isDescending: false,
             searchField: '',
@@ -43,6 +45,7 @@ export class RoleComponent implements OnInit, OnDestroy {
                 next: response => {
                     this.isDataLoading = false;
                     this.roleList = response.resultList;
+                    this.totalRecords = response.totalRecords;
                     console.log(this.roleList);
                 },
                 error: (err: HttpErrorResponse) => {

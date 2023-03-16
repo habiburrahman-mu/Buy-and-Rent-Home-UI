@@ -1,19 +1,24 @@
-<div class="card min-h-full" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutAlign="space-between start" fxLayoutGap="10px">
+<div class="card min-h-full" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutAlign="space-between start"
+    fxLayoutGap="10px">
     <div class="card w-full" fxFlex.gt-md="50">
         <!-- <div class="w-full text-center">Role</div> -->
-        <p-table [value]="roleList" [scrollable]="true" scrollHeight="200px" [lazy]="true" (onLazyLoad)="loadRoleList($event)" dataKey="id" [paginator]="true"
-            [rows]="10" [loading]="isDataLoading"
+        <p-table [value]="roleList" [scrollable]="true" scrollHeight="200px" [lazy]="true"
+            (onLazyLoad)="loadRoleList($event)" [paginator]="true" [rows]="10" [loading]="isDataLoading"
+            [totalRecords]="totalRecords" [rowsPerPageOptions]="[1,2,10,20,30]"
             [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
             <ng-template pTemplate="caption">
-                <div class="align-self-center text-xl font-medium w-100 text-center mb-2" style="color: var(--blue-500);">Role</div>
+                <div class="align-self-center text-xl font-medium w-100 text-center mb-2"
+                    style="color: var(--blue-500);">Role</div>
                 <div class="table-header gap-2">
                     <span class="p-input-icon-left w-full">
                         <i class="pi pi-search"></i>
                         <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" /> -->
-                        <input pInputText type="text" placeholder="Search Role" class="w-full p-inputtext-sm"/>
+                        <input pInputText type="text" placeholder="Search Role" class="w-full p-inputtext-sm" />
                     </span>
-                    <button pButton pRipple type="button" icon="pi pi-search" class="p-button-success p-button-outlined"></button>
-                    <button pButton pRipple type="button" icon="pi pi-plus" style="background-color: var(--blue-500);"></button>
+                    <button pButton pRipple type="button" icon="pi pi-search"
+                        class="p-button-success p-button-outlined"></button>
+                    <button pButton pRipple type="button" icon="pi pi-plus"
+                        style="background-color: var(--blue-500);"></button>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -33,19 +38,22 @@
         </p-table>
     </div>
     <div class="card w-full">
-        <p-table [value]="roleList" [scrollable]="true" scrollHeight="200px" [lazy]="true" (onLazyLoad)="loadRoleList($event)" dataKey="id" [paginator]="true"
-            [rows]="10" [loading]="isDataLoading"
+        <p-table [value]="roleList" [scrollable]="true" scrollHeight="200px" [lazy]="true"
+            (onLazyLoad)="loadRoleList($event)" dataKey="id" [paginator]="true" [rows]="10" [loading]="isDataLoading"
             [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
             <ng-template pTemplate="caption">
-                <div class="align-self-center text-xl font-medium w-100 text-center mb-2" style="color: var(--blue-500);">User Privilege</div>
+                <div class="align-self-center text-xl font-medium w-100 text-center mb-2"
+                    style="color: var(--blue-500);">User Privilege</div>
                 <div class="table-header gap-2">
                     <span class="p-input-icon-left w-full">
                         <i class="pi pi-search"></i>
                         <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" /> -->
-                        <input pInputText type="text" placeholder="Search Role" class="w-full p-inputtext-sm"/>
+                        <input pInputText type="text" placeholder="Search Role" class="w-full p-inputtext-sm" />
                     </span>
-                    <button pButton pRipple type="button" icon="pi pi-search" class="p-button-success p-button-outlined"></button>
-                    <button pButton pRipple type="button" icon="pi pi-plus" style="background-color: var(--blue-500);"></button>
+                    <button pButton pRipple type="button" icon="pi pi-search"
+                        class="p-button-success p-button-outlined"></button>
+                    <button pButton pRipple type="button" icon="pi pi-plus"
+                        style="background-color: var(--blue-500);"></button>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">

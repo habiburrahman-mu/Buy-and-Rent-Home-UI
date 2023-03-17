@@ -31,6 +31,7 @@ import { DividerModule } from "primeng/divider";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { TableModule } from 'primeng/table';
 import {EditorModule} from 'primeng/editor';
+import { TooltipModule } from 'primeng/tooltip';
 
 const modules = [
     ButtonModule,
@@ -62,7 +63,8 @@ const modules = [
     DividerModule,
     ConfirmDialogModule,
     TableModule,
-    EditorModule
+    EditorModule,
+    TooltipModule
 ];
 
 @NgModule({

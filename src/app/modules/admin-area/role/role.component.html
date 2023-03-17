@@ -1,45 +1,63 @@
-<div class="card min-h-full" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutAlign="space-between start"
-    fxLayoutGap="10px">
-    <div class="card w-full" fxFlex.gt-md="50">
-        <!-- <div class="w-full text-center">Role</div> -->
-        <p-table [value]="roleList" [scrollable]="true" scrollHeight="200px" [lazy]="true"
-            (onLazyLoad)="loadRoleList($event)" [paginator]="true" [rows]="10" [loading]="isDataLoading"
-            [totalRecords]="totalRecords" [rowsPerPageOptions]="[1,2,10,20,30]"
-            [showCurrentPageReport]="true"
-            currentPageReportTemplate="{first} to {last} of {totalRecords} entries"
-            [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
-            <ng-template pTemplate="caption">
-                <div class="align-self-center text-xl font-medium w-100 text-center mb-2"
-                    style="color: var(--blue-500);">Role</div>
-                <div class="table-header gap-2">
-                    <span class="p-input-icon-left w-full">
-                        <i class="pi pi-search"></i>
-                        <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" /> -->
-                        <input pInputText type="text" placeholder="Search Role" class="w-full p-inputtext-sm" />
-                    </span>
-                    <button pButton pRipple type="button" icon="pi pi-search"
-                        class="p-button-success p-button-outlined"></button>
-                    <button pButton pRipple type="button" icon="pi pi-plus"
-                        style="background-color: var(--blue-500);"></button>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
-                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                    <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-role>
-                <tr>
-                    <td>{{role.id}}</td>
-                    <td>{{role.name}}</td>
-                    <td>{{role.description}}</td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
-    <div class="card w-full">
+<p-table [value]="roleList" [scrollable]="true" scrollHeight="200px" [lazy]="true" (onLazyLoad)="loadRoleList($event)"
+    [paginator]="true" [rows]="10" [loading]="isDataLoading" [totalRecords]="totalRecords"
+    [rowsPerPageOptions]="[1,2,10,20,30]" [showCurrentPageReport]="true"
+    currentPageReportTemplate="{first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
+    <ng-template pTemplate="caption">
+        <div class="align-self-center text-xl font-medium w-100 text-center mb-2" style="color: var(--blue-500);">Role
+        </div>
+        <div class="table-header gap-2">
+            <span class="p-input-icon-left w-full">
+                <i class="pi pi-search"></i>
+                <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" /> -->
+                <input pInputText type="text" placeholder="Search Role" class="w-full p-inputtext-sm" />
+            </span>
+            <button pButton pRipple type="button" icon="pi pi-search"
+                class="p-button-success p-button-outlined"></button>
+            <button pButton pRipple type="button" icon="pi pi-plus" style="background-color: var(--blue-500);"
+                (click)="showRoleSaveDialog = true"></button>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+            <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-role>
+        <tr>
+            <td>{{role.id}}</td>
+            <td>{{role.name}}</td>
+            <td class="text-overflow-ellipsis overflow-hidden white-space-nowrap" [pTooltip]="role.description">
+                {{role.description}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="showRoleSaveDialog" [style]="{'min-width': '30vw'}"
+    [breakpoints]="{'960px': '75vw', '640px': '98vw'}" [modal]="true" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+        <h5 class="m-0">Save Role</h5>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="w-100">
+            <h6 class="m-0 mb-1">Role Name</h6>
+            <input type="text" pInputText class="w-full">
+        </div>
+        <div class="w-100 mt-3">
+            <h6 class="m-0 mb-1">Description</h6>
+            <textarea rows="2" pInputTextarea class="w-full"></textarea>
+        </div>
+        <div class="w-100 mt-3 flex flex-row justify-content-end gap-2">
+            <button pButton pRipple type="button" label="Cancel" class="p-button-outlined p-button-primary text-black"
+                icon="pi pi-times"></button>
+            <p-button label="Submit" icon="pi pi-check"></p-button>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<!-- <div class="card w-full">
         <p-table [value]="roleList" [scrollable]="true" scrollHeight="200px" [lazy]="true"
             (onLazyLoad)="loadRoleList($event)" dataKey="id" [paginator]="true" [rows]="10" [loading]="isDataLoading"
             [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
@@ -49,7 +67,6 @@
                 <div class="table-header gap-2">
                     <span class="p-input-icon-left w-full">
                         <i class="pi pi-search"></i>
-                        <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" /> -->
                         <input pInputText type="text" placeholder="Search Role" class="w-full p-inputtext-sm" />
                     </span>
                     <button pButton pRipple type="button" icon="pi pi-search"
@@ -73,5 +90,4 @@
                 </tr>
             </ng-template>
         </p-table>
-    </div>
-</div>
+    </div> -->

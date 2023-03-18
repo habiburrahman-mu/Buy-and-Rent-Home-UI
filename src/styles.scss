@@ -57,3 +57,8 @@ html, body {
 .p-paginator .p-dropdown .p-dropdown-label {
     padding: 0.25rem !important;
 }
+
+.p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon.pi-check:before {
+    top: 8px !important;
+    left: 2px !important;
+}

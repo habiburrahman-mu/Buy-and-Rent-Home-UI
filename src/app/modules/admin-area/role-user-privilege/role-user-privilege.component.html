@@ -1,10 +1,11 @@
-<p-table [value]="userDtoList" [scrollable]="true" scrollHeight="400px" styleClass="p-datatable-sm" [lazy]="true" [tableStyle]="{'min-height': '100%'}"
-    (onLazyLoad)="loadUserDtoList($event)" [paginator]="true" [rows]="10" [loading]="isDataLoading"
-    [totalRecords]="totalRecords" [rowsPerPageOptions]="[1,2,10,20,30]" [showCurrentPageReport]="true"
-    currentPageReportTemplate="{first} to {last} of {totalRecords} entries"
+<p-table [value]="userDtoList" [scrollable]="true" scrollHeight="400px" styleClass="p-datatable-sm" [lazy]="true"
+    [tableStyle]="{'min-height': '100%'}" (onLazyLoad)="loadUserDtoList($event)" [paginator]="true" [rows]="10"
+    [loading]="isDataLoading" [totalRecords]="totalRecords" [rowsPerPageOptions]="[1,2,10,20,30]"
+    [showCurrentPageReport]="true" currentPageReportTemplate="{first} to {last} of {totalRecords} entries"
     [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
     <ng-template pTemplate="caption">
-        <div class="align-self-center text-xl font-medium w-100 text-center mb-2" style="color: var(--blue-500);">User Privilege
+        <div class="align-self-center text-xl font-medium w-100 text-center mb-2" style="color: var(--blue-500);">User
+            Privilege
         </div>
         <div class="table-header gap-2">
             <span class="p-input-icon-left w-full">
@@ -13,19 +14,23 @@
             </span>
             <button pButton pRipple type="button" icon="pi pi-search"
                 class="p-button-success p-button-outlined"></button>
-            <button pButton pRipple type="button" icon="pi pi-plus" style="background-color: var(--blue-500);"></button>
+            <!-- <button pButton pRipple type="button" icon="fa-solid fa-user-plus"
+                style="background-color: var(--blue-500);" title="Create User"></button> -->
         </div>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+            <th pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon></th>
             <th pSortableColumn="name">Username <p-sortIcon field="username"></p-sortIcon></th>
-            <th pSortableColumn="description" style="min-width: 50%">Roles <p-sortIcon field="description"></p-sortIcon></th>
+            <th pSortableColumn="description" style="min-width: 50%">Roles <p-sortIcon field="description"></p-sortIcon>
+            </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-user>
         <tr>
-            <td>{{user.id}}</td>
+            <td class="cursor-pointer" (click)="showUserPrivilegeDialog = true"><i class="fa-solid fa-pen-to-square"
+                    style="color: var(--blue-500);"></i> &nbsp;{{user.id}}
+            </td>
             <td>{{user.username}}</td>
             <td style="min-width: 50%">
                 <span *ngFor="let role of user.roleList" class="flex flex-row flex-wrap">
@@ -35,3 +40,28 @@
         </tr>
     </ng-template>
 </p-table>
+
+<p-dialog [(visible)]="showUserPrivilegeDialog" [style]="{'min-width': '30vw'}"
+    [breakpoints]="{'960px': '75vw', '640px': '98vw'}" [modal]="true" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+        <h5 class="m-0">Update User Privilege</h5>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="w-100">
+            <h6 class="m-0 mb-1">User Name</h6>
+            <input type="text" pInputText value="Admin" class="w-full" readonly>
+        </div>
+        <div class="w-100 mt-3">
+            <h6 class="m-0 mb-1">Description</h6>
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="binary"></p-checkbox>
+                <label for="binary">Test</label>
+            </div>
+        </div>
+        <div class="w-100 mt-3 flex flex-row justify-content-end gap-2">
+            <button pButton pRipple type="button" label="Cancel"
+                class="p-button-outlined p-button-primary text-black p-button-sm" icon="pi pi-times"></button>
+            <p-button label="Submit" icon="pi pi-check" styleClass="p-button-sm"></p-button>
+        </div>
+    </ng-template>
+</p-dialog>

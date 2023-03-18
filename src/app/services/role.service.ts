@@ -15,9 +15,8 @@ export class RoleService {
 
     constructor(private httpClient: HttpClient) { }
 
-    getRolePaginatedList(paginationParameter: PaginationParameter) {
-        let queryParams = Mapper.paginationParameterToHttpParams(paginationParameter);
-        return this.httpClient.get<PageResult<RoleDto>>(this.serviceBaseUrl + '/RolePaginatedList', { params: queryParams });
+    getRoleList() {
+        return this.httpClient.get<Array<RoleDto>>(this.serviceBaseUrl + '/List');
     }
 
 

@@ -33,6 +33,7 @@ import { TableModule } from 'primeng/table';
 import {EditorModule} from 'primeng/editor';
 import { TooltipModule } from 'primeng/tooltip';
 import { ChipModule } from 'primeng/chip';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 const modules = [
     ButtonModule,
@@ -66,7 +67,8 @@ const modules = [
     TableModule,
     EditorModule,
     TooltipModule,
-    ChipModule
+    ChipModule,
+    MultiSelectModule
 ];
 
 @NgModule({

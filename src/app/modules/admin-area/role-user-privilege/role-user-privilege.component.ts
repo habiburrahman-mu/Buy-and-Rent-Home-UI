@@ -17,6 +17,8 @@ export class RoleUserPrivilegeComponent implements OnInit {
 
     isDataLoading = false;
 
+    showUserPrivilegeDialog = false;
+
     private ngUnsubscribed = new Subject<void>();
 
     constructor(

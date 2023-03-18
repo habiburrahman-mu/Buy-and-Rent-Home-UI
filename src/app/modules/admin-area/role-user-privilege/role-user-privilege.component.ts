@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
+import { RoleDto } from 'src/app/models/roleDto';
 import { UserDto } from 'src/app/models/userDto';
 import { UserService } from 'src/app/services/user.service';
 import { Mapper } from 'src/app/utils/mapper';
@@ -11,6 +12,7 @@ import { Mapper } from 'src/app/utils/mapper';
     styleUrls: ['./role-user-privilege.component.css']
 })
 export class RoleUserPrivilegeComponent implements OnInit {
+    @Input() roleList: RoleDto[] = [];
 
     userDtoList: UserDtoExtended[] = [];
     totalRecords = 0;

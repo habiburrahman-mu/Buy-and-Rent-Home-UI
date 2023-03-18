@@ -4,6 +4,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 import { RoleDto } from 'src/app/models/roleDto';
 import { RoleService } from 'src/app/services/role.service';
+import { RoleHomeComponent } from '../role-home/role-home.component';
 
 @Component({
     selector: 'app-role',
@@ -21,7 +22,8 @@ export class RoleComponent implements OnInit, OnDestroy {
     private ngUnsubscribed = new Subject<void>();
 
     constructor(
-        private roleService: RoleService
+        private roleService: RoleService,
+        private roleHomeComponent: RoleHomeComponent
     ) { }
 
     ngOnInit(): void {
@@ -45,6 +47,7 @@ export class RoleComponent implements OnInit, OnDestroy {
                 next: response => {
                     this.isDataLoading = false;
                     this.roleList = response;
+                    this.roleHomeComponent.roleList = response;
                 },
                 error: (err: HttpErrorResponse) => {
                     this.isDataLoading = false;

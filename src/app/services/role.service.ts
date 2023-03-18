@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { PaginationParameter } from '../models/PaginationParameter';
 import { PageResult } from '../models/PageResult';
 import { RoleDto } from '../models/roleDto';
+import { Mapper } from '../utils/mapper';
 
 @Injectable({
     providedIn: 'root'
@@ -15,18 +16,8 @@ export class RoleService {
     constructor(private httpClient: HttpClient) { }
 
     getRolePaginatedList(paginationParameter: PaginationParameter) {
-        let queryParams = new HttpParams({
-            fromObject:
-            {
-                currentPageNo: paginationParameter.currentPageNo,
-                pageSize: paginationParameter.pageSize,
-                sortBy: paginationParameter.sortBy,
-                isDescending: paginationParameter.isDescending,
-                searchField: paginationParameter.searchField,
-                searchingText: paginationParameter.searchingText,
-            }
-        });
-        return this.httpClient.get<PageResult<RoleDto>>(this.serviceBaseUrl + '/RolePaginatedList', {params: queryParams});
+        let queryParams = Mapper.paginationParameterToHttpParams(paginationParameter);
+        return this.httpClient.get<PageResult<RoleDto>>(this.serviceBaseUrl + '/RolePaginatedList', { params: queryParams });
     }
 
 

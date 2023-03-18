@@ -1,1 +1,37 @@
-<p>role-user-privilege works!</p>
+<p-table [value]="userDtoList" [scrollable]="true" scrollHeight="400px" styleClass="p-datatable-sm" [lazy]="true" [tableStyle]="{'min-height': '100%'}"
+    (onLazyLoad)="loadUserDtoList($event)" [paginator]="true" [rows]="10" [loading]="isDataLoading"
+    [totalRecords]="totalRecords" [rowsPerPageOptions]="[1,2,10,20,30]" [showCurrentPageReport]="true"
+    currentPageReportTemplate="{first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
+    <ng-template pTemplate="caption">
+        <div class="align-self-center text-xl font-medium w-100 text-center mb-2" style="color: var(--blue-500);">User Privilege
+        </div>
+        <div class="table-header gap-2">
+            <span class="p-input-icon-left w-full">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" placeholder="Search User" class="w-full p-inputtext-sm" />
+            </span>
+            <button pButton pRipple type="button" icon="pi pi-search"
+                class="p-button-success p-button-outlined"></button>
+            <button pButton pRipple type="button" icon="pi pi-plus" style="background-color: var(--blue-500);"></button>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+            <th pSortableColumn="name">Username <p-sortIcon field="username"></p-sortIcon></th>
+            <th pSortableColumn="description" style="min-width: 50%">Roles <p-sortIcon field="description"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+        <tr>
+            <td>{{user.id}}</td>
+            <td>{{user.username}}</td>
+            <td style="min-width: 50%">
+                <span *ngFor="let role of user.roleList" class="flex flex-row flex-wrap">
+                    <p-chip [label]="role" styleClass="mr-1 text-xs" class=""></p-chip>
+                </span>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

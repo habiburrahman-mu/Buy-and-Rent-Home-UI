@@ -1,6 +1,6 @@
-<p-table [value]="roleList" [scrollable]="true" scrollHeight="200px" [lazy]="true" (onLazyLoad)="loadRoleList($event)"
-    [paginator]="true" [rows]="10" [loading]="isDataLoading" [totalRecords]="totalRecords"
-    [rowsPerPageOptions]="[1,2,10,20,30]" [showCurrentPageReport]="true"
+<p-table [value]="roleList" [scrollable]="true" scrollHeight="400px" styleClass="p-datatable-sm" [lazy]="true"
+    (onLazyLoad)="loadRoleList($event)" [paginator]="true" [rows]="10" [loading]="isDataLoading"
+    [totalRecords]="totalRecords" [rowsPerPageOptions]="[1,2,10,20,30]" [showCurrentPageReport]="true"
     currentPageReportTemplate="{first} to {last} of {totalRecords} entries"
     [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
     <ng-template pTemplate="caption">
@@ -22,14 +22,14 @@
         <tr>
             <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
             <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-            <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+            <th pSortableColumn="description" style="min-width: 50%">Description <p-sortIcon field="description"></p-sortIcon></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-role>
         <tr>
             <td>{{role.id}}</td>
             <td>{{role.name}}</td>
-            <td class="text-overflow-ellipsis overflow-hidden white-space-nowrap" [pTooltip]="role.description">
+            <td class="text-overflow-ellipsis overflow-hidden white-space-nowrap" [pTooltip]="role.description" style="min-width: 50%">
                 {{role.description}}</td>
         </tr>
     </ng-template>
@@ -50,9 +50,9 @@
             <textarea rows="2" pInputTextarea class="w-full"></textarea>
         </div>
         <div class="w-100 mt-3 flex flex-row justify-content-end gap-2">
-            <button pButton pRipple type="button" label="Cancel" class="p-button-outlined p-button-primary text-black"
+            <button pButton pRipple type="button" label="Cancel" class="p-button-outlined p-button-primary text-black p-button-sm"
                 icon="pi pi-times"></button>
-            <p-button label="Submit" icon="pi pi-check"></p-button>
+            <p-button label="Submit" icon="pi pi-check" styleClass="p-button-sm"></p-button>
         </div>
     </ng-template>
 </p-dialog>

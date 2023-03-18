@@ -32,6 +32,7 @@ import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { TableModule } from 'primeng/table';
 import {EditorModule} from 'primeng/editor';
 import { TooltipModule } from 'primeng/tooltip';
+import { ChipModule } from 'primeng/chip';
 
 const modules = [
     ButtonModule,
@@ -64,7 +65,8 @@ const modules = [
     ConfirmDialogModule,
     TableModule,
     EditorModule,
-    TooltipModule
+    TooltipModule,
+    ChipModule
 ];
 
 @NgModule({

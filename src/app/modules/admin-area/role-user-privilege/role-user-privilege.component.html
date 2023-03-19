@@ -28,7 +28,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-user>
         <tr>
-            <td style="flex: 0 1 80px;" class="cursor-pointer"> &nbsp;{{user.id}}
+            <td style="flex: 0 1 80px;"> &nbsp;{{user.id}}
             </td>
             <td style="flex: 0 1 100px;" class="text-overflow-ellipsis overflow-hidden white-space-nowrap">{{user.username}}</td>
             <td class="text-overflow-ellipsis overflow-hidden white-space-nowrap" [pTooltip]="user.roleList.length > 2 && user.roleList">{{user.roleList}}
@@ -36,7 +36,10 @@
                     <p-chip [label]="role" styleClass="mr-1 text-xs" class=""></p-chip>
                 </span> -->
             </td>
-            <td style="flex: 0 1 15px;" class="text-right" (click)="showUserPrivilegeDialog = true"><i class="fa-solid fa-pen-to-square" style="color: var(--blue-500);"></i></td>
+            <td style="flex: 0 1 15px;" class="text-right cursor-pointer" (click)="showUserPrivilegeDialog = true">
+                <p-button icon="fa-solid fa-pen-to-square" styleClass="p-button-xs" [style]="{'background-color': 'var(--blue-500)'}"></p-button>
+                <!-- <i class="fa-solid fa-pen-to-square" style="color: var(--blue-500);"></i> -->
+            </td>
         </tr>
     </ng-template>
 </p-table>

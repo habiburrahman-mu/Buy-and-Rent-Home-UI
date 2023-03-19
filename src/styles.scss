@@ -31,6 +31,8 @@ html, body {
     background: #555;
 }
 
+// paginator override
+
 .p-paginator .p-paginator-first, .p-paginator .p-paginator-prev, .p-paginator .p-paginator-next, .p-paginator .p-paginator-last {
     height: 1.2rem !important;
     width: 1.2rem !important;
@@ -58,7 +60,20 @@ html, body {
     padding: 0.25rem !important;
 }
 
+// checkbox override
+
 .p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon.pi-check:before {
     top: 8px !important;
     left: 2px !important;
+}
+
+// button extra small
+.p-button.p-button-xs {
+    padding: 0.25rem 0.2rem !important;
+    width: auto;
+}
+
+.p-button.p-button-icon-only.p-button-xs {
+    width: 1.75rem !important;
+    font-size: 0.8rem !important;
 }

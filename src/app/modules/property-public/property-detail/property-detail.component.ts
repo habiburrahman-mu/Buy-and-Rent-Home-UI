@@ -77,6 +77,13 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
             .openPopup();
 
         this.map = map;
+        map.on("click", (event) => {
+            this.onClickMap(event);
+        })
+    }
+
+    onClickMap(event: any) {
+        console.log(event);
     }
 
     loadPropertyImages() {

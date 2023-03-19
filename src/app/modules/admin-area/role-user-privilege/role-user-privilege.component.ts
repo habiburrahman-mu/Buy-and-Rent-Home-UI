@@ -1,9 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 import { RoleDto } from 'src/app/models/roleDto';
 import { UserDto } from 'src/app/models/userDto';
-import { UserPrivilegeDto } from 'src/app/models/userPrivilegeDto';
+import { UserPrivilege } from 'src/app/models/userPrivilege';
+import { UserPrivilegeSaveDto } from 'src/app/models/userPrivilegeSaveDto';
+import { UserPrivilegeService } from 'src/app/services/http/user-privilege.service';
 import { UserService } from 'src/app/services/http/user.service';
 import { Mapper } from 'src/app/utils/mapper';
 
@@ -12,8 +15,10 @@ import { Mapper } from 'src/app/utils/mapper';
     templateUrl: './role-user-privilege.component.html',
     styleUrls: ['./role-user-privilege.component.css']
 })
-export class RoleUserPrivilegeComponent implements OnInit {
+export class RoleUserPrivilegeComponent implements OnInit, OnDestroy {
     @Input() roleList: RoleDto[] = [];
+
+    private lastTableLazyLoadEvent: LazyLoadEvent;
 
     userDtoList: UserDtoExtended[] = [];
     totalRecords = 0;
@@ -21,6 +26,7 @@ export class RoleUserPrivilegeComponent implements OnInit {
     isDataLoading = false;
 
     showUserPrivilegeDialog = false;
+    isSaveInProgress = false;
 
     selectedUserPrivilege = {
         userId: 0,
@@ -31,7 +37,9 @@ export class RoleUserPrivilegeComponent implements OnInit {
     private ngUnsubscribed = new Subject<void>();
 
     constructor(
-        private userService: UserService
+        private userService: UserService,
+        private userPrivilegeService: UserPrivilegeService,
+        private messageService: MessageService
     ) { }
 
     ngOnInit(): void {
@@ -39,6 +47,7 @@ export class RoleUserPrivilegeComponent implements OnInit {
 
     loadUserDtoList(event: LazyLoadEvent) {
         this.isDataLoading = true;
+        this.lastTableLazyLoadEvent = event;
         let paginationParams = Mapper.pTableLazyLoadEventToPaginationParameter(event);
         this.userService.getUserPaginatedList(paginationParams)
             .pipe(takeUntil(this.ngUnsubscribed))
@@ -84,7 +93,46 @@ export class RoleUserPrivilegeComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.selectedUserPrivilege);
+        this.isSaveInProgress = true;
+        let userPrivilegeSaveDto: UserPrivilegeSaveDto = {
+            userId: this.selectedUserPrivilege.userId,
+            userPrivilegeList: this.selectedUserPrivilege.roleListWithSelectState
+                .filter(role => role.isSelected)
+                .map(role => {
+                    let userPrivilege: UserPrivilege = {
+                        id: 0,
+                        userId: this.selectedUserPrivilege.userId,
+                        roleId: role.id
+                    }
+                    return userPrivilege;
+                })
+        }
+
+        this.userPrivilegeService.saveUserPrivilege(userPrivilegeSaveDto)
+            .pipe(takeUntil(this.ngUnsubscribed))
+            .subscribe({
+                next: response => {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'User Privilege',
+                        detail: 'User Privilege Updated'
+                    });
+                    this.loadUserDtoList(this.lastTableLazyLoadEvent);
+                    this.isSaveInProgress = false;
+                    this.showUserPrivilegeDialog = false;
+                },
+                error: (error: HttpErrorResponse) => {
+                    console.log(error);
+                    this.isSaveInProgress = false;
+                }
+            });
+
+        console.log(userPrivilegeSaveDto);
+    }
+
+    ngOnDestroy(): void {
+        this.ngUnsubscribed.next();
+        this.ngUnsubscribed.complete();
     }
 }
 

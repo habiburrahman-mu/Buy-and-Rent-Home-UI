@@ -30,14 +30,17 @@
         <tr>
             <td style="flex: 0 1 80px;"> &nbsp;{{user.id}}
             </td>
-            <td style="flex: 0 1 100px;" class="text-overflow-ellipsis overflow-hidden white-space-nowrap">{{user.username}}</td>
-            <td class="text-overflow-ellipsis overflow-hidden white-space-nowrap" [pTooltip]="user.roleList.length > 2 && user.roleList">{{user.roleList}}
+            <td style="flex: 0 1 100px;" class="text-overflow-ellipsis overflow-hidden white-space-nowrap">
+                {{user.username}}</td>
+            <td class="text-overflow-ellipsis overflow-hidden white-space-nowrap"
+                [pTooltip]="user.roleList.length > 2 && user.roleList">{{user.roleList}}
                 <!-- <span *ngFor="let role of user.roleList" class="flex flex-row flex-wrap">
                     <p-chip [label]="role" styleClass="mr-1 text-xs" class=""></p-chip>
                 </span> -->
             </td>
-            <td style="flex: 0 1 15px;" class="text-right cursor-pointer" (click)="showUserPrivilegeDialog = true">
-                <p-button icon="fa-solid fa-pen-to-square" styleClass="p-button-xs" [style]="{'background-color': 'var(--blue-500)'}"></p-button>
+            <td style="flex: 0 1 15px;" class="text-right cursor-pointer" (click)="onShowUserPrivilegeDialog(user)">
+                <p-button icon="fa-solid fa-pen-to-square" styleClass="p-button-xs"
+                    [style]="{'background-color': 'var(--blue-500)'}"></p-button>
                 <!-- <i class="fa-solid fa-pen-to-square" style="color: var(--blue-500);"></i> -->
             </td>
         </tr>
@@ -52,13 +55,13 @@
     <ng-template pTemplate="content">
         <div class="w-100">
             <h6 class="m-0 mb-1">User Name</h6>
-            <input type="text" pInputText value="Admin" class="w-full" readonly>
+            <input type="text" pInputText [value]="selectedUserPrivilege.username" class="w-full" readonly>
         </div>
         <div class="w-100 mt-3">
             <h6 class="m-0 mb-1">Roles</h6>
             <div class="flex flex-row flex-wrap gap-2">
-                <div class="field-checkbox" *ngFor="let role of roleList">
-                    <p-checkbox [binary]="true" [inputId]="'roleName'+role.name"></p-checkbox>
+                <div class="field-checkbox" *ngFor="let role of selectedUserPrivilege.roleListWithSelectState">
+                    <p-checkbox [binary]="true" [inputId]="'roleName'+role.name" [(ngModel)]="role.isSelected"></p-checkbox>
                     <label [for]="'roleName'+role.name">{{role.name}}</label>
                 </div>
             </div>
@@ -67,7 +70,7 @@
         <div class="w-100 mt-3 flex flex-row justify-content-end gap-2">
             <button pButton pRipple type="button" label="Cancel"
                 class="p-button-outlined p-button-primary text-black p-button-sm" icon="pi pi-times"></button>
-            <p-button label="Submit" icon="pi pi-check" styleClass="p-button-sm"></p-button>
+            <p-button label="Submit" icon="pi pi-check" styleClass="p-button-sm" (onClick)="onSubmit()"></p-button>
         </div>
     </ng-template>
 </p-dialog>

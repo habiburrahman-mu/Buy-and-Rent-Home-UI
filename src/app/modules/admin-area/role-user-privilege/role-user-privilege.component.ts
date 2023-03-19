@@ -3,6 +3,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 import { RoleDto } from 'src/app/models/roleDto';
 import { UserDto } from 'src/app/models/userDto';
+import { UserPrivilegeDto } from 'src/app/models/userPrivilegeDto';
 import { UserService } from 'src/app/services/user.service';
 import { Mapper } from 'src/app/utils/mapper';
 
@@ -20,6 +21,12 @@ export class RoleUserPrivilegeComponent implements OnInit {
     isDataLoading = false;
 
     showUserPrivilegeDialog = false;
+
+    selectedUserPrivilege = {
+        userId: 0,
+        username: "",
+        roleListWithSelectState: [] as Array<RoleDtoWithSelectState>
+    }
 
     private ngUnsubscribed = new Subject<void>();
 
@@ -55,11 +62,36 @@ export class RoleUserPrivilegeComponent implements OnInit {
                     this.isDataLoading = false;
                     console.log(error);
                 }
-            })
+            });
     }
 
+    onShowUserPrivilegeDialog(user: UserDto) {
+        let roleIdListForSelectedUser = user.userPrivileges.map(privilege => {
+            return privilege.roleId;
+        });
+        this.selectedUserPrivilege = {
+            userId: user.id,
+            username: user.username,
+            roleListWithSelectState: this.roleList.map(role => {
+                return {
+                    ...role,
+                    isSelected: roleIdListForSelectedUser
+                        .find(roleId => roleId === role.id) !== undefined
+                }
+            })
+        };
+        this.showUserPrivilegeDialog = true
+    }
+
+    onSubmit() {
+        console.log(this.selectedUserPrivilege);
+    }
 }
 
 interface UserDtoExtended extends UserDto {
     roleList?: Array<string>
+}
+
+interface RoleDtoWithSelectState extends RoleDto {
+    isSelected: boolean
 }

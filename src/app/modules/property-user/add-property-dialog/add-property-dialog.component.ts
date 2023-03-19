@@ -5,20 +5,20 @@ import {
     Validators
 } from "@angular/forms";
 import {Router} from "@angular/router";
-import {HousingService} from "../../../services/housing.service";
+import {HousingService} from "../../../services/http/housing.service";
 import {ConfirmationService, MessageService, PrimeNGConfig} from "primeng/api";
 import {IKeyValuePair} from "../../../models/ikeyvaluepair";
 import {FileUpload} from "primeng/fileupload";
 import {TabView} from "primeng/tabview";
 import {IAddEditPropertyForm} from "../../../models/IAddEditPropertyForm";
 import {Property} from "../../../models/Property";
-import {CityService} from "../../../services/city.service";
-import {CountryService} from "../../../services/country.service";
-import {FurnishingTypeService} from "../../../services/furnishing-type.service";
-import {PropertyTypeService} from "../../../services/property-type.service";
-import {PropertyService} from "../../../services/property.service";
+import {CityService} from "../../../services/http/city.service";
+import {CountryService} from "../../../services/http/country.service";
+import {FurnishingTypeService} from "../../../services/http/furnishing-type.service";
+import {PropertyTypeService} from "../../../services/http/property-type.service";
+import {PropertyService} from "../../../services/http/property.service";
 import {HttpErrorResponse} from "@angular/common/http";
-import {PhotoService} from "../../../services/photo.service";
+import {PhotoService} from "../../../services/http/photo.service";
 import {PropertyDetailDto} from "../../../models/propertyDetailDto";
 import {forkJoin, Observable, of, Subscription} from "rxjs";
 import {PhotoDto} from "../../../models/photoDto";

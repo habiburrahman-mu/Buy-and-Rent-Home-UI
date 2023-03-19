@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { HousingService } from "./services/housing.service";
+import { HousingService } from "./services/http/housing.service";
 import { UserLoginComponent } from './public-pages/user-login/user-login.component';
 import { UserRegisterComponent } from './public-pages/user-register/user-register.component';
 import { AuthService } from "./services/auth.service";
@@ -14,11 +14,11 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { AppLayoutModule } from "./layout/app.layout.module";
 
-import { CityService } from "./services/city.service";
-import { CountryService } from "./services/country.service";
-import { FurnishingTypeService } from "./services/furnishing-type.service";
-import { PropertyTypeService } from "./services/property-type.service";
-import { PropertyService } from "./services/property.service";
+import { CityService } from "./services/http/city.service";
+import { CountryService } from "./services/http/country.service";
+import { FurnishingTypeService } from "./services/http/furnishing-type.service";
+import { PropertyTypeService } from "./services/http/property-type.service";
+import { PropertyService } from "./services/http/property.service";
 import { HttpErrorInterceptorService } from "./services/interceptors/http-error-interceptor.service";
 import { AuthInterceptor } from "./services/interceptors/auth.interceptor";
 import { AuthGuard } from "./guards/auth.guard";
@@ -26,7 +26,7 @@ import { PrimengLibModule } from './modules/primeng-lib/primeng-lib.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SharedModule } from './modules/shared/shared.module';
 import { HasRoleGuard } from './guards/has-role.guard';
-import { RoleService } from './services/role.service';
+import { RoleService } from './services/http/role.service';
 
 
 const appRoute: Routes = [

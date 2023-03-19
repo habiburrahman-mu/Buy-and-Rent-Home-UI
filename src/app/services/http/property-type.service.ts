@@ -1,20 +1,20 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {IKeyValuePair} from "../models/ikeyvaluepair";
-import {environment} from "../../environments/environment";
+import {IKeyValuePair} from "../../models/ikeyvaluepair";
+import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
 })
-export class FurnishingTypeService {
+export class PropertyTypeService {
 
-    serviceBaseUrl = environment.baseUrl + '/FurnishingType';
+    serviceBaseUrl = environment.baseUrl + '/PropertyType';
 
     constructor(private http: HttpClient) {
     }
 
-    getFurnishingTypes(): Observable<IKeyValuePair[]> {
+    getPropertyTypes(): Observable<IKeyValuePair[]> {
         return this.http.get<IKeyValuePair[]>(this.serviceBaseUrl + '/list');
     }
 }

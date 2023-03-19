@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { environment } from "../../environments/environment";
+import { environment } from "../../../environments/environment";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Property } from "../models/Property";
-import { PropertyListDto } from "../models/propertyListDto";
-import { PropertyDetailDto } from "../models/propertyDetailDto";
-import { PaginationParameter } from "../models/PaginationParameter";
-import { PageResult } from "../models/PageResult";
+import { Property } from "../../models/Property";
+import { PropertyListDto } from "../../models/propertyListDto";
+import { PropertyDetailDto } from "../../models/propertyDetailDto";
+import { PaginationParameter } from "../../models/PaginationParameter";
+import { PageResult } from "../../models/PageResult";
 
 @Injectable({
     providedIn: 'root'

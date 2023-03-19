@@ -3,8 +3,8 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PhotoDto } from 'src/app/models/photoDto';
 import { PropertyDetailDto } from 'src/app/models/propertyDetailDto';
-import { PhotoService } from 'src/app/services/photo.service';
-import { PropertyService } from 'src/app/services/property.service';
+import { PhotoService } from 'src/app/services/http/photo.service';
+import { PropertyService } from 'src/app/services/http/property.service';
 import { environment } from 'src/environments/environment';
 
 import * as leaflet from 'leaflet';

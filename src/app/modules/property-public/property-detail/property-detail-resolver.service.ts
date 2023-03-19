@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { PropertyDetailDto } from 'src/app/models/propertyDetailDto';
-import { PropertyService } from 'src/app/services/property.service';
+import { PropertyService } from 'src/app/services/http/property.service';
 
 @Injectable({
     providedIn: 'root'

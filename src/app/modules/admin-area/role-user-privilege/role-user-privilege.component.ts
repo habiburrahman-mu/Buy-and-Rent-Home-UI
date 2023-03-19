@@ -4,7 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { RoleDto } from 'src/app/models/roleDto';
 import { UserDto } from 'src/app/models/userDto';
 import { UserPrivilegeDto } from 'src/app/models/userPrivilegeDto';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/http/user.service';
 import { Mapper } from 'src/app/utils/mapper';
 
 @Component({

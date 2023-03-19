@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 import { RoleDto } from 'src/app/models/roleDto';
-import { RoleService } from 'src/app/services/role.service';
+import { RoleService } from 'src/app/services/http/role.service';
 import { RoleHomeComponent } from '../role-home/role-home.component';
 
 @Component({

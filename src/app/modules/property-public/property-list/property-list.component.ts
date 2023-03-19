@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PropertyService } from 'src/app/services/property.service';
+import { PropertyService } from 'src/app/services/http/property.service';
 import { PropertyListDto } from 'src/app/models/propertyListDto';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PaginationParameter } from 'src/app/models/PaginationParameter';

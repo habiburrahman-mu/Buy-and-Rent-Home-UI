@@ -18,7 +18,7 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th style="flex: 0 1 80px;">Id</th>
+            <th style="flex: 0 1 40px;">Id</th>
             <th style="flex: 0 1 100px;">Name</th>
             <th>Description</th>
             <th style="flex: 0 1 20px;">Edit</th>
@@ -26,10 +26,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-role>
         <tr>
-            <td style="flex: 0 1 80px;">{{role.id}}</td>
+            <td style="flex: 0 1 40px;">{{role.id}}</td>
             <td style="flex: 0 1 100px;">{{role.name}}</td>
-            <td class="text-overflow-ellipsis overflow-hidden white-space-nowrap" [pTooltip]="role.description"
-                style="min-width: 50%">
+            <td class="text-overflow-ellipsis overflow-hidden white-space-nowrap" [pTooltip]="role.description">
                 {{role.description}}</td>
             <td style="flex: 0 1 15px;" class="text-right cursor-pointer">
                 <p-button icon="fa-solid fa-pen-to-square" styleClass="p-button-xs"

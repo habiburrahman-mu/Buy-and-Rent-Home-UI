@@ -1,6 +1,5 @@
 <p-table [value]="roleList" [scrollable]="true" scrollHeight="400px" styleClass="p-datatable-sm" [lazy]="true"
     (onLazyLoad)="loadRoleList($event)" [loading]="isDataLoading"
-
     [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
     <ng-template pTemplate="caption">
         <div class="align-self-center text-xl font-medium w-100 text-center mb-2" style="color: var(--blue-500);">Role
@@ -14,22 +13,28 @@
             <button pButton pRipple type="button" icon="pi pi-search"
                 class="p-button-success p-button-outlined"></button>
             <button pButton pRipple type="button" icon="pi pi-plus" style="background-color: var(--blue-500);"
-                (click)="showRoleSaveDialog = true" title="Create Role" ></button>
+                (click)="showRoleSaveDialog = true" title="Create Role"></button>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
-            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-            <th pSortableColumn="description" style="min-width: 50%">Description <p-sortIcon field="description"></p-sortIcon></th>
+            <th style="flex: 0 1 80px;">Id</th>
+            <th style="flex: 0 1 100px;">Name</th>
+            <th>Description</th>
+            <th style="flex: 0 1 20px;">Edit</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-role>
         <tr>
-            <td>{{role.id}}</td>
-            <td>{{role.name}}</td>
-            <td class="text-overflow-ellipsis overflow-hidden white-space-nowrap" [pTooltip]="role.description" style="min-width: 50%">
+            <td style="flex: 0 1 80px;">{{role.id}}</td>
+            <td style="flex: 0 1 100px;">{{role.name}}</td>
+            <td class="text-overflow-ellipsis overflow-hidden white-space-nowrap" [pTooltip]="role.description"
+                style="min-width: 50%">
                 {{role.description}}</td>
+            <td style="flex: 0 1 15px;" class="text-right cursor-pointer">
+                <p-button icon="fa-solid fa-pen-to-square" styleClass="p-button-xs"
+                    [style]="{'background-color': 'var(--blue-500)'}"></p-button>
+            </td>
         </tr>
     </ng-template>
 </p-table>
@@ -49,8 +54,8 @@
             <textarea rows="2" pInputTextarea class="w-full"></textarea>
         </div>
         <div class="w-100 mt-3 flex flex-row justify-content-end gap-2">
-            <button pButton pRipple type="button" label="Cancel" class="p-button-outlined p-button-primary text-black p-button-sm"
-                icon="pi pi-times"></button>
+            <button pButton pRipple type="button" label="Cancel"
+                class="p-button-outlined p-button-primary text-black p-button-sm" icon="pi pi-times"></button>
             <p-button label="Submit" icon="pi pi-check" styleClass="p-button-sm"></p-button>
         </div>
     </ng-template>

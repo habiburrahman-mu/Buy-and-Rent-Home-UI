@@ -17,8 +17,6 @@ export class RoleComponent implements OnInit, OnDestroy {
 
     isDataLoading = false;
 
-    showRoleSaveDialog = false;
-
     private ngUnsubscribed = new Subject<void>();
 
     constructor(

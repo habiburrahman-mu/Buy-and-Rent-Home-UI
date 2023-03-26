@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 
 import * as leaflet from 'leaflet';
 import { DomSanitizer } from '@angular/platform-browser';
+import { SellRent } from 'src/app/enums/enums';
 
 @Component({
     selector: 'app-property-detail',
@@ -16,6 +17,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     styleUrls: ['./property-detail.component.css']
 })
 export class PropertyDetailComponent implements OnInit, AfterViewInit {
+    SellRent = SellRent;
     private map: any;
     public propertyId: number = 0;
     staticFileUrl: string = environment.baseUrl + environment.staticFilePath;

@@ -8,8 +8,8 @@
                 <p-galleria [value]="photos" [showItemNavigators]="true" [showThumbnails]="false">
                     <ng-template pTemplate="item" let-item>
                         <div class="item">
-                            <img [src]="staticFileUrl + '/' + item.imageUrl" style="height: 350px; width: 100%;"
-                                class="cover" />
+                            <img class="cover" [src]="staticFileUrl + '/' + item.imageUrl"
+                                style="height: 350px; width: 100%;" />
                         </div>
 
                     </ng-template>
@@ -25,7 +25,9 @@
                     <h4 class="vertical-align-middle">No Photo for this Property</h4>
                 </div>
             </ng-template>
-            <p-button *ngIf="photos.length > 0" styleClass="p-button-sm p-button-info p-button-outlined" icon="pi pi-clone" title="Open Gallery" label="Open Gallery" (onClick)="displayFullScreenGallery = true"></p-button>
+            <p-button *ngIf="photos.length > 0" styleClass="p-button-sm p-button-info p-button-outlined"
+                icon="pi pi-clone" title="Open Gallery" label="Open Gallery"
+                (onClick)="displayFullScreenGallery = true"></p-button>
         </div>
         <div class="p-2 min-h-0 h-full mb-0" fxFlex.gt-md="50" fxFlex.lt-md="100" fxLayout="column">
             <h6 class="text-lg font-bold">Types</h6>
@@ -35,21 +37,21 @@
                     <div fxLayout="row" fxLayoutAlign="center center">
                         <i class="fa-solid fa-truck-ramp-box mr-1 text-lg font-semibold"></i>
                     </div>
-                    <div class="text-lg font-medium">Sell</div>
+                    <div class="text-lg font-medium">{{propertyData.sellRent === SellRent.Sell ? "Sell" : "Rent"}}</div>
                 </div>
                 <div class="type-detail-small-card" fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="10px"
                     fxLayoutAlign="center center">
                     <div fxLayout="row" fxLayoutAlign="center center">
                         <i class="fa-solid fa-building mr-1 text-lg font-semibold"></i>
                     </div>
-                    <div class="text-lg font-medium">House</div>
+                    <div class="text-lg font-medium">{{propertyData.propertyType}}</div>
                 </div>
                 <div class="type-detail-small-card" fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="10px"
                     fxLayoutAlign="center center">
                     <div fxLayout="row" fxLayoutAlign="center center">
                         <i class="fa-solid fa-couch mr-1 text-lg font-semibold"></i>
                     </div>
-                    <div class="text-lg font-medium">Fully Furnished</div>
+                    <div class="text-lg font-medium">{{propertyData.furnishingType}}</div>
                 </div>
                 <!-- <div><i class="fa-solid fa-building mr-1"></i>House</div>
                     <div><i class="fa-solid fa-couch mr-1"></i> Fully Furnished</div> -->
@@ -61,19 +63,21 @@
                     <div fxLayout="row" fxLayoutAlign="center center">
                         <i class="fa-solid fa-bed mr-1 text-lg font-semibold"></i>
                     </div>
-                    <div class="text-lg font-medium">20</div>
+                    <div class="text-lg font-medium">{{propertyData.bedroom}}</div>
                 </div>
-                <div class="type-detail-small-card" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+                <div class="type-detail-small-card" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center"
+                    *ngIf="propertyData.bathroom">
                     <div fxLayout="row" fxLayoutAlign="center center">
                         <i class="fa-solid fa-bath mr-1 text-lg font-semibold"></i>
                     </div>
-                    <div class="text-lg font-medium">12</div>
+                    <div class="text-lg font-medium">{{propertyData.bathroom}}</div>
                 </div>
-                <div class="type-detail-small-card" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+                <div class="type-detail-small-card" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center"
+                    *ngIf="propertyData.commonSpace">
                     <div fxLayout="row" fxLayoutAlign="center center">
                         <i class="fa-solid fa-people-line mr-1 text-lg font-semibold"></i>
                     </div>
-                    <div class="text-lg font-medium">5</div>
+                    <div class="text-lg font-medium">{{propertyData.commonSpace}}</div>
                 </div>
             </div>
             <!-- <div class="h-5rem">
@@ -156,13 +160,14 @@
         <div class="card min-h-0 w-full mb-3" fxFlex.gt-md="70" fxFlex.lt-md="100" fxLayout="column">
             <h6 class="text-lg font-bold">Description</h6>
             <!-- <p-editor styleClass="w-100" formControlName="description"></p-editor> -->
-            <div *ngIf="propertyData.description; else noDescription"  [innerHTML]="propertyData.description">
+            <div *ngIf="propertyData.description; else noDescription" [innerHTML]="propertyData.description">
                 <!-- {{propertyData.description}} -->
             </div>
             <ng-template #noDescription>No Description</ng-template>
         </div>
 
-        <div class="card min-h-0 price-card" fxFlex.gt-md="30" fxFlex.lt-md="100" fxLayout="column" fxLayoutAlign="center center">
+        <div class="card min-h-0 price-card" fxFlex.gt-md="30" fxFlex.lt-md="100" fxLayout="column"
+            fxLayoutAlign="center center">
             <div>
                 <h6 class="text-xl font-bold">Price</h6>
             </div>
@@ -191,7 +196,8 @@
     </div>
 </div>
 
-<p-galleria [(visible)]="displayFullScreenGallery" [value]="photos" [showItemNavigators]="true" [showThumbnails]="true" [fullScreen]="true" [baseZIndex]="100000">
+<p-galleria [(visible)]="displayFullScreenGallery" [value]="photos" [showItemNavigators]="true" [showThumbnails]="true"
+    [fullScreen]="true" [baseZIndex]="100000">
     <ng-template pTemplate="item" let-item>
         <div class="item">
             <img [src]="staticFileUrl + '/' + item.imageUrl" style="height: 350px; width: 100%;" />
@@ -200,7 +206,7 @@
     </ng-template>
     <ng-template pTemplate="thumbnail" let-item>
         <div class="grid grid-nogutter justify-content-center">
-            <img [src]="staticFileUrl + '/' + item.imageUrl" style="display: block; height: 50px;"/>
+            <img [src]="staticFileUrl + '/' + item.imageUrl" style="display: block; height: 50px;" />
         </div>
     </ng-template>
 </p-galleria>

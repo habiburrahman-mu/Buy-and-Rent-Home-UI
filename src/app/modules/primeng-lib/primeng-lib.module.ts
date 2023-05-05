@@ -68,7 +68,8 @@ const modules = [
     EditorModule,
     TooltipModule,
     ChipModule,
-    MultiSelectModule
+    MultiSelectModule,
+    TabMenuModule
 ];
 
 @NgModule({

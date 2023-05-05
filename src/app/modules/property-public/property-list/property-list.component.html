@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" style="min-height: 35rem;"  (window:resize)="onResizeHandler()" #containerCard>
     <div class="grid">
         <!-- <div class="col-lg-7 col-md-6">
             <div class="grid mt-0">
@@ -38,22 +38,68 @@
     <!--</select>-->
     &nbsp;
     <!--
-<div class="grid">
-    <div *ngFor="let property of properties | filter:searchCity:'City' | sort: [sortByParameter, sortDirection]"
-         class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 p-3">
-       <app-property-card [property]="property"></app-property-card>
+    <div class="grid">
+        <div *ngFor="let property of properties | filter:searchCity:'City' | sort: [sortByParameter, sortDirection]"
+            class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 p-3">
+        <app-property-card [property]="property"></app-property-card>
+        </div>
+    </div> -->
+    <div fxLayout="row wrap" fxLayout.lt-sm="column wrap" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+        <div>
+            <p-tabMenu [model]="tabMenuItems" [activeItem]="activeTabMenu"></p-tabMenu>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px">
+            <div class="w-15rem">
+                <span class="p-input-icon-left w-100">
+                    <i class="pi pi-search"></i>
+                    <input type="text" pInputText class="p-inputtext-sm w-full" />
+                </span>
+            </div>
+            <!-- <div class="border-red-500 border-1 border-solid">Test</div> -->
+        </div>
     </div>
-</div> -->
-    <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
-        <ng-container *ngFor="let property of propertyList">
-            <app-property-card [propertyData]="property"></app-property-card>
-        </ng-container>
+    <div *ngIf="!isLoading else skeleton">
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px" class="mt-4">
+            <ng-container *ngFor="let property of propertyList">
+                <app-property-card [propertyData]="property"></app-property-card>
+            </ng-container>
+        </div>
+
+        <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="rowsPerPageOptions" dropdownAppendTo="body"
+            [totalRecords]="emptyArray.length" [rows]="10"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]=true
+            #paginator></p-paginator>
     </div>
 
-    <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="rowsPerPageOptions" dropdownAppendTo="body"
-            [totalRecords]="emptyArray.length" [rows]="10"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [showCurrentPageReport] = true
-            #paginator></p-paginator>
+    <ng-template #skeleton>
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px" class="mt-4">
+            <ng-container *ngFor="let _ of skeletonCard">
+                <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px" style="width: 250px" class="mb-3 skeleton-wrapper">
+                    <div class="w-full">
+                        <p-skeleton width="100%" height="15rem" borderRadius="15px"></p-skeleton>
+                    </div>
+                    <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" class="w-full">
+                        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px" class="w-full">
+                            <p-skeleton width="8rem" height="1rem"></p-skeleton>
+                            <p-skeleton width="2rem" height="1rem"></p-skeleton>
+                        </div>
+                        <div class="w-100">
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="space-between end" fxLayoutGap="5px" class="w-100">
+                            <p-skeleton width="8rem" height="1rem"></p-skeleton>
+                            <p-skeleton width="7rem" height="1rem"></p-skeleton>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px" class="mt-4">
+            <div *ngFor="let _ of [1,2,3,4,5]">
+                <p-skeleton shape="circle" size="1rem" styleClass="mr-2"></p-skeleton>
+            </div>
+        </div>
+    </ng-template>
+
 
 </div>

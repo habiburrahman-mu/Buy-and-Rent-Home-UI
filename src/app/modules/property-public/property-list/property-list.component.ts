@@ -1,16 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PropertyService } from 'src/app/services/http/property.service';
 import { PropertyListDto } from 'src/app/models/propertyListDto';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PaginationParameter } from 'src/app/models/PaginationParameter';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-property-list',
     templateUrl: './property-list.component.html',
     styleUrls: ['./property-list.component.css']
 })
-export class PropertyListComponent implements OnInit {
+
+
+
+export class PropertyListComponent implements OnInit, AfterViewInit {
+    @ViewChild('containerCard') containerCardRef: ElementRef;
+    widthOfContainerCard = 0;
+    skeletonCardSize = 270;
+    skeletonCard = new Array<number>(4).fill(0);
+    tabMenuItems: MenuItem[] = [
+        { label: "Buy", icon: '', routerLink: '../buy' },
+        { label: "Rent", icon: '', routerLink: '../rent' },
+    ];
+    activeTabMenu: MenuItem;
     SellRent = 1;
     propertyList: PropertyListDto[];
     city: string = '';
@@ -30,12 +43,16 @@ export class PropertyListComponent implements OnInit {
     rows = 10;
     currentPage = 0;
 
+    isLoading = false;
+
     constructor(
         private route: ActivatedRoute,
-        private propertyService: PropertyService
+        private propertyService: PropertyService,
+        private elementRef: ElementRef
     ) { }
 
     ngOnInit(): void {
+        this.activeTabMenu = this.tabMenuItems[0];
         let buyOrRent = this.route.snapshot.url.toString();
         if (buyOrRent === 'buy') {
             this.SellRent = 1; // Means we are on rent-property URL else we are on base URL
@@ -51,20 +68,31 @@ export class PropertyListComponent implements OnInit {
             searchField: '',
             searchingText: ''
         };
-
-        this.propertyService.getPropertyPaginatedList(paginationParams, this.SellRent).subscribe(
-            {
-                next: (data) => {
-                    this.propertyList = data.resultList;
-                    this.totalRecords = data.totalRecords;
-                    this.rows = data.pageSize;
-                },
-                error: (err: HttpErrorResponse) => {
-                    console.log('http error:');
-                    console.log(err);
-                }
+        this.isLoading = true;
+        this.propertyService.getPropertyPaginatedList(paginationParams, this.SellRent).subscribe({
+            next: (data) => {
+                this.propertyList = data.resultList;
+                this.totalRecords = data.totalRecords;
+                this.rows = data.pageSize;
+                this.isLoading = false;
+            },
+            error: (err: HttpErrorResponse) => {
+                this.isLoading = false;
+                console.log('http error:');
+                console.log(err);
             }
-        );
+        });
+    }
+
+    ngAfterViewInit(): void {
+        this.widthOfContainerCard = parseInt(this.containerCardRef.nativeElement.clientWidth) ?? 0;
+        this.calculateSkeletonCardNumber();
+    }
+
+    @HostListener('window:resize')
+    onResizeHandler() {
+        this.widthOfContainerCard = parseInt(this.elementRef.nativeElement.offsetWidth) ?? 0;
+        this.calculateSkeletonCardNumber();
     }
 
     onCityFilter(clear: boolean = false) {
@@ -76,5 +104,13 @@ export class PropertyListComponent implements OnInit {
 
     onSortDirection() {
         this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    }
+
+    calculateSkeletonCardNumber() {
+        let cardNumber = Math.floor(this.widthOfContainerCard / this.skeletonCardSize);
+        if(cardNumber > 4) {
+            this.skeletonCard = new Array<number>(cardNumber).fill(0);
+        }
+
     }
 }

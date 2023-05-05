@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -8,8 +9,28 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
     title = 'Buy-and-Rent-Home-UI';
+    isLoading = false;
 
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService,private router: Router) {
+        this.router.events.subscribe((event) => {
+            switch (true) {
+              case event instanceof NavigationStart: {
+                this.isLoading = true;
+                break;
+              }
+
+              case event instanceof NavigationEnd:
+              case event instanceof NavigationCancel:
+              case event instanceof NavigationError: {
+                this.isLoading = false;
+                break;
+              }
+              default: {
+                break;
+              }
+            }
+          });
+    }
 
     ngOnInit(): void {
         console.log("run");

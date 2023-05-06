@@ -34,7 +34,7 @@
 </div>
 <ng-container *ngIf="showPropertyEditDialog">
     <p-dialog header="Add Property" [(visible)]="showPropertyEditDialog" [style]="{'width': '650px'}"
-        (onHide)="showPropertyEditDialog = false" appendTo="body" [modal]="false" [blockScroll]="false">
+        (onHide)="showPropertyEditDialog = false" appendTo="body" [modal]="true" [blockScroll]="false">
         <app-add-property-dialog [editPropertyId]="idForEditProperty"
             (closeAddPropertyDialogEvent)="onClosePropertyAddDialog($event)"></app-add-property-dialog>
     </p-dialog>

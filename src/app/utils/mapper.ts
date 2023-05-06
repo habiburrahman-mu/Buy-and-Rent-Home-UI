@@ -1,6 +1,7 @@
 import { HttpParams } from "@angular/common/http";
 import { PaginationParameter } from "../models/PaginationParameter";
 import { LazyLoadEvent } from "primeng/api";
+import { PrimeNgPaginatorEventParams } from "../models/primeNgPaginatorEventParams";
 
 export class Mapper {
     static paginationParameterToHttpParams(paginationParameter: PaginationParameter) {
@@ -22,6 +23,18 @@ export class Mapper {
         let paginationParams: PaginationParameter = {
             currentPageNo: Math.ceil(event.first!/event.rows!) + 1,
             pageSize: event.rows!,
+            sortBy: '',
+            isDescending: false,
+            searchField: '',
+            searchingText: ''
+        };
+        return paginationParams;
+    }
+
+    static paginatorEventToPaginationParameter(event: PrimeNgPaginatorEventParams) {
+        let paginationParams: PaginationParameter = {
+            currentPageNo: event.page + 1,
+            pageSize: event.rows,
             sortBy: '',
             isDescending: false,
             searchField: '',

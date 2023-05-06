@@ -15,7 +15,7 @@
         </span>
     </ng-container>
     <div [hidden]="isDataLoading">
-        <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="rowsPerPageOptions" dropdownAppendTo="body"
+        <p-paginator [rowsPerPageOptions]="rowsPerPageOptions" dropdownAppendTo="body"
             (onPageChange)="onPageChangeInPaginator($event)" [totalRecords]="totalRecords" [rows]="rows"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [showCurrentPageReport] = true

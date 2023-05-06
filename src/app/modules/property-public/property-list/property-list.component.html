@@ -1,4 +1,4 @@
-<div class="card" style="min-height: 35rem;"  (window:resize)="onResizeHandler()" #containerCard>
+<div class="card" style="min-height: 35rem;" (window:resize)="onResizeHandler()" #containerCard>
     <div class="grid">
         <!-- <div class="col-lg-7 col-md-6">
             <div class="grid mt-0">
@@ -64,17 +64,16 @@
                 <app-property-card [propertyData]="property"></app-property-card>
             </ng-container>
         </div>
-
-        <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="rowsPerPageOptions" dropdownAppendTo="body"
-            [totalRecords]="emptyArray.length" [rows]="10"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]=true
-            #paginator></p-paginator>
     </div>
+    <p-paginator [hidden]="isLoading" (onPageChange)="onPaginatorPageChange($event)" [totalRecords]="totalRecords" [rows]="rows"
+            [rowsPerPageOptions]="rowsPerPageOptions" dropdownAppendTo="body"
+            currentPageReportTemplate="{first} to {last} of {totalRecords} entries" [showCurrentPageReport]=true></p-paginator>
 
     <ng-template #skeleton>
         <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px" class="mt-4">
             <ng-container *ngFor="let _ of skeletonCard">
-                <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px" style="width: 250px" class="mb-3 skeleton-wrapper">
+                <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px" style="width: 250px"
+                    class="mb-3 skeleton-wrapper">
                     <div class="w-full">
                         <p-skeleton width="100%" height="15rem" borderRadius="15px"></p-skeleton>
                     </div>

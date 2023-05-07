@@ -8,10 +8,11 @@ import {AuthService} from "../services/auth.service";
 
 @Component({
     selector: 'app-layout',
-    templateUrl: './app.layout.component.html'
+    templateUrl: './app.layout.component.html',
+    styleUrls: ['app.layout.component.scss']
 })
 export class AppLayoutComponent implements OnDestroy {
-
+    emptyArrayForChat = new Array<number>(2);
     overlayMenuOpenSubscription: Subscription;
 
     menuOutsideClickListener: any;

@@ -1,0 +1,25 @@
+.message-card {
+    width: 100%;
+    height: 4.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.image-wrapper {
+    height: 3.5rem;
+    width: 3.5rem;
+    overflow: hidden;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.image-wrapper img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.message-card:hover {
+    background-color: #03a9f438;
+    cursor: pointer;
+    border-radius: 10px;
+}

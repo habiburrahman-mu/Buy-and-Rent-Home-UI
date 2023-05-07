@@ -18,6 +18,7 @@ import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
 import {ButtonModule} from "primeng/button";
+import { SharedModule } from '../modules/shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import {ButtonModule} from "primeng/button";
         RippleModule,
         RouterModule,
         AppConfigModule,
-        ButtonModule
+        ButtonModule,
+        SharedModule
     ],
     exports: [AppLayoutComponent]
 })

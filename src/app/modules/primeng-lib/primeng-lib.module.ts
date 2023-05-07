@@ -34,6 +34,7 @@ import {EditorModule} from 'primeng/editor';
 import { TooltipModule } from 'primeng/tooltip';
 import { ChipModule } from 'primeng/chip';
 import {MultiSelectModule} from 'primeng/multiselect';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 const modules = [
     ButtonModule,
@@ -69,7 +70,8 @@ const modules = [
     TooltipModule,
     ChipModule,
     MultiSelectModule,
-    TabMenuModule
+    TabMenuModule,
+    OverlayPanelModule
 ];
 
 @NgModule({

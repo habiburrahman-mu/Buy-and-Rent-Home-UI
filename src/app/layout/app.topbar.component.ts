@@ -5,10 +5,11 @@ import { AuthService } from "../services/auth.service";
 
 @Component({
     selector: 'app-topbar',
-    templateUrl: './app.topbar.component.html'
+    templateUrl: './app.topbar.component.html',
+    styleUrls: ['./app.topbar.component.scss']
 })
 export class AppTopBarComponent {
-
+    emptyArrayForChat = new Array<number>(10);
     items!: MenuItem[];
 
     @ViewChild('menubutton') menuButton!: ElementRef;
@@ -38,6 +39,15 @@ export class AppTopBarComponent {
             severity: 'success',
             summary: 'Logged Out',
             detail: 'Successfully Logged Out'
+        });
+    }
+
+    onClickMessageCard(index: number) {
+        console.log(index);
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Clicked',
+            detail: 'Open Message Box'
         });
     }
 }

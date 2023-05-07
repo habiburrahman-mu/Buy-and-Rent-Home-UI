@@ -1,23 +1,27 @@
-<div class="layout-topbar">
+<div class="layout-topbar" #topbar>
     <a class="layout-topbar-logo" routerLink="">
-<!--        <img-->
-<!--            src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg"-->
-<!--            alt="logo">-->
+        <!--        <img-->
+        <!--            src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg"-->
+        <!--            alt="logo">-->
         <img src="assets/images/home.gif" alt="logo">
         <span>Buy Rent Home</span>
     </a>
 
-    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()" *ngIf="isLoggedIn">
+    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()"
+        *ngIf="isLoggedIn">
         <i class="pi pi-bars"></i>
     </button>
 
     <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button"
-            (click)="layoutService.showProfileSidebar()">
+        (click)="layoutService.showProfileSidebar()">
         <i class="pi pi-ellipsis-v"></i>
     </button>
-
+    <button class="p-link layout-topbar-button" (click)="op.show($event)">
+        <i class="pi pi-envelope"></i>
+        <span>Settings</span>
+    </button>
     <div #topbarmenu class="layout-topbar-menu"
-         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+        [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
         <button class="p-link layout-topbar-button">
             <i class="pi pi-calendar"></i>
 
@@ -28,23 +32,43 @@
 
         <!--            <span>Profile</span>-->
         <!--        </button>-->
-        <button pButton pRipple *ngIf="!loggedIn()" type="button" label="Register" class="p-button-info p-button-text mr-2"
-                routerLink="register"></button>
+        <button pButton pRipple *ngIf="!loggedIn()" type="button" label="Register"
+            class="p-button-info p-button-text mr-2" routerLink="register"></button>
         <button pButton pRipple *ngIf="!loggedIn()" type="button" label="Login" class="p-button-info p-button-text"
-                routerLink="login"></button>
-        <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
-            <i class="pi pi-cog"></i>
-            <span>Settings</span>
-        </button>
+            routerLink="login"></button>
         <span *ngIf="loggedIn()">
             <button pButton pRipple class="p-button-text p-button-plain text-black">Welcome {{loggedInUser}}</button>
-<!--            <a><i class="fa-solid fa-tachometer-alt"></i> View Dashboard</a>-->
-<!--            <a><i class="fa-solid fa-user-circle"></i> My Profile</a>-->
-<!--            <a><i class="fa-solid fa-key"></i> Change Password</a>-->
+            <!--            <a><i class="fa-solid fa-tachometer-alt"></i> View Dashboard</a>-->
+            <!--            <a><i class="fa-solid fa-user-circle"></i> My Profile</a>-->
+            <!--            <a><i class="fa-solid fa-key"></i> Change Password</a>-->
             <button type="button" label="Logout" class="p-link layout-topbar-button p-button-info" (click)="onLogout()">
                 <i class="pi pi-sign-out"></i>
-        </button>
+            </button>
         </span>
 
     </div>
 </div>
+<p-overlayPanel #op [appendTo]="topbar">
+    <!-- <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" /> -->
+    <div style="width: 25rem; max-width: 85vw; height: 30rem; max-height: 70vh;"
+        class="overflow-auto custom-scrollbar position-relative">
+        <div class="text-2xl font-bold mb-2 pb-2 sticky-top bg-white">Messages</div>
+        <div *ngFor="let _ of emptyArrayForChat; let i = index" class=" message-card" fxLayout="row"
+            fxLayoutAlign="start center" fxLayoutGap="10px" (click)="onClickMessageCard(i)">
+            <div class=" h-full w-5rem" fxLayout="row" fxLayoutAlign="center center" >
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80"
+                        height="100%" />
+                </div>
+            </div>
+            <div class=" max-w-full overflow-hidden" fxFlex>
+                <div class=" mb-1 font-bold">
+                    Name{{i+1}}
+                </div>
+                <div class=" mb-1 text-truncate overflow-hidden">
+                    Message Message Lipsum Message Message LipsumMessage Message LipsumMessage Message Lipsum
+                </div>
+            </div>
+        </div>
+    </div>
+</p-overlayPanel>

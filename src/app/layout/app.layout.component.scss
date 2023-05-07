@@ -1,0 +1,65 @@
+.chat-box-wrapper {
+    position: fixed;
+    bottom: 5px;
+    right: 15px;
+}
+
+.chat-box {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+    width: 290px;
+    max-width: 90vw;
+    box-shadow: #c6c6df 0px 0px 13px
+}
+
+.chat-box:has(input:focus) {
+    box-shadow: #c6c6df 2px 2px 20px
+}
+
+.chat-box-title-box-wrapper {
+    height: 2.5rem;
+    background-color: var(--blue-300);
+}
+
+.chat-box-content-wrapper {
+    border-color: magenta;
+    height: 22rem;
+    width: 100%;
+    position: relative;
+}
+
+.chat-box-content {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.chat-box-content:nth-child(odd) {
+    background-color: var(--blue-100);
+    align-self: flex-end;
+}
+
+.chat-box-content:nth-child(even) {
+    background-color: var(--indigo-50);
+    align-self: flex-start;
+}
+
+.chat-box-input-wrapper {
+
+}
+.chat-box-input-wrapper > input {
+    border-width: 0;
+    border-bottom-width: 2px;
+    border-radius: 0px;
+}
+
+.chat-box-input-wrapper > input:active {
+    border-width: 0 !important;
+}
+
+.chat-box-input-wrapper > input:focus {
+    border-width: 0 !important;
+    border-bottom-width: 2px !important;
+    box-shadow: none;
+}

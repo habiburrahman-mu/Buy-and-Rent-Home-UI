@@ -1,10 +1,11 @@
-import {Component, OnDestroy, Renderer2, ViewChild} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
-import {filter, Subscription} from 'rxjs';
-import {LayoutService} from "./service/app.layout.service";
-import {AppSidebarComponent} from "./app.sidebar.component";
-import {AppTopBarComponent} from './app.topbar.component';
-import {AuthService} from "../services/auth.service";
+import { Component, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
+import { LayoutService } from "./service/app.layout.service";
+import { AppSidebarComponent } from "./app.sidebar.component";
+import { AppTopBarComponent } from './app.topbar.component';
+import { AuthService } from "../services/auth.service";
+import { ChatService } from './service/chat.service';
 
 @Component({
     selector: 'app-layout',
@@ -12,6 +13,8 @@ import {AuthService} from "../services/auth.service";
     styleUrls: ['app.layout.component.scss']
 })
 export class AppLayoutComponent implements OnDestroy {
+    conversationArray = this.chatService.conversationArray;
+
     emptyArrayForChat = new Array<number>(2);
     overlayMenuOpenSubscription: Subscription;
 
@@ -23,7 +26,7 @@ export class AppLayoutComponent implements OnDestroy {
 
     @ViewChild(AppTopBarComponent) appTopbar!: AppTopBarComponent;
 
-    constructor(public layoutService: LayoutService, public renderer: Renderer2, public router: Router, private authService: AuthService) {
+    constructor(public layoutService: LayoutService, public renderer: Renderer2, public router: Router, private authService: AuthService, private chatService: ChatService) {
         this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {
             if (!this.menuOutsideClickListener) {
                 this.menuOutsideClickListener = this.renderer.listen('document', 'click', event => {
@@ -113,6 +116,18 @@ export class AppLayoutComponent implements OnDestroy {
             'p-input-filled': this.layoutService.config.inputStyle === 'filled',
             'p-ripple-disabled': !this.layoutService.config.ripple
         }
+    }
+
+    minimizeConversation(index: number) {
+        this.conversationArray[index].IsOpen = false;
+    }
+
+    maximizeConversation(index: number) {
+        this.conversationArray[index].IsOpen = true;
+    }
+
+    removeConversation(index: number) {
+        this.conversationArray.splice(index, 1);
     }
 
     ngOnDestroy() {

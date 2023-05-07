@@ -5,7 +5,7 @@
     </div>
     <div class="layout-main-container">
         <div class="layout-main">
-            <!-- <router-outlet></router-outlet> -->
+            <router-outlet></router-outlet>
         </div>
         <!--        <app-footer></app-footer>-->
     </div>
@@ -13,24 +13,26 @@
     <div class="layout-mask" *ngIf="isLoggedIn"></div>
 </div>
 
-<div class="chat-box-wrapper" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-    <div *ngFor="let _ of emptyArrayForChat; let i = index">
+<div class="chat-box-wrapper" fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="10px">
+    <div *ngFor="let conversation of conversationArray; let i = index">
         <div class="chat-box">
             <div class="chat-box-title-box-wrapper font-bold p-2 w-full" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
-                <div>Message Title</div>
-                <div>
-                    <p-button icon="pi pi-minus" styleClass="p-button-text h-full pr-2"></p-button>
-                    <p-button icon="pi pi-times" styleClass="p-button-text h-full pr-2"></p-button>
+                <div class="w-full cursor-pointer" (click)="conversation.IsOpen = !conversation.IsOpen">Message Title for User {{conversation.UserId}}</div>
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+                    <p-button icon="pi pi-minus" styleClass="p-button-text h-full pr-2" (onClick)="minimizeConversation(i)"></p-button>
+                    <p-button icon="pi pi-times" styleClass="p-button-text h-full pr-2" (onClick)="removeConversation(i)"></p-button>
                 </div>
             </div>
-            <div class="chat-box-content-wrapper pl-2 pr-2 overflow-auto" fxLayout="column" fxLayoutGap="10px">
-                <div *ngFor="let _ of [1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0]" class="chat-box-content">
-                    <div>Message Content</div>
+            <div *ngIf="conversation.IsOpen">
+                <div class="chat-box-content-wrapper pl-2 pr-2 overflow-auto" fxLayout="column" fxLayoutGap="10px">
+                    <div *ngFor="let _ of [1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0]" class="chat-box-content">
+                        <div>Message Content</div>
+                    </div>
                 </div>
-            </div>
-            <div class="chat-box-input-wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="2px">
-                <input type="text" pInputText class="p-inputtext-sm w-full chat-input"/>
-                <p-button icon="pi pi-send" styleClass="p-button-text h-full pr-2"></p-button>
+                <div class="chat-box-input-wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="2px">
+                    <input type="text" pInputText class="p-inputtext-sm w-full chat-input"/>
+                    <p-button icon="pi pi-send" styleClass="p-button-text h-full pr-2"></p-button>
+                </div>
             </div>
         </div>
     </div>

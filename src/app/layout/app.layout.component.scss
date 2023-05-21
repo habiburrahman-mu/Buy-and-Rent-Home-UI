@@ -19,15 +19,23 @@
 }
 
 .chat-box-title-box-wrapper {
-    height: 2.5rem;
+    height: 3.5rem;
     background-color: var(--blue-300);
 }
 
 .chat-box-content-wrapper {
     border-color: magenta;
-    height: 22rem;
     width: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    transition: ease-in-out 400ms height;
+}
+
+.chat-box-content-wrapper.hide-box {
+    height: 0;
+    transition: ease-in-out 400ms height;
 }
 
 .chat-box-content {

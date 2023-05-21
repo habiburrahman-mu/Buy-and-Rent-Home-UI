@@ -16,7 +16,7 @@
         (click)="layoutService.showProfileSidebar()">
         <i class="pi pi-ellipsis-v"></i>
     </button>
-    <button class="p-link layout-topbar-button" (click)="op.show($event)">
+    <button class="p-link layout-topbar-button" (click)="onClickMessageIcon($event)">
         <i class="pi pi-envelope"></i>
         <span>Settings</span>
     </button>
@@ -45,17 +45,16 @@
                 <i class="pi pi-sign-out"></i>
             </button>
         </span>
-
     </div>
 </div>
-<p-overlayPanel #op [appendTo]="topbar">
+<p-overlayPanel #op [appendTo]="'body'" (onHide)="onHideMessageBox($event)">
     <!-- <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" /> -->
     <div style="width: 25rem; max-width: 85vw; height: 30rem; max-height: 70vh;"
         class="overflow-auto custom-scrollbar position-relative">
         <div class="text-2xl font-bold mb-2 pb-2 sticky-top bg-white">Messages</div>
         <div *ngFor="let _ of emptyArrayForChat; let i = index" class=" message-card" fxLayout="row"
             fxLayoutAlign="start center" fxLayoutGap="10px" (click)="onClickMessageCard(i)">
-            <div class=" h-full w-5rem" fxLayout="row" fxLayoutAlign="center center" >
+            <div class=" h-full w-5rem" fxLayout="row" fxLayoutAlign="center center">
                 <div class="image-wrapper">
                     <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80"
                         height="100%" />

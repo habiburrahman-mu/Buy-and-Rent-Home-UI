@@ -1,4 +1,4 @@
-import { Component, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { LayoutService } from "./service/app.layout.service";
@@ -6,14 +6,30 @@ import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppTopBarComponent } from './app.topbar.component';
 import { AuthService } from "../services/auth.service";
 import { ChatService } from './service/chat.service';
+import { ChatConversation } from '../models/chatConversation';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'app-layout',
     templateUrl: './app.layout.component.html',
-    styleUrls: ['app.layout.component.scss']
+    styleUrls: ['app.layout.component.scss'],
+    animations: [
+        trigger(
+          'enterAnimation', [
+            transition(':enter', [
+              style({height: 0}),
+              animate('200ms', style({height: '22rem'}))
+            ]),
+            transition(':leave', [
+              style({ height: '22rem'}),
+              animate('200ms', style({height: 0}))
+            ])
+          ]
+        )
+      ],
 })
-export class AppLayoutComponent implements OnDestroy {
-    conversationArray = this.chatService.conversationArray;
+export class AppLayoutComponent implements OnInit, OnDestroy {
+    conversationArray: ChatConversation[] = [];
 
     emptyArrayForChat = new Array<number>(2);
     overlayMenuOpenSubscription: Subscription;
@@ -60,6 +76,22 @@ export class AppLayoutComponent implements OnDestroy {
                 this.hideMenu();
                 this.hideProfileMenu();
             });
+    }
+
+    ngOnInit(): void {
+        this.chatService.conversationArrayUpdate$.subscribe({
+            next: (userId) => {
+                let existingIndex = this.conversationArray.findIndex(x => x.UserId === userId);
+                if(existingIndex > -1) {
+                    this.conversationArray[existingIndex].IsOpen = true;
+                } else {
+                    this.conversationArray.push({
+                        UserId: userId,
+                        IsOpen: true
+                    });
+                }
+            }
+        })
     }
 
     get isLoggedIn() {

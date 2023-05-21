@@ -12,7 +12,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 5px;
     // background-color: #F5F5F5;
 }
 
@@ -85,3 +85,9 @@ body {
 .border-for-test {
     border: red solid 1px;
 }
+
+// .p-overlaypanel {
+//     position: fixed !important;
+//     top: 0 !important;
+//     left: 0 !important;
+// }

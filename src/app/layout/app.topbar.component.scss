@@ -23,3 +23,11 @@
     cursor: pointer;
     border-radius: 10px;
 }
+
+.p-overlaypanel {
+    position: fixed !important;
+}
+
+body :has(.p-overlaypanel) {
+    overflow: hidden !important;
+}

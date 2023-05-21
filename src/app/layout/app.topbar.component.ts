@@ -1,7 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
 import { AuthService } from "../services/auth.service";
+import { ChatService } from './service/chat.service';
+import { OverlayPanel } from 'primeng/overlaypanel';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
     selector: 'app-topbar',
@@ -18,11 +21,17 @@ export class AppTopBarComponent {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
+    @ViewChild('op') op: OverlayPanel;
+
+    isOverlayOpen = false;
+
     loggedInUser!: string;
 
     constructor(public layoutService: LayoutService,
         private authService: AuthService,
-        private messageService: MessageService) { }
+        private messageService: MessageService,
+        private chatService: ChatService,
+        @Inject(DOCUMENT) private document: Document) { }
 
     loggedIn() {
         this.loggedInUser = localStorage.getItem('brh-userName') ?? '';
@@ -43,11 +52,17 @@ export class AppTopBarComponent {
     }
 
     onClickMessageCard(index: number) {
-        console.log(index);
-        this.messageService.add({
-            severity: 'success',
-            summary: 'Clicked',
-            detail: 'Open Message Box'
-        });
+        this.chatService.updateConversationArray(index+1);
+    }
+
+    onClickMessageIcon(event: any) {
+        this.op.show(event);
+        this.isOverlayOpen = true;
+        this.document.body.style.overflow = 'hidden';
+    }
+
+    onHideMessageBox(event: any) {
+        this.isOverlayOpen = false;
+        this.document.body.style.overflow = 'overlay';
     }
 }

@@ -27,8 +27,8 @@ export class AuthService {
     }
 
     isLoggedIn() {
-        this.loggedInUser = localStorage.getItem('brh-userName') ?? '';
-        return this.loggedInUser != '';
+        let decodedTokenPayload = this.decodedTokenPayload;
+        return decodedTokenPayload !== null;
     }
 
     get decodedTokenPayload() {

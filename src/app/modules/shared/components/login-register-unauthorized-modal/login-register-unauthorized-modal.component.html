@@ -1,0 +1,17 @@
+<p-dialog [modal]="true" [blockScroll]="true" [(visible)]="isLoginRegisterModalVisible"
+    (onHide)="onHideLoginRegisterModal()" [style]="{width: '350px'}">
+    <div fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="5px">
+        <div class="w-100 text-center font-medium text-lg">
+            You have to be logged in to access this information.
+        </div>
+        <div class="mb-3">
+            <p-button label="Login" [routerLink]="['/login']"></p-button>
+        </div>
+        <div class="font-medium text-lg">
+            Do not have an account?
+        </div>
+        <div>
+            <p-button label="Register" [routerLink]="['/register']"></p-button>
+        </div>
+    </div>
+</p-dialog>

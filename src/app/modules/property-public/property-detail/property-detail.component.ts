@@ -28,6 +28,7 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
 
     displayFullScreenGallery = false;
     isLoginRegisterModalVisible = false;
+    isVisitingRequestModalVisible = false;
 
     isThisUsersProperty = false;
 
@@ -61,7 +62,11 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
     }
 
     onClickContactOwner() {
-        this.isLoginRegisterModalVisible = true;
+        if (this.authService.isLoggedIn()) {
+            this.isVisitingRequestModalVisible = true;
+        } else {
+            this.isLoginRegisterModalVisible = true;
+        }
     }
 
     private initMap(): void {

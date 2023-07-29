@@ -5,6 +5,7 @@ import { FilterPipe } from 'src/app/Pipes/filter.pipe';
 import { SortPipe } from 'src/app/Pipes/sort.pipe';
 import { PrimengLibModule } from '../primeng-lib/primeng-lib.module';
 import { LoginRegisterUnauthorizedModalComponent } from './components/login-register-unauthorized-modal/login-register-unauthorized-modal.component';
+import { VisitingRequestModalComponent } from './components/visiting-request-modal/visiting-request-modal.component';
 
 const pipes = [
     DateAgoPipe,
@@ -19,13 +20,14 @@ const modules = [
 ];
 
 const components = [
-    LoginRegisterUnauthorizedModalComponent
+    LoginRegisterUnauthorizedModalComponent,
+    VisitingRequestModalComponent
 ];
 
 @NgModule({
     declarations: [
         ...pipes,
-        ...components
+        ...components,
     ],
     imports: [
         PrimengLibModule

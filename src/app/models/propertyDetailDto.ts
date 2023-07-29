@@ -18,6 +18,6 @@ export interface PropertyDetailDto extends PropertyListDto {
     parking: boolean;
     swimmingPool: boolean;
     description: string;
+    postedBy: number;
     photos: Array<PhotoDto>;
-
 }

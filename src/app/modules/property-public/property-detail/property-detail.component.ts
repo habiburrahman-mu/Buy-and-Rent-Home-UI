@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import * as leaflet from 'leaflet';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SellRent } from 'src/app/enums/enums';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-property-detail',
@@ -26,10 +27,14 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
     photos: PhotoDto[] = [];
 
     displayFullScreenGallery = false;
+    isLoginRegisterModalVisible = false;
+
+    isThisUsersProperty = false;
 
     constructor(private route: ActivatedRoute,
         private router: Router,
         private propertyService: PropertyService,
+        private authService: AuthService,
         private photoService: PhotoService,
         private domSanitizer: DomSanitizer) {
     }
@@ -44,6 +49,7 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
         });
         this.route.data.subscribe((data: any) => {
             this.propertyData = data['property'];
+            this.isThisUsersProperty = this.authService.isLoggedInUser(this.propertyData.postedBy);
             this.propertyData.description = this.domSanitizer.sanitize(1, this.propertyData.description) ?? "";
         });
 
@@ -52,6 +58,10 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         this.initMap();
+    }
+
+    onClickContactOwner() {
+        this.isLoginRegisterModalVisible = true;
     }
 
     private initMap(): void {

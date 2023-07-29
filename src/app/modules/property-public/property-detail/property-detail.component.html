@@ -1,5 +1,10 @@
 <div class="card" fxLayout="column" fxLayoutGap="10px">
-    <h4 class="mb-3" style="color: var(--blue-500);">{{propertyData.name}}</h4>
+    <div fxLayout="row wrap" fxLayout.lt-md="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="5px" class="mb-3">
+        <h4 style="color: var(--blue-500);" class="h-full m-0">{{propertyData.name}}</h4>
+        <!-- <h4 style="color: var(--blue-500);" class="h-full m-0">{{propertyData.name}}</h4> -->
+        <p-button pRipple label="Contact Owner" icon="fas fa-envelope" class="p-button-info" *ngIf="!isThisUsersProperty" (onClick)="onClickContactOwner()"></p-button>
+    </div>
+    <!-- <span >This user's property</span> -->
     <div class="" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutGap="10px"
         fxLayoutAlign.gt-md="space-between center" fxLayoutAlign.lt-md="space-between start">
         <div class="min-h-0 h-full mb-0 w-full" fxFlex.gt-md="50" fxFlex.lt-md="100" fxLayout="column"
@@ -210,3 +215,4 @@
         </div>
     </ng-template>
 </p-galleria>
+<app-login-register-unauthorized-modal [(isLoginRegisterModalVisible)]="isLoginRegisterModalVisible"></app-login-register-unauthorized-modal>

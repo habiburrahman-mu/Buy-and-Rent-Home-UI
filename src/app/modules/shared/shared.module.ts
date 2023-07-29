@@ -4,6 +4,7 @@ import { DateAgoPipe } from 'src/app/Pipes/date-ago.pipe';
 import { FilterPipe } from 'src/app/Pipes/filter.pipe';
 import { SortPipe } from 'src/app/Pipes/sort.pipe';
 import { PrimengLibModule } from '../primeng-lib/primeng-lib.module';
+import { LoginRegisterUnauthorizedModalComponent } from './components/login-register-unauthorized-modal/login-register-unauthorized-modal.component';
 
 const pipes = [
     DateAgoPipe,
@@ -17,12 +18,20 @@ const modules = [
     PrimengLibModule
 ];
 
+const components = [
+    LoginRegisterUnauthorizedModalComponent
+];
+
 @NgModule({
-  declarations: [
-    ...pipes
-  ],
-  exports: [
-    ...pipes, ...modules
-  ]
+    declarations: [
+        ...pipes,
+        ...components
+    ],
+    imports: [
+        PrimengLibModule
+    ],
+    exports: [
+        ...pipes, ...modules, ...components
+    ]
 })
 export class SharedModule { }

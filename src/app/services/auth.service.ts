@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {environment} from '../../environments/environment'
-import {UserForLogin, UserForRegister} from "../models/user";
-import {Observable} from "rxjs";
-import {Router} from "@angular/router";
+import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { environment } from '../../environments/environment'
+import { UserForLogin, UserForRegister } from "../models/user";
+import { Observable } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +16,7 @@ export class AuthService {
     constructor(private http: HttpClient, private router: Router) {
     }
 
-    get tokenInLocalStorage() { return localStorage.getItem('brh-token') ?? '';}
+    get tokenInLocalStorage() { return localStorage.getItem('brh-token') ?? ''; }
 
     authUser(user: UserForLogin): Observable<any> {
         return this.http.post(this.baseUrl + '/account/login', user);
@@ -54,7 +54,7 @@ export class AuthService {
         const decodedTokenPayload = this.decodedTokenPayload;
         if (decodedTokenPayload) {
             var isExpired = this.isExpired(decodedTokenPayload);
-            if(isExpired) {
+            if (isExpired) {
                 this.logOut();
             }
             return !isExpired;
@@ -72,8 +72,23 @@ export class AuthService {
     logOut(navigateToLogin: boolean = true) {
         localStorage.removeItem('brh-token');
         localStorage.removeItem('brh-userName');
-        if(navigateToLogin) {
+        if (navigateToLogin) {
             this.router.navigate(['login']);
         }
+    }
+
+    get loggedInUserId() {
+        if (this.isLoggedIn()) {
+            let decodedTokenPayload = this.decodedTokenPayload;
+            if (decodedTokenPayload) {
+                var userId = parseInt(JSON.parse(decodedTokenPayload)['nameid']);
+                return userId;
+            }
+        }
+        return 0;
+    }
+
+    isLoggedInUser(userId: number) {
+        return userId === this.loggedInUserId;
     }
 }

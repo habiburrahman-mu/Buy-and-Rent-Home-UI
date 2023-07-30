@@ -104,3 +104,8 @@ body {
 .p-dialog .p-dialog-content {
     padding: 1rem 1.25rem 1.25rem 1.25rem !important;
 }
+
+.p-togglebutton.p-button.p-highlight {
+    background: var(--blue-800) !important;
+    color: white !important;
+}

@@ -177,19 +177,37 @@
                 <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
                     <h6 class="m-0 mb-1">Description</h6>
                     <!-- <textarea rows="5" pInputTextarea class="w-100" formControlName="description"></textarea> -->
-                    <p-editor class="w-100 editor"  formControlName="description">
+                    <p-editor class="w-100 editor" formControlName="description">
                         <ng-template pTemplate="header">
                             <span class="ql-format-group">
                                 <button type="button" class="ql-bold" aria-label="Bold"></button>
                                 <button type="button" class="ql-italic" aria-label="Italic"></button>
                                 <button type="button" class="ql-underline" aria-label="Underline"></button>
-                                <button type="button" class="ql-list" aria-label="Ordered List" value="ordered"></button>
-                                <button type="button" class="ql-list" aria-label="Unordered List" value="bullet"></button>
+                                <button type="button" class="ql-list" aria-label="Ordered List"
+                                    value="ordered"></button>
+                                <button type="button" class="ql-list" aria-label="Unordered List"
+                                    value="bullet"></button>
                             </span>
                         </ng-template>
                     </p-editor>
                 </div>
             </div>
+        </p-tabPanel>
+        <p-tabPanel header="Schedule">
+            <div class="text-lg font-medium mb-4">Make house visits hassle-free by providing us your availability</div>
+            <div class="mb-4" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <ng-container *ngFor="let day of days">
+                    <p-toggleButton [onLabel]="day" [offLabel]="day"></p-toggleButton>
+                </ng-container>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <p-calendar [timeOnly]="true" [showTime]="true" [hourFormat]="'12'" appendTo="body" placeholder="Start Time"></p-calendar>
+                <p-calendar [timeOnly]="true" [showTime]="true" [hourFormat]="'12'" appendTo="body" placeholder="End Time"></p-calendar>
+            </div>
+
+            <!-- <p-toggleButton onLabel="Saturday" offLabel="Saturday"></p-toggleButton>
+            <p-toggleButton onLabel="Saturday" offLabel="Saturday"></p-toggleButton>
+            <p-toggleButton onLabel="Saturday" offLabel="Saturday"></p-toggleButton> -->
         </p-tabPanel>
         <p-tabPanel header="Media">
             <div fxLayout="column" fxLayoutGap="10px" class="mt-2">

@@ -43,7 +43,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     propertyDetail: PropertyDetailDto;
     existingPhotos: ExistingPhotoDto[] = [];
 
-    numOfTabs = 4;
+    numOfTabs = 5;
     tabIndex: number;
     showLoader: boolean = false;
 
@@ -54,6 +54,8 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         {label: 'Sell', value: 1},
         {label: 'Rent', value: 2}
     ];
+
+    readonly days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
     propertyTypeOptions: IKeyValuePair[];
     furnishTypeOptions: IKeyValuePair[];

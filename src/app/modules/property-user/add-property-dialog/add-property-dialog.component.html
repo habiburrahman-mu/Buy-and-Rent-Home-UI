@@ -195,10 +195,10 @@
         </p-tabPanel>
         <p-tabPanel header="Schedule">
             <div class="text-lg font-medium mb-4">Make house visits hassle-free by providing us your availability</div>
-            <div class="mb-4" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-                <ng-container *ngFor="let day of days">
-                    <p-toggleButton [onLabel]="day" [offLabel]="day"></p-toggleButton>
-                </ng-container>
+            <div class="mb-4" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" formArrayName="schedule">
+                <div *ngFor="let day of DAYS; let i = index">
+                    <p-toggleButton [onLabel]="day" [offLabel]="day" [formControlName]="i"></p-toggleButton>
+                </div>
             </div>
             <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
                 <p-calendar [timeOnly]="true" [showTime]="true" [hourFormat]="'12'" appendTo="body" placeholder="Start Time"></p-calendar>

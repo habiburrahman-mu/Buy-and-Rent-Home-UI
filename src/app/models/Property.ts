@@ -22,4 +22,7 @@ export class Property implements IPropertyBase {
     parking: boolean;
     swimmingPool: boolean;
     description: string;
+	availableDays: string;
+	availableStartTime: string;
+	availableEndTime: string;
 }

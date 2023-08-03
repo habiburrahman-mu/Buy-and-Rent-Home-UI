@@ -1,28 +1,28 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import {
     FormGroup,
-    UntypedFormBuilder,
+    FormBuilder,
     Validators
 } from "@angular/forms";
-import {Router} from "@angular/router";
-import {HousingService} from "../../../services/http/housing.service";
-import {ConfirmationService, MessageService, PrimeNGConfig} from "primeng/api";
-import {IKeyValuePair} from "../../../models/ikeyvaluepair";
-import {FileUpload} from "primeng/fileupload";
-import {TabView} from "primeng/tabview";
-import {IAddEditPropertyForm} from "../../../models/IAddEditPropertyForm";
-import {Property} from "../../../models/Property";
-import {CityService} from "../../../services/http/city.service";
-import {CountryService} from "../../../services/http/country.service";
-import {FurnishingTypeService} from "../../../services/http/furnishing-type.service";
-import {PropertyTypeService} from "../../../services/http/property-type.service";
-import {PropertyService} from "../../../services/http/property.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {PhotoService} from "../../../services/http/photo.service";
-import {PropertyDetailDto} from "../../../models/propertyDetailDto";
-import {forkJoin, Observable, of, Subscription} from "rxjs";
-import {PhotoDto} from "../../../models/photoDto";
-import {environment} from "../../../../environments/environment";
+import { Router } from "@angular/router";
+import { HousingService } from "../../../services/http/housing.service";
+import { ConfirmationService, MessageService, PrimeNGConfig } from "primeng/api";
+import { IKeyValuePair } from "../../../models/ikeyvaluepair";
+import { FileUpload } from "primeng/fileupload";
+import { TabView } from "primeng/tabview";
+import { IAddEditPropertyForm } from "../../../models/IAddEditPropertyForm";
+import { Property } from "../../../models/Property";
+import { CityService } from "../../../services/http/city.service";
+import { CountryService } from "../../../services/http/country.service";
+import { FurnishingTypeService } from "../../../services/http/furnishing-type.service";
+import { PropertyTypeService } from "../../../services/http/property-type.service";
+import { PropertyService } from "../../../services/http/property.service";
+import { HttpErrorResponse } from "@angular/common/http";
+import { PhotoService } from "../../../services/http/photo.service";
+import { PropertyDetailDto } from "../../../models/propertyDetailDto";
+import { forkJoin, Observable, of, Subscription } from "rxjs";
+import { PhotoDto } from "../../../models/photoDto";
+import { environment } from "../../../../environments/environment";
 
 @Component({
     selector: 'app-add-property-dialog',
@@ -38,7 +38,37 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     @ViewChild('fileUpload') fileUpload: FileUpload;
     @ViewChild('tabView') tabView: TabView;
 
-    addPropertyForm!: FormGroup<IAddEditPropertyForm>;
+    readonly DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    addPropertyForm = this.formBuilder.group({
+        basicInfo: this.formBuilder.group({
+            propertyName: this.formBuilder.control<string | null>(null, [Validators.required]),
+            sellRent: this.formBuilder.control<number>(0, { validators: [Validators.required] }),
+            propertyType: this.formBuilder.control<number>(0, { validators: [Validators.required] }),
+            furnishType: this.formBuilder.control<number>(0, { validators: [Validators.required] }),
+            bedroom: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
+            bathroom: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
+            commonSpace: this.formBuilder.control<number | null>(null),
+        }),
+        addressPricing: this.formBuilder.group({
+            country: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
+            city: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
+            streetAddress: this.formBuilder.control<string | null>(null, [Validators.required]),
+            totalFloor: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
+            floor: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
+            landmark: this.formBuilder.control<string | null>(null),
+            area: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
+            price: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
+            otherCost: this.formBuilder.control<number | null>(null),
+        }),
+        others: this.formBuilder.group({
+            gym: this.formBuilder.control<boolean>(false, { validators: [Validators.required] }),
+            parking: this.formBuilder.control<boolean>(false, { validators: [Validators.required] }),
+            swimmingPool: this.formBuilder.control<boolean>(false, { validators: [Validators.required] }),
+            description: this.formBuilder.control<string | null>(null),
+        }),
+        schedule: this.formBuilder.array(this.createScheduleDaysFormArray())
+    });
     property = new Property();
     propertyDetail: PropertyDetailDto;
     existingPhotos: ExistingPhotoDto[] = [];
@@ -51,16 +81,14 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     isPhotoGalleryModified = false;
 
     sellRentOptions: Array<{ label: string, value: number }> = [
-        {label: 'Sell', value: 1},
-        {label: 'Rent', value: 2}
+        { label: 'Sell', value: 1 },
+        { label: 'Rent', value: 2 }
     ];
-
-    readonly days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
     propertyTypeOptions: IKeyValuePair[];
     furnishTypeOptions: IKeyValuePair[];
-    cityList: Array<any> = [{label: 'Select City', value: "", disabled: true}];
-    countryList: Array<any> = [{label: 'Select Country', value: "", disabled: true}];
+    cityList: Array<any> = [{ label: 'Select City', value: "", disabled: true }];
+    countryList: Array<any> = [{ label: 'Select Country', value: "", disabled: true }];
 
     uploadedFiles: any[] = [];
     newFileUrls: File[] = [];
@@ -68,24 +96,29 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     primaryPhotoIdOrIndex: number = 0;
     deletedExistingPhotos: number[] = [];
 
-    constructor(private formBuilder: UntypedFormBuilder,
-                private router: Router,
-                private housingService: HousingService,
-                private messageService: MessageService,
-                private primeNGConfig: PrimeNGConfig,
-                private cityService: CityService,
-                private countryService: CountryService,
-                private furnishingTypeService: FurnishingTypeService,
-                private propertyTypeService: PropertyTypeService,
-                private propertyService: PropertyService,
-                private photoService: PhotoService,
-                private confirmationService: ConfirmationService) {
+    createScheduleDaysFormArray() {
+        return this.DAYS.map(day => {
+            return this.formBuilder.control<boolean>(false, Validators.required);
+        })
+    }
+
+    constructor(private formBuilder: FormBuilder,
+        private router: Router,
+        private housingService: HousingService,
+        private messageService: MessageService,
+        private primeNGConfig: PrimeNGConfig,
+        private cityService: CityService,
+        private countryService: CountryService,
+        private furnishingTypeService: FurnishingTypeService,
+        private propertyTypeService: PropertyTypeService,
+        private propertyService: PropertyService,
+        private photoService: PhotoService,
+        private confirmationService: ConfirmationService) {
     }
 
     ngOnInit(): void {
         this.showLoader = true;
         this.primeNGConfig.ripple = true;
-        this.CreateAddPropertyForm();
 
         this.tabIndex = 0;
 
@@ -100,14 +133,14 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
                 this.propertyTypeOptions = result[0];
                 this.furnishTypeOptions = result[1];
                 result[2].map(item => {
-                    this.countryList.push({label: item.name, value: item.id});
+                    this.countryList.push({ label: item.name, value: item.id });
                 });
                 if (result[3]) {
                     let propertyDetail = result[3];
                     this.propertyDetail = propertyDetail;
                     this.cityService.getAllCityByCountry(propertyDetail.countryId).subscribe(data => {
                         data.map(item => {
-                            this.cityList.push({label: item.name, value: item.id});
+                            this.cityList.push({ label: item.name, value: item.id });
                         });
                         this.showLoader = false;
                         this.bindDataToForm();
@@ -118,7 +151,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
                             if (photo.isPrimary) {
                                 this.primaryPhotoIdOrIndex = photo.id;
                             }
-                            return {...photo, isDeleted: false};
+                            return { ...photo, isDeleted: false };
                         });
                     }
                 }
@@ -167,40 +200,48 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
                 parking: this.propertyDetail.parking,
                 swimmingPool: this.propertyDetail.swimmingPool,
                 description: this.propertyDetail.description,
-            }
+            },
+            schedule: this.getDataForScheduleArray()
         });
     }
 
-    CreateAddPropertyForm() {
-        this.addPropertyForm = this.formBuilder.group({
-            basicInfo: this.formBuilder.group({
-                propertyName: [null, {validators: [Validators.required]}],
-                sellRent: [null, {validators: [Validators.required]}],
-                propertyType: [null, {validators: [Validators.required]}],
-                furnishType: [null, {validators: [Validators.required]}],
-                bedroom: [null, {validators: [Validators.required]}],
-                bathroom: [null],
-                commonSpace: [null],
-            }),
-            addressPricing: this.formBuilder.group({
-                country: [null, Validators.required],
-                city: [null, Validators.required],
-                streetAddress: [null, Validators.required],
-                totalFloor: [null, Validators.required],
-                floor: [null, Validators.required],
-                landmark: [null],
-                area: [null, Validators.required],
-                price: [null, Validators.required],
-                otherCost: [null],
-            }),
-            others: this.formBuilder.group({
-                gym: [false],
-                parking: [false],
-                swimmingPool: [false],
-                description: [null],
-            })
-        })
+    private getDataForScheduleArray() {
+        let daysArrayFromServer = this.propertyDetail.availableDays?.split(',') ?? [];
+        return this.DAYS.map(days => {
+            return daysArrayFromServer.some(x => x === days);
+        });
     }
+
+    // CreateAddPropertyForm() {
+    //     this.addPropertyForm = this.formBuilder.group({
+    //         basicInfo: this.formBuilder.group({
+    //             propertyName: [null, { validators: [Validators.required] }],
+    //             sellRent: [null, { validators: [Validators.required] }],
+    //             propertyType: [null, { validators: [Validators.required] }],
+    //             furnishType: [null, { validators: [Validators.required] }],
+    //             bedroom: [null, { validators: [Validators.required] }],
+    //             bathroom: [null],
+    //             commonSpace: [null],
+    //         }),
+    //         addressPricing: this.formBuilder.group({
+    //             country: [null, Validators.required],
+    //             city: [null, Validators.required],
+    //             streetAddress: [null, Validators.required],
+    //             totalFloor: [null, Validators.required],
+    //             floor: [null, Validators.required],
+    //             landmark: [null],
+    //             area: [null, Validators.required],
+    //             price: [null, Validators.required],
+    //             otherCost: [null],
+    //         }),
+    //         others: this.formBuilder.group({
+    //             gym: [false],
+    //             parking: [false],
+    //             swimmingPool: [false],
+    //             description: [null],
+    //         })
+    //     })
+    // }
 
     // closeAddPropertyDialog() {
     //     this.fileUpload.clear();
@@ -218,7 +259,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
     onChangeCountry() {
         console.log(this.country.value);
-        this.cityList = [{label: 'Select City', value: "", disabled: true}];
+        this.cityList = [{ label: 'Select City', value: "", disabled: true }];
         this.city.setValue(null);
         if (this.country.value) {
             this.createCityList(this.country.value);
@@ -229,7 +270,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         this.showLoader = true;
         this.cityService.getAllCityByCountry(countryId).subscribe(data => {
             data.map(item => {
-                this.cityList.push({label: item.name, value: item.id});
+                this.cityList.push({ label: item.name, value: item.id });
             });
             this.showLoader = false;
         });
@@ -361,101 +402,108 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         });
     }
 
+    //#region getters for form
     get BasicInfo() {
-        return this.addPropertyForm.controls['basicInfo'];
+        return this.addPropertyForm.controls.basicInfo;
     }
 
     get propertyName() {
-        return this.BasicInfo.controls['propertyName'];
+        return this.BasicInfo.controls.propertyName;
     }
 
     get sellRent() {
-        return this.BasicInfo.controls['sellRent'];
+        return this.BasicInfo.controls.sellRent;
     }
 
     get propertyType() {
-        return this.BasicInfo.controls['propertyType'];
+        return this.BasicInfo.controls.propertyType;
     }
 
     get furnishType() {
-        return this.BasicInfo.controls['furnishType'];
+        return this.BasicInfo.controls.furnishType;
     }
 
     get bedroom() {
-        return this.BasicInfo.controls['bedroom'];
+        return this.BasicInfo.controls.bedroom;
     }
 
     get bathroom() {
-        return this.BasicInfo.controls['bathroom'];
+        return this.BasicInfo.controls.bathroom;
     }
 
     get commonSpace() {
-        return this.BasicInfo.controls['commonSpace'];
+        return this.BasicInfo.controls.commonSpace;
     }
 
     get AddressPricing() {
-        return this.addPropertyForm.controls['addressPricing'];
+        return this.addPropertyForm.controls.addressPricing;
     }
 
     get country() {
-        return this.AddressPricing.controls['country'];
+        return this.AddressPricing.controls.country;
     }
 
     get city() {
-        return this.AddressPricing.controls['city'];
+        return this.AddressPricing.controls.city;
     }
 
     get streetAddress() {
-        return this.AddressPricing.controls['streetAddress'];
+        return this.AddressPricing.controls.streetAddress;
     }
 
     get totalFloor() {
-        return this.AddressPricing.controls['totalFloor'];
+        return this.AddressPricing.controls.totalFloor;
     }
 
     get floor() {
-        return this.AddressPricing.controls['floor'];
+        return this.AddressPricing.controls.floor;
     }
 
     get area() {
-        return this.AddressPricing.controls['area'];
+        return this.AddressPricing.controls.area;
     }
 
     get rentPrice() {
-        return this.AddressPricing.controls['price'];
+        return this.AddressPricing.controls.price;
     }
 
     get landmark() {
-        return this.AddressPricing.controls['landmark'];
+        return this.AddressPricing.controls.landmark;
     }
 
     get price() {
-        return this.AddressPricing.controls['price'];
+        return this.AddressPricing.controls.price;
     }
 
     get otherCost() {
-        return this.AddressPricing.controls['otherCost'];
+        return this.AddressPricing.controls.otherCost;
     }
 
     get Others() {
-        return this.addPropertyForm.controls['others'];
+        return this.addPropertyForm.controls.others;
     }
 
     get gym() {
-        return this.Others.controls['gym'];
+        return this.Others.controls.gym;
     }
 
     get parking() {
-        return this.Others.controls['parking'];
+        return this.Others.controls.parking;
     }
 
     get swimmingPool() {
-        return this.Others.controls['swimmingPool'];
+        return this.Others.controls.swimmingPool;
     }
 
     get description() {
-        return this.Others.controls['description'];
+        return this.Others.controls.description;
     }
+
+    get schedule() {
+        return this.addPropertyForm.controls.schedule;
+    }
+
+    //#endregion
 
     mapProperty() {
         this.property.id = this.propertyDetail?.id ?? 0;
@@ -477,10 +525,23 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
         this.property.rentPrice = this.rentPrice.value!;
         this.property.otherCost = this.otherCost.value!;
 
-        this.property.gym = this.gym.value;
-        this.property.parking = this.parking.value;
-        this.property.swimmingPool = this.swimmingPool.value;
+        this.property.gym = this.gym.value ?? false;
+        this.property.parking = this.parking.value ?? false;
+        this.property.swimmingPool = this.swimmingPool.value ?? false;
         this.property.description = this.description.value!;
+        this.property.availableDays = this.availableDaysFromForm;
+        this.property.availableStartTime = '9:00';
+        this.property.availableEndTime = '14:00';
+    }
+
+    private get availableDaysFromForm() {
+        let string = "";
+        this.schedule.controls.forEach((control, index) => {
+            if (control.value) {
+                string += (string === "" ? '' : ',') + this.DAYS[index];
+            }
+        });
+        return string;
     }
 
     get isSubmittedAndFormInvalid() {

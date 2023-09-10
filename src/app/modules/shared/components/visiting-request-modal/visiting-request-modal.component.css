@@ -1,0 +1,6 @@
+:host ::ng-deep {
+	.selected-date {
+		background: #2b377b;
+    color: white;
+	}
+}

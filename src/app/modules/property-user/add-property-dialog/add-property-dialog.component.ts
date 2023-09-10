@@ -38,7 +38,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
     @ViewChild('fileUpload') fileUpload: FileUpload;
     @ViewChild('tabView') tabView: TabView;
 
-    readonly DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    readonly DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
     addPropertyForm = this.formBuilder.group({
         basicInfo: this.formBuilder.group({

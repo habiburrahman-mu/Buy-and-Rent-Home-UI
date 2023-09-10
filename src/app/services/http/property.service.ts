@@ -67,4 +67,8 @@ export class PropertyService {
     deleteProperty(id: number): Observable<boolean> {
         return this.http.delete<boolean>(this.serviceBaseUrl + '/delete/' + id.toString());
     }
+
+		getAvailableSlotsForNext10Days(id: number) {
+			return this.http.get<any>(this.serviceBaseUrl + '/getAvailableSlotsForNext10Days/' + id.toString());
+		}
 }

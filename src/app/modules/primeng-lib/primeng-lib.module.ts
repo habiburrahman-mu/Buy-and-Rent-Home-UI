@@ -36,6 +36,7 @@ import { ChipModule } from 'primeng/chip';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { CarouselModule } from 'primeng/carousel';
 
 const modules = [
     ButtonModule,
@@ -73,7 +74,8 @@ const modules = [
     MultiSelectModule,
     TabMenuModule,
     OverlayPanelModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    CarouselModule
 ];
 
 @NgModule({

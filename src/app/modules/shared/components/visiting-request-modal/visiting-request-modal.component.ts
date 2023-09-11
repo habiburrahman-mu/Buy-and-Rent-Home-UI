@@ -11,26 +11,26 @@ export class VisitingRequestModalComponent implements OnInit {
 	@Input() isVisitingRequestModalVisible = false;
 	@Output() isVisitingRequestModalVisibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-	selectedDateIndex: any;
+	selectedDateIndex: any = null;
 
 	timeSlots: any[] = [];
 
 	responsiveOptions: any[] = [
-		{
-			breakpoint: '1400px',
-			numVisible: 4,
-			numScroll: 3
-		},
-		{
-			breakpoint: '1220px',
-			numVisible: 3,
-			numScroll: 2
-		},
-		{
-			breakpoint: '1100px',
-			numVisible: 1,
-			numScroll: 1
-		}
+		// {
+		// 	breakpoint: '1400px',
+		// 	numVisible: 4,
+		// 	numScroll: 3
+		// },
+		// {
+		// 	breakpoint: '1220px',
+		// 	numVisible: 3,
+		// 	numScroll: 2
+		// },
+		// {
+		// 	breakpoint: '1100px',
+		// 	numVisible: 1,
+		// 	numScroll: 1
+		// }
 	];
 
 	products = new Array(10).fill(1).map((x, index) => {

@@ -1,6 +1,12 @@
-:host ::ng-deep {
+/* :host ::ng-deep {
 	.selected-date {
 		background: #2b377b;
     color: white;
+	}
+} */
+
+:host ::ng-deep {
+	.p-datepicker.p-component.p-datepicker-inline {
+		border: 0;
 	}
 }

@@ -70,6 +70,6 @@ export class PropertyService {
 	}
 
 	getAvailableSlotsForNext10Days(id: number) {
-		return this.http.get<DayAvailability[]>(this.serviceBaseUrl + '/getAvailableSlotsForNext10Days/' + id.toString());
+		return this.http.get<DayAvailability[]>(this.serviceBaseUrl + '/getAvailableSlotsForNext7Days/' + id.toString());
 	}
 }

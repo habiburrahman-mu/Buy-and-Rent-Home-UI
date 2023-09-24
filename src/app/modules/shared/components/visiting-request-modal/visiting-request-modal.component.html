@@ -11,7 +11,8 @@
 			<div class="w-full h-full overflow-scroll p-1" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px"
 				*ngIf="selectedDateIndex !== null && selectedDateIndex !== undefined; else noTimeSlot">
 				<div class="w-full border-1 surface-border border-round text-center py-2 px-2 cursor-pointer select-none"
-					*ngFor="let slot of timeSlots">
+					*ngFor="let slot of timeSlots; let i = index" [class.active-time-slot]="selectedTimeSlotIndex === i"
+					(click)="onSelectTimeSlot(i)">
 					<div class="text-md font-bold">{{slot.start}} <br /> {{slot.end}}</div>
 				</div>
 			</div>
@@ -19,5 +20,8 @@
 				<div class="text-md font-bold justify-content-center">Select a date first to check time availability</div>
 			</ng-template>
 		</div>
+	</div>
+	<div class="w-full text-right">
+		<p-button label="Take Appointment" icon="fa-solid fa-calendar-check" styleClass="p-button-sm"></p-button>
 	</div>
 </p-dialog>

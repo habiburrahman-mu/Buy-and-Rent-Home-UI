@@ -9,4 +9,14 @@
 	.p-datepicker.p-component.p-datepicker-inline {
 		border: 0;
 	}
+
+	.active-time-slot {
+		margin-bottom: 20px;
+		background: #2b377b;
+		color: white;
+	}
+
+	.p-button.p-button-sm .p-button-icon{
+		font-size: 1rem !important;
+	}
 }

@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DayAvailability } from 'src/app/models/dayAvailability';
+import { TimeSlot } from 'src/app/models/timeSlot';
 import { PropertyService } from 'src/app/services/http/property.service';
 
 @Component({
@@ -23,7 +25,8 @@ export class VisitingRequestModalComponent implements OnInit {
 
 	disabledDates: Date[] = [];
 
-	timeSlots: any[] = [];
+	timeSlots: TimeSlot[] = [];
+	selectedTimeSlotIndex = -1;
 
 	responsiveOptions: any[] = [
 		// {
@@ -43,14 +46,7 @@ export class VisitingRequestModalComponent implements OnInit {
 		// }
 	];
 
-	products = new Array(10).fill(1).map((x, index) => {
-		return {
-			index: index,
-			date: new Date(),
-			name: "",
-			timeSlots: [] as any[]
-		};
-	});
+	dayAvailabilityList: DayAvailabilityExtended[] = [];
 
 	constructor(
 		private propertyService: PropertyService
@@ -60,21 +56,20 @@ export class VisitingRequestModalComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		console.log(this.products);
+		console.log(this.dayAvailabilityList);
 		this.propertyService.getAvailableSlotsForNext10Days(this.propertyId).subscribe({
 			next: (response) => {
-				this.products = response.map((x: any, index: number) => {
-					return {
-						index: index,
-						date: new Date(new Date(x.date).toDateString()),
-						name: x.day,
-						timeSlots: x.availableHours
+				// this.dayAvailabilityList = response;
+				this.dayAvailabilityList = response.map((x, index: number) => {
+					let dayAvailability: DayAvailabilityExtended = {
+						...x,
+						index,
+						dateInDateFormat: new Date(new Date(x.date).toDateString()),
 					}
+					return dayAvailability;
 				});
 
 				this.disableOwnerNonAvailableDates();
-
-				console.log(this.products);
 			}
 		});
 
@@ -90,7 +85,7 @@ export class VisitingRequestModalComponent implements OnInit {
 		let iterator = new Date(startDate);
 
 		while (iterator <= endDate) {
-			let dateExist = this.products.some(x => x.date.toDateString() === iterator.toDateString());
+			let dateExist = this.dayAvailabilityList.some(x => x.dateInDateFormat.toDateString() === iterator.toDateString());
 			if (!dateExist) {
 				disabledDates.push(new Date(iterator));
 			}
@@ -112,10 +107,26 @@ export class VisitingRequestModalComponent implements OnInit {
 
 	onSelectDate(selectedDate: Date) {
 		console.log(selectedDate, selectedDate.toDateString());
-		let prod = this.products.find(x => x.date.toDateString() === selectedDate.toDateString());
-		if (prod) {
-			this.selectedDateIndex = prod.index;
-			this.timeSlots = prod.timeSlots;
+		this.selectedTimeSlotIndex = -1;
+		let selectedAvailability = this.dayAvailabilityList.find(x => x.dateInDateFormat.toDateString() === selectedDate.toDateString());
+		if (selectedAvailability) {
+			this.selectedDateIndex = selectedAvailability.index;
+			this.timeSlots = [];
+			setTimeout(this.test.bind(this, selectedAvailability), 100);
 		}
 	}
+
+	private test(selectedAvailability: DayAvailabilityExtended | undefined) {
+		console.log(selectedAvailability);
+		this.timeSlots = selectedAvailability?.availableTimeSlots ?? [];
+	}
+
+	onSelectTimeSlot(index: number) {
+		this.selectedTimeSlotIndex = index;
+	}
+}
+
+interface DayAvailabilityExtended extends DayAvailability {
+	index: number
+	dateInDateFormat: Date
 }

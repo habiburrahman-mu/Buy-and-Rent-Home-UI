@@ -7,68 +7,69 @@ import { PropertyListDto } from "../../models/propertyListDto";
 import { PropertyDetailDto } from "../../models/propertyDetailDto";
 import { PaginationParameter } from "../../models/PaginationParameter";
 import { PageResult } from "../../models/PageResult";
+import { DayAvailability } from 'src/app/models/dayAvailability';
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class PropertyService {
 
-    private serviceBaseUrl = environment.baseUrl + '/property';
+	private serviceBaseUrl = environment.baseUrl + '/property';
 
-    constructor(private http: HttpClient) {
-    }
+	constructor(private http: HttpClient) {
+	}
 
-    addProperty(property: Property): Observable<number> {
-        return this.http.post<number>(this.serviceBaseUrl + '/addNew', property);
-    }
+	addProperty(property: Property): Observable<number> {
+		return this.http.post<number>(this.serviceBaseUrl + '/addNew', property);
+	}
 
-    getAllProperties(SellRent: number): Observable<PropertyListDto[]> {
-        return this.http.get<PropertyListDto[]>(this.serviceBaseUrl + '/list/' + SellRent.toString());
-    }
+	getAllProperties(SellRent: number): Observable<PropertyListDto[]> {
+		return this.http.get<PropertyListDto[]>(this.serviceBaseUrl + '/list/' + SellRent.toString());
+	}
 
-    getMyProperty(): Observable<PropertyListDto[]> {
-        return this.http.get<PropertyListDto[]>(this.serviceBaseUrl + '/myProperty/');
-    }
+	getMyProperty(): Observable<PropertyListDto[]> {
+		return this.http.get<PropertyListDto[]>(this.serviceBaseUrl + '/myProperty/');
+	}
 
-    getPropertyPaginatedList(pageParams: PaginationParameter, sellRent: number): Observable<PageResult<PropertyListDto>> {
-        let queryParams = new HttpParams({
-            fromObject:
-            {
-                currentPageNo: pageParams.currentPageNo,
-                pageSize: pageParams.pageSize,
-                sortBy: pageParams.sortBy,
-                isDescending: pageParams.isDescending,
-                searchField: pageParams.searchField,
-                searchingText: pageParams.searchingText,
-            }
-        });
-        return this.http.get<PageResult<PropertyListDto>>(this.serviceBaseUrl + '/propertyPaginatedList/' + sellRent.toString(), { params: queryParams });
-    }
+	getPropertyPaginatedList(pageParams: PaginationParameter, sellRent: number): Observable<PageResult<PropertyListDto>> {
+		let queryParams = new HttpParams({
+			fromObject:
+			{
+				currentPageNo: pageParams.currentPageNo,
+				pageSize: pageParams.pageSize,
+				sortBy: pageParams.sortBy,
+				isDescending: pageParams.isDescending,
+				searchField: pageParams.searchField,
+				searchingText: pageParams.searchingText,
+			}
+		});
+		return this.http.get<PageResult<PropertyListDto>>(this.serviceBaseUrl + '/propertyPaginatedList/' + sellRent.toString(), { params: queryParams });
+	}
 
-    getMyPropertyPaginatedList(pageParams: PaginationParameter): Observable<PageResult<PropertyListDto>> {
-        let queryParams = new HttpParams({
-            fromObject:
-            {
-                currentPageNo: pageParams.currentPageNo,
-                pageSize: pageParams.pageSize,
-                sortBy: pageParams.sortBy,
-                isDescending: pageParams.isDescending,
-                searchField: pageParams.searchField,
-                searchingText: pageParams.searchingText,
-            }
-        });
-        return this.http.get<PageResult<PropertyListDto>>(this.serviceBaseUrl + '/myPropertyPaginatedList/', { params: queryParams });
-    }
+	getMyPropertyPaginatedList(pageParams: PaginationParameter): Observable<PageResult<PropertyListDto>> {
+		let queryParams = new HttpParams({
+			fromObject:
+			{
+				currentPageNo: pageParams.currentPageNo,
+				pageSize: pageParams.pageSize,
+				sortBy: pageParams.sortBy,
+				isDescending: pageParams.isDescending,
+				searchField: pageParams.searchField,
+				searchingText: pageParams.searchingText,
+			}
+		});
+		return this.http.get<PageResult<PropertyListDto>>(this.serviceBaseUrl + '/myPropertyPaginatedList/', { params: queryParams });
+	}
 
-    getPropertyDetail(id: number): Observable<PropertyDetailDto> {
-        return this.http.get<PropertyDetailDto>(this.serviceBaseUrl + '/detail/' + id.toString());
-    }
+	getPropertyDetail(id: number): Observable<PropertyDetailDto> {
+		return this.http.get<PropertyDetailDto>(this.serviceBaseUrl + '/detail/' + id.toString());
+	}
 
-    deleteProperty(id: number): Observable<boolean> {
-        return this.http.delete<boolean>(this.serviceBaseUrl + '/delete/' + id.toString());
-    }
+	deleteProperty(id: number): Observable<boolean> {
+		return this.http.delete<boolean>(this.serviceBaseUrl + '/delete/' + id.toString());
+	}
 
-		getAvailableSlotsForNext10Days(id: number) {
-			return this.http.get<any>(this.serviceBaseUrl + '/getAvailableSlotsForNext10Days/' + id.toString());
-		}
+	getAvailableSlotsForNext10Days(id: number) {
+		return this.http.get<DayAvailability[]>(this.serviceBaseUrl + '/getAvailableSlotsForNext10Days/' + id.toString());
+	}
 }

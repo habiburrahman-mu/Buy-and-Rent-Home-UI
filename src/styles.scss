@@ -109,3 +109,8 @@ body {
     background: var(--blue-800) !important;
     color: white !important;
 }
+
+button:focus {
+	outline: none;
+	box-shadow: none;
+}

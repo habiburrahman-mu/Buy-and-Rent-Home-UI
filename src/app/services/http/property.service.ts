@@ -69,7 +69,7 @@ export class PropertyService {
 		return this.http.delete<boolean>(this.serviceBaseUrl + '/delete/' + id.toString());
 	}
 
-	getAvailableSlotsForNext10Days(id: number) {
+	getAvailableSlotsForNext7Days(id: number) {
 		return this.http.get<DayAvailability[]>(this.serviceBaseUrl + '/getAvailableSlotsForNext7Days/' + id.toString());
 	}
 }

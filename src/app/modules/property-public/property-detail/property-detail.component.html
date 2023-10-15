@@ -215,5 +215,5 @@
         </div>
     </ng-template>
 </p-galleria>
-<app-login-register-unauthorized-modal [(isLoginRegisterModalVisible)]="isLoginRegisterModalVisible"></app-login-register-unauthorized-modal>
-<app-visiting-request-modal [(isVisitingRequestModalVisible)]="isVisitingRequestModalVisible" [propertyId]="propertyId"></app-visiting-request-modal>
+<app-login-register-unauthorized-modal [(isLoginRegisterModalVisible)]="isLoginRegisterModalVisible" *ngIf="!isLoggedIn"></app-login-register-unauthorized-modal>
+<app-visiting-request-modal [(isVisitingRequestModalVisible)]="isVisitingRequestModalVisible" [propertyId]="propertyId" *ngIf="isLoggedIn"></app-visiting-request-modal>

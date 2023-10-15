@@ -37,6 +37,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { CarouselModule } from 'primeng/carousel';
+import { FocusTrapModule } from 'primeng/focustrap';
 
 const modules = [
     ButtonModule,
@@ -75,7 +76,8 @@ const modules = [
     TabMenuModule,
     OverlayPanelModule,
     ToggleButtonModule,
-    CarouselModule
+    CarouselModule,
+		FocusTrapModule
 ];
 
 @NgModule({

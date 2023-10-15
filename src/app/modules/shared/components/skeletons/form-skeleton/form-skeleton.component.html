@@ -1,0 +1,40 @@
+<div class="p-1">
+	<ng-container *ngFor="let _ of dummyArray">
+		<div class="mb-2">
+			<div *ngFor="let _ of [undefined, undefined]" class="mb-3">
+				<p-skeleton width="10rem" styleClass="mb-1"></p-skeleton>
+				<p-skeleton height="2rem" width="100%"></p-skeleton>
+			</div>
+		</div>
+
+		<div class="flex justify-content-evenly gap-3 w-full mb-3">
+			<div class="flex-1 w-full">
+				<p-skeleton width="80%" styleClass="mb-2"></p-skeleton>
+				<div *ngFor="let _ of [undefined, undefined, undefined]" class="ml-2 mb-1 flex justify-content-start">
+					<p-skeleton shape="circle" size="1rem" styleClass="mr-2"></p-skeleton>
+					<p-skeleton width="5rem" styleClass="mb-1"></p-skeleton>
+				</div>
+			</div>
+			<div class="flex-1 w-full">
+				<p-skeleton width="80%" styleClass="mb-2"></p-skeleton>
+				<div *ngFor="let _ of [undefined, undefined, undefined]" class="ml-2 mb-1 flex justify-content-start">
+					<p-skeleton size="1rem" styleClass="mr-2"></p-skeleton>
+					<p-skeleton width="5rem" styleClass="mb-1"></p-skeleton>
+				</div>
+			</div>
+		</div>
+
+		<div class="flex justify-content-evenly gap-3 w-full mb-3">
+			<div *ngFor="let _ of [undefined, undefined]" class="w-full">
+				<p-skeleton width="10rem" styleClass="mb-1"></p-skeleton>
+				<p-skeleton width="100%" height="100px"></p-skeleton>
+			</div>
+
+		</div>
+	</ng-container>
+
+	<div class="flex justify-content-between mt-3">
+		<p-skeleton width="5rem" height="2rem"></p-skeleton>
+		<p-skeleton width="5rem" height="2rem"></p-skeleton>
+	</div>
+</div>

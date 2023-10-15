@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { forkJoin, of } from 'rxjs';
 import { DayAvailability } from 'src/app/models/dayAvailability';
 import { TimeSlot } from 'src/app/models/timeSlot';
 import { PropertyService } from 'src/app/services/http/property.service';
@@ -46,7 +47,9 @@ export class VisitingRequestModalComponent implements OnInit {
 		// }
 	];
 
-	dayAvailabilityList: DayAvailabilityExtended[] = [];
+	dayAvailabilityList: DayAvailabilityExtended[];
+
+	isDataLoading = false;
 
 	constructor(
 		private propertyService: PropertyService
@@ -56,11 +59,16 @@ export class VisitingRequestModalComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		console.log(this.dayAvailabilityList);
-		this.propertyService.getAvailableSlotsForNext10Days(this.propertyId).subscribe({
+		this.loadDataFromServer(true);
+	}
+
+	private loadDataFromServer(isForceRefresh = false) {
+		this.isDataLoading = true;
+		forkJoin([
+			this.loadAvailableSlotsForNext7Days$(isForceRefresh)
+		]).subscribe({
 			next: (response) => {
-				// this.dayAvailabilityList = response;
-				this.dayAvailabilityList = response.map((x, index: number) => {
+				this.dayAvailabilityList = response[0].map((x, index: number) => {
 					let dayAvailability: DayAvailabilityExtended = {
 						...x,
 						index,
@@ -70,10 +78,19 @@ export class VisitingRequestModalComponent implements OnInit {
 				});
 
 				this.disableOwnerNonAvailableDates();
-			}
-		});
+			},
+			complete: () => {
+				this.isDataLoading = false;
+			},
+		})
+	}
 
-		// console.log(this.todayDate, this.minDate, this.maxDate);
+	private loadAvailableSlotsForNext7Days$(isForceRefresh = false) {
+		if (this.dayAvailabilityList && !isForceRefresh) {
+			return of(this.dayAvailabilityList);
+		} else {
+			return this.propertyService.getAvailableSlotsForNext7Days(this.propertyId);
+		}
 	}
 
 	private disableOwnerNonAvailableDates() {

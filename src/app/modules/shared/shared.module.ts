@@ -6,6 +6,7 @@ import { SortPipe } from 'src/app/Pipes/sort.pipe';
 import { PrimengLibModule } from '../primeng-lib/primeng-lib.module';
 import { LoginRegisterUnauthorizedModalComponent } from './components/login-register-unauthorized-modal/login-register-unauthorized-modal.component';
 import { VisitingRequestModalComponent } from './components/visiting-request-modal/visiting-request-modal.component';
+import { FormSkeletonComponent } from './components/skeletons/form-skeleton/form-skeleton.component';
 
 const pipes = [
     DateAgoPipe,
@@ -28,6 +29,7 @@ const components = [
     declarations: [
         ...pipes,
         ...components,
+        FormSkeletonComponent,
     ],
     imports: [
         PrimengLibModule

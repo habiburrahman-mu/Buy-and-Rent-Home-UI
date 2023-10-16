@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { forkJoin, of } from 'rxjs';
 import { DayAvailability } from 'src/app/models/dayAvailability';
 import { TimeSlot } from 'src/app/models/timeSlot';
+import { VisitingRequestDetailDto } from 'src/app/models/visitingRequestDetailDto';
 import { PropertyService } from 'src/app/services/http/property.service';
+import { VisitingRequestService } from 'src/app/services/http/visiting-request.service';
 
 @Component({
 	selector: 'app-visiting-request-modal',
@@ -49,10 +51,13 @@ export class VisitingRequestModalComponent implements OnInit {
 
 	dayAvailabilityList: DayAvailabilityExtended[];
 
+	visitingRequestDetailDto: VisitingRequestDetailDto | null;
+
 	isDataLoading = false;
 
 	constructor(
-		private propertyService: PropertyService
+		private propertyService: PropertyService,
+		private visitingRequestService: VisitingRequestService
 	) {
 		this.minDate.setDate(this.todayDate.getDate() + 1);
 		this.maxDate.setDate(this.todayDate.getDate() + 7);
@@ -65,10 +70,12 @@ export class VisitingRequestModalComponent implements OnInit {
 	private loadDataFromServer(isForceRefresh = false) {
 		this.isDataLoading = true;
 		forkJoin([
-			this.loadAvailableSlotsForNext7Days$(isForceRefresh)
+			this.visitingRequestService.getVisitingRequestDetailForCurrentUser(this.propertyId),
+			this.loadAvailableSlotsForNext7Days$(isForceRefresh),
 		]).subscribe({
 			next: (response) => {
-				this.dayAvailabilityList = response[0].map((x, index: number) => {
+				this.visitingRequestDetailDto = response[0];
+				this.dayAvailabilityList = response[1].map((x, index: number) => {
 					let dayAvailability: DayAvailabilityExtended = {
 						...x,
 						index,
@@ -78,8 +85,9 @@ export class VisitingRequestModalComponent implements OnInit {
 				});
 
 				this.disableOwnerNonAvailableDates();
+				this.isDataLoading = false;
 			},
-			complete: () => {
+			error: (err) => {
 				this.isDataLoading = false;
 			},
 		})

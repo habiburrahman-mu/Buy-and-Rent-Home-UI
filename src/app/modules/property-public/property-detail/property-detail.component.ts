@@ -85,6 +85,7 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
 		// tiles.addTo(this.map);
 		// 23.780279, 90.416765
 		var map = leaflet.map('map').setView([23.780279, 90.416765], 12);
+		map.scrollWheelZoom.disable();
 
 		leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -96,6 +97,12 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
 
 		this.map = map;
 		map.on("click", (event) => {
+			if (map.scrollWheelZoom.enabled()) {
+				map.scrollWheelZoom.disable();
+			}
+			else {
+				map.scrollWheelZoom.enable();
+			}
 			this.onClickMap(event);
 		})
 	}

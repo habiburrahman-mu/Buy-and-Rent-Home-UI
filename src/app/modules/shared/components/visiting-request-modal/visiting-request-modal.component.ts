@@ -1,10 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { forkJoin, of } from 'rxjs';
+import { MessageConstants } from 'src/app/constants/message-constants';
 import { DayAvailability } from 'src/app/models/dayAvailability';
 import { TimeSlot } from 'src/app/models/timeSlot';
+import { VisitingRequestCreateDto } from 'src/app/models/visitingRequestCreateDto';
 import { VisitingRequestDetailDto } from 'src/app/models/visitingRequestDetailDto';
 import { PropertyService } from 'src/app/services/http/property.service';
 import { VisitingRequestService } from 'src/app/services/http/visiting-request.service';
+import { ToasterMessageService } from 'src/app/services/utility-services/toaster-message.service';
+import { DateTimeUtils } from 'src/app/utils/date-time-utils';
 
 @Component({
 	selector: 'app-visiting-request-modal',
@@ -16,6 +20,8 @@ export class VisitingRequestModalComponent implements OnInit {
 	@Input() isVisitingRequestModalVisible = false;
 	@Input() propertyId: number;
 	@Output() isVisitingRequestModalVisibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+	readonly regexForPhone: RegExp = /^[\+\d]?(?:[\d-.\s()]*)$/;
 
 	selectedDateIndex: any = null;
 
@@ -30,6 +36,7 @@ export class VisitingRequestModalComponent implements OnInit {
 
 	timeSlots: TimeSlot[] = [];
 	selectedTimeSlotIndex = -1;
+	contactNumber: string | null = null;
 
 	responsiveOptions: any[] = [
 		// {
@@ -54,10 +61,12 @@ export class VisitingRequestModalComponent implements OnInit {
 	visitingRequestDetailDto: VisitingRequestDetailDto | null;
 
 	isDataLoading = false;
+	isTakingAppointmentInProgress = false;
 
 	constructor(
 		private propertyService: PropertyService,
-		private visitingRequestService: VisitingRequestService
+		private visitingRequestService: VisitingRequestService,
+		private toasterMessageService: ToasterMessageService
 	) {
 		this.minDate.setDate(this.todayDate.getDate() + 1);
 		this.maxDate.setDate(this.todayDate.getDate() + 7);
@@ -137,17 +146,69 @@ export class VisitingRequestModalComponent implements OnInit {
 		if (selectedAvailability) {
 			this.selectedDateIndex = selectedAvailability.index;
 			this.timeSlots = [];
-			setTimeout(this.test.bind(this, selectedAvailability), 100);
+			setTimeout(this.showTimeSlotsForSelectedDate.bind(this, selectedAvailability), 100);
 		}
 	}
 
-	private test(selectedAvailability: DayAvailabilityExtended | undefined) {
-		console.log(selectedAvailability);
+	private showTimeSlotsForSelectedDate(selectedAvailability: DayAvailabilityExtended | undefined) {
 		this.timeSlots = selectedAvailability?.availableTimeSlots ?? [];
 	}
 
 	onSelectTimeSlot(index: number) {
 		this.selectedTimeSlotIndex = index;
+	}
+
+	onClickTakeAppointment() {
+		this.isTakingAppointmentInProgress = true;
+		const visitingRequestCreateDto = this.getVisitingRequestCreateDto();
+
+		this.saveData(visitingRequestCreateDto);
+
+	}
+
+	private getVisitingRequestCreateDto() {
+		const selectedDay = this.dayAvailabilityList.find(x => x.index === this.selectedDateIndex)!;
+		const selectedTimeSlot = selectedDay.availableTimeSlots[this.selectedTimeSlotIndex];
+		let formattedDate = this.createDateFromTimeSlot(selectedDay.date, selectedTimeSlot);
+
+		const visitingRequestCreateDto: VisitingRequestCreateDto = {
+			propertyId: this.propertyId,
+			dateOn: selectedDay.date,
+			startTime: formattedDate[0],
+			endTime: formattedDate[1],
+			contactNumber: this.contactNumber!
+		};
+		return visitingRequestCreateDto;
+	}
+
+	private createDateFromTimeSlot(dateString: string, timeSlot: TimeSlot) {
+		const startDateTime = new Date(dateString);
+		const endDateTime = new Date(dateString);
+
+		startDateTime.setHours(0, 0, 0, 0);
+		endDateTime.setHours(0, 0, 0, 0);
+
+		const [startTimeSplitted, endTimeSplitted] = [timeSlot.start.split(':'), timeSlot.end.split(':')] as const;
+		startDateTime.setHours(+startTimeSplitted[0], +startTimeSplitted[1], +startTimeSplitted[2]);
+		endDateTime.setHours(+endTimeSplitted[0], +endTimeSplitted[1], +endTimeSplitted[2]);
+
+		// Return the formatted date string
+		const formattedStartDateString = DateTimeUtils.DateToString(startDateTime);
+		const formattedEndDateString = DateTimeUtils.DateToString(endDateTime);
+
+		return [formattedStartDateString, formattedEndDateString] as const;
+	}
+
+	private saveData(visitingRequestCreateDto: VisitingRequestCreateDto) {
+		this.visitingRequestService.create(visitingRequestCreateDto).subscribe({
+			next: response => {
+				this.toasterMessageService.success(MessageConstants.SaveSuccessful);
+				this.isTakingAppointmentInProgress = false;
+			},
+			error: err => {
+				this.isTakingAppointmentInProgress = false;
+			}
+		});
 	}
 }
 

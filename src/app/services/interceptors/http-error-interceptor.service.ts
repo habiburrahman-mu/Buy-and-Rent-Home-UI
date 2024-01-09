@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { catchError, concatMap, Observable, of, retryWhen, throwError } from "rxjs";
 import { Injectable } from "@angular/core";
-import { ErrorCode } from "../../enums/enums";
+import { ErrorCode } from "../../constants/enums";
 import { MessageService } from "primeng/api";
 
 @Injectable({

@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 
 import * as leaflet from 'leaflet';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SellRent } from 'src/app/enums/enums';
+import { SellRent } from 'src/app/constants/enums';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({

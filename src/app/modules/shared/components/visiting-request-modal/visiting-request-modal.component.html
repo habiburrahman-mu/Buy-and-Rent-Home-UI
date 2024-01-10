@@ -3,7 +3,7 @@
 	[style]="{'width': '600px', 'max-width': '98vw'}" [resizable]="false">
 	<ng-container *ngIf="!isDataLoading else skeleton">
 		<div *ngIf="visitingRequestDetailDto">
-			{{visitingRequestDetailDto | json}}
+			<app-visiting-request-detail [visitingRequestDetail]="visitingRequestDetailDto"></app-visiting-request-detail>
 		</div>
 		<div *ngIf="!visitingRequestDetailDto">
 			<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" class="w-full" style="height: 350px;">

@@ -7,6 +7,8 @@ import { PrimengLibModule } from '../primeng-lib/primeng-lib.module';
 import { LoginRegisterUnauthorizedModalComponent } from './components/login-register-unauthorized-modal/login-register-unauthorized-modal.component';
 import { VisitingRequestModalComponent } from './components/visiting-request-modal/visiting-request-modal.component';
 import { FormSkeletonComponent } from './components/skeletons/form-skeleton/form-skeleton.component';
+import { CreateVisitingRequestComponent } from './components/create-visiting-request/create-visiting-request.component';
+import { VisitingRequestDetailComponent } from './components/visiting-request-detail/visiting-request-detail.component';
 
 const pipes = [
     DateAgoPipe,
@@ -30,6 +32,8 @@ const components = [
         ...pipes,
         ...components,
         FormSkeletonComponent,
+        CreateVisitingRequestComponent,
+        VisitingRequestDetailComponent,
     ],
     imports: [
         PrimengLibModule

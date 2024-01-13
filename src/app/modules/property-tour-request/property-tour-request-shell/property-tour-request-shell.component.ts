@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-property-tour-request-shell',
-  templateUrl: './property-tour-request-shell.component.html',
-  styleUrls: ['./property-tour-request-shell.component.css']
+	selector: 'app-property-tour-request-shell',
+	templateUrl: './property-tour-request-shell.component.html',
+	styleUrls: ['./property-tour-request-shell.component.css']
 })
 export class PropertyTourRequestShellComponent implements OnInit {
 
-  constructor() { }
+	tabViewActiveIndex: number = 1;
 
-  ngOnInit(): void {
-  }
+	constructor() { }
+
+	ngOnInit(): void {
+	}
 
 }

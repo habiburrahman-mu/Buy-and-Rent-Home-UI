@@ -1,49 +1,4 @@
 <div class="card" style="min-height: 35rem;" (window:resize)="onResizeHandler()" #containerCard>
-    <div class="grid">
-        <!-- <div class="col-lg-7 col-md-6">
-            <div class="grid mt-0">
-                <div class="col-lg-2 col-md-2">Filter City:</div>
-                <div class="col-lg-8 col-md-9">
-                    <div class="p-inputgroup">
-                        <input type="text" [(ngModel)]="city" pInputText />
-                        <button pButton pRipple type="button" label="Search" icon="pi pi-search"
-                            (click)="onCityFilter()"></button>
-                        <button pButton pRipple type="button" label="Clear" class="p-button-danger"
-                            (click)="onCityFilter(true)"></button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-lg-5 col-md-6">
-            <label class="me-1">Sort By: </label>
-            <p-dropdown class="me-1" [options]="sortOptions" [(ngModel)]="sortByParameter"
-                [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-dropdown>
-            <button type="button" (click)="onSortDirection()" pButton pRipple class="p-button" style="height: 44px;">
-                <i *ngIf="sortDirection==='asc'" class="fas fa-sort-alpha-down"></i>
-                <i *ngIf="sortDirection==='desc'" class="fas fa-sort-alpha-up"></i>
-            </button>
-        </div> -->
-    </div>
-
-
-    &nbsp;
-
-
-    <!--&nbsp;-->
-    <!--<label>Sort By &nbsp;</label>-->
-    <!--<select [(ngModel)]="sortByParameter">-->
-    <!--    <option value="City">City</option>-->
-    <!--    <option value="Price">Price</option>-->
-    <!--</select>-->
-    &nbsp;
-    <!--
-    <div class="grid">
-        <div *ngFor="let property of properties | filter:searchCity:'City' | sort: [sortByParameter, sortDirection]"
-            class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 p-3">
-        <app-property-card [property]="property"></app-property-card>
-        </div>
-    </div> -->
     <div fxLayout="row wrap" fxLayout.lt-sm="column wrap" fxLayoutAlign="space-between center" fxLayoutGap="10px">
         <div>
             <p-tabMenu [model]="tabMenuItems" [activeItem]="activeTabMenu"></p-tabMenu>
@@ -55,7 +10,6 @@
                     <input type="text" pInputText class="p-inputtext-sm w-full" />
                 </span>
             </div>
-            <!-- <div class="border-red-500 border-1 border-solid">Test</div> -->
         </div>
     </div>
     <div *ngIf="!isLoading else skeleton">

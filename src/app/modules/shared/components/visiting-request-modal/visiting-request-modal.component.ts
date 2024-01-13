@@ -16,21 +16,6 @@ export class VisitingRequestModalComponent implements OnInit {
 	@Input() propertyId: number;
 	@Output() isVisitingRequestModalVisibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-	// readonly regexForPhone: RegExp = /^[\+\d]?(?:[\d-.\s()]*)$/;
-
-	// selectedDateIndex: any = null;
-
-	// todayDate = new Date();
-
-	// minDate = new Date();
-	// maxDate = new Date();
-
-	// disabledDates: Date[] = [];
-
-	// timeSlots: TimeSlot[] = [];
-	// selectedTimeSlotIndex = -1;
-	// contactNumber: string | null = null;
-
 	dayAvailabilityList: DayAvailabilityExtended[];
 
 	visitingRequestDetailDto: VisitingRequestDetailDto | null;
@@ -40,10 +25,7 @@ export class VisitingRequestModalComponent implements OnInit {
 	constructor(
 		private propertyService: PropertyService,
 		private visitingRequestService: VisitingRequestService,
-	) {
-		// this.minDate.setDate(this.todayDate.getDate() + 1);
-		// this.maxDate.setDate(this.todayDate.getDate() + 7);
-	}
+	) {}
 
 	ngOnInit(): void {
 		this.loadDataFromServer(true);
@@ -92,8 +74,3 @@ export class VisitingRequestModalComponent implements OnInit {
 	}
 
 }
-
-// interface DayAvailabilityExtended extends DayAvailability {
-// 	index: number
-// 	dateInDateFormat: Date
-// }

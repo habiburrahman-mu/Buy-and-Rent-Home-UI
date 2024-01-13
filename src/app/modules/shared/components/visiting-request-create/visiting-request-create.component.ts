@@ -21,7 +21,7 @@ export class VisitingRequestCreateComponent implements OnInit, OnChanges {
 	@Input() dayAvailabilityList: DayAvailabilityExtended[] = [];
 	@Output() afterSuccessfulSave: EventEmitter<VisitingRequestDetailDto> = new EventEmitter<VisitingRequestDetailDto>();
 
-	readonly regexForPhone: RegExp = /^[\+\d]?(?:[\d-.\s()]*)$/;
+	regexForPhone: RegExp =  new RegExp('^[0-9]*$');
 
 	date: Date;
 

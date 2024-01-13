@@ -14,7 +14,7 @@ export class VisitingRequestService {
 	constructor(private http: HttpClient) { }
 
 	create(visitingRequestCreateDto: VisitingRequestCreateDto) {
-		return this.http.post<number>(this.serviceBaseUrl + '/create', visitingRequestCreateDto);
+		return this.http.post<VisitingRequestDetailDto>(this.serviceBaseUrl + '/create', visitingRequestCreateDto);
 	}
 
 	getVisitingRequestDetailForCurrentUser(propertyId: number) {

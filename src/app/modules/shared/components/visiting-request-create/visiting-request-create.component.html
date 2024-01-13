@@ -1,0 +1,37 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" class="w-full" style="height: 350px;">
+	<div class="w-full" fxFlex="grow">
+		<p-calendar [(ngModel)]="date" [inline]="true" appendTo="body" *ngIf="isVisitingRequestModalVisible"
+			styleClass="w-full h-full border-none" [minDate]="minDate" [maxDate]="maxDate" [disabledDates]="disabledDates"
+			(onSelect)="onSelectDate($event)"></p-calendar>
+	</div>
+	<div fxLayout="column" fxLayoutAlign="center center" class="h-full p-2" style="width: 200px;">
+		<div class="w-full h-full overflow-scroll p-1" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px"
+			*ngIf="selectedDateIndex !== null && selectedDateIndex !== undefined; else noTimeSlot">
+			<div class="w-full border-1 surface-border border-round text-center py-2 px-2 cursor-pointer select-none"
+				*ngFor="let slot of timeSlots; let i = index" [class.active-time-slot]="selectedTimeSlotIndex === i"
+				(click)="onSelectTimeSlot(i)">
+				<div class="text-md font-bold">{{slot.start}} <br /> {{slot.end}}</div>
+			</div>
+		</div>
+		<ng-template #noTimeSlot>
+			<div class="text-md font-bold justify-content-center">Select a date first to check time availability</div>
+		</ng-template>
+	</div>
+</div>
+<div class="field">
+	<label for="visitingcontact" class="block font-medium">
+		Contact number
+		<small id="username2-help" class="p-error"
+			*ngIf="contactNumberRef.errors && contactNumberRef.errors['required']">(Contact number is required)</small>
+		<small id="username2-help" class="p-error"
+			*ngIf="contactNumberRef.errors && contactNumberRef.errors['pattern']">(Invalid contact number)</small>
+	</label>
+	<input id="visitingcontact" type="text" aria-describedby="username2-help" pInputText [(ngModel)]="contactNumber"
+		required [pattern]="regexForPhone" [maxlength]="15" #contactNumberRef="ngModel" class="w-full"
+		autocomplete="mobile" />
+</div>
+<div class="w-full text-right">
+	<p-button label="Take Appointment" icon="fa-solid fa-calendar-check" styleClass="p-button-sm"
+		[disabled]="selectedTimeSlotIndex === -1 || contactNumberRef.errors !== null"
+		[loading]="isTakingAppointmentInProgress" (onClick)="onClickTakeAppointment()"></p-button>
+</div>

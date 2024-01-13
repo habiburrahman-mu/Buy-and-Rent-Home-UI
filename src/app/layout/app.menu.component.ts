@@ -46,6 +46,7 @@ export class AppMenuComponent implements OnInit {
                 label: 'User Area',
                 items: [
                     { label: 'My Property', icon: 'pi pi-fw pi-home', routerLink: ['user/property/my-property'], isShowForThisRole: this.isShowForThisRole(['User']) },
+                    { label: 'Tour Request', icon: 'fa-solid fa-tent-arrow-turn-left', routerLink: ['user/tour-request'], isShowForThisRole: this.isShowForThisRole(['User']) },
                 ],
                 isShowForThisRole: this.isShowForThisRole(['User'])
             }

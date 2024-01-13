@@ -27,96 +27,98 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { SharedModule } from './modules/shared/shared.module';
 import { HasRoleGuard } from './guards/has-role.guard';
 import { RoleService } from './services/http/role.service';
+import { PropertyTourRequestShellComponent } from './modules/property-tour-request/property-tour-request-shell/property-tour-request-shell.component';
 
 
 const appRoute: Routes = [
-    {
-        path: '', component: AppLayoutComponent,
-        children: [
+	{
+		path: '', component: AppLayoutComponent,
+		children: [
 
-            {
-                path: "property",
-                loadChildren: () => import('./modules/property-public/property-public.module').then(m => m.PropertyPublicModule)
-            },
-            {
-                path: "user",
-                children: [
-                    { path: "", pathMatch: "full", redirectTo: "property" },
-                    {
-                        path: "property",
-                        canActivateChild: [AuthGuard, HasRoleGuard],
-                        data: {
-                            role: ['User']
-                        },
-                        loadChildren: () => import('./modules/property-user/property-user.module').then(m => m.PropertyUserModule)
-                    }
-                ]
-            },
-            {
-                path: "admin",
-                canActivateChild: [AuthGuard, HasRoleGuard],
-                data: {
-                    role: ['Admin']
-                },
-                loadChildren: () => import('./modules/admin-area/admin-area.module').then(m => m.AdminAreaModule)
-            },
-            { path: 'login', component: UserLoginComponent },
-            { path: 'register', component: UserRegisterComponent },
-            { path: '**', pathMatch: 'full', redirectTo: 'property' }
-        ]
-    },
+			{
+				path: "property",
+				loadChildren: () => import('./modules/property-public/property-public.module').then(m => m.PropertyPublicModule)
+			},
+			{
+				path: "user",
+				children: [
+					{ path: "", pathMatch: "full", redirectTo: "property" },
+					{
+						path: "property",
+						canActivateChild: [AuthGuard, HasRoleGuard],
+						data: {
+							role: ['User']
+						},
+						loadChildren: () => import('./modules/property-user/property-user.module').then(m => m.PropertyUserModule)
+					},
+					{
+						path: "tour-request",
+						canActivateChild: [AuthGuard, HasRoleGuard],
+						data: {
+							role: ['User']
+						},
+						loadChildren: () => import('./modules/property-tour-request/property-tour-request.module').then(m => m.PropertyTourRequestModule)
+					}
+				]
+			},
+			{
+				path: "admin",
+				canActivateChild: [AuthGuard, HasRoleGuard],
+				data: {
+					role: ['Admin']
+				},
+				loadChildren: () => import('./modules/admin-area/admin-area.module').then(m => m.AdminAreaModule)
+			},
+			{ path: 'login', component: UserLoginComponent },
+			{ path: 'register', component: UserRegisterComponent },
+			{ path: '**', pathMatch: 'full', redirectTo: 'property' }
+		]
+	},
 
 
 ];
 
 const httpServices = [
-    HousingService,
-    CityService,
-    CountryService,
-    FurnishingTypeService,
-    PropertyTypeService,
-    PropertyService,
-    RoleService
+	HousingService,
+	CityService,
+	CountryService,
+	FurnishingTypeService,
+	PropertyTypeService,
+	PropertyService,
+	RoleService
 ];
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        UserLoginComponent,
-        UserRegisterComponent
-    ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        RouterModule.forRoot(appRoute, { useHash: true }),
-        BrowserAnimationsModule,
-        // BsDropdownModule.forRoot(),
-        // TabsModule.forRoot(),
-        // ButtonsModule.forRoot(),
-        // BsDatepickerModule.forRoot(),
-
-        AppLayoutModule,
-        SharedModule
-
-    ],
-    providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: HttpErrorInterceptorService,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true
-        },
-        ...httpServices,
-        AuthService,
-        MessageService,
-        ConfirmationService
-
-    ],
-    bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		UserLoginComponent,
+		UserRegisterComponent,
+	],
+	imports: [
+		BrowserModule,
+		HttpClientModule,
+		RouterModule.forRoot(appRoute, { useHash: true }),
+		BrowserAnimationsModule,
+		AppLayoutModule,
+		SharedModule
+	],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: HttpErrorInterceptorService,
+			multi: true
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptor,
+			multi: true
+		},
+		...httpServices,
+		AuthService,
+		MessageService,
+		ConfirmationService
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule {
 }

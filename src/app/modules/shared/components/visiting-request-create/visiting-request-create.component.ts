@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { DayAvailability } from 'src/app/models/dayAvailability';
 import { TimeSlot } from 'src/app/models/timeSlot';
-import DayAvailabilityExtended from '../../dayAvailabilityExtended';
+import DayAvailabilityExtended from '../../models/dayAvailabilityExtended';
 import { DateTimeUtils } from 'src/app/utils/date-time-utils';
 import { VisitingRequestCreateDto } from 'src/app/models/visitingRequestCreateDto';
 import { VisitingRequestService } from 'src/app/services/http/visiting-request.service';

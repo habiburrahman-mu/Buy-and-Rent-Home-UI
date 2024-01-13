@@ -3,7 +3,7 @@ import { forkJoin, of } from 'rxjs';
 import { VisitingRequestDetailDto } from 'src/app/models/visitingRequestDetailDto';
 import { PropertyService } from 'src/app/services/http/property.service';
 import { VisitingRequestService } from 'src/app/services/http/visiting-request.service';
-import DayAvailabilityExtended from '../../dayAvailabilityExtended';
+import DayAvailabilityExtended from '../../models/dayAvailabilityExtended';
 
 @Component({
 	selector: 'app-visiting-request-modal',

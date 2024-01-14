@@ -1,42 +1,48 @@
-<div class="card">
-    <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-2">
-        <h5 class="m-0" style="color: var(--blue-500);" fxLayout="row" fxLayoutAlign="start start"
-            fxLayoutAlign.lt-md="center center">
-            My Property List
-        </h5>
-        <button pButton pRipple type="button" icon="pi pi-plus" style="background-color: var(--blue-500);"
-            (click)="openPropertyEditDialog()"></button>
-    </div>
+<div class="card mb-0 flex-column justify-content-start" style="height: calc(100vh - 126px);">
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-2">
+    <h5 class="m-0" style="color: var(--blue-500);" fxLayout="row" fxLayoutAlign="start start"
+      fxLayoutAlign.lt-md="center center">
+      My Property List
+    </h5>
+    <button pButton pRipple type="button" icon="pi pi-plus" style="background-color: var(--blue-500);"
+      (click)="openPropertyEditDialog()"></button>
+  </div>
+  <div class="overflow-scroll">
 
     <ng-container *ngIf="!isDataLoading">
-        <span *ngFor="let property of myPropertyList">
-            <app-my-property-card [propertyData]="property"
-                (openPropertyEditDialogEvent)="openPropertyEditDialog(property.id)" (afterDeletePropertyEvent)="loadMyPropertyList()"></app-my-property-card>
-        </span>
+      <span *ngFor="let property of myPropertyList">
+        <app-my-property-card [propertyData]="property"
+          (openPropertyEditDialogEvent)="openPropertyEditDialog(property.id)"
+          (afterDeletePropertyEvent)="loadMyPropertyList()"></app-my-property-card>
+      </span>
     </ng-container>
-    <div [hidden]="isDataLoading">
-        <p-paginator [rowsPerPageOptions]="rowsPerPageOptions" dropdownAppendTo="body"
-            (onPageChange)="onPageChangeInPaginator($event)" [totalRecords]="totalRecords" [rows]="rows"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [showCurrentPageReport] = true
-            #paginator></p-paginator>
-    </div>
 
     <div *ngIf="isDataLoading">
-        <div class="card mb-2 p-3 border-blue-200" *ngFor="let _ of [1,2,3]">
-            <p-skeleton styleClass="mb-2" height="1.5rem" borderRadius="16px"></p-skeleton>
-            <p-skeleton width="10rem" styleClass="mb-2" height="1.5rem" borderRadius="16px"></p-skeleton>
-            <p-skeleton width="5rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
-            <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
-            <p-skeleton width="10rem" height="4rem" borderRadius="16px"></p-skeleton>
-        </div>
+      <div class="card mb-2 p-3 border-blue-200" *ngFor="let _ of [1,2,3]">
+        <p-skeleton styleClass="mb-2" height="1.5rem" borderRadius="16px"></p-skeleton>
+        <p-skeleton width="10rem" styleClass="mb-2" height="1.5rem" borderRadius="16px"></p-skeleton>
+        <p-skeleton width="5rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+        <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+        <p-skeleton width="10rem" height="4rem" borderRadius="16px"></p-skeleton>
+      </div>
     </div>
+  </div>
+
+  <div [hidden]="isDataLoading" class="flex-grow-1 flex flex-column justify-content-end">
+    <p-paginator [rowsPerPageOptions]="rowsPerPageOptions" dropdownAppendTo="body"
+      (onPageChange)="onPageChangeInPaginator($event)" [totalRecords]="totalRecords" [rows]="rows"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]=true
+      #paginator></p-paginator>
+  </div>
+
+
 </div>
 <ng-container *ngIf="showPropertyEditDialog">
-    <p-dialog header="Add Property" [(visible)]="showPropertyEditDialog" [style]="{'width': '650px'}"
-        (onHide)="showPropertyEditDialog = false" appendTo="body" [modal]="true" [blockScroll]="false">
-        <app-add-property-dialog [editPropertyId]="idForEditProperty"
-            (closeAddPropertyDialogEvent)="onClosePropertyAddDialog($event)"></app-add-property-dialog>
-    </p-dialog>
+  <p-dialog header="Add Property" [(visible)]="showPropertyEditDialog" [style]="{'width': '650px'}"
+    (onHide)="showPropertyEditDialog = false" appendTo="body" [modal]="true" [blockScroll]="false">
+    <app-add-property-dialog [editPropertyId]="idForEditProperty"
+      (closeAddPropertyDialogEvent)="onClosePropertyAddDialog($event)"></app-add-property-dialog>
+  </p-dialog>
 </ng-container>
-<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text" key="deletePropertyDialog" [blockScroll]="false"></p-confirmDialog>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"
+  key="deletePropertyDialog" [blockScroll]="false"></p-confirmDialog>

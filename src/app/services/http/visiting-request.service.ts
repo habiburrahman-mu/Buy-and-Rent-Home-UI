@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { VisitingRequestCreateDto } from 'src/app/models/visitingRequestCreateDto';
 import { VisitingRequestDetailDto } from 'src/app/models/visitingRequestDetailDto';
+import VisitingRequestWithPropertyDetailDto from 'src/app/models/visitingRequestWithPropertyDetailDto';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -19,5 +20,20 @@ export class VisitingRequestService {
 
 	getVisitingRequestDetailForCurrentUser(propertyId: number) {
 		return this.http.get<VisitingRequestDetailDto>(this.serviceBaseUrl + '/GetVisitingRequestDetailForCurrentUser/' + propertyId.toString());
+	}
+
+	getVisitingRequestListForMyProperties(status: string | undefined = undefined, propertyId: number | undefined = undefined) {
+
+		let params: { [key: string]: string | number } = {};
+		if (status)
+			params['status'] = status;
+		if (propertyId)
+			params['propertyId'] = propertyId;
+
+		const httpsParams = new HttpParams({
+			fromObject: params
+		})
+
+		return this.http.get<VisitingRequestWithPropertyDetailDto[]>(this.serviceBaseUrl + '/GetVisitingRequestListForMyProperties', { params: httpsParams });
 	}
 }

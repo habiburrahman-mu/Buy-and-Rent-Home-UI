@@ -1,14 +1,10 @@
-<div class="card" style="min-height: 300px;">
+<div class="card" style="height: calc(100vh - 126px);">
 	<p-tabView [(activeIndex)]="tabViewActiveIndex">
-		<p-tabPanel header="All Visiting Request" >
-			<ng-template pTemplate="content">
-
-			</ng-template>
+		<p-tabPanel header="Pending Tour Request">
+			<app-pending-tour-request *ngIf="tabViewActiveIndex === 0"></app-pending-tour-request>
 		</p-tabPanel>
 		<p-tabPanel header="Request By Property">
-			<ng-template pTemplate="content">
-
-			</ng-template>
+			<app-tour-request-by-property *ngIf="tabViewActiveIndex === 1"></app-tour-request-by-property>
 		</p-tabPanel>
 	</p-tabView>
 </div>

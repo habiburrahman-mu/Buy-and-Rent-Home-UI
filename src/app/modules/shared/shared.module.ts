@@ -26,16 +26,16 @@ const modules = [
 
 const components = [
 	LoginRegisterUnauthorizedModalComponent,
-	VisitingRequestModalComponent
+	VisitingRequestModalComponent,
+	FormSkeletonComponent,
+	VisitingRequestDetailComponent,
+	VisitingRequestCreateComponent,
 ];
 
 @NgModule({
 	declarations: [
 		...pipes,
 		...components,
-		FormSkeletonComponent,
-		VisitingRequestDetailComponent,
-		VisitingRequestCreateComponent,
 	],
 	imports: [
 		PrimengLibModule

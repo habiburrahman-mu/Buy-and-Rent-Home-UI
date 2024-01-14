@@ -9,11 +9,13 @@ import { VisitingRequestModalComponent } from './components/visiting-request-mod
 import { FormSkeletonComponent } from './components/skeletons/form-skeleton/form-skeleton.component';
 import { VisitingRequestDetailComponent } from './components/visiting-request-detail/visiting-request-detail.component';
 import { VisitingRequestCreateComponent } from './components/visiting-request-create/visiting-request-create.component';
+import { ValueToLabelPipe } from 'src/app/Pipes/value-to-label.pipe';
 
 const pipes = [
     DateAgoPipe,
     FilterPipe,
-    SortPipe
+    SortPipe,
+		ValueToLabelPipe
 ];
 
 const modules = [

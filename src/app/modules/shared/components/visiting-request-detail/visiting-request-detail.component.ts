@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import VisitingRequestConstants from 'src/app/constants/visiting-request-constants';
 import { VisitingRequestDetailDto } from 'src/app/models/visitingRequestDetailDto';
 
 @Component({
@@ -9,6 +10,8 @@ import { VisitingRequestDetailDto } from 'src/app/models/visitingRequestDetailDt
 export class VisitingRequestDetailComponent implements OnInit {
 
 	@Input() visitingRequestDetail: VisitingRequestDetailDto | null = null;
+
+	readonly visitingRequestStatusList = VisitingRequestConstants.StatusList;
 
 	constructor() { }
 

@@ -7,7 +7,7 @@
 			<div class="text-xl">You have requested a tour</div>
 		</div>
 		<div class="w-8rem h-full bg-blue-100 text-2xl flex align-items-center justify-content-center">
-			{{visitingRequestDetail.status}}</div>
+			{{visitingRequestDetail.status | valueToLabel: visitingRequestStatusList}}</div>
 	</div>
 	<div class="mt-4 flex gap-4">
 		<div><i class="fa-solid fa-calendar-days text-3xl"></i></div>

@@ -28,6 +28,7 @@ import { SharedModule } from './modules/shared/shared.module';
 import { HasRoleGuard } from './guards/has-role.guard';
 import { RoleService } from './services/http/role.service';
 import { PropertyTourRequestShellComponent } from './modules/property-tour-request/property-tour-request-shell/property-tour-request-shell.component';
+import { ValueToLabelPipe } from './Pipes/value-to-label.pipe';
 
 
 const appRoute: Routes = [

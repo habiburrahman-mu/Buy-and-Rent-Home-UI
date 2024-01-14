@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from "@angular/router";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -22,13 +21,10 @@ import { PropertyService } from "./services/http/property.service";
 import { HttpErrorInterceptorService } from "./services/interceptors/http-error-interceptor.service";
 import { AuthInterceptor } from "./services/interceptors/auth.interceptor";
 import { AuthGuard } from "./guards/auth.guard";
-import { PrimengLibModule } from './modules/primeng-lib/primeng-lib.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SharedModule } from './modules/shared/shared.module';
 import { HasRoleGuard } from './guards/has-role.guard';
 import { RoleService } from './services/http/role.service';
-import { PropertyTourRequestShellComponent } from './modules/property-tour-request/property-tour-request-shell/property-tour-request-shell.component';
-import { ValueToLabelPipe } from './Pipes/value-to-label.pipe';
 
 
 const appRoute: Routes = [

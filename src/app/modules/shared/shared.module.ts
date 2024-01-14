@@ -12,36 +12,36 @@ import { VisitingRequestCreateComponent } from './components/visiting-request-cr
 import { ValueToLabelPipe } from 'src/app/Pipes/value-to-label.pipe';
 
 const pipes = [
-    DateAgoPipe,
-    FilterPipe,
-    SortPipe,
-		ValueToLabelPipe
+	DateAgoPipe,
+	FilterPipe,
+	SortPipe,
+	ValueToLabelPipe
 ];
 
 const modules = [
-    FormsModule,
-    ReactiveFormsModule,
-    PrimengLibModule
+	FormsModule,
+	ReactiveFormsModule,
+	PrimengLibModule
 ];
 
 const components = [
-    LoginRegisterUnauthorizedModalComponent,
-    VisitingRequestModalComponent
+	LoginRegisterUnauthorizedModalComponent,
+	VisitingRequestModalComponent
 ];
 
 @NgModule({
-    declarations: [
-        ...pipes,
-        ...components,
-        FormSkeletonComponent,
-        VisitingRequestDetailComponent,
-        VisitingRequestCreateComponent,
-    ],
-    imports: [
-        PrimengLibModule
-    ],
-    exports: [
-        ...pipes, ...modules, ...components
-    ]
+	declarations: [
+		...pipes,
+		...components,
+		FormSkeletonComponent,
+		VisitingRequestDetailComponent,
+		VisitingRequestCreateComponent,
+	],
+	imports: [
+		PrimengLibModule
+	],
+	exports: [
+		...pipes, ...modules, ...components
+	]
 })
 export class SharedModule { }

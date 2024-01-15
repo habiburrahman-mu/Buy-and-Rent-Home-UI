@@ -1,3 +1,17 @@
-<div class="card">
-	{{visitingRequestWithPropertyDetailList | json}}
+<div class="w-100 h-100 overflow-x-scroll pr-2" *ngIf="!isDataLoading">
+	<!-- {{visitingRequestWithPropertyDetailList | json}} -->
+	<app-pending-tour-request-card *ngFor="let visitingRequestWithPropertyDetail of visitingRequestWithPropertyDetailList"
+		[visitingRequestWithPropertyDetail]="visitingRequestWithPropertyDetail"></app-pending-tour-request-card>
+</div>
+<div *ngIf="isDataLoading">
+	<div class="pr-2">
+		<div class="card mb-2 p-3 border-blue-200" *ngFor="let _ of [1,2,3]">
+			<p-skeleton styleClass="mb-2" height="1.5rem" borderRadius="16px"></p-skeleton>
+			<p-skeleton width="10rem" styleClass="mb-2" height="1.5rem" borderRadius="16px"></p-skeleton>
+			<p-skeleton width="5rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+			<p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+			<p-skeleton width="10rem" height="4rem" borderRadius="16px"></p-skeleton>
+		</div>
+	</div>
+
 </div>

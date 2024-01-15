@@ -1,0 +1,6 @@
+:host ::ng-deep {
+	.card:hover {
+		box-shadow: black 0px 5px 5px -6px;
+		background: var(--primary-50);
+	}
+}

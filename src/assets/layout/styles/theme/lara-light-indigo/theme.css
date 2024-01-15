@@ -4249,8 +4249,8 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   margin: 0 0 -2px 0;
 }
 .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
-  outline: 0 none;
-  outline-offset: 0;
+  /* outline: 0 none; */
+  /* outline-offset: 0; */
   box-shadow: inset 0 0 0 0.2rem #C7D2FE;
 }
 .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {

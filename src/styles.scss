@@ -3,87 +3,96 @@
 @import "assets/forms.css";
 @import "assets/tabs.css";
 
-html, body {
-    font-size: 14px;
+html,
+body {
+	font-size: 14px;
 }
 
 body {
-    // overflow-y: overlay !important;
+	// overflow-y: overlay !important;
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
-    // background-color: #F5F5F5;
+	width: 5px;
+	height: 5px
+	// background-color: #F5F5F5;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    // -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    // border-radius: 10px;
-    // background-color: #f5f5f500;
+	// -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	// border-radius: 10px;
+	// background-color: #f5f5f500;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    background-color: rgb(29, 138, 138);
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: rgb(29, 138, 138);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+	background: #555;
+}
+
+::-webkit-scrollbar-button:horizontal:increment {
+	background-color: #fff;
 }
 
 // paginator override
 
-.p-paginator .p-paginator-first, .p-paginator .p-paginator-prev, .p-paginator .p-paginator-next, .p-paginator .p-paginator-last {
-    height: 1.2rem !important;
-    width: 1.2rem !important;
-    min-width: 1.2rem !important;
-    margin: 2px !important;
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-last {
+	height: 1.2rem !important;
+	width: 1.2rem !important;
+	min-width: 1.2rem !important;
+	margin: 2px !important;
 }
 
 .p-paginator-icon {
-    font-size: 1rem !important;
+	font-size: 1rem !important;
 }
 
 .p-paginator .p-paginator-pages .p-paginator-page {
-    height: 1.5rem !important;
-    width: 1.5rem !important;
-    font-size: 1rem !important;
-    margin: 2px !important;
-    min-width: 1.5rem !important;
+	height: 1.5rem !important;
+	width: 1.5rem !important;
+	font-size: 1rem !important;
+	margin: 2px !important;
+	min-width: 1.5rem !important;
 }
 
 .p-paginator .p-dropdown {
-    height: 2rem !important;
+	height: 2rem !important;
 }
 
 .p-paginator .p-dropdown .p-dropdown-label {
-    padding: 0.25rem !important;
+	padding: 0.25rem !important;
 }
 
 // checkbox override
 
 .p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon.pi-check:before {
-    top: 8px !important;
-    left: 2px !important;
+	top: 8px !important;
+	left: 2px !important;
 }
 
 // button extra small
 .p-button.p-button-xs {
-    padding: 0.25rem 0.2rem !important;
-    width: auto;
+	padding: 0.25rem 0.2rem !important;
+	width: auto;
 }
 
 .p-button.p-button-icon-only.p-button-xs {
-    width: 1.75rem !important;
-    font-size: 0.8rem !important;
+	width: 1.75rem !important;
+	font-size: 0.8rem !important;
 }
 
 .border-for-test {
-    border: red solid 1px;
+	border: red solid 1px;
 }
 
 // .p-overlaypanel {
@@ -93,21 +102,21 @@ body {
 // }
 
 .p-dialog .p-dialog-header {
-    border-bottom: 0 none !important;
-    background: var(--surface-100) !important;
-    color: rgba(0, 0, 0, 0.87) !important;
-    padding: 1rem !important;
-    border-top-right-radius: 10px !important;
-    border-top-left-radius: 10px !important;
+	border-bottom: 0 none !important;
+	background: var(--surface-100) !important;
+	color: rgba(0, 0, 0, 0.87) !important;
+	padding: 1rem !important;
+	border-top-right-radius: 10px !important;
+	border-top-left-radius: 10px !important;
 }
 
 .p-dialog .p-dialog-content {
-    padding: 1rem 1.25rem 1.25rem 1.25rem !important;
+	padding: 1rem 1.25rem 1.25rem 1.25rem !important;
 }
 
 .p-togglebutton.p-button.p-highlight {
-    background: var(--blue-800) !important;
-    color: white !important;
+	background: var(--blue-800) !important;
+	color: white !important;
 }
 
 button:focus {
@@ -121,4 +130,16 @@ button:focus {
 
 .p-tabview .p-tabview-nav li .p-tabview-nav-link:focus {
 	background-color: #ffffff00 !important;
+}
+
+.p-tabview-title {
+	font-size: medium !important;
+}
+
+.layout-menu ul a {
+	font-size: medium !important;
+}
+
+.p-tabmenu-nav a {
+	font-size: medium !important;
 }

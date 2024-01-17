@@ -1,17 +1,20 @@
 :host ::ng-deep {
+	.property-card-scroller-container {
+		height: 100px;
+	}
 	.property-card-container {
 		position: relative;
 		width: 200px;
-		height: 100px;
-		border-radius: 5px;
+		height: 100%;
+		border-radius: 15px;
 		overflow: hidden;
 		margin-left: 5px;
 		margin-right: 5px;
 	}
 
 	.property-card-image {
-		height: 100%;
-		width: 100%;
+		width: 200px;
+		height: 100px;
 		overflow: hidden;
 		border-radius: 15px;
 		text-align: center;
@@ -46,5 +49,9 @@
 		/* Adjust opacity for visibility */
 		color: white;
 		/* Adjust text color for readability */
+	}
+
+	.selected {
+		border: 4px var(--primary-color) solid;
 	}
 }

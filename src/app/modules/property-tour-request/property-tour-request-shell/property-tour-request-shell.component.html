@@ -1,13 +1,7 @@
 <div class="card pb-2" style="height: calc(100vh - 126px);">
 	<p-tabView [(activeIndex)]="tabViewActiveIndex">
-		<p-tabPanel header="Pending Tour Request">
-			<ng-template pTemplate="content" pStyleClass="h-100">
-
-			</ng-template>
-		</p-tabPanel>
-		<p-tabPanel header="Request By Property">
-
-		</p-tabPanel>
+		<p-tabPanel header="Pending Tour Request"></p-tabPanel>
+		<p-tabPanel header="Request By Property"></p-tabPanel>
 	</p-tabView>
 	<div class="overflow-scroll">
 		<app-pending-tour-request *ngIf="tabViewActiveIndex === 0"></app-pending-tour-request>

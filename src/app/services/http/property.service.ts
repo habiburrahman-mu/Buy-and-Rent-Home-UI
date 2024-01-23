@@ -27,8 +27,8 @@ export class PropertyService {
 		return this.http.get<PropertyListDto[]>(this.serviceBaseUrl + '/list/' + SellRent.toString());
 	}
 
-	getMyProperty(): Observable<PropertyListDto[]> {
-		return this.http.get<PropertyListDto[]>(this.serviceBaseUrl + '/myProperty/');
+	getMyPropertyList(): Observable<PropertyListDto[]> {
+		return this.http.get<PropertyListDto[]>(this.serviceBaseUrl + '/myPropertyList/');
 	}
 
 	getPropertyPaginatedList(pageParams: PaginationParameter, sellRent: number): Observable<PageResult<PropertyListDto>> {

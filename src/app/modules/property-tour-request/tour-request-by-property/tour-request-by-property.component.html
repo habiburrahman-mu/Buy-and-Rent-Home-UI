@@ -1,34 +1,50 @@
-<div class=" flex flex-row align-items-center justify-content-between gap-2">
-	<div>
-		<p-button icon="pi pi-arrow-circle-left" (onClick)="scrollLeft()"
-			styleClass="p-button-icon-only p-button-rounded p-button-text"></p-button>
-	</div>
-	<div class="flex flex-row gap-2 overflow-scroll pb-2 property-card-scroller-container" #widgetsContent>
-		<ng-container *ngIf="!isDataLoading">
-			<div class="property-card-container min-w-max" *ngFor="let propertyData of myPropertyList; let index = index"
-				[ngClass]="{'selected': index === selectedPropertyIndex}" (click)="onClickProperty(index)">
-				<div class="property-card-image">
-					<img [src]="propertyData.primaryPhoto ? staticFileUrl + '/' + propertyData.primaryPhoto : defaultImagePath"
-						alt="Property image" />
-					<div class="property-card-overlay"></div>
+<div class="flex flex-column gap-2 h-full">
+	<div class=" flex flex-row align-items-center justify-content-between gap-2" style="height: 100px;">
+		<div>
+			<p-button icon="pi pi-arrow-circle-left" (onClick)="scrollLeft()"
+				styleClass="p-button-icon-only p-button-rounded p-button-text"></p-button>
+		</div>
+		<div class="flex flex-row gap-2 overflow-scroll pb-2 property-card-scroller-container" #widgetsContent>
+			<ng-container *ngIf="!isDataLoading">
+				<div class="property-card-container min-w-max" *ngFor="let propertyData of myPropertyList; let index = index"
+					[ngClass]="{'selected': index === selectedPropertyIndex}" (click)="onClickProperty(index)">
+					<div class="property-card-image">
+						<img [src]="propertyData.primaryPhoto ? staticFileUrl + '/' + propertyData.primaryPhoto : defaultImagePath"
+							alt="Property image" />
+						<div class="property-card-overlay"></div>
+					</div>
+					<div class="property-card-content">
+						<div class="text-lg font-medium">{{propertyData.name}}</div>
+					</div>
 				</div>
-				<div class="property-card-content">
-					<div class="text-lg font-medium">{{propertyData.name}}</div>
+			</ng-container>
+
+			<ng-container *ngIf="isDataLoading">
+				<div *ngFor="let _ of [1, 2, 3]">
+					<p-skeleton width="200px" height="100%"></p-skeleton>
+				</div>
+			</ng-container>
+		</div>
+		<div>
+			<p-button icon="pi pi-arrow-circle-right" (onClick)="scrollRight()"
+				styleClass="p-button-icon-only p-button-rounded p-button-text"></p-button>
+		</div>
+	</div>
+	<div class="flex-1 h-full overflow-scroll">
+		<ng-container *ngIf="!isVisitingRequestListLoading">
+			<app-pending-tour-request-card [visitingRequestWithPropertyDetail]="detail"
+				*ngFor="let detail of visitingRequestWithPropertyDetailList"></app-pending-tour-request-card>
+		</ng-container>
+		<ng-container *ngIf="isVisitingRequestListLoading">
+			<div class="pr-2">
+				<div class="card mb-2 p-3 border-blue-200" *ngFor="let _ of [1,2,3]">
+					<p-skeleton styleClass="mb-2" height="1.5rem" borderRadius="16px"></p-skeleton>
+					<p-skeleton width="10rem" styleClass="mb-2" height="1.5rem" borderRadius="16px"></p-skeleton>
+					<p-skeleton width="5rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+					<p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+					<p-skeleton width="10rem" height="4rem" borderRadius="16px"></p-skeleton>
 				</div>
 			</div>
 		</ng-container>
-
-		<ng-container *ngIf="isDataLoading">
-			<div *ngFor="let _ of [1, 2, 3]">
-				<p-skeleton width="200px" height="100%"></p-skeleton>
-			</div>
-		</ng-container>
 	</div>
-	<div>
-		<p-button icon="pi pi-arrow-circle-right" (onClick)="scrollRight()"
-			styleClass="p-button-icon-only p-button-rounded p-button-text"></p-button>
-	</div>
-	<!-- <p-button label="Click" (onClick)="scrollLeft()"></p-button>
-	<p-button label="Click" (onClick)="scrollRight()"></p-button> -->
-
 </div>

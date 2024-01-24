@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import VisitingRequestConstants from 'src/app/constants/visiting-request-constants';
 import VisitingRequestWithPropertyDetailDto from 'src/app/models/visitingRequestWithPropertyDetailDto';
 
 @Component({
@@ -9,6 +10,9 @@ import VisitingRequestWithPropertyDetailDto from 'src/app/models/visitingRequest
 export class PendingTourRequestCardComponent implements OnInit {
 
 	@Input() visitingRequestWithPropertyDetail: VisitingRequestWithPropertyDetailDto;
+	@Input() displayApprovalButtons: boolean;
+
+	readonly visitingRequestStatusList = VisitingRequestConstants.StatusList;
 
   constructor() { }
 

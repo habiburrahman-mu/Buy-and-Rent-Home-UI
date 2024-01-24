@@ -23,12 +23,18 @@
 		</div>
 	</div>
 	<div class="w-8rem flex flex-column flex-sm-row align-items-center justify-content-center gap-2">
-		<div class="w-8rem">
-			<p-button label="Approve" icon="pi pi-check" styleClass="w-full"></p-button>
-		</div>
-		<div class="w-8rem">
-			<p-button label="Cancel" icon="pi pi-times" severity="danger"
-				styleClass="p-button-outlined p-button-danger w-full"></p-button>
-		</div>
+		<ng-container *ngIf="displayApprovalButtons">
+			<div class="w-8rem">
+				<p-button label="Approve" icon="pi pi-check" styleClass="w-full"></p-button>
+			</div>
+			<div class="w-8rem">
+				<p-button label="Cancel" icon="pi pi-times" severity="danger"
+					styleClass="p-button-outlined p-button-danger w-full"></p-button>
+			</div>
+		</ng-container>
+		<ng-container *ngIf="!displayApprovalButtons">
+			<div class="w-8rem h-full bg-blue-100 text-2xl flex align-items-center justify-content-center p-3">
+				{{visitingRequestWithPropertyDetail.status | valueToLabel: visitingRequestStatusList}}</div>
+		</ng-container>
 	</div>
 </div>

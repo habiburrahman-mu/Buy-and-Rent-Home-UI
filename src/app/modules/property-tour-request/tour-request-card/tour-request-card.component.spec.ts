@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PendingTourRequestCardComponent } from './pending-tour-request-card.component';
+import { PendingTourRequestCardComponent } from './tour-request-card.component';
 
 describe('PendingTourRequestCardComponent', () => {
   let component: PendingTourRequestCardComponent;

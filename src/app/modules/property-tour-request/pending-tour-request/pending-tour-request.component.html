@@ -1,7 +1,7 @@
 <div class="w-100 h-100 overflow-x-scroll pr-2" *ngIf="!isDataLoading">
 	<!-- {{visitingRequestWithPropertyDetailList | json}} -->
-	<app-pending-tour-request-card *ngFor="let visitingRequestWithPropertyDetail of visitingRequestWithPropertyDetailList"
-		[visitingRequestWithPropertyDetail]="visitingRequestWithPropertyDetail"></app-pending-tour-request-card>
+	<app-tour-request-card *ngFor="let visitingRequestWithPropertyDetail of visitingRequestWithPropertyDetailList"
+		[visitingRequestWithPropertyDetail]="visitingRequestWithPropertyDetail"></app-tour-request-card>
 </div>
 <div *ngIf="isDataLoading">
 	<div class="pr-2">

@@ -32,8 +32,8 @@
 	</div>
 	<div class="flex-1 h-full overflow-scroll">
 		<ng-container *ngIf="!isVisitingRequestListLoading">
-			<app-pending-tour-request-card [visitingRequestWithPropertyDetail]="detail"
-				*ngFor="let detail of visitingRequestWithPropertyDetailList"></app-pending-tour-request-card>
+			<app-tour-request-card [visitingRequestWithPropertyDetail]="detail"
+				*ngFor="let detail of visitingRequestWithPropertyDetailList"></app-tour-request-card>
 		</ng-container>
 		<ng-container *ngIf="isVisitingRequestListLoading">
 			<div class="pr-2">

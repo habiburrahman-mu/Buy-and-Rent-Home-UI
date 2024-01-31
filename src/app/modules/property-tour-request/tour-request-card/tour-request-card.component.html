@@ -25,7 +25,8 @@
 	<div class="w-8rem flex flex-column flex-sm-row align-items-center justify-content-center gap-2">
 		<ng-container *ngIf="displayApprovalButtons">
 			<div class="w-8rem">
-				<p-button label="Approve" icon="pi pi-check" styleClass="w-full"></p-button>
+				<p-button label="Approve" icon="pi pi-check" styleClass="w-full" [loading]="isAcceptInProgress"
+					(onClick)="onApprove($event)"></p-button>
 			</div>
 			<div class="w-8rem">
 				<p-button label="Cancel" icon="pi pi-times" severity="danger"
@@ -38,3 +39,5 @@
 		</ng-container>
 	</div>
 </div>
+<p-confirmPopup key="acceptTourRequest{{visitingRequestWithPropertyDetail.visitingRequestId}}"
+	*ngIf="displayApprovalButtons"></p-confirmPopup>

@@ -38,6 +38,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { CarouselModule } from 'primeng/carousel';
 import { FocusTrapModule } from 'primeng/focustrap';
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
 
 const modules = [
     ButtonModule,
@@ -77,7 +78,8 @@ const modules = [
     OverlayPanelModule,
     ToggleButtonModule,
     CarouselModule,
-		FocusTrapModule
+		FocusTrapModule,
+		ConfirmPopupModule
 ];
 
 @NgModule({

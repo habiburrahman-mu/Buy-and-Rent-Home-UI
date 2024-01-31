@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import VisitingRequestWithPropertyDetailDto from 'src/app/models/visitingRequestWithPropertyDetailDto';
 import { VisitingRequestService } from 'src/app/services/http/visiting-request.service';
 
@@ -7,11 +8,13 @@ import { VisitingRequestService } from 'src/app/services/http/visiting-request.s
 	templateUrl: './pending-tour-request.component.html',
 	styleUrls: ['./pending-tour-request.component.css']
 })
-export class PendingTourRequestComponent implements OnInit {
+export class PendingTourRequestComponent implements OnInit, OnDestroy {
 
 	visitingRequestWithPropertyDetailList: VisitingRequestWithPropertyDetailDto[] = [];
 
 	isDataLoading = false;
+
+	private ngDestroyed = new Subject<void>();
 
 	constructor(
 		private visitingRequestService: VisitingRequestService
@@ -25,6 +28,7 @@ export class PendingTourRequestComponent implements OnInit {
 	private loadData() {
 		this.isDataLoading = true;
 		this.visitingRequestService.getVisitingRequestListForMyProperties('P')
+			.pipe(takeUntil(this.ngDestroyed))
 			.subscribe({
 				next: response => {
 					this.visitingRequestWithPropertyDetailList = response;
@@ -34,5 +38,10 @@ export class PendingTourRequestComponent implements OnInit {
 					this.isDataLoading = false;
 				}
 			});
+	}
+
+	ngOnDestroy(): void {
+		this.ngDestroyed.next();
+		this.ngDestroyed.complete();
 	}
 }

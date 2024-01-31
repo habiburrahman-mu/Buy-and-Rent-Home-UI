@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PropertyTourRequestShellComponent implements OnInit {
 
-	tabViewActiveIndex: number = 1;
+	tabViewActiveIndex: number = 0;
 
 	constructor(
 

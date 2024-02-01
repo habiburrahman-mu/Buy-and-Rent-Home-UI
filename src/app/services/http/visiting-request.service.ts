@@ -38,7 +38,7 @@ export class VisitingRequestService {
 	}
 
 	approveVisitingRequest(visitingRequestId: number) {
-		return this.http.put<boolean>(this.serviceBaseUrl + '/AcceptVisitingRequest', visitingRequestId);
+		return this.http.put<boolean>(this.serviceBaseUrl + '/ApproveVisitingRequest', visitingRequestId);
 	}
 
 	rejectVisitingRequest(visitingRequestId: number) {

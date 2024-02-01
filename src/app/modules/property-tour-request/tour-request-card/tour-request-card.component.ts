@@ -35,7 +35,7 @@ export class PendingTourRequestCardComponent implements OnInit {
 	onApprove(event: Event) {
 		this.confirmationService.confirm({
 			message: 'Are you sure that you want to proceed?',
-			icon: 'pi pi-exclamation-triangle',
+			icon: 'fa-solid fa-circle-check',
 			target: event.target ?? undefined,
 			key: 'acceptTourRequest' + this.visitingRequestWithPropertyDetail.visitingRequestId,
 			accept: () => {
@@ -46,9 +46,23 @@ export class PendingTourRequestCardComponent implements OnInit {
 		});
 	}
 
+	onCancel(event: Event) {
+		this.confirmationService.confirm({
+			message: 'Are you sure that you want to proceed?',
+			icon: 'fa-regular fa-rectangle-xmark text-red-500',
+			target: event.target ?? undefined,
+			key: 'rejectTourRequest' + this.visitingRequestWithPropertyDetail.visitingRequestId,
+			accept: () => {
+				// this.approveVisitingRequest();
+			},
+			reject: () => {
+			}
+		});
+	}
+
 	private approveVisitingRequest() {
 		this.isAcceptInProgress = true;
-		this.visitingRequestService.acceptVisitingRequest(this.visitingRequestWithPropertyDetail.visitingRequestId)
+		this.visitingRequestService.approveVisitingRequest(this.visitingRequestWithPropertyDetail.visitingRequestId)
 			.pipe(takeUntil(this.ngDestroyed))
 			.subscribe({
 				next: (response) => {

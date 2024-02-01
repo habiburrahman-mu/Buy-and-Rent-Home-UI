@@ -30,7 +30,7 @@
 			</div>
 			<div class="w-8rem">
 				<p-button label="Cancel" icon="pi pi-times" severity="danger"
-					styleClass="p-button-outlined p-button-danger w-full"></p-button>
+					styleClass="p-button-outlined p-button-danger w-full" (onClick)="onCancel($event)"></p-button>
 			</div>
 		</ng-container>
 		<ng-container *ngIf="!displayApprovalButtons">
@@ -41,3 +41,5 @@
 </div>
 <p-confirmPopup key="acceptTourRequest{{visitingRequestWithPropertyDetail.visitingRequestId}}"
 	*ngIf="displayApprovalButtons"></p-confirmPopup>
+<p-confirmPopup key="rejectTourRequest{{visitingRequestWithPropertyDetail.visitingRequestId}}"
+	*ngIf="displayApprovalButtons" styleClass="danger-confirm-popup"></p-confirmPopup>

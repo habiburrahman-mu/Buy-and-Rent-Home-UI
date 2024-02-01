@@ -37,7 +37,11 @@ export class VisitingRequestService {
 		return this.http.get<VisitingRequestWithPropertyDetailDto[]>(this.serviceBaseUrl + '/GetVisitingRequestListForMyProperties', { params: httpsParams });
 	}
 
-	acceptVisitingRequest(visitingRequestId: number) {
+	approveVisitingRequest(visitingRequestId: number) {
 		return this.http.put<boolean>(this.serviceBaseUrl + '/AcceptVisitingRequest', visitingRequestId);
+	}
+
+	rejectVisitingRequest(visitingRequestId: number) {
+		return this.http.put<boolean>(this.serviceBaseUrl + '/RejectVisitingRequest', visitingRequestId);
 	}
 }

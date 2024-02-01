@@ -14,8 +14,7 @@ body {
 
 ::-webkit-scrollbar {
 	width: 5px;
-	height: 5px
-	// background-color: #F5F5F5;
+	height: 5px // background-color: #F5F5F5;
 }
 
 /* Track */
@@ -142,4 +141,16 @@ button:focus {
 
 .p-tabmenu-nav a {
 	font-size: medium !important;
+}
+
+.danger-confirm-popup.p-confirm-popup {
+	// background: #ffe5e5 !important;
+}
+
+.danger-confirm-popup>div>button.p-confirm-popup-accept {
+	background: var(--red-500) !important;
+}
+
+.p-confirm-popup {
+	padding: 10px;
 }

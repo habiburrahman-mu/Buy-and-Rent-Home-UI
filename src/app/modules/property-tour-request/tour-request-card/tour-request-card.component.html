@@ -26,15 +26,17 @@
 		<ng-container *ngIf="displayApprovalButtons">
 			<div class="w-8rem">
 				<p-button label="Approve" icon="pi pi-check" styleClass="w-full" [loading]="isAcceptInProgress"
-					(onClick)="onApprove($event)"></p-button>
+					[disabled]="isRejectInProgress" (onClick)="onApprove($event)"></p-button>
 			</div>
 			<div class="w-8rem">
 				<p-button label="Cancel" icon="pi pi-times" severity="danger"
-					styleClass="p-button-outlined p-button-danger w-full" (onClick)="onCancel($event)"></p-button>
+					styleClass="p-button-outlined p-button-danger w-full" [loading]="isRejectInProgress"
+					[disabled]="isAcceptInProgress" (onClick)="onCancel($event)"></p-button>
 			</div>
 		</ng-container>
 		<ng-container *ngIf="!displayApprovalButtons">
-			<div class="w-8rem h-full bg-blue-100 text-2xl flex align-items-center justify-content-center p-3">
+			<div class="w-8rem h-full text-xl flex align-items-center justify-content-center p-3 text-center border-round-md"
+				[visitingRequestStatusBg]="visitingRequestWithPropertyDetail.status">
 				{{visitingRequestWithPropertyDetail.status | valueToLabel: visitingRequestStatusList}}</div>
 		</ng-container>
 	</div>

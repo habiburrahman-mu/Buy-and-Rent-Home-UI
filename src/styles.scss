@@ -154,3 +154,16 @@ button:focus {
 .p-confirm-popup {
 	padding: 10px;
 }
+
+.vr-approved {
+	background-color: var(--green-400) !important;
+	color: white !important;
+}
+
+.vr-pending {
+	background-color: var(--blue-100) !important;
+}
+
+.vr-not-approved {
+	background-color: var(--bs-gray-400) !important;
+}

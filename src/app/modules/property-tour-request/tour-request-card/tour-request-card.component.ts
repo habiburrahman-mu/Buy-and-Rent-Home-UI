@@ -20,6 +20,7 @@ export class PendingTourRequestCardComponent implements OnInit {
 	readonly visitingRequestStatusList = VisitingRequestConstants.StatusList;
 
 	isAcceptInProgress = false;
+	isRejectInProgress = false;
 
 	private ngDestroyed = new Subject<void>();
 
@@ -40,8 +41,6 @@ export class PendingTourRequestCardComponent implements OnInit {
 			key: 'acceptTourRequest' + this.visitingRequestWithPropertyDetail.visitingRequestId,
 			accept: () => {
 				this.approveVisitingRequest();
-			},
-			reject: () => {
 			}
 		});
 	}
@@ -53,9 +52,7 @@ export class PendingTourRequestCardComponent implements OnInit {
 			target: event.target ?? undefined,
 			key: 'rejectTourRequest' + this.visitingRequestWithPropertyDetail.visitingRequestId,
 			accept: () => {
-				// this.approveVisitingRequest();
-			},
-			reject: () => {
+				this.rejectVisitingRequest();
 			}
 		});
 	}
@@ -73,6 +70,23 @@ export class PendingTourRequestCardComponent implements OnInit {
 				},
 				error: () => {
 					this.isAcceptInProgress = false;
+				}
+			});
+	}
+
+	private rejectVisitingRequest() {
+		this.isRejectInProgress = true;
+		this.visitingRequestService.rejectVisitingRequest(this.visitingRequestWithPropertyDetail.visitingRequestId)
+			.pipe(takeUntil(this.ngDestroyed))
+			.subscribe({
+				next: (response) => {
+					this.isRejectInProgress = false;
+					this.toasterMessageService.success(MessageConstants.ApproveSuccessful);
+					this.visitingRequestWithPropertyDetail.status = VisitingRequestConstants.StatusList.find(x => x.label === 'Not Approved')!.value;
+					this.displayApprovalButtons = false;
+				},
+				error: () => {
+					this.isRejectInProgress = false;
 				}
 			});
 	}

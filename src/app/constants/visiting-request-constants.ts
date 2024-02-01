@@ -5,5 +5,5 @@ export default class VisitingRequestConstants {
 		{ value: 'P', label: 'Pending' },
 		{ value: 'A', label: 'Approved' },
 		{ value: 'N', label: 'Not Approved' },
-	]
+	];
 }

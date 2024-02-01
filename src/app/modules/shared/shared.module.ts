@@ -10,7 +10,7 @@ import { FormSkeletonComponent } from './components/skeletons/form-skeleton/form
 import { VisitingRequestDetailComponent } from './components/visiting-request-detail/visiting-request-detail.component';
 import { VisitingRequestCreateComponent } from './components/visiting-request-create/visiting-request-create.component';
 import { ValueToLabelPipe } from 'src/app/Pipes/value-to-label.pipe';
-import { VisitingRequestStatusBackgroundDirective } from 'src/app/directives/visiting-request-status-background.directive';
+import { VisitingRequestStatusBackgroundDirective } from 'src/app/modules/shared/directives/visiting-request-status-background.directive';
 
 const pipes = [
 	DateAgoPipe,

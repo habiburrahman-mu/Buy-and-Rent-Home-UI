@@ -7,7 +7,7 @@
 				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
 					<div class="w-100">
 						<h6 class="m-0 mb-1">Property Name</h6>
-						<input type="text" id="inputText" pInputText class="w-100" formControlName="propertyName">
+						<input type="text" id="inputText" pInputText class="w-100" formControlName="propertyName" trimString>
 						<small class="p-error block ms-1" *ngIf="propertyName.invalid">
 							Please provide property name
 						</small>
@@ -58,8 +58,7 @@
 
 					<div>
 						<h6 class="m-0 mb-1">Common Space</h6>
-						<p-inputNumber mode="decimal" [useGrouping]="false"
-							formControlName="commonSpace"></p-inputNumber>
+						<p-inputNumber mode="decimal" [useGrouping]="false" formControlName="commonSpace"></p-inputNumber>
 					</div>
 				</div>
 			</div>
@@ -69,18 +68,17 @@
 				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
 					<div fxFlex="50" fxFlex.lt-md="100">
 						<h6 class="m-0 mb-1">Country</h6>
-						<p-dropdown [options]="countryList" optionLabel="label" optionValue="value" [filter]="true"
-							filterBy="label" [showClear]="true" (onChange)="onChangeCountry()" appendTo="body"
-							styleClass="w-100" formControlName="country"></p-dropdown>
+						<p-dropdown [options]="countryList" optionLabel="label" optionValue="value" [filter]="true" filterBy="label"
+							[showClear]="true" (onChange)="onChangeCountry()" appendTo="body" styleClass="w-100"
+							formControlName="country"></p-dropdown>
 						<small class="p-error block ms-1" *ngIf="country.invalid">
 							Please select Country
 						</small>
 					</div>
 					<div fxFlex="50" fxFlex.lt-md="100">
 						<h6 class="m-0 mb-1">City</h6>
-						<p-dropdown [options]="cityList" optionLabel="label" optionValue="value" [filter]="true"
-							filterBy="label" [showClear]="true" appendTo="body" styleClass="w-100"
-							formControlName="city"></p-dropdown>
+						<p-dropdown [options]="cityList" optionLabel="label" optionValue="value" [filter]="true" filterBy="label"
+							[showClear]="true" appendTo="body" styleClass="w-100" formControlName="city"></p-dropdown>
 						<small class="p-error block ms-1" *ngIf="city.invalid">
 							Please select city
 						</small>
@@ -96,8 +94,7 @@
 				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
 					<div>
 						<h6 class="m-0 mb-1">Total Floor</h6>
-						<p-inputNumber mode="decimal" [useGrouping]="false"
-							formControlName="totalFloor"></p-inputNumber>
+						<p-inputNumber mode="decimal" [useGrouping]="false" formControlName="totalFloor"></p-inputNumber>
 						<small class="p-error block ms-1" *ngIf="totalFloor.invalid">
 							Please enter total floor no.
 						</small>
@@ -167,8 +164,7 @@
 							<label for="parking" class="ms-1">Parking</label>
 						</div>
 						<div class="field-checkbox">
-							<p-checkbox inputId="swimmingPool" id="swimmingPool" formControlName="swimmingPool"
-								[binary]="true">
+							<p-checkbox inputId="swimmingPool" id="swimmingPool" formControlName="swimmingPool" [binary]="true">
 							</p-checkbox>
 							<label for="swimmingPool" class="ms-1">Swimming Pool</label>
 						</div>
@@ -183,10 +179,8 @@
 								<button type="button" class="ql-bold" aria-label="Bold"></button>
 								<button type="button" class="ql-italic" aria-label="Italic"></button>
 								<button type="button" class="ql-underline" aria-label="Underline"></button>
-								<button type="button" class="ql-list" aria-label="Ordered List"
-									value="ordered"></button>
-								<button type="button" class="ql-list" aria-label="Unordered List"
-									value="bullet"></button>
+								<button type="button" class="ql-list" aria-label="Ordered List" value="ordered"></button>
+								<button type="button" class="ql-list" aria-label="Unordered List" value="bullet"></button>
 							</span>
 						</ng-template>
 					</p-editor>
@@ -217,36 +211,34 @@
 
 				<!--                <input type="file" (change)=""-->
 				<p-fileUpload name="demo[]" [customUpload]="true" (uploadHandler)="onUpload($event)" [multiple]="true"
-					accept="image/*" [maxFileSize]="10000000" #fileUpload (change)="handleFileChange()"
-					[showUploadButton]="false" [showCancelButton]="false">
+					accept="image/*" [maxFileSize]="10000000" #fileUpload (change)="handleFileChange()" [showUploadButton]="false"
+					[showCancelButton]="false">
 				</p-fileUpload>
-				<div fxLayout="row wrap" fxLayoutAlign="space-evenly start" fxLayoutGap="10px"
-					class="showUploadfiles-brh"
+				<div fxLayout="row wrap" fxLayoutAlign="space-evenly start" fxLayoutGap="10px" class="showUploadfiles-brh"
 					*ngIf="existingPhotos.length && deletedExistingPhotos.length !== existingPhotos.length">
 					<ng-container *ngFor="let photo of existingPhotos">
 						<!--                        <img [src]="fileUrl" alt="" height="100px">-->
 						<div class="mt-2 position-relative" *ngIf="!photo.isDeleted">
 							<p-image [src]="staticFileUrl + '/' + photo.imageUrl" alt="" height="100px" [preview]="true"
 								appendTo="body"></p-image>
-							<button *ngIf="isPrimaryPhotoFromExistingImages && primaryPhotoIdOrIndex === photo.id"
-								pButton pRipple type="button" icon="fas fa-check"
+							<button *ngIf="isPrimaryPhotoFromExistingImages && primaryPhotoIdOrIndex === photo.id" pButton pRipple
+								type="button" icon="fas fa-check"
 								class="p-button-rounded p-button-info position-absolute check-button-over-image">
 							</button>
-							<button *ngIf="!isPrimaryPhotoFromExistingImages || primaryPhotoIdOrIndex !== photo.id"
-								pButton pRipple type="button" (click)="markThisPhotoAsPrimary(photo.id, 'existing')"
+							<button *ngIf="!isPrimaryPhotoFromExistingImages || primaryPhotoIdOrIndex !== photo.id" pButton pRipple
+								type="button" (click)="markThisPhotoAsPrimary(photo.id, 'existing')"
 								title="Select this photo as primary" icon="fas fa-circle"
 								class="p-button-rounded p-button-info position-absolute check-button-over-image">
 							</button>
 							<button pButton pRipple type="button" (click)="deletePhotoFromExistingPhotoList(photo.id)"
-								icon="fas fa-times"
-								class="p-button-rounded p-button-danger position-absolute delete-button-over-image">
+								icon="fas fa-times" class="p-button-rounded p-button-danger position-absolute delete-button-over-image">
 							</button>
 						</div>
 
 					</ng-container>
 				</div>
-				<div fxLayout="row wrap" fxLayoutAlign="space-evenly start" fxLayoutGap="10px"
-					class="showUploadfiles-brh" *ngIf="newFileUrls.length">
+				<div fxLayout="row wrap" fxLayoutAlign="space-evenly start" fxLayoutGap="10px" class="showUploadfiles-brh"
+					*ngIf="newFileUrls.length">
 					<div *ngFor="let fileUrl of newFileUrls; let i = index" class="mt-2 position-relative">
 						<!--                        <img [src]="fileUrl" alt="" height="100px">-->
 						<p-image [src]="fileUrl" alt="" height="100px" [preview]="true" appendTo="body"></p-image>
@@ -255,12 +247,10 @@
 							class="p-button-rounded p-button-info position-absolute check-button-over-image">
 						</button>
 						<button *ngIf="isPrimaryPhotoFromExistingImages || primaryPhotoIdOrIndex !== i" pButton pRipple
-							type="button" (click)="markThisPhotoAsPrimary(i, 'new')"
-							title="Select this photo as primary" icon="fas fa-circle"
-							class="p-button-rounded p-button-info position-absolute check-button-over-image">
+							type="button" (click)="markThisPhotoAsPrimary(i, 'new')" title="Select this photo as primary"
+							icon="fas fa-circle" class="p-button-rounded p-button-info position-absolute check-button-over-image">
 						</button>
-						<button pButton pRipple type="button" (click)="deleteFileFromNewFileUrlList(i)"
-							icon="fas fa-times"
+						<button pButton pRipple type="button" (click)="deleteFileFromNewFileUrlList(i)" icon="fas fa-times"
 							class="p-button-rounded p-button-danger position-absolute delete-button-over-image">
 						</button>
 					</div>

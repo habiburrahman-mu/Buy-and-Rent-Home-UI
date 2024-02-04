@@ -10,7 +10,7 @@
 		<div class="w-100">
 			<h6 class="m-0 mb-1">Cancel reason</h6>
 			<textarea rows="5" pInputTextarea [autoResize]="true" class="w-full" [(ngModel)]="cancelReason" [required]="true"
-				[maxLength]="255"></textarea>
+				[maxLength]="255" trimString></textarea>
 		</div>
 	</ng-template>
 

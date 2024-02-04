@@ -11,6 +11,7 @@ import { VisitingRequestDetailComponent } from './components/visiting-request-de
 import { VisitingRequestCreateComponent } from './components/visiting-request-create/visiting-request-create.component';
 import { ValueToLabelPipe } from 'src/app/Pipes/value-to-label.pipe';
 import { VisitingRequestStatusBackgroundDirective } from 'src/app/modules/shared/directives/visiting-request-status-background/visiting-request-status-background.directive';
+import { TrimStringDirective } from './directives/trim-string/trim-string.directive';
 
 const pipes = [
 	DateAgoPipe,
@@ -34,14 +35,15 @@ const components = [
 ];
 
 const directives = [
-	VisitingRequestStatusBackgroundDirective
+	VisitingRequestStatusBackgroundDirective,
+	TrimStringDirective
 ];
 
 @NgModule({
 	declarations: [
 		...pipes,
 		...components,
-		...directives
+		...directives,
 	],
 	imports: [
 		PrimengLibModule

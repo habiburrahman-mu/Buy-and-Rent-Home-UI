@@ -1,1 +1,26 @@
-<p>cancel-pending-tour-request-modal works!</p>
+<p-dialog [(visible)]="showCancelPendingTourRequestModal" [style]="{'min-width': '400px'}"
+	[breakpoints]="{'960px': '75vw', '640px': '98vw'}" [modal]="true" [draggable]="false" [resizable]="false"
+	(onHide)="onHideCancelPendingTourRequestModal()">
+
+	<ng-template pTemplate="header">
+		<h5 class="m-0">Cancel Tour Request</h5>
+	</ng-template>
+
+	<ng-template pTemplate="content">
+		<div class="w-100">
+			<h6 class="m-0 mb-1">Cancel reason</h6>
+			<textarea rows="5" pInputTextarea [autoResize]="true" class="w-full" [(ngModel)]="cancelReason" [required]="true"
+				[maxLength]="255"></textarea>
+		</div>
+	</ng-template>
+
+	<ng-template pTemplate="footer">
+		<div class="w-full flex flex-row justify-content-end gap-3">
+			<button pButton pRipple type="button" label="Cancel"
+				class="p-button-outlined p-button-primary text-black p-button-sm" icon="pi pi-times"
+				(click)="showCancelPendingTourRequestModal = false"></button>
+			<p-button label="Submit" icon="pi pi-check" styleClass="p-button-sm" (onClick)="onSubmit()"
+				[loading]="isCancelInProgress" [disabled]="cancelReason === null || cancelReason === ''"></p-button>
+		</div>
+	</ng-template>
+</p-dialog>

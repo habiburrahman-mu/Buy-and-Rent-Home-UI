@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import CancelVisitingRequestDto from 'src/app/models/cancelVisitingRequestDto';
 import { VisitingRequestCreateDto } from 'src/app/models/visitingRequestCreateDto';
 import { VisitingRequestDetailDto } from 'src/app/models/visitingRequestDetailDto';
 import VisitingRequestWithPropertyDetailDto from 'src/app/models/visitingRequestWithPropertyDetailDto';
@@ -41,7 +42,7 @@ export class VisitingRequestService {
 		return this.http.put<boolean>(this.serviceBaseUrl + '/ApproveVisitingRequest', visitingRequestId);
 	}
 
-	rejectVisitingRequest(visitingRequestId: number) {
-		return this.http.put<boolean>(this.serviceBaseUrl + '/RejectVisitingRequest', visitingRequestId);
+	cancelVisitingRequest(cancelVisitingRequestDto: CancelVisitingRequestDto) {
+		return this.http.put<boolean>(this.serviceBaseUrl + '/cancelVisitingRequest', cancelVisitingRequestDto);
 	}
 }

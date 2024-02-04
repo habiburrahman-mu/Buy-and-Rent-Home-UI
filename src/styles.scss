@@ -113,6 +113,14 @@ body {
 	padding: 1rem 1.25rem 1.25rem 1.25rem !important;
 }
 
+.p-dialog .p-dialog-footer {
+	padding-bottom: 15px !important;
+}
+
+.p-dialog .p-dialog-footer button {
+	margin: 0 !important;
+}
+
 .p-togglebutton.p-button.p-highlight {
 	background: var(--blue-800) !important;
 	color: white !important;

@@ -12,7 +12,7 @@
 	</div>
 	<div class="mt-4 flex gap-4">
 		<div><i class="fa-solid fa-calendar-days text-3xl"></i></div>
-		<div class="text-2xl">
+		<div class="text-xl">
 			<div>{{visitingRequestDetail.startTime | date: 'h:mm a'}} - {{visitingRequestDetail.endTime | date: 'h:mm a'}}
 			</div>
 			<div>{{visitingRequestDetail.dateOn | date: 'EEEE, MMMM d, y'}}</div>
@@ -20,6 +20,14 @@
 	</div>
 	<div class="mt-4 mb-2 flex gap-4 vertical-align-middle">
 		<div class="m-0 flex align-self-center"><i class="fa-solid fa-square-phone-flip text-3xl"></i></div>
-		<div class="text-2xl">{{visitingRequestDetail.contactNumber}}</div>
+		<div class="text-xl">{{visitingRequestDetail.contactNumber}}</div>
+	</div>
+	<div *ngIf="visitingRequestDetail.notes" class="mt-4 card" style="background-color: #f0f8ff4f !important;">
+		<div class="text-lg mb-2 font-medium">
+			{{visitingRequestDetail.status === 'N' ? 'Reason' : 'Notes'}}
+		</div>
+		<div class="text-justify">
+			{{visitingRequestDetail.notes}}
+		</div>
 	</div>
 </div>

@@ -4,6 +4,7 @@ import { VisitingRequestDetailDto } from 'src/app/models/visitingRequestDetailDt
 import { PropertyService } from 'src/app/services/http/property.service';
 import { VisitingRequestService } from 'src/app/services/http/visiting-request.service';
 import DayAvailabilityExtended from '../../models/dayAvailabilityExtended';
+import { DateTimeUtils } from 'src/app/utils/date-time-utils';
 
 @Component({
 	selector: 'app-visiting-request-modal',

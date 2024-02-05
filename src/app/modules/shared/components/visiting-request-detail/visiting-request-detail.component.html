@@ -6,14 +6,16 @@
 			<div><i class="fa-solid fa-square-check text-green-400 text-6xl"></i></div>
 			<div class="text-xl">You have requested a tour</div>
 		</div>
-		<div class="w-8rem h-full bg-blue-100 text-xl flex align-items-center justify-content-center p-3 border-round-md"
+		<div
+			class="w-8rem h-full bg-blue-100 text-xl flex align-items-center justify-content-center p-3 border-round-md text-center"
 			[visitingRequestStatusBg]="visitingRequestDetail.status">
 			{{visitingRequestDetail.status | valueToLabel: visitingRequestStatusList}}</div>
 	</div>
 	<div class="mt-4 flex gap-4">
 		<div><i class="fa-solid fa-calendar-days text-3xl"></i></div>
 		<div class="text-xl">
-			<div>{{visitingRequestDetail.startTime | date: 'h:mm a'}} - {{visitingRequestDetail.endTime | date: 'h:mm a'}}
+			<div>{{visitingRequestDetail.startTime | date: 'h:mm a'}} - {{visitingRequestDetail.endTime | date: 'h:mm
+				a' }}
 			</div>
 			<div>{{visitingRequestDetail.dateOn | date: 'EEEE, MMMM d, y'}}</div>
 		</div>

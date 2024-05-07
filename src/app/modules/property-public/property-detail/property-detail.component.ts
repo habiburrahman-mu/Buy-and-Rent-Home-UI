@@ -29,6 +29,7 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
 	displayFullScreenGallery = false;
 	isLoginRegisterModalVisible = false;
 	isVisitingRequestModalVisible = false;
+	ismapZoomEnabled = false;
 
 	isThisUsersProperty = false;
 	isLoggedIn = false;
@@ -84,7 +85,8 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
 
 		// tiles.addTo(this.map);
 		// 23.780279, 90.416765
-		var map = leaflet.map('map').setView([23.780279, 90.416765], 12);
+		// var map = leaflet.map('map').setView([23.780279, 90.416765], 12);
+		var map = leaflet.map('map').setView([this.propertyData.cityLattitude, this.propertyData.cityLongitude], 12);
 		map.scrollWheelZoom.disable();
 
 		leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -92,16 +94,21 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
 		}).addTo(map);
 
 		leaflet.marker([23.780279, 90.416765]).addTo(map)
+		leaflet.marker([this.propertyData.cityLattitude, this.propertyData.cityLongitude]).addTo(map)
 			.bindPopup(this.propertyData.name)
 			.openPopup();
+
+		leaflet.circle([this.propertyData.cityLattitude, this.propertyData.cityLongitude], {radius: 5000, }).addTo(map);
 
 		this.map = map;
 		map.on("click", (event) => {
 			if (map.scrollWheelZoom.enabled()) {
 				map.scrollWheelZoom.disable();
+				this.ismapZoomEnabled = false;
 			}
 			else {
 				map.scrollWheelZoom.enable();
+				this.ismapZoomEnabled = true;
 			}
 			this.onClickMap(event);
 		})

@@ -15,4 +15,5 @@ export interface PropertyListDto {
     readyToMove: boolean;
     postedOn: string;
     primaryPhoto: string;
+		otherCost: number | null;
 }

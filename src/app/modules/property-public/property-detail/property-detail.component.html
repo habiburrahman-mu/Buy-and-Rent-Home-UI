@@ -178,17 +178,18 @@
 			</div>
 			<div class="w-full" fxLayout="column" fxLayoutAlign="center center">
 				<div class="w-full p-3" fxLayout="column" fxLayoutAlign="center center">
-					<div class="text-5xl font-bold text-center">$2500</div>
+					<div class="text-5xl font-bold text-center">{{(propertyData.rentPrice + (propertyData.otherCost ?? 0)) |
+						currency : 'USD' : 'symbol' : '1.0-0'}}</div>
 				</div>
 				<div class="w-full" fxLayout="column">
 					<div class="text-lg font-medium w-full" fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="10px">
 						<div>Rent Price</div>
-						<div>$2000</div>
+						<div>{{propertyData.rentPrice | currency : 'USD' : 'symbol' : '1.0-0'}}</div>
 					</div>
 					<div class="text-base font-medium w-full" fxLayout="row" fxLayoutAlign="space-around start"
 						fxLayoutGap="10px">
 						<div>Other Cost</div>
-						<div>$500</div>
+						<div>{{propertyData.otherCost ?? 0 | currency : 'USD' : 'symbol' : '1.0-0'}}</div>
 					</div>
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from "@angular/forms";
+import { AbstractControl, FormBuilder, ValidationErrors, Validators } from "@angular/forms";
 import { UserForRegister } from "../../models/user";
 import { AuthService } from "../../services/auth.service";
 import { MessageService } from 'primeng/api';
@@ -12,36 +12,33 @@ import { ActivatedRoute, Router } from '@angular/router';
 	styleUrls: ['./user-register.component.css']
 })
 export class UserRegisterComponent implements OnInit {
-	registrationForm!: UntypedFormGroup;
-	user!: UserForRegister;
+
+	registrationForm = this.fb.group({
+		name: this.fb.control<string | null>(null, [Validators.required]),
+		username: this.fb.control<string | null>(null, [Validators.required]),
+		email: this.fb.control<string | null>(null, [Validators.required, Validators.email]),
+		password: this.fb.control<string | null>(null, [Validators.required, Validators.minLength(8)]),
+		confirmPassword: this.fb.control<string | null>(null, [Validators.required]),
+		mobile: this.fb.control<string | null>(null, [Validators.required]),
+	}, { validators: this.passwordMatchingValidator });
+
 	isUserSubmitted: boolean = false;
 	isRegistrationInProgress = false;;
 
-	constructor(private fb: UntypedFormBuilder,
+	constructor(private fb: FormBuilder,
 		private authService: AuthService,
 		private messageService: MessageService,
 		private router: Router) {
 	}
 
 	ngOnInit(): void {
-		this.createRegistrationForm();
-	}
-
-	createRegistrationForm() {
-		this.registrationForm = this.fb.group({
-			userName: [null, Validators.required],
-			email: [null, [Validators.required, Validators.email]],
-			password: [null, [Validators.required, Validators.minLength(8)]],
-			confirmPassword: [null, Validators.required],
-			mobile: [null, [Validators.required, Validators.maxLength(15)]]
-		}, { validators: this.passwordMatchingValidator });
 	}
 
 	onSubmit() {
 		this.isUserSubmitted = true;
 		if (this.registrationForm.valid) {
 			this.isRegistrationInProgress = true;
-			this.authService.registerUser(this.userData()).subscribe(
+			this.authService.registerUser(this.userDataForRegisterFromForm).subscribe(
 				{
 					next: () => {
 						this.isRegistrationInProgress = false;
@@ -52,14 +49,6 @@ export class UserRegisterComponent implements OnInit {
 							detail: 'You are successfully registered'
 						});
 						this.router.navigate(['login']);
-					},
-					error: (error: HttpErrorResponse) => {
-						this.messageService.add({
-							severity: 'error',
-							summary: 'Registration',
-							detail: 'Error Occurred While Registering'
-						});
-						this.isRegistrationInProgress = false;
 					}
 				}
 			);
@@ -77,33 +66,16 @@ export class UserRegisterComponent implements OnInit {
 		this.isUserSubmitted = false;
 	}
 
-	userData(): UserForRegister {
-		return this.user = {
-			userName: this.userName.value,
-			email: this.email.value,
-			password: this.password.value,
-			mobile: this.mobile.value
+	get userDataForRegisterFromForm(): UserForRegister {
+		var userForRegister: UserForRegister = {
+			name: this.registrationForm.controls.name.value!,
+			userName: this.registrationForm.controls.username.value!,
+			email: this.registrationForm.controls.email.value!,
+			password: this.registrationForm.controls.password.value!,
+			mobile: this.registrationForm.controls.mobile.value!
 		}
-	}
 
-	get userName(): UntypedFormControl {
-		return this.registrationForm.get('userName') as UntypedFormControl;
-	}
-
-	get email(): UntypedFormControl {
-		return this.registrationForm.get('email') as UntypedFormControl;
-	}
-
-	get password(): UntypedFormControl {
-		return this.registrationForm.get('password') as UntypedFormControl;
-	}
-
-	get confirmPassword(): UntypedFormControl {
-		return this.registrationForm.get('confirmPassword') as UntypedFormControl;
-	}
-
-	get mobile(): UntypedFormControl {
-		return this.registrationForm.get('mobile') as UntypedFormControl;
+		return userForRegister;
 	}
 
 	passwordMatchingValidator(fc: AbstractControl): ValidationErrors | null {

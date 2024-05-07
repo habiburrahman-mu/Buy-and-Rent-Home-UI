@@ -1,62 +1,81 @@
 <div class="card m-auto" style="max-width: 500px">
-    <div fxLayout="column" fxLayoutGap="10px">
-        <div class="m-auto">
-            <h2>Register</h2>
-        </div>
-        <div class="m-auto p-2">
-            <img src="assets/images/resume.png" alt="" height="70px">
-        </div>
-        <div class="card-body">
-            <form [formGroup]="registrationForm">
-                <div fxLayout="column" fxLayoutGap="20px">
-                    <div>
-                        <h6 class="m-0 mb-1">Username</h6>
-                        <input pInputText type="text" class="form-control" formControlName="userName">
-                        <span class="error-block" *ngIf="!userName?.valid && (userName?.touched || isUserSubmitted)">Please provide Username</span>
-                    </div>
-                    <div >
-                        <h6 class="m-0 mb-1">Email</h6>
-                        <input pInputText type="text" class="form-control" formControlName="email">
-                        <span class="error-block" *ngIf="!email?.valid && (email?.touched || isUserSubmitted)">
-                            <span *ngIf="email.hasError('required')">Please Provide email address</span>
-                            <span *ngIf="email.hasError('email')">Please Provide valid email address</span>
-                        </span>
-                    </div>
-                    <div >
-                        <h6 class="m-0 mb-1">Password</h6>
-                        <input pInputText type="password" class="form-control" formControlName="password">
-                        <span class="error-block" *ngIf="!password?.valid && (password?.touched || isUserSubmitted)">
-                            <span *ngIf="password.errors!['required']">Please enter password</span>
-                            <span
-                                *ngIf="password.errors!['minlength']">Password should not be lesser than 8 character</span>
-                        </span>
-                    </div>
-                    <div >
-                        <h6 class="m-0 mb-1">Confirm Password</h6>
-                        <input pInputText type="password" class="form-control" formControlName="confirmPassword">
-                        <span class="error-block"
-                              *ngIf="!confirmPassword?.valid && (confirmPassword?.touched || isUserSubmitted)">
-                            <span *ngIf="confirmPassword.hasError('required')">Please enter password again</span>
-                        </span>
-                        <span class="error-block"
-                              *ngIf="registrationForm.hasError('notmatched') && confirmPassword.valid">Password not matched</span>
-                    </div>
-                    <div >
-                        <h6 class="m-0 mb-1">Mobile</h6>
-                        <input pInputText type="text" class="form-control" formControlName="mobile">
-                        <span class="error-block" *ngIf="!mobile?.valid && (mobile?.touched || isUserSubmitted)">
-                            <span class="error-block"
-                                  *ngIf="mobile.hasError('required')">Please provide mobile number</span>
-                            <span class="error-block" *ngIf="mobile.hasError('maxlength')">Mobile number length can not be greater than 15 character.</span>
-                        </span>
-                    </div>
-                    <div fxLayout="row" fxLayoutGap="10px">
-                        <button pButton pRipple type="submit" class="p-button-raised" (click)="onSubmit()" label="Save" [loading]="isRegistrationInProgress"></button>
-                        <button pButton pRipple type="reset" class="p-button-raised p-button-danger" (click)="onReset()" label="Cancel"></button>
-                    </div>
-                </div>
+	<div fxLayout="column" fxLayoutGap="10px">
+		<div class="m-auto">
+			<h2>Register</h2>
+		</div>
+		<div class="m-auto p-2">
+			<img src="assets/images/resume.png" alt="" height="70px">
+		</div>
+		<div class="card-body">
+			<form [formGroup]="registrationForm">
+				<div fxLayout="column" fxLayoutGap="20px">
+					<div>
+						<h6 class="m-0 mb-1">Name</h6>
+						<input pInputText type="text" class="form-control" formControlName="name" trimString>
+						<span class="error-block"
+							*ngIf="!this.registrationForm.controls.username.valid && (this.registrationForm.controls.username.touched || isUserSubmitted)">Please
+							provide Username</span>
+					</div>
+					<div>
+						<h6 class="m-0 mb-1">Username</h6>
+						<input pInputText type="text" class="form-control" formControlName="username">
+						<span class="error-block"
+							*ngIf="!this.registrationForm.controls.username.valid && (this.registrationForm.controls.username.touched || isUserSubmitted)">Please
+							provide Username</span>
+					</div>
+					<div>
+						<h6 class="m-0 mb-1">Email</h6>
+						<input pInputText type="text" class="form-control" formControlName="email">
+						<span class="error-block"
+							*ngIf="!this.registrationForm.controls.email.valid && (this.registrationForm.controls.email.touched || isUserSubmitted)">
+							<span *ngIf="this.registrationForm.controls.email.hasError('required')">Please Provide email
+								address</span>
+							<span *ngIf="this.registrationForm.controls.email.hasError('email')">Please Provide valid email
+								address</span>
+						</span>
+					</div>
+					<div>
+						<h6 class="m-0 mb-1">Password</h6>
+						<input pInputText type="password" class="form-control" formControlName="password">
+						<span class="error-block"
+							*ngIf="!this.registrationForm.controls.password.valid && (this.registrationForm.controls.password.touched || isUserSubmitted)">
+							<span *ngIf="this.registrationForm.controls.password.hasError('required')">Please enter password</span>
+							<span *ngIf="this.registrationForm.controls.password.hasError('minlength')">Password should not be lesser
+								than 8 character</span>
+						</span>
+					</div>
+					<div>
+						<h6 class="m-0 mb-1">Confirm Password</h6>
+						<input pInputText type="password" class="form-control" formControlName="confirmPassword">
+						<span class="error-block"
+							*ngIf="!this.registrationForm.controls.confirmPassword.valid && (this.registrationForm.controls.confirmPassword.touched || isUserSubmitted)">
+							<span *ngIf="this.registrationForm.controls.confirmPassword.hasError('required')">Please enter password
+								again</span>
+						</span>
+						<span class="error-block"
+							*ngIf="registrationForm.hasError('notmatched') && this.registrationForm.controls.confirmPassword.valid">Password
+							not matched</span>
+					</div>
+					<div>
+						<h6 class="m-0 mb-1">Mobile</h6>
+						<input pInputText type="text" class="form-control" formControlName="mobile">
+						<span class="error-block"
+							*ngIf="!this.registrationForm.controls.mobile?.valid && (this.registrationForm.controls.mobile?.touched || isUserSubmitted)">
+							<span class="error-block" *ngIf="this.registrationForm.controls.mobile.hasError('required')">Please
+								provide mobile number</span>
+							<span class="error-block" *ngIf="this.registrationForm.controls.mobile.hasError('maxlength')">Mobile
+								number length can not be greater than 15 character.</span>
+						</span>
+					</div>
+					<div fxLayout="row" fxLayoutGap="10px">
+						<button pButton pRipple type="submit" class="p-button-raised" (click)="onSubmit()" label="Save"
+							[loading]="isRegistrationInProgress"></button>
+						<button pButton pRipple type="reset" class="p-button-raised p-button-danger" (click)="onReset()"
+							label="Cancel"></button>
+					</div>
+				</div>
 
-            </form>
-        </div>
-    </div>
+			</form>
+		</div>
+	</div>
 </div>

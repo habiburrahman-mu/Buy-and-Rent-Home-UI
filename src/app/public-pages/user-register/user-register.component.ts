@@ -49,6 +49,9 @@ export class UserRegisterComponent implements OnInit {
 							detail: 'You are successfully registered'
 						});
 						this.router.navigate(['login']);
+					},
+					error: _ => {
+						this.isRegistrationInProgress = false;
 					}
 				}
 			);

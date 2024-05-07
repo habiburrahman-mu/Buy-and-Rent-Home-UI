@@ -34,7 +34,7 @@ export class AppTopBarComponent {
         @Inject(DOCUMENT) private document: Document) { }
 
     loggedIn() {
-        this.loggedInUser = localStorage.getItem('brh-userName') ?? '';
+        this.loggedInUser = localStorage.getItem('brh-userFullName') ?? '';
         return this.loggedInUser;
     }
 

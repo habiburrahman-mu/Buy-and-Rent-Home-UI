@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
-import { UserForLogin } from "../../models/user";
 import { HttpErrorResponse } from "@angular/common/http";
 import { MessageService } from 'primeng/api';
+import LoginResponseDto from 'src/app/models/loginResponseDto';
 
 @Component({
 	selector: 'app-user-login',
@@ -26,10 +26,9 @@ export class UserLoginComponent implements OnInit {
 	onLogin(loginForm: NgForm) {
 		this.isLoading = true;
 		this.authService.authUser(loginForm.value).subscribe({
-			next: (response: UserForLogin) => {
+			next: response => {
 				console.log(response);
-				localStorage.setItem('brh-token', response.token);
-				localStorage.setItem('brh-userName', response.userName);
+				this.saveUserDataInLocalStorage(response);
 				this.isLoading = false;
 				this.messageService.add({
 					severity: 'success',
@@ -40,22 +39,13 @@ export class UserLoginComponent implements OnInit {
 			},
 			error: (error: HttpErrorResponse) => {
 				this.isLoading = false;
-				console.log(error);
-				this.messageService.add({
-					severity: 'error',
-					summary: 'Login',
-					detail: 'Login Failed'
-				});
 			}
 		});
-		// if(token) {
-		//     localStorage.setItem('brh-token', token.userName);
-		//     this.alertifyService.success("Login Successful");
-		//     this.router.navigate(['/'])
-		//
-		// } else {
-		//     this.alertifyService.error("Login failed");
-		//
-		// }
+	}
+
+	private saveUserDataInLocalStorage(response: LoginResponseDto) {
+		localStorage.setItem('brh-token', response.token);
+		localStorage.setItem('brh-userName', response.userName);
+		localStorage.setItem('brh-userFullName', response.name);
 	}
 }

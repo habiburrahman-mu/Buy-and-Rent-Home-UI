@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../environments/environment'
-import { UserForLogin, UserForRegister } from "../models/user";
+import { UserForRegister } from "../models/user";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
+import LoginRequestDto from '../models/loginRequestDto';
+import LoginResponseDto from '../models/loginResponseDto';
 
 @Injectable({
     providedIn: 'root'
@@ -18,12 +20,12 @@ export class AuthService {
 
     get tokenInLocalStorage() { return localStorage.getItem('brh-token') ?? ''; }
 
-    authUser(user: UserForLogin): Observable<any> {
-        return this.http.post(this.baseUrl + '/account/login', user);
+    authUser(user: LoginRequestDto): Observable<LoginResponseDto> {
+        return this.http.post<LoginResponseDto>(this.baseUrl + '/account/login', user);
     }
 
     registerUser(user: UserForRegister) {
-        return this.http.post(this.baseUrl + '/account/register', user);
+        return this.http.post<void>(this.baseUrl + '/account/register', user);
     }
 
     isLoggedIn() {
@@ -72,6 +74,7 @@ export class AuthService {
     logOut(navigateToLogin: boolean = true) {
         localStorage.removeItem('brh-token');
         localStorage.removeItem('brh-userName');
+        localStorage.removeItem('brh-userFullName');
         if (navigateToLogin) {
             this.router.navigate(['login']);
         }

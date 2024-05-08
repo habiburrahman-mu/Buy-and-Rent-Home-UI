@@ -21,16 +21,15 @@ export class MyPropertyMapModalComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-	private initMap(): void {
-		var map = leaflet.map('map').setView([23.780279, 90.416765], 12);
-		map.scrollWheelZoom.disable();
+	private initMap(lat: number | undefined = undefined, long: number | undefined = undefined): void {
+		var map = leaflet.map('map').setView([lat ?? 23.780279, long ?? 90.416765], 12);
 
 		leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(map);
 
 		var layerGroup = leaflet.layerGroup();
-		leaflet.marker([23.780279, 90.416765]).addTo(layerGroup);
+		leaflet.marker([lat ?? 23.780279, long ?? 90.416765]).addTo(layerGroup);
 		layerGroup.addTo(map);
 		map.scrollWheelZoom.enable();
 		map.on("click", (event) => {
@@ -52,6 +51,7 @@ export class MyPropertyMapModalComponent implements OnInit {
 
 	onShowMyPropertyMapModal() {
 		this.initMap();
+
 	}
 
 	onClickSave() {
@@ -59,6 +59,13 @@ export class MyPropertyMapModalComponent implements OnInit {
 			this.onSaveLocation.emit(this.location);
 			this.showMyPropertyMapModal = false;
 		}
+	}
+
+	onClickTrack() {
+		navigator.geolocation.getCurrentPosition(position => {
+			this.map.remove();
+			this.initMap(position.coords.latitude, position.coords.longitude);
+		});
 	}
 
 }

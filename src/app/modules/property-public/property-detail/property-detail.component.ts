@@ -98,7 +98,7 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
 			.bindPopup(this.propertyData.name)
 			.openPopup();
 
-		leaflet.circle([this.propertyData.cityLattitude, this.propertyData.cityLongitude], {radius: 5000, }).addTo(map);
+		leaflet.circle([this.propertyData.cityLattitude, this.propertyData.cityLongitude], { radius: 5000, }).addTo(map);
 
 		this.map = map;
 		map.on("click", (event) => {

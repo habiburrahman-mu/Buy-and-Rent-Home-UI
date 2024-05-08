@@ -110,7 +110,7 @@
 
 					<div>
 						<h6 class="m-0 mb-1">Landmark</h6>
-						<input type="text" pInputText>
+						<input type="text" pInputText (click)="openMapModal()" formControlName="landmark">
 					</div>
 				</div>
 				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
@@ -276,3 +276,4 @@
 </div>
 <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"
 	[blockScroll]="false"></p-confirmDialog>
+<app-my-property-map-modal [(showMyPropertyMapModal)]="showMyPropertyMapModal" (onSaveLocation)="onSelectMapLocation($event)"></app-my-property-map-modal>

@@ -6,6 +6,7 @@ import { PrimengLibModule } from '../primeng-lib/primeng-lib.module';
 import { SharedModule } from '../shared/shared.module';
 import { AddPropertyDialogComponent } from './add-property-dialog/add-property-dialog.component';
 import { MyPropertyCardComponent } from './my-property-card/my-property-card.component';
+import { MyPropertyMapModalComponent } from './my-property-map-modal/my-property-map-modal.component';
 
 const routes: Routes = [
     { path: '', pathMatch: "full", redirectTo: 'my-property' },
@@ -16,7 +17,8 @@ const routes: Routes = [
     declarations: [
         MyPropertyListComponent,
         MyPropertyCardComponent,
-        AddPropertyDialogComponent
+        AddPropertyDialogComponent,
+        MyPropertyMapModalComponent
     ],
     imports: [
         CommonModule,

@@ -1,0 +1,11 @@
+.map-container {
+    overflow: hidden;
+}
+
+/* .map-frame {
+    height: 300px;
+} */
+
+#map {
+    height: 65vh;
+}

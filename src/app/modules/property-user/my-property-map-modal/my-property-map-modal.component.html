@@ -1,0 +1,15 @@
+<p-dialog [(visible)]="showMyPropertyMapModal" [style]="{'min-width': '90vw', 'min-height': '90vh'}"
+	[modal]="true" [draggable]="false" [resizable]="false"
+	(onHide)="onHideMyPropertyMapModal()" (onShow)="onShowMyPropertyMapModal()" header="Select Property Location">
+	<!-- [breakpoints]="{'960px': '75vw', '640px': '98vw'}"  -->
+	<div class="mb-3 align-items-center justify-content-center">
+		<div class="map-container">
+			<div class="map-frame">
+				<div id="map"></div>
+			</div>
+		</div>
+	</div>
+	<ng-template pTemplate="footer">
+		<p-button label="Save" (onClick)="onClickSave()"></p-button>
+	</ng-template>
+</p-dialog>

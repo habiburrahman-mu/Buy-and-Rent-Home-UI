@@ -44,3 +44,8 @@
 .image-body:hover + .hide {
     visibility: visible;
 }
+
+:host::ng-deep .p-tabview-panels {
+	height: 60vh;
+	overflow: hidden scroll;
+}

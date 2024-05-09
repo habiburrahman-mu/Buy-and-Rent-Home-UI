@@ -13,59 +13,68 @@
 						</small>
 					</div>
 
-					<div fxLayout="column" fxLayoutAlign="start start" fxFlex.gt-md="30" fxFlex.lt-md="100">
-						<h6 class="m-0 mb-1">I want to</h6>
-						<p-selectButton [options]="sellRentOptions" optionLabel="label" optionValue="value"
-							formControlName="sellRent"></p-selectButton>
-						<small class="p-error block ms-1" *ngIf="sellRent.invalid">
-							Please select sell or rent
-						</small>
-					</div>
+
 
 				</div>
-				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap.lt-md="10px" fxLayoutAlign="space-between start"
-					class="w-100 ">
-					<div fxLayout="column" fxLayoutAlign="start start" fxFlex.lt-md="100">
-						<h6 class="m-0 mb-1">Property Type</h6>
-						<p-selectButton [options]="propertyTypeOptions" optionLabel="name" optionValue="id"
-							formControlName="propertyType"></p-selectButton>
-						<small class="p-error block ms-1" *ngIf="propertyType.invalid">
-							Please select property type
-						</small>
+				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px">
+					<div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="space-between start"
+						class="w-100">
+						<div fxLayout="column" fxLayoutAlign="start start" fxFlex.gt-md="30" fxFlex.lt-md="100">
+							<h6 class="m-0 mb-1">I want to</h6>
+							<p-selectButton [options]="sellRentOptions" optionLabel="label" optionValue="value"
+								formControlName="sellRent"></p-selectButton>
+							<small class="p-error block ms-1" *ngIf="sellRent.invalid">
+								Please select sell or rent
+							</small>
+						</div>
+						<div fxLayout="column" fxLayoutAlign="start start" fxFlex.lt-md="100">
+							<h6 class="m-0 mb-1">Property Type</h6>
+							<p-selectButton [options]="propertyTypeOptions" optionLabel="name" optionValue="id"
+								formControlName="propertyType"></p-selectButton>
+							<small class="p-error block ms-1" *ngIf="propertyType.invalid">
+								Please select property type
+							</small>
+						</div>
+						<div fxLayout="column" fxLayoutAlign="start start" fxFlex.lt-md="100">
+							<h6 class="m-0 mb-1">Furnish Type</h6>
+							<p-selectButton [options]="furnishTypeOptions" optionLabel="name" optionValue="id"
+								formControlName="furnishType"></p-selectButton>
+							<small class="p-error block ms-1" *ngIf="furnishType.invalid">
+								Please select furnish type
+							</small>
+						</div>
 					</div>
-					<div fxLayout="column" fxLayoutAlign="start start" fxFlex.lt-md="100">
-						<h6 class="m-0 mb-1">Furnish Type</h6>
-						<p-selectButton [options]="furnishTypeOptions" optionLabel="name" optionValue="id"
-							formControlName="furnishType"></p-selectButton>
-						<small class="p-error block ms-1" *ngIf="furnishType.invalid">
-							Please select furnish type
-						</small>
-					</div>
-				</div>
-				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
-					<div>
-						<h6 class="m-0 mb-1">Bedroom</h6>
-						<p-inputNumber mode="decimal" [useGrouping]="false" formControlName="bedroom"></p-inputNumber>
-						<small class="p-error block ms-1" *ngIf="bedroom.invalid">
-							Please enter the no. of Bedroom
-						</small>
-					</div>
+					<div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start" fxFlex="grow">
+						<div class="w-full">
+							<h6 class="m-0 mb-1">Bedroom</h6>
+							<div class="p-inputgroup">
+								<p-inputNumber mode="decimal" [useGrouping]="false" formControlName="bedroom"></p-inputNumber>
+							</div>
+							<small class="p-error block ms-1" *ngIf="bedroom.invalid">
+								Please enter the no. of Bedroom
+							</small>
+						</div>
 
-					<div>
-						<h6 class="m-0 mb-1">Bathroom</h6>
-						<p-inputNumber mode="decimal" [useGrouping]="false" formControlName="bathroom"></p-inputNumber>
-					</div>
+						<div class="w-full">
+							<h6 class="m-0 mb-1">Bathroom</h6>
+							<div class="p-inputgroup">
+								<p-inputNumber mode="decimal" [useGrouping]="false" formControlName="bathroom"></p-inputNumber>
+							</div>
+						</div>
 
-					<div>
-						<h6 class="m-0 mb-1">Common Space</h6>
-						<p-inputNumber mode="decimal" [useGrouping]="false" formControlName="commonSpace"></p-inputNumber>
+						<div class="w-full">
+							<h6 class="m-0 mb-1">Common Space</h6>
+							<div class="p-inputgroup">
+								<p-inputNumber mode="decimal" [useGrouping]="false" formControlName="commonSpace"></p-inputNumber>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</p-tabPanel>
 		<p-tabPanel header="Address & Pricing" formGroupName="addressPricing">
 			<div fxLayout="column" fxLayoutGap="10px" class="mt-2">
-				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="space-between start">
 					<div fxFlex="50" fxFlex.lt-md="100">
 						<h6 class="m-0 mb-1">Country</h6>
 						<p-dropdown [options]="countryList" optionLabel="label" optionValue="value" [filter]="true" filterBy="label"
@@ -91,7 +100,7 @@
 						Please select Street Address
 					</small>
 				</div>
-				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="space-between start">
 					<div>
 						<h6 class="m-0 mb-1">Total Floor</h6>
 						<p-inputNumber mode="decimal" [useGrouping]="false" formControlName="totalFloor"></p-inputNumber>
@@ -109,12 +118,6 @@
 					</div>
 
 					<div>
-						<h6 class="m-0 mb-1">Landmark</h6>
-						<input type="text" pInputText (click)="openMapModal()" formControlName="landmark">
-					</div>
-				</div>
-				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="start start">
-					<div>
 						<h6 class="m-0 mb-1">Area</h6>
 						<div class="p-inputgroup">
 							<p-inputNumber [maxFractionDigits]="3" formControlName="area"></p-inputNumber>
@@ -124,7 +127,17 @@
 							Please enter area
 						</small>
 					</div>
-					<div>
+				</div>
+				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="space-between start">
+					<div fxFlex="100">
+						<h6 class="m-0 mb-1">Landmark</h6>
+						<div class="p-inputgroup">
+							<input type="text" pInputText (click)="openMapModal()" formControlName="landmark">
+						</div>
+					</div>
+				</div>
+				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="space-between start">
+					<div fxFlex.gt-md="50">
 						<h6 class="m-0 mb-1">Rent/Price</h6>
 						<div class="p-inputgroup">
 							<p-inputNumber [maxFractionDigits]="3" formControlName="price"
@@ -135,7 +148,7 @@
 							Please provide price
 						</small>
 					</div>
-					<div>
+					<div fxFlex.gt-md="50">
 						<h6 class="m-0 mb-1">Other Cost</h6>
 						<div class="p-inputgroup">
 							<p-inputNumber [maxFractionDigits]="3" formControlName="otherCost"></p-inputNumber>
@@ -276,4 +289,5 @@
 </div>
 <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"
 	[blockScroll]="false"></p-confirmDialog>
-<app-my-property-map-modal [(showMyPropertyMapModal)]="showMyPropertyMapModal" (onSaveLocation)="onSelectMapLocation($event)"></app-my-property-map-modal>
+<app-my-property-map-modal [(showMyPropertyMapModal)]="showMyPropertyMapModal"
+	(onSaveLocation)="onSelectMapLocation($event)"></app-my-property-map-modal>

@@ -77,17 +77,17 @@
 				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="space-between start">
 					<div fxFlex="50" fxFlex.lt-md="100">
 						<h6 class="m-0 mb-1">Country</h6>
-						<p-dropdown [options]="countryList" optionLabel="label" optionValue="value" [filter]="true" filterBy="label"
+						<p-dropdown [options]="countryList" optionLabel="name" optionValue="id" [filter]="true" filterBy="label"
 							[showClear]="true" (onChange)="onChangeCountry()" appendTo="body" styleClass="w-100"
-							formControlName="country"></p-dropdown>
+							formControlName="country" emptyMessage="Select Country"></p-dropdown>
 						<small class="p-error block ms-1" *ngIf="country.invalid">
 							Please select Country
 						</small>
 					</div>
 					<div fxFlex="50" fxFlex.lt-md="100">
 						<h6 class="m-0 mb-1">City</h6>
-						<p-dropdown [options]="cityList" optionLabel="label" optionValue="value" [filter]="true" filterBy="label"
-							[showClear]="true" appendTo="body" styleClass="w-100" formControlName="city"></p-dropdown>
+						<p-dropdown [options]="cityList" optionLabel="name" optionValue="id" [filter]="true" filterBy="label"
+							[showClear]="true" appendTo="body" styleClass="w-100" formControlName="city" emptyMessage="Select City"></p-dropdown>
 						<small class="p-error block ms-1" *ngIf="city.invalid">
 							Please select city
 						</small>

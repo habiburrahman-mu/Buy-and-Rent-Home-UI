@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as leaflet from 'leaflet';
+import LatitudeLongitude from 'src/app/models/latitudeLongitude';
 
 @Component({
 	selector: 'app-my-property-map-modal',
@@ -10,26 +11,26 @@ export class MyPropertyMapModalComponent implements OnInit {
 
 	@Input() showMyPropertyMapModal: boolean;
 	@Output() showMyPropertyMapModalChange = new EventEmitter<boolean>();
-	@Output() onSaveLocation = new EventEmitter<string>();
+	@Output() onSaveLocation = new EventEmitter<LatitudeLongitude>();
 
 	private map: leaflet.Map;
 
-	location: string;
+	@Input() locationData: LatitudeLongitude;
 
 	constructor() { }
 
 	ngOnInit(): void {
 	}
 
-	private initMap(lat: number | undefined = undefined, long: number | undefined = undefined): void {
-		var map = leaflet.map('map').setView([lat ?? 23.780279, long ?? 90.416765], 12);
+	private initMap(): void {
+		var map = leaflet.map('map').setView([this.locationData.latitude, this.locationData.latitude], 12);
 
 		leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(map);
 
 		var layerGroup = leaflet.layerGroup();
-		leaflet.marker([lat ?? 23.780279, long ?? 90.416765]).addTo(layerGroup);
+		leaflet.marker([this.locationData.latitude, this.locationData.latitude]).addTo(layerGroup);
 		layerGroup.addTo(map);
 		map.scrollWheelZoom.enable();
 		map.on("click", (event) => {
@@ -42,7 +43,10 @@ export class MyPropertyMapModalComponent implements OnInit {
 		console.log(event.latlng);
 		layerGroup.clearLayers();
 		leaflet.marker([event.latlng.lat, event.latlng.lng]).addTo(layerGroup);
-		this.location = event.latlng.lat + ', ' + event.latlng.lng;
+		this.locationData = {
+			latitude: event.latlng.lat,
+			longitude: event.latlng.lng,
+		};
 	}
 
 	onHideMyPropertyMapModal() {
@@ -55,17 +59,24 @@ export class MyPropertyMapModalComponent implements OnInit {
 	}
 
 	onClickSave() {
-		if (this.location) {
-			this.onSaveLocation.emit(this.location);
+		if (this.locationData) {
+			this.onSaveLocation.emit(this.locationData);
 			this.showMyPropertyMapModal = false;
 		}
 	}
 
 	onClickTrack() {
+		console.log('clicked track me');
 		navigator.geolocation.getCurrentPosition(position => {
 			this.map.remove();
-			this.initMap(position.coords.latitude, position.coords.longitude);
+			this.locationData = {
+				latitude: position.coords.latitude,
+				longitude: position.coords.longitude
+			};
+			this.initMap();
 		});
 	}
 
 }
+
+;

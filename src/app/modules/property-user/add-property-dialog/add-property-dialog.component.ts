@@ -10,7 +10,6 @@ import { ConfirmationService, MessageService, PrimeNGConfig } from "primeng/api"
 import { IKeyValuePair } from "../../../models/ikeyvaluepair";
 import { FileUpload } from "primeng/fileupload";
 import { TabView } from "primeng/tabview";
-import { IAddEditPropertyForm } from "../../../models/IAddEditPropertyForm";
 import { Property } from "../../../models/Property";
 import { CityService } from "../../../services/http/city.service";
 import { CountryService } from "../../../services/http/country.service";
@@ -23,6 +22,9 @@ import { PropertyDetailDto } from "../../../models/propertyDetailDto";
 import { forkJoin, Observable, of, Subscription } from "rxjs";
 import { PhotoDto } from "../../../models/photoDto";
 import { environment } from "../../../../environments/environment";
+import LatitudeLongitude from 'src/app/models/latitudeLongitude';
+import { Country } from 'src/app/models/country';
+import { City } from 'src/app/models/city';
 
 @Component({
 	selector: 'app-add-property-dialog',
@@ -56,7 +58,8 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 			streetAddress: this.formBuilder.control<string | null>(null, [Validators.required]),
 			totalFloor: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
 			floor: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
-			landmark: this.formBuilder.control<string | null>(null),
+			latitude: this.formBuilder.control<number | null>(null),
+			longitude: this.formBuilder.control<number | null>(null),
 			area: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
 			price: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
 			otherCost: this.formBuilder.control<number | null>(null),
@@ -87,8 +90,8 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
 	propertyTypeOptions: IKeyValuePair[];
 	furnishTypeOptions: IKeyValuePair[];
-	cityList: Array<any> = [{ label: 'Select City', value: "", disabled: true }];
-	countryList: Array<any> = [{ label: 'Select Country', value: "", disabled: true }];
+	cityList: Array<City> = [];
+	countryList: Array<Country> = [];
 
 	uploadedFiles: any[] = [];
 	newFileUrls: File[] = [];
@@ -134,16 +137,12 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 				this.showLoader = false;
 				this.propertyTypeOptions = result[0];
 				this.furnishTypeOptions = result[1];
-				result[2].map(item => {
-					this.countryList.push({ label: item.name, value: item.id });
-				});
+				this.countryList = result[2];
 				if (result[3]) {
 					let propertyDetail = result[3];
 					this.propertyDetail = propertyDetail;
 					this.cityService.getAllCityByCountry(propertyDetail.countryId).subscribe(data => {
-						data.map(item => {
-							this.cityList.push({ label: item.name, value: item.id });
-						});
+						this.cityList = data;
 						this.showLoader = false;
 						this.bindDataToForm();
 					});
@@ -192,7 +191,8 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 				streetAddress: this.propertyDetail.streetAddress,
 				totalFloor: this.propertyDetail.totalFloor,
 				floor: this.propertyDetail.floor,
-				landmark: this.propertyDetail.landmark,
+				latitude: this.propertyDetail.latitude,
+				longitude: this.propertyDetail.longitude,
 				area: this.propertyDetail.area,
 				price: this.propertyDetail.rentPrice,
 				otherCost: this.propertyDetail.otherCost,
@@ -231,7 +231,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 	//             streetAddress: [null, Validators.required],
 	//             totalFloor: [null, Validators.required],
 	//             floor: [null, Validators.required],
-	//             landmark: [null],
+	//             latitude: [null],
 	//             area: [null, Validators.required],
 	//             price: [null, Validators.required],
 	//             otherCost: [null],
@@ -261,7 +261,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
 	onChangeCountry() {
 		console.log(this.country.value);
-		this.cityList = [{ label: 'Select City', value: "", disabled: true }];
+		this.cityList = [];
 		this.city.setValue(null);
 		if (this.country.value) {
 			this.createCityList(this.country.value);
@@ -271,9 +271,10 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 	createCityList(countryId: number) {
 		this.showLoader = true;
 		this.cityService.getAllCityByCountry(countryId).subscribe(data => {
-			data.map(item => {
-				this.cityList.push({ label: item.name, value: item.id });
-			});
+			this.cityList = data;
+			// data.map(item => {
+			// 	this.cityList.push({ label: item.name, value: item.id });
+			// });
 			this.showLoader = false;
 		});
 		// this.cityService.getAllCities().subscribe(data => {
@@ -473,8 +474,12 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 		return this.AddressPricing.controls.price;
 	}
 
-	get landmark() {
-		return this.AddressPricing.controls.landmark;
+	get latitude() {
+		return this.AddressPricing.controls.latitude;
+	}
+
+	get longitude() {
+		return this.AddressPricing.controls.longitude;
 	}
 
 	get price() {
@@ -526,15 +531,16 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 		this.property.streetAddress = this.streetAddress.value!;
 		this.property.totalFloor = this.totalFloor.value!;
 		this.property.floor = this.floor.value!;
-		this.property.landmark = this.landmark.value!;
+		this.property.latitude = this.latitude.value;
+		this.property.longitude = this.longitude.value;
 		this.property.area = this.area.value!;
 		this.property.rentPrice = this.rentPrice.value!;
-		this.property.otherCost = this.otherCost.value!;
+		this.property.otherCost = this.otherCost.value;
 
 		this.property.gym = this.gym.value ?? false;
 		this.property.parking = this.parking.value ?? false;
 		this.property.swimmingPool = this.swimmingPool.value ?? false;
-		this.property.description = this.description.value!;
+		this.property.description = this.description.value;
 		this.property.availableDays = this.availableDaysFromForm;
 		this.property.availableStartTime = '9:00';
 		this.property.availableEndTime = '14:00';
@@ -554,8 +560,9 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 		return this.isSubmitted && this.addPropertyForm.invalid;
 	}
 
-	onSelectMapLocation(event: string) {
-		this.landmark.setValue(event);
+	onSelectMapLocation(event: LatitudeLongitude) {
+		this.latitude.setValue(event.latitude);
+		this.longitude.setValue(event.longitude);
 	}
 
 	ngOnDestroy(): void {

@@ -10,7 +10,8 @@ export interface PropertyDetailDto extends PropertyListDto {
 	streetAddress: string;
 	totalFloor: number;
 	floor: number;
-	landmark: string;
+	latitude: number | null;
+	longitude: number | null;
 	cityLattitude: number;
 	cityLongitude: number;
 	otherCost: number | null;

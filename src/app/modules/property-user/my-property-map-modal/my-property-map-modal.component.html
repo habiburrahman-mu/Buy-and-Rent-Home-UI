@@ -1,6 +1,6 @@
-<p-dialog [(visible)]="showMyPropertyMapModal" [style]="{'min-width': '90vw', 'min-height': '90vh'}"
-	[modal]="true" [draggable]="false" [resizable]="false"
-	(onHide)="onHideMyPropertyMapModal()" (onShow)="onShowMyPropertyMapModal()" header="Select Property Location">
+<p-dialog [(visible)]="showMyPropertyMapModal" [style]="{'min-width': '95vw', 'min-height': '95vh'}" [modal]="true"
+	[draggable]="false" [resizable]="false" (onHide)="onHideMyPropertyMapModal()" (onShow)="onShowMyPropertyMapModal()"
+	header="Select Property Location">
 	<!-- [breakpoints]="{'960px': '75vw', '640px': '98vw'}"  -->
 	<div class="mb-3 align-items-center justify-content-center">
 		<div class="map-container">
@@ -10,8 +10,15 @@
 		</div>
 	</div>
 	<ng-template pTemplate="footer">
-		<div class="flex gap-2"></div>
-		<p-button label="Track" (onClick)="onClickTrack()"></p-button>
-		<p-button label="Save" (onClick)="onClickSave()"></p-button>
+		<div class="flex justify-content-between">
+			<div>
+
+			</div>
+			<div class="flex gap-2">
+				<button pButton pRipple type="button" icon="fa-solid fa-location-crosshairs" class="p-button-rounded p-button-text"
+					(click)="onClickTrack()" pTooltip="Track" tooltipPosition="top"></button>
+				<p-button label="Save" (onClick)="onClickSave()"></p-button>
+			</div>
+		</div>
 	</ng-template>
 </p-dialog>

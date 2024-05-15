@@ -1,7 +1,13 @@
 <div class="card" fxLayout="column" fxLayoutGap="10px">
 	<div fxLayout="row wrap" fxLayout.lt-md="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="5px"
 		class="mb-3">
-		<h4 style="color: var(--blue-500);" class="h-full m-0">{{propertyData.name}}</h4>
+		<div>
+			<h4 style="color: var(--blue-500);" class="h-full m-0">{{propertyData.name}}</h4>
+			<p class="text-sm ml-1">
+				{{propertyData.streetAddress + ', ' + propertyData.city + ', ' +
+				propertyData.country}}
+			</p>
+		</div>
 		<!-- <h4 style="color: var(--blue-500);" class="h-full m-0">{{propertyData.name}}</h4> -->
 		<p-button pRipple label="Contact Owner" icon="fas fa-envelope" class="p-button-info" *ngIf="!isThisUsersProperty"
 			(onClick)="onClickContactOwner()"></p-button>
@@ -65,24 +71,48 @@
 			<div fxLayout="row wrap" fxLayout.lt-md="row wrap" fxLayoutGap="5px">
 				<div class="type-detail-small-card" fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="10px"
 					fxLayoutAlign="center center">
-					<div fxLayout="row" fxLayoutAlign="center center">
+					<div fxLayout="row" fxLayoutAlign="center center" pTooltip="Bedroom" tooltipPosition="top">
 						<i class="fa-solid fa-bed mr-1 text-lg font-semibold"></i>
 					</div>
 					<div class="text-lg font-medium">{{propertyData.bedroom}}</div>
 				</div>
 				<div class="type-detail-small-card" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center"
 					*ngIf="propertyData.bathroom">
-					<div fxLayout="row" fxLayoutAlign="center center">
+					<div fxLayout="row" fxLayoutAlign="center center" pTooltip="Bathroom" tooltipPosition="top">
 						<i class="fa-solid fa-bath mr-1 text-lg font-semibold"></i>
 					</div>
 					<div class="text-lg font-medium">{{propertyData.bathroom}}</div>
 				</div>
 				<div class="type-detail-small-card" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center"
 					*ngIf="propertyData.commonSpace">
-					<div fxLayout="row" fxLayoutAlign="center center">
+					<div fxLayout="row" fxLayoutAlign="center center" pTooltip="Common Space" tooltipPosition="top">
 						<i class="fa-solid fa-people-line mr-1 text-lg font-semibold"></i>
 					</div>
 					<div class="text-lg font-medium">{{propertyData.commonSpace}}</div>
+				</div>
+			</div>
+
+			<h6 class="text-lg font-bold">Floor</h6>
+			<div fxLayout="row wrap" fxLayout.lt-md="row wrap" fxLayoutGap="5px">
+				<div class="type-detail-small-card" fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="10px"
+					fxLayoutAlign="center center">
+					<div fxLayout="row" fxLayoutAlign="center center">
+						<i class="fa-solid fa-table-list mr-1 text-lg font-semibold" pTooltip="Floor" tooltipPosition="top"></i>
+					</div>
+					<!-- <div class="text-lg font-medium">{{propertyData.floor + '/' +propertyData.totalFloor}}</div> -->
+					<div class="text-lg font-medium">On {{propertyData.floor}}<sup>{{propertyData.floor | ordinal:false}}</sup> floor of {{propertyData.totalFloor}} storied building</div>
+				</div>
+				<!-- <div class="type-detail-small-card" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+					<div fxLayout="row" fxLayoutAlign="center center"  pTooltip="On floor" tooltipPosition="top">
+						<i class="fa-solid fa-right-to-bracket mr-1 text-lg font-semibold"></i>
+					</div>
+					<div class="text-lg font-medium">{{propertyData.floor}}</div>
+				</div> -->
+				<div class="type-detail-small-card" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+					<div fxLayout="row" fxLayoutAlign="center center" pTooltip="Area" tooltipPosition="top">
+						<i class="fa-solid fa-ruler-combined mr-1 text-lg font-semibold"></i>
+					</div>
+					<div class="text-lg font-medium">{{propertyData.area | number}} Ft.<sup>2</sup></div>
 				</div>
 			</div>
 			<!-- <div class="h-5rem">
@@ -127,31 +157,9 @@
 					<div class="text-lg font-medium">Pool</div>
 				</div>
 			</div>
-			<!-- <div class="h-5rem">
-                <h6 class="mb-0">Features</h6>
-                <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="5px">
-                    <div><i class="fa-solid mr-1"
-                            [ngClass]="propertyData.gym ? 'fa-check text-success' : 'fa-xmark text-danger'"></i>Gym
-                    </div>
-                    <div><i class="fa-solid mr-1"
-                            [ngClass]="propertyData.parking ? 'fa-check text-success' : 'fa-xmark text-danger'"></i>Parking
-                    </div>
-                    <div><i class="fa-solid mr-1"
-                            [ngClass]="propertyData.parking ? 'fa-check text-success' : 'fa-xmark text-danger'"></i>Swimming
-                        Pool
-                    </div>
-                </div>
-            </div> -->
-			<!-- <p-divider></p-divider>
-            <div fxLayout="column" fxLayoutAlign="space-between center" class="w-100" fxLayoutGap="10px">
-                <div>
-                    <h5 class="m-0">${{propertyData.rentPrice}}</h5>
-                </div>
-                <h6 class="text-black-50 m-0">Posted {{propertyData.postedOn | dateAgo}}</h6>
-            </div> -->
 		</div>
 	</div>
-	<div>{{ismapZoomEnabled ? 'Zoom Enabled' : 'Zoom Disabled'}}</div>
+	<div class="w-100 text-right">{{ismapZoomEnabled ? 'Zoom Enabled' : 'Zoom Disabled'}}</div>
 	<div class="mb-3 align-items-center justify-content-center">
 		<!-- <h6>Map</h6> -->
 		<!-- <span *ngIf="propertyData.description; else noDescription">{{propertyData.description}}</span>

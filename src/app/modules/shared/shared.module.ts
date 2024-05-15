@@ -12,12 +12,14 @@ import { VisitingRequestCreateComponent } from './components/visiting-request-cr
 import { ValueToLabelPipe } from 'src/app/Pipes/value-to-label.pipe';
 import { VisitingRequestStatusBackgroundDirective } from 'src/app/modules/shared/directives/visiting-request-status-background/visiting-request-status-background.directive';
 import { TrimStringDirective } from './directives/trim-string/trim-string.directive';
+import { OrdinalPipe } from 'src/app/Pipes/ordinal.pipe';
 
 const pipes = [
 	DateAgoPipe,
 	FilterPipe,
 	SortPipe,
-	ValueToLabelPipe
+	ValueToLabelPipe,
+	OrdinalPipe,
 ];
 
 const modules = [
@@ -49,7 +51,7 @@ const directives = [
 		PrimengLibModule
 	],
 	exports: [
-		...pipes, ...modules, ...components, ... directives
+		...pipes, ...modules, ...components, ...directives
 	]
 })
 export class SharedModule { }

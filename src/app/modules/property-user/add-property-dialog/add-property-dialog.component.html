@@ -79,7 +79,7 @@
 						<h6 class="m-0 mb-1">Country</h6>
 						<p-dropdown [options]="countryList" optionLabel="name" optionValue="id" [filter]="true" filterBy="label"
 							[showClear]="true" (onChange)="onChangeCountry()" appendTo="body" styleClass="w-100"
-							formControlName="country" emptyMessage="Select Country"></p-dropdown>
+							formControlName="country" placeholder="Select Country" [autoDisplayFirst]="false"></p-dropdown>
 						<small class="p-error block ms-1" *ngIf="country.invalid">
 							Please select Country
 						</small>
@@ -87,7 +87,7 @@
 					<div fxFlex="50" fxFlex.lt-md="100">
 						<h6 class="m-0 mb-1">City</h6>
 						<p-dropdown [options]="cityList" optionLabel="name" optionValue="id" [filter]="true" filterBy="label"
-							[showClear]="true" appendTo="body" styleClass="w-100" formControlName="city" emptyMessage="Select City"></p-dropdown>
+							[showClear]="true" (onChange)="onChangeCity()" appendTo="body" styleClass="w-100" formControlName="city" placeholder="Select City" [autoDisplayFirst]="false"></p-dropdown>
 						<small class="p-error block ms-1" *ngIf="city.invalid">
 							Please select city
 						</small>
@@ -129,10 +129,16 @@
 					</div>
 				</div>
 				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="space-between start">
-					<div fxFlex="100">
-						<h6 class="m-0 mb-1">Landmark</h6>
+					<div fxFlex="50">
+						<h6 class="m-0 mb-1">Latitude</h6>
 						<div class="p-inputgroup">
-							<input type="text" pInputText (click)="openMapModal()" formControlName="landmark">
+							<input type="text" pInputText (click)="openMapModal()" formControlName="latitude">
+						</div>
+					</div>
+					<div fxFlex="50">
+						<h6 class="m-0 mb-1">Longitude</h6>
+						<div class="p-inputgroup">
+							<input type="text" pInputText (click)="openMapModal()" formControlName="longitude">
 						</div>
 					</div>
 				</div>
@@ -289,5 +295,5 @@
 </div>
 <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"
 	[blockScroll]="false"></p-confirmDialog>
-<app-my-property-map-modal [(showMyPropertyMapModal)]="showMyPropertyMapModal"
+<app-my-property-map-modal [(showMyPropertyMapModal)]="showMyPropertyMapModal" [locationData]="location"
 	(onSaveLocation)="onSelectMapLocation($event)"></app-my-property-map-modal>

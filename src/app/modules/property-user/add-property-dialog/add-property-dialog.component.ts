@@ -19,12 +19,13 @@ import { PropertyService } from "../../../services/http/property.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { PhotoService } from "../../../services/http/photo.service";
 import { PropertyDetailDto } from "../../../models/propertyDetailDto";
-import { forkJoin, Observable, of, Subscription } from "rxjs";
+import { combineLatest, forkJoin, merge, Observable, of, Subject, Subscription, takeUntil } from "rxjs";
 import { PhotoDto } from "../../../models/photoDto";
 import { environment } from "../../../../environments/environment";
 import LatitudeLongitude from 'src/app/models/latitudeLongitude';
 import { Country } from 'src/app/models/country';
 import { City } from 'src/app/models/city';
+import { MessageSeverityConstants } from 'src/app/constants/message-constants';
 
 @Component({
 	selector: 'app-add-property-dialog',
@@ -58,8 +59,8 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 			streetAddress: this.formBuilder.control<string | null>(null, [Validators.required]),
 			totalFloor: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
 			floor: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
-			latitude: this.formBuilder.control<number | null>(null),
-			longitude: this.formBuilder.control<number | null>(null),
+			latitude: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
+			longitude: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
 			area: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
 			price: this.formBuilder.control<number | null>(null, { validators: [Validators.required] }),
 			otherCost: this.formBuilder.control<number | null>(null),
@@ -100,6 +101,9 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 	deletedExistingPhotos: number[] = [];
 
 	showMyPropertyMapModal = false;
+	location: LatitudeLongitude | undefined = undefined;
+
+	private ngDestroyed = new Subject<void>();
 
 	createScheduleDaysFormArray() {
 		return this.DAYS.map(day => {
@@ -127,6 +131,20 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 
 		this.tabIndex = 0;
 
+		this.loadData();
+
+		combineLatest([
+			this.latitude.valueChanges,
+			this.longitude.valueChanges
+		])
+			.pipe(takeUntil(this.ngDestroyed))
+			.subscribe(([latitude, longitude]) => {
+				if (latitude && longitude)
+					this.location = { latitude, longitude }
+			});
+	}
+
+	private loadData() {
 		forkJoin([
 			this.propertyTypeService.getPropertyTypes(),
 			this.furnishingTypeService.getFurnishingTypes(),
@@ -260,11 +278,19 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 	}
 
 	onChangeCountry() {
-		console.log(this.country.value);
 		this.cityList = [];
 		this.city.setValue(null);
 		if (this.country.value) {
 			this.createCityList(this.country.value);
+		}
+	}
+
+	onChangeCity() {
+		var selectedCityId = this.city.value ?? 0;
+		if (selectedCityId > 0) {
+			var city = this.cityList.find(x => x.id == selectedCityId)!;
+			this.latitude.setValue(city.latitude);
+			this.longitude.setValue(city.longitude);
 		}
 	}
 
@@ -285,7 +311,15 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 	}
 
 	openMapModal() {
-		this.showMyPropertyMapModal = true;
+		if (this.location) {
+			this.showMyPropertyMapModal = true;
+		} else {
+			this.messageService.add({
+				severity: MessageSeverityConstants.Warning,
+				summary: 'Select City',
+				detail: 'A city must be select to open map.',
+			});
+		}
 	}
 
 	onUpload(event: any) {
@@ -569,6 +603,8 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 		this.fileUpload.clear();
 		this.uploadedFiles = [];
 		this.newFileUrls = [];
+		this.ngDestroyed.next();
+		this.ngDestroyed.complete();
 	}
 }
 

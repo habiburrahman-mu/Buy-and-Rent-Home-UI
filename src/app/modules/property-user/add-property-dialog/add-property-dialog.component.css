@@ -47,6 +47,6 @@
 
 :host::ng-deep .p-tabview-panels {
 	height: 60vh !important;
-	max-height: 390px !important;
+	max-height: 340px !important;
 	overflow: hidden scroll !important;
 }

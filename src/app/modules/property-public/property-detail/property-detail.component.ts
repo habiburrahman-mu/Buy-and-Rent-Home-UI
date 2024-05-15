@@ -72,33 +72,26 @@ export class PropertyDetailComponent implements OnInit, AfterViewInit {
 	}
 
 	private initMap(): void {
-		// this.map = L.map('map', {
-		//   center: [ 39.8282, -98.5795 ],
-		//   zoom: 3
-		// });
+		var map = leaflet.map('map');
 
-		// const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		//   maxZoom: 18,
-		//   minZoom: 3,
-		//   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-		// });
+		var propertyLocationExists = !!this.propertyData.latitude && !!this.propertyData.longitude;
 
-		// tiles.addTo(this.map);
-		// 23.780279, 90.416765
-		// var map = leaflet.map('map').setView([23.780279, 90.416765], 12);
-		var map = leaflet.map('map').setView([this.propertyData.cityLattitude, this.propertyData.cityLongitude], 12);
+		if (propertyLocationExists) {
+			map.setView([this.propertyData.latitude!, this.propertyData.longitude!], 12);
+			leaflet.marker([this.propertyData.latitude!, this.propertyData.longitude!]).addTo(map)
+				.bindPopup(this.propertyData.name)
+				.openPopup();
+
+		} else {
+			map.setView([this.propertyData.cityLatitude, this.propertyData.cityLongitude], 12);
+			leaflet.circle([this.propertyData.cityLatitude, this.propertyData.cityLongitude], { radius: 5000, }).addTo(map);
+		}
+
 		map.scrollWheelZoom.disable();
 
 		leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(map);
-
-		leaflet.marker([23.780279, 90.416765]).addTo(map)
-		leaflet.marker([this.propertyData.cityLattitude, this.propertyData.cityLongitude]).addTo(map)
-			.bindPopup(this.propertyData.name)
-			.openPopup();
-
-		leaflet.circle([this.propertyData.cityLattitude, this.propertyData.cityLongitude], { radius: 5000, }).addTo(map);
 
 		this.map = map;
 		map.on("click", (event) => {

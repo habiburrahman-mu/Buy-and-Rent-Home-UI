@@ -15,7 +15,7 @@ export class MyPropertyMapModalComponent implements OnInit {
 
 	private map: leaflet.Map;
 
-	@Input() locationData: LatitudeLongitude;
+	@Input() locationData: LatitudeLongitude | undefined;
 
 	constructor() { }
 
@@ -23,14 +23,14 @@ export class MyPropertyMapModalComponent implements OnInit {
 	}
 
 	private initMap(): void {
-		var map = leaflet.map('map').setView([this.locationData.latitude, this.locationData.latitude], 12);
+		var map = leaflet.map('map').setView([this.locationData!.latitude, this.locationData!.longitude], 12);
 
 		leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(map);
 
 		var layerGroup = leaflet.layerGroup();
-		leaflet.marker([this.locationData.latitude, this.locationData.latitude]).addTo(layerGroup);
+		leaflet.marker([this.locationData!.latitude, this.locationData!.longitude]).addTo(layerGroup);
 		layerGroup.addTo(map);
 		map.scrollWheelZoom.enable();
 		map.on("click", (event) => {
@@ -51,10 +51,14 @@ export class MyPropertyMapModalComponent implements OnInit {
 
 	onHideMyPropertyMapModal() {
 		this.showMyPropertyMapModalChange.emit(false);
+		if(this.map)
+			this.map.remove();
 	}
 
 	onShowMyPropertyMapModal() {
-		this.initMap();
+		if (this.locationData) {
+			this.initMap();
+		}
 
 	}
 

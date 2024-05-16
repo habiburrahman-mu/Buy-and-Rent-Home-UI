@@ -74,7 +74,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 			swimmingPool: this.formBuilder.control<boolean>(false, { validators: [Validators.required] }),
 			description: this.formBuilder.control<string | null>(null),
 		}),
-		schedule: this.formBuilder.array(this.createScheduleDaysFormArray(), {validators: this.daysCheckValidator()}),
+		schedule: this.formBuilder.array(this.createScheduleDaysFormArray(), { validators: this.daysCheckValidator() }),
 		startEndTime: this.formBuilder.group({
 			startTime: this.formBuilder.control<Date | null>(null, { validators: [Validators.required] }),
 			endTime: this.formBuilder.control<Date | null>(null, { validators: [Validators.required] }),
@@ -228,53 +228,35 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 				swimmingPool: this.propertyDetail.swimmingPool,
 				description: this.propertyDetail.description,
 			},
-			schedule: this.getDataForScheduleArray()
+			schedule: this.getDataForScheduleArray(),
+			startEndTime: {
+				startTime: this.getDateFromHourMinute(this.propertyDetail.availableStartTime),
+				endTime: this.getDateFromHourMinute(this.propertyDetail.availableEndTime),
+			}
 		});
 	}
 
 	private getDataForScheduleArray() {
 		let daysArrayFromServer = this.propertyDetail.availableDays?.split(',') ?? [];
-		return this.DAYS.map(days => {
-			return daysArrayFromServer.some(x => x === days);
+		return this.DAYS.map(day => {
+			return daysArrayFromServer.some(x => x === day);
 		});
 	}
 
-	// CreateAddPropertyForm() {
-	//     this.addPropertyForm = this.formBuilder.group({
-	//         basicInfo: this.formBuilder.group({
-	//             propertyName: [null, { validators: [Validators.required] }],
-	//             sellRent: [null, { validators: [Validators.required] }],
-	//             propertyType: [null, { validators: [Validators.required] }],
-	//             furnishType: [null, { validators: [Validators.required] }],
-	//             bedroom: [null, { validators: [Validators.required] }],
-	//             bathroom: [null],
-	//             commonSpace: [null],
-	//         }),
-	//         addressPricing: this.formBuilder.group({
-	//             country: [null, Validators.required],
-	//             city: [null, Validators.required],
-	//             streetAddress: [null, Validators.required],
-	//             totalFloor: [null, Validators.required],
-	//             floor: [null, Validators.required],
-	//             latitude: [null],
-	//             area: [null, Validators.required],
-	//             price: [null, Validators.required],
-	//             otherCost: [null],
-	//         }),
-	//         others: this.formBuilder.group({
-	//             gym: [false],
-	//             parking: [false],
-	//             swimmingPool: [false],
-	//             description: [null],
-	//         })
-	//     })
-	// }
+	private getDateFromHourMinute(hourMinuteString: string) {
+		var date = new Date();
+		var splitted = hourMinuteString.split(':');
+		if (splitted.length > 2) {
+			const hour = parseInt(splitted[0]);
+			const minute = parseInt(splitted[1]);
 
-	// closeAddPropertyDialog() {
-	//     this.fileUpload.clear();
-	//     this.uploadedFiles = [];
-	//     this.newFileUrls = [];
-	// }
+			date.setHours(hour);
+			date.setMinutes(minute);
+			date.setSeconds(0);
+			date.setMilliseconds(0);
+		}
+		return date;
+	}
 
 	openPrevTab() {
 		this.tabIndex = this.tabIndex - 1;
@@ -605,8 +587,15 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 		this.property.swimmingPool = this.swimmingPool.value ?? false;
 		this.property.description = this.description.value;
 		this.property.availableDays = this.availableDaysFromForm;
-		this.property.availableStartTime = '9:00';
-		this.property.availableEndTime = '14:00';
+		this.property.availableStartTime = this.getHourMinuteStringFromDate(this.startEndTime.controls.startTime.value!);
+		this.property.availableEndTime = this.getHourMinuteStringFromDate(this.startEndTime.controls.endTime.value!);
+	}
+
+	private getHourMinuteStringFromDate(date: Date) {
+		const timeString = date.toTimeString();
+		const hourMinute = timeString.split(':').filter((value, index) => index < 2).join(':');
+		return hourMinute;
+
 	}
 
 	private get availableDaysFromForm() {

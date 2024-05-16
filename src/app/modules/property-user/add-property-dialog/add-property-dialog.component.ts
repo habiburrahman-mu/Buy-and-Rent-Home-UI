@@ -2,7 +2,10 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } 
 import {
 	FormGroup,
 	FormBuilder,
-	Validators
+	Validators,
+	AbstractControl,
+	ValidatorFn,
+	ValidationErrors
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { HousingService } from "../../../services/http/housing.service";
@@ -71,7 +74,11 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 			swimmingPool: this.formBuilder.control<boolean>(false, { validators: [Validators.required] }),
 			description: this.formBuilder.control<string | null>(null),
 		}),
-		schedule: this.formBuilder.array(this.createScheduleDaysFormArray())
+		schedule: this.formBuilder.array(this.createScheduleDaysFormArray(), {validators: this.daysCheckValidator()}),
+		startEndTime: this.formBuilder.group({
+			startTime: this.formBuilder.control<Date | null>(null, { validators: [Validators.required] }),
+			endTime: this.formBuilder.control<Date | null>(null, { validators: [Validators.required] }),
+		}, { validators: [this.startEndTimeValidator()] })
 	});
 	property = new Property();
 	propertyDetail: PropertyDetailDto;
@@ -193,7 +200,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 	}
 
 	bindDataToForm() {
-		this.addPropertyForm.setValue({
+		this.addPropertyForm.patchValue({
 			basicInfo: {
 				propertyName: this.propertyDetail.name,
 				sellRent: this.propertyDetail.sellRent,
@@ -319,6 +326,24 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 				summary: 'Select City',
 				detail: 'A city must be select to open map.',
 			});
+		}
+	}
+
+	onChangeStartTime() {
+		this.onChangeTime(this.addPropertyForm.controls.startEndTime.controls.startTime);
+	}
+
+	onChangeEndTime() {
+		this.onChangeTime(this.addPropertyForm.controls.startEndTime.controls.endTime);
+	}
+
+	private onChangeTime(control: AbstractControl<Date | null>) {
+		if (control.value) {
+			var minute = control.value.getMinutes();
+			if (minute % 30 !== 0) {
+				var roundedMinutes = Math.round(minute / 60) * 60;
+				control.value.setMinutes(roundedMinutes);
+			}
 		}
 	}
 
@@ -524,6 +549,10 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 		return this.AddressPricing.controls.otherCost;
 	}
 
+	get startEndTime() {
+		return this.addPropertyForm.controls.startEndTime;
+	}
+
 	get Others() {
 		return this.addPropertyForm.controls.others;
 	}
@@ -605,6 +634,34 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 		this.newFileUrls = [];
 		this.ngDestroyed.next();
 		this.ngDestroyed.complete();
+	}
+
+	private startEndTimeValidator(): ValidatorFn {
+		return (): ValidationErrors | null => {
+			if (!this.addPropertyForm) return null;
+			const startTimeControl = this.addPropertyForm.controls.startEndTime.controls.startTime;
+			const endTimeControl = this.addPropertyForm.controls.startEndTime.controls.endTime;
+			if (startTimeControl.value && endTimeControl.value) {
+				if (startTimeControl.value > endTimeControl.value)
+					return { invalidTime: 'Start time cannot be less than end time.' }
+				const minuteDiff = Math.ceil((endTimeControl.value.getTime() - startTimeControl.value.getTime()) / (1000 * 60));
+				console.log(minuteDiff);
+				if (minuteDiff < 30)
+					return { invalidTime: 'Minimum 30 minutes difference required.' }
+			}
+			return null;
+		}
+	}
+
+	private daysCheckValidator(): ValidatorFn {
+		return (): ValidationErrors | null => {
+			if (!this.addPropertyForm) return null;
+			const controlList = this.schedule.controls;
+			const anyChecked = controlList.some(control => control.value === true);
+			if (!anyChecked)
+				return { required: true };
+			return null;
+		}
 	}
 }
 

@@ -87,7 +87,8 @@
 					<div fxFlex="50" fxFlex.lt-md="100">
 						<h6 class="m-0 mb-1">City</h6>
 						<p-dropdown [options]="cityList" optionLabel="name" optionValue="id" [filter]="true" filterBy="label"
-							[showClear]="true" (onChange)="onChangeCity()" appendTo="body" styleClass="w-100" formControlName="city" placeholder="Select City" [autoDisplayFirst]="false"></p-dropdown>
+							[showClear]="true" (onChange)="onChangeCity()" appendTo="body" styleClass="w-100" formControlName="city"
+							placeholder="Select City" [autoDisplayFirst]="false"></p-dropdown>
 						<small class="p-error block ms-1" *ngIf="city.invalid">
 							Please select city
 						</small>
@@ -208,17 +209,42 @@
 		</p-tabPanel>
 		<p-tabPanel header="Schedule">
 			<div class="text-lg font-medium mb-4">Make house visits hassle-free by providing us your availability</div>
-			<div class="mb-4" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" formArrayName="schedule">
+			<div class="mb-2" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" formArrayName="schedule">
 				<div *ngFor="let day of DAYS; let i = index">
-					<p-toggleButton [onLabel]="day" [offLabel]="day" [formControlName]="i"></p-toggleButton>
+					<p-toggleButton [onLabel]="day" [offLabel]="day" [formControlName]="i"
+						[styleClass]="schedule.invalid && schedule.errors ? 'border-red-500' : ''"></p-toggleButton>
 				</div>
 			</div>
-			<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-				<p-calendar [timeOnly]="true" [showTime]="true" [hourFormat]="'12'" appendTo="body"
-					placeholder="Start Time"></p-calendar>
-				<p-calendar [timeOnly]="true" [showTime]="true" [hourFormat]="'12'" appendTo="body"
-					placeholder="End Time"></p-calendar>
+			<div class="h-2rem mb-1 w-full text-center">
+				<small class="p-error block ms-1" *ngIf="schedule.invalid && schedule.errors">Select at least 1 day.</small>
 			</div>
+
+			<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" formGroupName="startEndTime">
+				<div>
+					<p-calendar [timeOnly]="true" [showTime]="true" [hourFormat]="'24'" appendTo="body" placeholder="Start Time"
+						(onBlur)="onChangeStartTime()" formControlName="startTime"></p-calendar>
+					<div class="h-1rem">
+						<small class="p-error block ms-1"
+							*ngIf="startEndTime.controls.startTime.invalid && startEndTime.controls.startTime.errors">
+							Required
+						</small>
+					</div>
+				</div>
+				<div>
+					<p-calendar [timeOnly]="true" [showTime]="true" [hourFormat]="'24'" appendTo="body" placeholder="End Time"
+						(onBlur)="onChangeEndTime()" formControlName="endTime"></p-calendar>
+					<div class="h-1rem">
+						<small class="p-error block ms-1"
+							*ngIf="startEndTime.controls.endTime.invalid && startEndTime.controls.endTime.errors">
+							Required
+						</small>
+					</div>
+				</div>
+			</div>
+			<small class="p-error block ms-1 w-full text-center"
+				*ngIf="startEndTime.invalid && startEndTime.errors && startEndTime.errors['invalidTime']">
+				{{startEndTime.errors['invalidTime']}}
+			</small>
 
 			<!-- <p-toggleButton onLabel="Saturday" offLabel="Saturday"></p-toggleButton>
             <p-toggleButton onLabel="Saturday" offLabel="Saturday"></p-toggleButton>

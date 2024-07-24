@@ -1,76 +1,80 @@
 <p-table [value]="userDtoList" [scrollable]="true" scrollHeight="400px" styleClass="p-datatable-sm" [lazy]="true"
-    [tableStyle]="{'min-height': '100%'}" (onLazyLoad)="loadUserDtoList($event)" [paginator]="true" [rows]="10"
-    [loading]="isDataLoading" [totalRecords]="totalRecords" [rowsPerPageOptions]="[1,2,10,20,30]"
-    [showCurrentPageReport]="true" currentPageReportTemplate="{first} to {last} of {totalRecords} entries"
-    [globalFilterFields]="['name','country.name', 'company', 'representative.name']">
-    <ng-template pTemplate="caption">
-        <div class="align-self-center text-xl font-medium w-100 text-center mb-2" style="color: var(--blue-500);">User
-            Privilege
-        </div>
-        <div class="table-header gap-2">
-            <span class="p-input-icon-left w-full">
-                <i class="pi pi-search"></i>
-                <input pInputText type="text" placeholder="Search User" class="w-full p-inputtext-sm" />
-            </span>
-            <button pButton pRipple type="button" icon="pi pi-search"
-                class="p-button-success p-button-outlined"></button>
-            <!-- <button pButton pRipple type="button" icon="fa-solid fa-user-plus"
+	[tableStyle]="{'min-height': '100%'}" (onLazyLoad)="loadUserDtoList($event)" [paginator]="true" [rows]="10"
+	[loading]="isDataLoading" [totalRecords]="totalRecords" [rowsPerPageOptions]="[1,2,10,20,30]"
+	[showCurrentPageReport]="true" currentPageReportTemplate="{first} to {last} of {totalRecords} entries"
+	[globalFilterFields]="['name','country.name', 'company', 'representative.name']" #pTable>
+	<ng-template pTemplate="caption">
+		<div class="align-self-center text-xl font-medium w-100 text-center mb-2" style="color: var(--blue-500);">User
+			Privilege
+		</div>
+		<form (submit)="onSearch()">
+			<div class="table-header gap-2">
+				<span class="p-input-icon-left w-full">
+					<i class="pi pi-search"></i>
+					<input pInputText type="text" placeholder="Search User" class="w-full p-inputtext-sm"
+						[(ngModel)]="searchingText" name="searchText" />
+				</span>
+				<button pButton pRipple type="submit" icon="pi pi-search" class="p-button-success p-button-outlined"></button>
+				<!-- <button pButton pRipple type="button" icon="fa-solid fa-user-plus"
                 style="background-color: var(--blue-500);" title="Create User"></button> -->
-        </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="flex: 0 1 80px;">Id</th>
-            <th style="flex: 0 1 100px;">Username</th>
-            <th>Roles</th>
-            <th style="flex: 0 1 20px;" class="text-right">Edit</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-user>
-        <tr>
-            <td style="flex: 0 1 80px;"> &nbsp;{{user.id}}
-            </td>
-            <td style="flex: 0 1 100px;" class="text-overflow-ellipsis overflow-hidden white-space-nowrap">
-                {{user.username}}</td>
-            <td class="text-overflow-ellipsis overflow-hidden white-space-nowrap"
-                [pTooltip]="user.roleList.length > 2 && user.roleList">{{user.roleList}}
-                <!-- <span *ngFor="let role of user.roleList" class="flex flex-row flex-wrap">
+			</div>
+		</form>
+	</ng-template>
+	<ng-template pTemplate="header">
+		<tr>
+			<th style="flex: 0 1 80px;">Id</th>
+			<th style="flex: 0 1 100px;">Username</th>
+			<th>Roles</th>
+			<th style="flex: 0 1 20px;" class="text-right">Edit</th>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-user>
+		<tr>
+			<td style="flex: 0 1 80px;"> &nbsp;{{user.id}}
+			</td>
+			<td style="flex: 0 1 100px;" class="text-overflow-ellipsis overflow-hidden white-space-nowrap">
+				{{user.username}}</td>
+			<td class="text-overflow-ellipsis overflow-hidden white-space-nowrap"
+				[pTooltip]="user.roleList.length > 2 && user.roleList">{{user.roleList}}
+				<!-- <span *ngFor="let role of user.roleList" class="flex flex-row flex-wrap">
                     <p-chip [label]="role" styleClass="mr-1 text-xs" class=""></p-chip>
                 </span> -->
-            </td>
-            <td style="flex: 0 1 15px;" class="text-right cursor-pointer" (click)="onShowUserPrivilegeDialog(user)">
-                <p-button icon="fa-solid fa-pen-to-square" styleClass="p-button-xs"
-                    [style]="{'background-color': 'var(--blue-500)'}"></p-button>
-                <!-- <i class="fa-solid fa-pen-to-square" style="color: var(--blue-500);"></i> -->
-            </td>
-        </tr>
-    </ng-template>
+			</td>
+			<td style="flex: 0 1 15px;" class="text-right cursor-pointer" (click)="onShowUserPrivilegeDialog(user)">
+				<p-button icon="fa-solid fa-pen-to-square" styleClass="p-button-xs"
+					[style]="{'background-color': 'var(--blue-500)'}"></p-button>
+				<!-- <i class="fa-solid fa-pen-to-square" style="color: var(--blue-500);"></i> -->
+			</td>
+		</tr>
+	</ng-template>
 </p-table>
 
 <p-dialog [(visible)]="showUserPrivilegeDialog" [style]="{'min-width': '30vw'}"
-    [breakpoints]="{'960px': '75vw', '640px': '98vw'}" [modal]="true" [draggable]="false" [resizable]="false">
-    <ng-template pTemplate="header">
-        <h5 class="m-0">Update User Privilege</h5>
-    </ng-template>
-    <ng-template pTemplate="content">
-        <div class="w-100">
-            <h6 class="m-0 mb-1">User Name</h6>
-            <input type="text" pInputText [value]="selectedUserPrivilege.username" class="w-full" readonly>
-        </div>
-        <div class="w-100 mt-3">
-            <h6 class="m-0 mb-1">Roles</h6>
-            <div class="flex flex-row flex-wrap gap-2">
-                <div class="field-checkbox" *ngFor="let role of selectedUserPrivilege.roleListWithSelectState">
-                    <p-checkbox [binary]="true" [inputId]="'roleName'+role.name" [(ngModel)]="role.isSelected"></p-checkbox>
-                    <label [for]="'roleName'+role.name">{{role.name}}</label>
-                </div>
-            </div>
+	[breakpoints]="{'960px': '75vw', '640px': '98vw'}" [modal]="true" [draggable]="false" [resizable]="false">
+	<ng-template pTemplate="header">
+		<h5 class="m-0">Update User Privilege</h5>
+	</ng-template>
+	<ng-template pTemplate="content">
+		<div class="w-100">
+			<h6 class="m-0 mb-1">User Name</h6>
+			<input type="text" pInputText [value]="selectedUserPrivilege.username" class="w-full" readonly>
+		</div>
+		<div class="w-100 mt-3">
+			<h6 class="m-0 mb-1">Roles</h6>
+			<div class="flex flex-row flex-wrap gap-2">
+				<div class="field-checkbox" *ngFor="let role of selectedUserPrivilege.roleListWithSelectState">
+					<p-checkbox [binary]="true" [inputId]="'roleName'+role.name" [(ngModel)]="role.isSelected"></p-checkbox>
+					<label [for]="'roleName'+role.name">{{role.name}}</label>
+				</div>
+			</div>
 
-        </div>
-        <div class="w-100 mt-3 flex flex-row justify-content-end gap-2">
-            <button pButton pRipple type="button" label="Cancel"
-                class="p-button-outlined p-button-primary text-black p-button-sm" icon="pi pi-times" (click)="showUserPrivilegeDialog = false"></button>
-            <p-button label="Submit" icon="pi pi-check" styleClass="p-button-sm" (onClick)="onSubmit()" [loading]="isSaveInProgress"></p-button>
-        </div>
-    </ng-template>
+		</div>
+		<div class="w-100 mt-3 flex flex-row justify-content-end gap-2">
+			<button pButton pRipple type="button" label="Cancel"
+				class="p-button-outlined p-button-primary text-black p-button-sm" icon="pi pi-times"
+				(click)="showUserPrivilegeDialog = false"></button>
+			<p-button label="Submit" icon="pi pi-check" styleClass="p-button-sm" (onClick)="onSubmit()"
+				[loading]="isSaveInProgress"></p-button>
+		</div>
+	</ng-template>
 </p-dialog>

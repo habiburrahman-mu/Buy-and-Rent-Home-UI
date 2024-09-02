@@ -39,6 +39,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { CarouselModule } from 'primeng/carousel';
 import { FocusTrapModule } from 'primeng/focustrap';
 import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import { TagModule } from 'primeng/tag';
 
 const modules = [
     ButtonModule,
@@ -79,7 +80,8 @@ const modules = [
     ToggleButtonModule,
     CarouselModule,
 		FocusTrapModule,
-		ConfirmPopupModule
+		ConfirmPopupModule,
+		TagModule
 ];
 
 @NgModule({

@@ -4,7 +4,7 @@ import { PropertyListDto } from "../../../models/propertyListDto";
 import { PropertyService } from 'src/app/services/http/property.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { SellRent } from 'src/app/constants/enums';
+import { PropertyStatus, SellRent } from 'src/app/constants/enums';
 
 @Component({
 	selector: 'app-my-property-card',
@@ -20,6 +20,7 @@ export class MyPropertyCardComponent implements OnInit {
 	defaultImagePath = "assets/images/house_default.png";
 
 	isDeleteInProgress: boolean;
+	isPropertyStatusUpdateInProgress: boolean;
 
 	sellRent = SellRent;
 
@@ -31,6 +32,44 @@ export class MyPropertyCardComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
+	onChangeStatus(event: Event) {
+		this.confirmationService.confirm({
+			message: `Changing property status to ${this.getPropertyStatusLabel(this.nextPropertyStatus)}?`,
+			target: event.target ?? undefined,
+			key: 'changePropertyStatus' + this.propertyData.id,
+			accept: () => {
+				// this.approveVisitingRequest();
+				this.changeStatus();
+			}
+		});
+	}
+
+	private changeStatus() {
+		this.isPropertyStatusUpdateInProgress = true;
+		this.propertyService.updatePropertyStatus(this.propertyData.id, this.nextPropertyStatus)
+			.subscribe({
+				next: response => {
+					this.propertyData.status = this.nextPropertyStatus;
+					this.isPropertyStatusUpdateInProgress = false;
+				},
+				error: _ => {
+					this.isPropertyStatusUpdateInProgress = false;
+				}
+			});
+	}
+
+	private get nextPropertyStatus() {
+		if (this.propertyData.status === PropertyStatus.Draft) return PropertyStatus.Active;
+		if (this.propertyData.status === PropertyStatus.Active) return PropertyStatus.Complete;
+		return '';
+	}
+
+	private getPropertyStatusLabel(statusValue: string) {
+		if (statusValue === PropertyStatus.Active) return 'Active';
+		if (statusValue === PropertyStatus.Draft) return 'Draft';
+		if (statusValue === PropertyStatus.Complete) return (this.propertyData.sellRent === 1 ? 'Sold' : 'Rented');
+		return '';
+	}
 
 	openPropertyEditDialog() {
 		this.openPropertyEditDialogEvent.emit(true);

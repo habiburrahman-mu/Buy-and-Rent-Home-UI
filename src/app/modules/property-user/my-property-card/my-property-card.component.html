@@ -15,15 +15,20 @@
 		</div>
 		<div fxLayout="row" fxLayout.lt-md="column" fxFlex="70" fxLayoutAlign="space-between center" fxLayoutGap="20px">
 			<div fxLayout="column" fxLayoutAlign="space-around start" fxFlex fxLayoutGap="10px">
-				<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="w-100">
+				<div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" fxLayoutGap="20px"
+					class="w-100">
 					<h3 class="m-0"><a [routerLink]="['../../../','property','detail', propertyData.id]">{{propertyData.name}}</a>
 					</h3>
-					<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+					<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" class="m-0 p-0">
+						<button pButton pRipple type="button" class="p-button-success p-button-raised p-button-outlined p-button-sm"
+							(click)="onChangeStatus($event)" [loading]="isPropertyStatusUpdateInProgress" label="Change Status"
+							[disabled]="propertyData.status === 'C'"></button>
 						<button pButton pRipple type="button" icon="fas fa-edit"
-							class="p-button-rounded p-button-success p-button-raised" (click)="openPropertyEditDialog()"></button>
+							class="p-button-rounded p-button-success p-button-raised" (click)="openPropertyEditDialog()"
+							[disabled]="propertyData.status === 'C'"></button>
 						<button pButton pRipple type="button" icon="fas fa-trash"
 							class="p-button-rounded p-button-danger p-button-raised" (click)="onClickDeleteProperty()"
-							[loading]="isDeleteInProgress"></button>
+							[loading]="isDeleteInProgress" [disabled]="propertyData.status === 'C'"></button>
 					</div>
 				</div>
 
@@ -47,9 +52,18 @@
 							{{propertyData.furnishingType}}</div>
 					</div>
 				</div>
-
-				<div class="font-medium"><i class="pi pi-bookmark-fill text-blue-900"></i> {{propertyData.city}},
-					{{propertyData.country}}</div>
+				<div fxLayout="row" fxLayout.lt-md="row" fxLayoutAlign="space-between start" fxLayoutGap="5px" class="w-full">
+					<div class="font-medium"><i class="pi pi-bookmark-fill text-blue-900"></i> {{propertyData.city}},
+						{{propertyData.country}}</div>
+					<div>
+						<ng-container [ngSwitch]="propertyData.status">
+							<p-tag *ngSwitchCase="'A'" value="Active" severity="success"></p-tag>
+							<p-tag *ngSwitchCase="'D'" value="Draft" severity="warning"></p-tag>
+							<p-tag *ngSwitchCase="'C'" [value]="propertyData.sellRent === 1 ? 'Sold' : 'Rented'"
+								severity="info"></p-tag>
+						</ng-container>
+					</div>
+				</div>
 				<div class="font-medium"><i class="pi pi-bookmark-fill text-blue-900"></i> Floor No: {{propertyData.floor}}
 				</div>
 				<div class="font-medium"><i class="fa-solid fa-square mr-1 text-blue-900" title="Area"></i>{{propertyData.area |
@@ -60,3 +74,4 @@
 
 	</div>
 </div>
+<p-confirmPopup key="changePropertyStatus{{propertyData.id}}"></p-confirmPopup>

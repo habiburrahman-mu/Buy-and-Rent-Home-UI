@@ -72,4 +72,8 @@ export class PropertyService {
 	getAvailableSlotsForNext7Days(id: number) {
 		return this.http.get<DayAvailability[]>(this.serviceBaseUrl + '/getAvailableSlotsForNext7Days/' + id.toString());
 	}
+
+	updatePropertyStatus(id: number, status: string) {
+		return this.http.put<boolean>(this.serviceBaseUrl + '/updatePropertyStatus', { id, status });
+	}
 }

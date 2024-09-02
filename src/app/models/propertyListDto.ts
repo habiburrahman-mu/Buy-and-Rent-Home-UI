@@ -16,4 +16,5 @@ export interface PropertyListDto {
     postedOn: string;
     primaryPhoto: string;
 		otherCost: number | null;
+		status: string;
 }

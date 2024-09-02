@@ -404,7 +404,7 @@ export class AddPropertyDialogComponent implements OnInit, OnDestroy {
 		if (this.addPropertyForm.valid) {
 			this.showLoader = true;
 			this.mapProperty();
-			this.propertyService.addProperty(this.property).subscribe({
+			this.propertyService.saveProperty(this.property).subscribe({
 				next: newPropertyId => {
 					// if (this.uploadedFiles.length > 0) {
 					if (this.isPhotoGalleryModified) {

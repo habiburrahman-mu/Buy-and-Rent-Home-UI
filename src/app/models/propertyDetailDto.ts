@@ -24,4 +24,5 @@ export interface PropertyDetailDto extends PropertyListDto {
 	availableEndTime: string;
 	postedBy: number;
 	photos: Array<PhotoDto>;
+	status: string;
 }

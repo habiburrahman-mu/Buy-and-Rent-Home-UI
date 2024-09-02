@@ -9,8 +9,14 @@
 			</p>
 		</div>
 		<!-- <h4 style="color: var(--blue-500);" class="h-full m-0">{{propertyData.name}}</h4> -->
-		<p-button label="Contact Owner" icon="fas fa-envelope" class="p-button-info" *ngIf="!isThisUsersProperty"
-			(onClick)="onClickContactOwner()"></p-button>
+		<p-button label="Contact Owner" icon="fas fa-envelope" class="p-button-info"
+			*ngIf="!isThisUsersProperty && propertyData.status === 'A'" (onClick)="onClickContactOwner()"></p-button>
+		<div *ngIf="propertyData.status !== 'A'">
+			<ng-container [ngSwitch]="propertyData.status">
+				<p-tag *ngSwitchCase="'D'" value="Draft" severity="warning"></p-tag>
+				<p-tag *ngSwitchCase="'C'" [value]="propertyData.sellRent === 1 ? 'Sold' : 'Rented'" severity="info" styleClass="text-base"></p-tag>
+			</ng-container>
+		</div>
 	</div>
 	<!-- <span >This user's property</span> -->
 	<div class="" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutGap="10px"
@@ -100,7 +106,8 @@
 						<i class="fa-solid fa-table-list mr-1 text-lg font-semibold" pTooltip="Floor" tooltipPosition="top"></i>
 					</div>
 					<!-- <div class="text-lg font-medium">{{propertyData.floor + '/' +propertyData.totalFloor}}</div> -->
-					<div class="text-lg font-medium">On {{propertyData.floor}}<sup>{{propertyData.floor | ordinal:false}}</sup> floor of {{propertyData.totalFloor}} storied building</div>
+					<div class="text-lg font-medium">On {{propertyData.floor}}<sup>{{propertyData.floor | ordinal:false}}</sup>
+						floor of {{propertyData.totalFloor}} storied building</div>
 				</div>
 				<!-- <div class="type-detail-small-card" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
 					<div fxLayout="row" fxLayoutAlign="center center"  pTooltip="On floor" tooltipPosition="top">
